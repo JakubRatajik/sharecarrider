@@ -1,0 +1,7 @@
+### Idea:
+.idea/
+.idea_modules/
+/out/
+
+### Maven template
+target/
