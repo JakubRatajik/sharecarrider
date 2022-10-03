@@ -1,5 +1,12 @@
 package cz.muni.fi.pv168.seminar01.beta;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import cz.muni.fi.pv168.seminar01.beta.UI.JFrameWindow;
+
+import javax.swing.*;
+
 /**
  * The entry point of the application.
  */
@@ -10,7 +17,14 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.println("Empty main.");
+        try {
+            UIManager.setLookAndFeel(new FlatIntelliJLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            System.err.println("Cannot load wanted LaF");
+        }
+        JFrameWindow window = new JFrameWindow();
+
+
     }
 }
 
