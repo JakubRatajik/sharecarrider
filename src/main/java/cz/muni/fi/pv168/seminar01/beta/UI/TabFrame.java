@@ -2,35 +2,41 @@ package cz.muni.fi.pv168.seminar01.beta.UI;
 
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Rides {
-
+/**
+ * @author Jan Macecek
+ */
+public class TabFrame {
     private final JPanel main;
+    private JButton plus;
+    private JButton sortBy;
+    private JButton filter;
+    private JButton select;
 
-    public Rides() {
+    public TabFrame() {
         main = new JPanel();
         initialize();
     }
 
     public JPanel setTop() {
-        JButton plus = new JButton("+");
-        plus.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddRideDialog();
-            }
-        });
+        plus = new JButton("+");
         plus.setBackground(UIConstants.OCHER);
         plus.setFont(UIConstants.fTab);
         plus.setForeground(UIConstants.TEXT_BROWN);
-        JButton sortBy = new JButton("Sort by");
-        JButton filter = new JButton("Filter");
-        JButton select = new JButton("Select");
+        sortBy = new JButton("Sort by");
+        filter = new JButton("Filter");
+        select = new JButton("Select");
         sortBy.setBackground(UIConstants.LIGHT_BEIGE);
         filter.setBackground(UIConstants.LIGHT_BEIGE);
         select.setBackground(UIConstants.LIGHT_BEIGE);
@@ -68,4 +74,17 @@ public class Rides {
     public JPanel getMain() {
         return main;
     }
+
+    public JButton getPlus() {
+        return plus;
+    }
+
+    public JButton getSortBy() {
+        return sortBy;
+    }
+
+    public JButton getFilter() {
+        return filter;
+    }
 }
+

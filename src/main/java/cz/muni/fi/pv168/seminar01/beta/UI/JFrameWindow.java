@@ -1,10 +1,18 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class JFrameWindow {
     private static JFrame frame;
+    private static TabFrame rides;
+    private static TabFrame vehicles;
+    private static TabFrame passengers;
     public JFrameWindow() {
         initialize();
     }
@@ -13,7 +21,7 @@ public class JFrameWindow {
         frame = new JFrame();
         frame.setTitle("Share Car Rider");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(1400, 950));
+        frame.setMinimumSize(new Dimension(1000, 750));
         frame.setSize(1920, 1080);
         frame.getContentPane().setBackground(UIConstants.LIGHT_BEIGE);
         addMainBar();
@@ -36,9 +44,21 @@ public class JFrameWindow {
 
     private void addTabBar() {
         JTabbedPane tabs = new JTabbedPane();
-        Rides rides = new Rides();
-        Rides vehicles = new Rides();
-        Rides passengers = new Rides();
+        rides = new TabFrame();
+        rides.getPlus().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new AddRideDialog(frame, "Add Ride");
+            }
+        });
+        vehicles = new TabFrame();
+        vehicles.getPlus().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new AddVehicleDialog(frame, "Add Vehicle");
+            }
+        });
+        passengers = new TabFrame();
         Statistics statistics = new Statistics();
         tabs.setFont(UIConstants.fTab);
         tabs.addTab("Rides", rides.getMain());
@@ -58,5 +78,17 @@ public class JFrameWindow {
 
     public static JFrame getFrame() {
         return frame;
+    }
+
+    public static TabFrame getRides() {
+        return rides;
+    }
+
+    public static TabFrame getVehicles() {
+        return vehicles;
+    }
+
+    public static TabFrame getPassengers() {
+        return passengers;
     }
 }

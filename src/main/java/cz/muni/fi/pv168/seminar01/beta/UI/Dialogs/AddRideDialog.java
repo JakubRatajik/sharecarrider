@@ -1,6 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.UI.JFrameWindow;
+import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
@@ -8,38 +9,59 @@ import java.awt.*;
 
 public class AddRideDialog extends JDialog {
 
-    public AddRideDialog() {
+    public AddRideDialog(Frame frame, String name) {
+        super(frame, name);
         initialize();
+
     }
 
     private void initialize() {
         JPanel center = new JPanel();
         setLayout(new BorderLayout());
-        center.setBorder(BorderFactory.createEmptyBorder(30, 20, 20, 30));
+        center.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
         center.setLayout(new GridLayout(10,2));
+        center.setFont(UIConstants.fDialog);
+        center.setForeground(UIConstants.TEXT_BROWN);
+        center.setBackground(UIConstants.WHITE);
         center.add(new JLabel("•  Date:"));
-        center.add(new JDatePicker());
+        JDatePicker datePicker = new JDatePicker();
+        UIConstants.formatComponent(datePicker);
+        center.add(datePicker);
         center.add(new JLabel("•  Time:"));
-        center.add(new JTextField());
+        center.add(UIConstants.createTextField());
         center.add(new JLabel("•  Start:"));
-        center.add(new JTextField());
+        center.add(UIConstants.createTextField());
         center.add(new JLabel("•  Finish:"));
-        center.add(new JTextField());
+        center.add(UIConstants.createTextField());
         center.add(new JLabel("•  Distance:"));
-        center.add(new JTextField());
+        center.add(UIConstants.createTextField());
         center.add(new JLabel("•  Vehicle:"));
-        center.add(new JComboBox<Integer>());
+        JComboBox<Integer> vehicles = new JComboBox<Integer>();
+        UIConstants.formatComponent(vehicles);
+        center.add(vehicles);
         center.add(new JLabel("•  Passengers:"));
-        center.add(new JComboBox<Integer>());
+        JComboBox<Integer> passengers = new JComboBox<Integer>();
+        UIConstants.formatComponent(passengers);
+        center.add(passengers);
         center.add(new JLabel("•  Repetition:"));
-        center.add(new JComboBox<Integer>());
-        setLocationRelativeTo(JFrameWindow.getFrame());
+        JComboBox<Integer> repetition = new JComboBox<Integer>();
+        UIConstants.formatComponent(repetition);
+        center.add(repetition);
 
+        JPanel bottom = new JPanel();
+        JButton create = new JButton("Create");
+        UIConstants.formatComponent(create);
+        bottom.add(create);
 
+        add(bottom, BorderLayout.SOUTH);
         add(center, BorderLayout.CENTER);
+
+        setModalityType(ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(JFrameWindow.getRides().getPlus());
+
         setResizable(false);
-        setSize(500,600);
+        setSize(300,320);
         setVisible(true);
 
     }

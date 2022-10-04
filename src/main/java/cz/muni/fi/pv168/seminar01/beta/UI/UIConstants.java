@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class UIConstants {
@@ -12,4 +13,18 @@ public class UIConstants {
 
     public static final Font fTab = new Font("Inter", Font.PLAIN, 21);
     public static final Font fMenu= new Font("Inter", Font.PLAIN, 15);
+    public static final Font fDialog= new Font("Inter", Font.PLAIN, 12);
+
+    public static JTextField createTextField() {
+        JTextField field = new JTextField();
+        formatComponent(field);
+        return field;
+    }
+
+    public static void formatComponent(JComponent component) {
+        component.setForeground(TEXT_BROWN);
+        component.setBackground(LIGHT_BEIGE);
+        component.setFont(fDialog);
+    }
+
 }
