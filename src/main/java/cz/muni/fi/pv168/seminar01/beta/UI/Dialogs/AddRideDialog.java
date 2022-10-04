@@ -25,7 +25,7 @@ public class AddRideDialog extends JDialog {
         center.setBackground(UIConstants.WHITE);
         center.add(new JLabel("•  Date:"));
         JDatePicker datePicker = new JDatePicker();
-        UIConstants.formatComponent(datePicker);
+        UIConstants.formatComponentDialog(datePicker);
         center.add(datePicker);
         center.add(new JLabel("•  Time:"));
         center.add(UIConstants.createTextField());
@@ -37,21 +37,22 @@ public class AddRideDialog extends JDialog {
         center.add(UIConstants.createTextField());
         center.add(new JLabel("•  Vehicle:"));
         JComboBox<Integer> vehicles = new JComboBox<Integer>();
-        UIConstants.formatComponent(vehicles);
+        UIConstants.formatComponentDialog(vehicles);
         center.add(vehicles);
         center.add(new JLabel("•  Passengers:"));
         JComboBox<Integer> passengers = new JComboBox<Integer>();
-        UIConstants.formatComponent(passengers);
+        UIConstants.formatComponentDialog(passengers);
         center.add(passengers);
         center.add(new JLabel("•  Repetition:"));
         JComboBox<Integer> repetition = new JComboBox<Integer>();
-        UIConstants.formatComponent(repetition);
+        UIConstants.formatComponentDialog(repetition);
         center.add(repetition);
 
         JPanel bottom = new JPanel();
         JButton create = new JButton("Create");
-        UIConstants.formatComponent(create);
+        UIConstants.formatComponentDialog(create);
         bottom.add(create);
+        bottom.setBackground(UIConstants.WHITE);
 
         add(bottom, BorderLayout.SOUTH);
         add(center, BorderLayout.CENTER);
@@ -61,7 +62,7 @@ public class AddRideDialog extends JDialog {
         setLocationRelativeTo(JFrameWindow.getRides().getPlus());
 
         setResizable(false);
-        setSize(300,320);
+        setSize(330,350);
         setVisible(true);
 
     }

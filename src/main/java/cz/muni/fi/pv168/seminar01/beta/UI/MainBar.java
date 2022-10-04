@@ -15,6 +15,8 @@ public class MainBar extends JMenuBar {
 
     private void initialize() {
 
+        setBackground(UIConstants.WHITE);
+        setBorder(javax.swing.BorderFactory.createEmptyBorder());
         var fuelSettings = new JMenu("Fuel Settings");
         fuelSettings.setToolTipText("Open Fuel Settings");
         fuelSettings.setMnemonic('f');

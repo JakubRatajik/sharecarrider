@@ -27,23 +27,21 @@ public class AddVehicleDialog extends JDialog{
         center.setForeground(UIConstants.TEXT_BROWN);
         center.setBackground(UIConstants.WHITE);
         center.add(new JLabel("•  Brand:"));
-        JTextField field = new JTextField();
-        field.setBackground(UIConstants.LIGHT_BEIGE);
-        field.setForeground(UIConstants.TEXT_BROWN);
-        field.setFont(UIConstants.fDialog);
-        center.add(field);
+        center.add(UIConstants.createTextField());
         center.add(new JLabel("•  Type:"));
-        center.add(new JTextField());
+        center.add(UIConstants.createTextField());
         center.add(new JLabel("•  Capacity:"));
-        center.add(new JTextField());
+        center.add(UIConstants.createTextField());
         center.add(new JLabel("•  Consumption:"));
-        center.add(new JTextField());
+        center.add(UIConstants.createTextField());
 
         JPanel bottom = new JPanel();
         bottom.setFont(UIConstants.fDialog);
         bottom.setForeground(UIConstants.TEXT_BROWN);
         bottom.setBackground(UIConstants.WHITE);
         JButton create = new JButton("Create");
+        UIConstants.formatComponentDialog(create);
+        create.setBackground(UIConstants.LIGHT_BEIGE);
         bottom.add(create);
 
         add(center, BorderLayout.CENTER);

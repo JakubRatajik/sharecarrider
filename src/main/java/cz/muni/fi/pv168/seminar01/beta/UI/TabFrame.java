@@ -10,9 +10,10 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.border.Border;
 
 /**
  * @author Jan Macecek
@@ -26,6 +27,8 @@ public class TabFrame {
 
     public TabFrame() {
         main = new JPanel();
+        main.setBackground(UIConstants.WHITE);
+        main.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         initialize();
     }
 
@@ -37,22 +40,17 @@ public class TabFrame {
         sortBy = new JButton("Sort by");
         filter = new JButton("Filter");
         select = new JButton("Select");
-        sortBy.setBackground(UIConstants.LIGHT_BEIGE);
-        filter.setBackground(UIConstants.LIGHT_BEIGE);
-        select.setBackground(UIConstants.LIGHT_BEIGE);
+        UIConstants.formatComponentMenu(sortBy);
+        UIConstants.formatComponentMenu(filter);
+        UIConstants.formatComponentMenu(select);
 
-        sortBy.setForeground(UIConstants.TEXT_BROWN);
-        filter.setForeground(UIConstants.TEXT_BROWN);
-        select.setForeground(UIConstants.TEXT_BROWN);
-
-        sortBy.setFont(UIConstants.fMenu);
-        filter.setFont(UIConstants.fMenu);
-        select.setFont(UIConstants.fMenu);
         JPanel topPanel = new JPanel();
+        topPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         topPanel.setBorder(BorderFactory.createEmptyBorder(30, 60, 20, 100));
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
 
         topPanel.add(plus);
+        topPanel.setBackground(UIConstants.WHITE);
         topPanel.add(Box.createHorizontalGlue());
         topPanel.add(sortBy);
         topPanel.add(filter);
@@ -63,12 +61,12 @@ public class TabFrame {
     private void initialize() {
 
         main.setLayout(new BorderLayout());
-        JScrollPane table = new JScrollPane();
+        JPanel table = new JPanel();
         main.add(setTop(), BorderLayout.NORTH);
 
-
-        table.add(new JTable(4, 2));
-        main.add(table);
+        table.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        table.setBackground(UIConstants.WHITE);
+        main.add(table, BorderLayout.CENTER);
     }
 
     public JPanel getMain() {
