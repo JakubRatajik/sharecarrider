@@ -24,6 +24,12 @@ public class JFrameWindow {
     private void initialize() {
 
         frame = new JFrame();
+        var im = getClass().getResource("/SCR.png");
+        if (im != null) {
+            frame.setIconImage(new ImageIcon(im).getImage());
+        }
+
+
         frame.setTitle("Share Car Rider");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1333, 750));
