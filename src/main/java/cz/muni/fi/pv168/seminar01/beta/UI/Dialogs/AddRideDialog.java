@@ -1,6 +1,5 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.JFrameWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 import org.jdatepicker.JDatePicker;
 
@@ -57,10 +56,10 @@ public class AddRideDialog extends JDialog {
 
         setModalityType(ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(JFrameWindow.getRides().getPlus());
 
         setResizable(false);
         setSize(330,350);
+        setLocationRelativeTo(null);
         setVisible(true);
 
     }

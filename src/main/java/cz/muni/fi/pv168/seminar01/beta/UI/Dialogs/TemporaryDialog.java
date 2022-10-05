@@ -4,13 +4,15 @@ import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Jan Macecek
  */
-public class SortPassengersDialog extends JDialog {
+public class TemporaryDialog extends JDialog {
 
-    public SortPassengersDialog(Frame frame, String name) {
+    public TemporaryDialog(Frame frame, String name) {
         super(frame, name);
         initialize();
 
@@ -23,6 +25,12 @@ public class SortPassengersDialog extends JDialog {
         center.setBackground(UIConstants.WHITE);
         JPanel bottom = new JPanel();
         JButton cancel = new JButton("Cancel");
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
         JButton ok = new JButton("Ok");
         UIConstants.formatComponentDialog(cancel);
         UIConstants.formatComponentDialog(ok);
@@ -33,7 +41,7 @@ public class SortPassengersDialog extends JDialog {
         add(bottom, BorderLayout.SOUTH);
         add(center, BorderLayout.CENTER);
 
-        setModalityType(ModalityType.APPLICATION_MODAL);
+        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         setResizable(false);

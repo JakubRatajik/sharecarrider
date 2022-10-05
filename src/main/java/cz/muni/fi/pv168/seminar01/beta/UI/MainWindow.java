@@ -3,25 +3,21 @@ package cz.muni.fi.pv168.seminar01.beta.UI;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.SortPassengersDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.SortRideDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.SortVehicleDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
 
 import javax.swing.*;
-import javax.swing.plaf.UIResource;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class JFrameWindow {
+public class MainWindow {
     private static JFrame frame;
     private static TabFrame rides;
     private static TabFrame vehicles;
     private static TabFrame passengers;
 
     private static JPanel topPanel;
-    public JFrameWindow() {
+    public MainWindow() {
         initialize();
     }
 
@@ -89,9 +85,16 @@ public class JFrameWindow {
         rides.getSortBy().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new SortRideDialog(frame, "Sort By");
+                JDialog dial = new TemporaryDialog(frame, "Sort By");
             }
         });
+        rides.getFilter().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new TemporaryDialog(frame, "Filter");
+            }
+        });
+
         vehicles = new TabFrame();
         vehicles.getPlus().addActionListener(new ActionListener() {
             @Override
@@ -102,7 +105,13 @@ public class JFrameWindow {
         vehicles.getSortBy().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new SortVehicleDialog(frame, "Sort By");
+                JDialog dial = new TemporaryDialog(frame, "Sort By");
+            }
+        });
+        vehicles.getFilter().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new TemporaryDialog(frame, "Filter");
             }
         });
         passengers = new TabFrame();
@@ -115,7 +124,13 @@ public class JFrameWindow {
         passengers.getSortBy().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new SortPassengersDialog(frame, "Sort By");
+                JDialog dial = new TemporaryDialog(frame, "Sort By");
+            }
+        });
+        passengers.getFilter().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new TemporaryDialog(frame, "Filter");
             }
         });
         Statistics statistics = new Statistics();

@@ -1,8 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.JFrameWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
-import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,10 +40,10 @@ public class AddPassengerDialog extends JDialog {
 
         setModalityType(ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(JFrameWindow.getPassengers().getPlus());
 
         setResizable(false);
         setSize(330,220);
+        setLocationRelativeTo(null);
         setVisible(true);
 
     }

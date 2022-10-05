@@ -1,7 +1,5 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.JFrameWindow;
-
 import javax.swing.*;
 import java.awt.*;
 

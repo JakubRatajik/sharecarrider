@@ -1,6 +1,5 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FuelDialog;
 
 import javax.swing.*;
@@ -85,6 +84,6 @@ public class MainBar extends JMenuBar {
 
 
     private void callFuelDialog(ActionEvent e) {
-        Dialog dialog = new FuelDialog(JFrameWindow.getFrame());
+        Dialog dialog = new FuelDialog(MainWindow.getFrame());
     }
 }

@@ -1,10 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -55,7 +51,6 @@ public class TabFrame {
         main.setLayout(new BorderLayout());
         JPanel table = new JPanel();
         main.add(setTop(), BorderLayout.NORTH);
-
         table.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         table.setBackground(UIConstants.WHITE);
         main.add(table, BorderLayout.CENTER);
@@ -76,5 +71,6 @@ public class TabFrame {
     public JButton getFilter() {
         return filter;
     }
+
 }
 

@@ -1,8 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.JFrameWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
-import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,10 +42,10 @@ public class AddVehicleDialog extends JDialog{
         add(bottom, BorderLayout.SOUTH);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        setLocationRelativeTo(JFrameWindow.getVehicles().getPlus());
 
         setResizable(false);
         setSize(300,220);
+        setLocationRelativeTo(null);
         setVisible(true);
 
     }
