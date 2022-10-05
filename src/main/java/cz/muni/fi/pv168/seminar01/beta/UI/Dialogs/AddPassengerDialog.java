@@ -7,12 +7,9 @@ import org.jdatepicker.JDatePicker;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * @author Jan Macecek
- */
-public class AddVehicleDialog extends JDialog{
+public class AddPassengerDialog extends JDialog {
 
-    public AddVehicleDialog(Frame frame, String name) {
+    public AddPassengerDialog(Frame frame, String name) {
         super(frame, name);
         initialize();
 
@@ -21,33 +18,34 @@ public class AddVehicleDialog extends JDialog{
     private void initialize() {
         JPanel center = new JPanel();
         setLayout(new BorderLayout());
-        center.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        center.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
         center.setLayout(new GridLayout(4,2));
         UIConstants.formatWhiteTextBrownDialog(center);
-        center.add(new JLabel("•  Brand:"));
+        center.add(new JLabel("•  Name:"));
         center.add(UIConstants.createTextField());
-        center.add(new JLabel("•  Type:"));
+        center.add(new JLabel("•  Surname:"));
         center.add(UIConstants.createTextField());
-        center.add(new JLabel("•  Capacity:"));
+        center.add(new JLabel("•  Phone:"));
         center.add(UIConstants.createTextField());
-        center.add(new JLabel("•  Consumption:"));
-        center.add(UIConstants.createTextField());
-
+        center.add(new JLabel("•  Category:"));
+        JComboBox<Integer> categories = new JComboBox<Integer>();
+        UIConstants.formatComponentDialog(categories);
+        center.add(categories);
         JPanel bottom = new JPanel();
-        UIConstants.formatWhiteTextBrownDialog(bottom);
         JButton create = new JButton("Create");
         UIConstants.formatComponentDialog(create);
-        UIConstants.formatBeigeTextBrownDialog(create);
         bottom.add(create);
+        bottom.setBackground(UIConstants.WHITE);
 
-        add(center, BorderLayout.CENTER);
         add(bottom, BorderLayout.SOUTH);
+        add(center, BorderLayout.CENTER);
+
+        setModalityType(ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        setLocationRelativeTo(JFrameWindow.getVehicles().getPlus());
+        setLocationRelativeTo(JFrameWindow.getPassengers().getPlus());
 
         setResizable(false);
-        setSize(300,220);
+        setSize(330,220);
         setVisible(true);
 
     }

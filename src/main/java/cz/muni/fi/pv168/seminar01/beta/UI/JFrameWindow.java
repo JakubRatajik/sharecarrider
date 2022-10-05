@@ -1,7 +1,11 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.SortPassengersDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.SortRideDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.SortVehicleDialog;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -82,6 +86,12 @@ public class JFrameWindow {
                 JDialog dial = new AddRideDialog(frame, "Add Ride");
             }
         });
+        rides.getSortBy().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new SortRideDialog(frame, "Sort By");
+            }
+        });
         vehicles = new TabFrame();
         vehicles.getPlus().addActionListener(new ActionListener() {
             @Override
@@ -89,7 +99,25 @@ public class JFrameWindow {
                 JDialog dial = new AddVehicleDialog(frame, "Add Vehicle");
             }
         });
+        vehicles.getSortBy().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new SortVehicleDialog(frame, "Sort By");
+            }
+        });
         passengers = new TabFrame();
+        passengers.getPlus().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new AddPassengerDialog(frame, "Add Passenger");
+            }
+        });
+        passengers.getSortBy().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new SortPassengersDialog(frame, "Sort By");
+            }
+        });
         Statistics statistics = new Statistics();
         tabs.setFont(UIConstants.fTab);
         tabs.addTab("Rides", rides.getMain());

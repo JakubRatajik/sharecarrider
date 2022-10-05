@@ -19,10 +19,8 @@ public class AddRideDialog extends JDialog {
         JPanel center = new JPanel();
         setLayout(new BorderLayout());
         center.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
-        center.setLayout(new GridLayout(10,2));
-        center.setFont(UIConstants.fDialog);
-        center.setForeground(UIConstants.TEXT_BROWN);
-        center.setBackground(UIConstants.WHITE);
+        center.setLayout(new GridLayout(8,2));
+        UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Date:"));
         JDatePicker datePicker = new JDatePicker();
         UIConstants.formatComponentDialog(datePicker);

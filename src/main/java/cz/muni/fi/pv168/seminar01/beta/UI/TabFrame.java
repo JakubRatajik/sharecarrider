@@ -1,19 +1,11 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.border.Border;
 
 /**
  * @author Jan Macecek
@@ -40,9 +32,9 @@ public class TabFrame {
         sortBy = new JButton("Sort by");
         filter = new JButton("Filter");
         select = new JButton("Select");
-        UIConstants.formatComponentMenu(sortBy);
-        UIConstants.formatComponentMenu(filter);
-        UIConstants.formatComponentMenu(select);
+        UIConstants.formatBeigeTextBrownDialog(sortBy);
+        UIConstants.formatBeigeTextBrownDialog(filter);
+        UIConstants.formatBeigeTextBrownDialog(select);
 
         JPanel topPanel = new JPanel();
         topPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder());

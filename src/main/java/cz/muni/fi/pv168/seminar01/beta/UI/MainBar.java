@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FuelDialog;
 
 import javax.swing.*;
@@ -20,25 +21,62 @@ public class MainBar extends JMenuBar {
         var fuelSettings = new JMenu("Fuel Settings");
         fuelSettings.setToolTipText("Open Fuel Settings");
         fuelSettings.setMnemonic('f');
-        fuelSettings.setBackground(UIConstants.WHITE);
-        fuelSettings.setForeground(UIConstants.TEXT_BROWN);
-        fuelSettings.setFont(UIConstants.fMenu);
+        UIConstants.formatWhiteTextBrownMenu(fuelSettings);
+        JMenuItem fuelSettingsItem = new JMenuItem(new AbstractAction("Fuel Costs") {
+            public void actionPerformed(ActionEvent e) {
+                // Button pressed logic goes here
+            }
+        });
+        UIConstants.formatWhiteTextBrownMenu(fuelSettingsItem);
+        fuelSettings.add(fuelSettingsItem);
         add(fuelSettings);
 
         var importExport = new JMenu("Import / Export");
         importExport.setToolTipText("Open Import and Export options");
         importExport.setMnemonic('i');
-        importExport.setBackground(UIConstants.WHITE);
-        importExport.setForeground(UIConstants.TEXT_BROWN);
-        importExport.setFont(UIConstants.fMenu);
+        UIConstants.formatWhiteTextBrownMenu(importExport);
+
+        JMenuItem importItem = new JMenuItem(new AbstractAction("Import") {
+            public void actionPerformed(ActionEvent e) {
+                // Button pressed logic goes here
+            }
+        });
+        UIConstants.formatWhiteTextBrownMenu(importItem);
+        importExport.add(importItem);
+
+        JMenuItem exportItem = new JMenuItem(new AbstractAction("Export") {
+            public void actionPerformed(ActionEvent e) {
+                // Button pressed logic goes here
+            }
+        });
+        UIConstants.formatWhiteTextBrownMenu(exportItem);
+        importExport.add(exportItem);
+
         add(importExport);
 
         var categories = new JMenu("Categories");
         categories.setToolTipText("Open Category menu");
         categories.setMnemonic('c');
-        categories.setBackground(UIConstants.WHITE);
-        categories.setForeground(UIConstants.TEXT_BROWN);
-        categories.setFont(UIConstants.fMenu);
+        UIConstants.formatWhiteTextBrownMenu(categories);
+
+        JMenuItem showCategoriesItem = new JMenuItem(new AbstractAction("Show Categories") {
+            public void actionPerformed(ActionEvent e) {
+                // Button pressed logic goes here
+            }
+        });
+        UIConstants.formatWhiteTextBrownMenu(showCategoriesItem);
+        categories.add(showCategoriesItem);
+
+        JMenuItem addCategoryItem = new JMenuItem(new AbstractAction("Add Category") {
+            public void actionPerformed(ActionEvent e) {
+                // Button pressed logic goes here
+            }
+        });
+        UIConstants.formatWhiteTextBrownMenu(addCategoryItem);
+        categories.add(addCategoryItem);
+
+
+
         add(categories);
 
 

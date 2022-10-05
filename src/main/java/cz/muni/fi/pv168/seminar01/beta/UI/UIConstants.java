@@ -27,10 +27,22 @@ public class UIConstants {
         component.setFont(fDialog);
     }
 
-    public static void formatComponentMenu(JComponent component) {
+    public static void formatBeigeTextBrownDialog(JComponent component) {
         component.setForeground(TEXT_BROWN);
         component.setBackground(LIGHT_BEIGE);
         component.setFont(fDialog);
+    }
+
+    public static void formatWhiteTextBrownDialog(JComponent component) {
+        component.setForeground(TEXT_BROWN);
+        component.setBackground(WHITE);
+        component.setFont(fDialog);
+    }
+
+    public static void formatWhiteTextBrownMenu(JComponent component) {
+        component.setForeground(TEXT_BROWN);
+        component.setBackground(WHITE);
+        component.setFont(fMenu);
     }
 
 
