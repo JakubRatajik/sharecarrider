@@ -54,6 +54,7 @@ public class TabFrame {
         main.add(topPanelInit(), BorderLayout.NORTH);
         tabPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         tabPanel.setBackground(UIConstants.WHITE);
+        tabPanel.setLayout(new BoxLayout(tabPanel, BoxLayout.PAGE_AXIS));
         main.add(tabPanel, BorderLayout.CENTER);
     }
 

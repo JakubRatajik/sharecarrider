@@ -36,11 +36,19 @@ public final class TableInitializer {
     private static void initializeCommonComponents(JTable table, TabFrame tabFrame) {
         tabFrame.getTabPanel().add(table);
 
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(table,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+//        verticalScrollBar.setPreferredSize(new Dimension(15, 0));
+//        scrollPane.setBorder(BorderFactory.createLineBorder(UIConstants.DARK_BROWN, 15));
+
 
         scrollPane.setBackground(UIConstants.MIDDLE_BROWN);
         scrollPane.setOpaque(false);
         scrollPane.setBackground(UIConstants.MIDDLE_BROWN);
+//        scrollPane.setMinimumSize(new Dimension(7000, 7000));
+//        tabFrame.getMain().setMinimumSize(new Dimension(7000, 7000));
         tabFrame.getTabPanel().add(scrollPane);
 //        table.setGridColor(UIConstants.MIDDLE_BROWN);
 //        table.setShowGrid(true);
@@ -49,7 +57,7 @@ public final class TableInitializer {
 
         table.setAutoCreateRowSorter(true);
 
-        scrollPane.setMaximumSize(new Dimension(20, 20));
+//        scrollPane.setMaximumSize(new Dimension(20, 20));
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table,
@@ -64,7 +72,7 @@ public final class TableInitializer {
                 if (hasFocus) {
                     component.setBackground(UIConstants.LIGHT_BEIGE);
                 }
-                
+
                 table.setGridColor(UIConstants.MIDDLE_BROWN);
                 table.setShowGrid(true);
                 return component;
@@ -114,10 +122,10 @@ public final class TableInitializer {
         JTable table = new JTable(data, columnNames);
 
         // this is terrible temporary solution
-        for (int i = 0; i < columnNames.length; i++) {
-            TableColumn column = table.getColumnModel().getColumn(i);
-            column.setMinWidth(data[0][i].toString().length() * 15);
-        }
+//        for (int i = 0; i < columnNames.length; i++) {
+//            TableColumn column = table.getColumnModel().getColumn(i);
+//            column.setMinWidth(data[0][i].toString().length() * 12);
+//        }
         table.getTableHeader().setReorderingAllowed(false);
         return table;
     }
