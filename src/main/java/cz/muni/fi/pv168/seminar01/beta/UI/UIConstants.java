@@ -13,6 +13,7 @@ public class UIConstants {
 
     public static final Font fTab = new Font("Inter", Font.PLAIN, 17);
     public static final Font fMenu= new Font("Inter", Font.PLAIN, 15);
+    public static final Font fTable = fMenu;
     public static final Font fDialog= new Font("Inter", Font.PLAIN, 12);
 
     public static JTextField createTextField() {
