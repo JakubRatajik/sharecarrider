@@ -39,12 +39,14 @@ public final class TableInitializer {
         JScrollPane scrollPane = new JScrollPane(table,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+        tabFrame.getTabPanel().setBorder(BorderFactory.createEmptyBorder(0, 60, 20, 100));
+//        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
 //        verticalScrollBar.setPreferredSize(new Dimension(15, 0));
 //        scrollPane.setBorder(BorderFactory.createLineBorder(UIConstants.DARK_BROWN, 15));
 
 
-        scrollPane.setBackground(UIConstants.MIDDLE_BROWN);
+        scrollPane.setBackground(UIConstants.WHITE);
+        
         scrollPane.setOpaque(false);
         scrollPane.setBackground(UIConstants.MIDDLE_BROWN);
 //        scrollPane.setMinimumSize(new Dimension(7000, 7000));
