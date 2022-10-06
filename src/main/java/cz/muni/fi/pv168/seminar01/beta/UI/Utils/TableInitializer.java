@@ -5,6 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.UI.TabFrame;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
@@ -39,6 +40,7 @@ public final class TableInitializer {
         JScrollPane scrollPane = new JScrollPane(table,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         tabFrame.getTabPanel().setBorder(BorderFactory.createEmptyBorder(0, 60, 20, 100));
 //        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
 //        verticalScrollBar.setPreferredSize(new Dimension(15, 0));
@@ -58,6 +60,7 @@ public final class TableInitializer {
         table.getTableHeader().setBackground(UIConstants.OCHER);
 
         table.setAutoCreateRowSorter(true);
+        table.setBorder(new MatteBorder(1, 1, 1, 1, UIConstants.MIDDLE_BROWN));
 
 //        scrollPane.setMaximumSize(new Dimension(20, 20));
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -74,7 +77,6 @@ public final class TableInitializer {
                 if (hasFocus) {
                     component.setBackground(UIConstants.LIGHT_BEIGE);
                 }
-
                 table.setGridColor(UIConstants.MIDDLE_BROWN);
                 table.setShowGrid(true);
                 return component;
