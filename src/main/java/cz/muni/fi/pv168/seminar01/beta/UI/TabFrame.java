@@ -22,7 +22,7 @@ public class TabFrame {
         initialize();
     }
 
-    public JPanel setTop() {
+    public JPanel topPanelInit() {
         plus = new JButton("+");
         plus.setBackground(UIConstants.OCHER);
         plus.setFont(UIConstants.fTab);
@@ -48,10 +48,10 @@ public class TabFrame {
 
         return topPanel;
     }
-    private void initialize() {
 
+    private void initialize() {
         main.setLayout(new BorderLayout());
-        main.add(setTop(), BorderLayout.NORTH);
+        main.add(topPanelInit(), BorderLayout.NORTH);
         tabPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         tabPanel.setBackground(UIConstants.WHITE);
         main.add(tabPanel, BorderLayout.CENTER);
@@ -72,6 +72,4 @@ public class TabFrame {
     public JButton getFilter() {
         return filter;
     }
-
 }
-
