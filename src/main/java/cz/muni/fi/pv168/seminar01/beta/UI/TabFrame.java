@@ -72,4 +72,8 @@ public class TabFrame {
     public JButton getFilter() {
         return filter;
     }
+
+    public JPanel getTabPanel() {
+        return tabPanel;
+    }
 }
