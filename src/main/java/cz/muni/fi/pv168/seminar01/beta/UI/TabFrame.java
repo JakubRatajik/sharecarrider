@@ -12,11 +12,13 @@ public class TabFrame {
     private JButton sortBy;
     private JButton filter;
     private JButton select;
+    private JPanel tabPanel;
 
     public TabFrame() {
         main = new JPanel();
         main.setBackground(UIConstants.WHITE);
         main.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        tabPanel = new JPanel();
         initialize();
     }
 
@@ -49,11 +51,10 @@ public class TabFrame {
     private void initialize() {
 
         main.setLayout(new BorderLayout());
-        JPanel table = new JPanel();
         main.add(setTop(), BorderLayout.NORTH);
-        table.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        table.setBackground(UIConstants.WHITE);
-        main.add(table, BorderLayout.CENTER);
+        tabPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        tabPanel.setBackground(UIConstants.WHITE);
+        main.add(tabPanel, BorderLayout.CENTER);
     }
 
     public JPanel getMain() {
