@@ -4,6 +4,8 @@ import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.TabCategory;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.TableInitializer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,6 +78,7 @@ public class MainWindow {
         UIManager.put( "TabbedPane.borderColor", UIConstants.WHITE );
         JTabbedPane tabs = new JTabbedPane();
         rides = new TabFrame();
+        TableInitializer.initializeTab(rides, TabCategory.RIDES);
         rides.getPlus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
