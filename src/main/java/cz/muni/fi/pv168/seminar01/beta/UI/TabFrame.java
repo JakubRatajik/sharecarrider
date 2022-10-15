@@ -27,9 +27,9 @@ public class TabFrame {
         plus.setBackground(UIConstants.OCHER);
         plus.setFont(UIConstants.fTab);
         plus.setForeground(UIConstants.TEXT_BROWN);
-        sortBy = new JButton("Sort by");
-        filter = new JButton("Filter");
-        select = new JButton("Select");
+        sortBy = new JButton("Řadit");
+        filter = new JButton("Filtrovat");
+        select = new JButton("Vybrat");
         UIConstants.formatBeigeTextBrownDialog(sortBy);
         UIConstants.formatBeigeTextBrownDialog(filter);
         UIConstants.formatBeigeTextBrownDialog(select);

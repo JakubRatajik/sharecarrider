@@ -17,11 +17,11 @@ public class MainBar extends JMenuBar {
 
         setBackground(UIConstants.WHITE);
         setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        var fuelSettings = new JMenu("Fuel Settings");
-        fuelSettings.setToolTipText("Open Fuel Settings");
+        var fuelSettings = new JMenu("Nastavení paliva");
+        fuelSettings.setToolTipText("Otevřít nastavení paliva");
         fuelSettings.setMnemonic('f');
         UIConstants.formatWhiteTextBrownMenu(fuelSettings);
-        JMenuItem fuelSettingsItem = new JMenuItem(new AbstractAction("Fuel Costs") {
+        JMenuItem fuelSettingsItem = new JMenuItem(new AbstractAction("Ceny paliv") {
             public void actionPerformed(ActionEvent e) {
                 // Button pressed logic goes here
             }
@@ -31,7 +31,7 @@ public class MainBar extends JMenuBar {
         add(fuelSettings);
 
         var importExport = new JMenu("Import / Export");
-        importExport.setToolTipText("Open Import and Export options");
+        importExport.setToolTipText("Otevřít nastavení importu a exportu");
         importExport.setMnemonic('i');
         UIConstants.formatWhiteTextBrownMenu(importExport);
 
@@ -53,12 +53,12 @@ public class MainBar extends JMenuBar {
 
         add(importExport);
 
-        var categories = new JMenu("Categories");
-        categories.setToolTipText("Open Category menu");
+        var categories = new JMenu("Kategorie");
+        categories.setToolTipText("Otevřít menu pro kategorie");
         categories.setMnemonic('c');
         UIConstants.formatWhiteTextBrownMenu(categories);
 
-        JMenuItem showCategoriesItem = new JMenuItem(new AbstractAction("Show Categories") {
+        JMenuItem showCategoriesItem = new JMenuItem(new AbstractAction("Zobrazit kategorie") {
             public void actionPerformed(ActionEvent e) {
                 // Button pressed logic goes here
             }
@@ -66,7 +66,7 @@ public class MainBar extends JMenuBar {
         UIConstants.formatWhiteTextBrownMenu(showCategoriesItem);
         categories.add(showCategoriesItem);
 
-        JMenuItem addCategoryItem = new JMenuItem(new AbstractAction("Add Category") {
+        JMenuItem addCategoryItem = new JMenuItem(new AbstractAction("Přidat kategorii") {
             public void actionPerformed(ActionEvent e) {
                 // Button pressed logic goes here
             }

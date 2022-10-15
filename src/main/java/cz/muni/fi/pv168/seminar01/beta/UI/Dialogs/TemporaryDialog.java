@@ -24,7 +24,7 @@ public class TemporaryDialog extends JDialog {
         center.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
         center.setBackground(UIConstants.WHITE);
         JPanel bottom = new JPanel();
-        JButton cancel = new JButton("Cancel");
+        JButton cancel = new JButton("Zrušit");
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

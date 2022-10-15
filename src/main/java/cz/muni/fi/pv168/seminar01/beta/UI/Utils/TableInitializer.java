@@ -91,7 +91,7 @@ public final class TableInitializer {
     }
 
     private static JTable initializeRidesTable() {
-        String[] columnNames = {"Date", "Departure", "From", "To", "Distance", "Categories"};
+        String[] columnNames = {"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"};
         LocalDate today = LocalDate.now();
         LocalDate birthday = LocalDate.of(2022, 5, 26);
         LocalTime chillTime = LocalTime.of(4, 20);
@@ -135,12 +135,12 @@ public final class TableInitializer {
     }
 
     private static JTable initializePassengersTable() {
-        List<String> columnNames = List.of("Forename", "Surname", "Phone", "Category");
+        List<String> columnNames = List.of("Jméno", "Příjmení", "Telefon", "Kategorie");
         return new JTable();
     }
 
     private static JTable initializeVehiclesTable() {
-        List<String> columnNames = List.of("Brand", "Type", "Capacity", "Average consumption");
+        List<String> columnNames = List.of("Značka", "Typ", "Počet míst", "Průměrná spotřeba");
         return new JTable();
     }
 

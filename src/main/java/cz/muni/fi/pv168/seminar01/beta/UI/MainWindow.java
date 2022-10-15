@@ -82,19 +82,19 @@ public class MainWindow {
         rides.getPlus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddRideDialog(frame, "Add Ride");
+                JDialog dial = new AddRideDialog(frame, "Přidat jízdu");
             }
         });
         rides.getSortBy().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Sort By");
+                JDialog dial = new TemporaryDialog(frame, "Řazení");
             }
         });
         rides.getFilter().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Filter");
+                JDialog dial = new TemporaryDialog(frame, "Filtr");
             }
         });
 
@@ -102,46 +102,46 @@ public class MainWindow {
         vehicles.getPlus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddVehicleDialog(frame, "Add Vehicle");
+                JDialog dial = new AddVehicleDialog(frame, "Přidat vozidlo");
             }
         });
         vehicles.getSortBy().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Sort By");
+                JDialog dial = new TemporaryDialog(frame, "Řazení");
             }
         });
         vehicles.getFilter().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Filter");
+                JDialog dial = new TemporaryDialog(frame, "Filtr");
             }
         });
         passengers = new TabFrame();
         passengers.getPlus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddPassengerDialog(frame, "Add Passenger");
+                JDialog dial = new AddPassengerDialog(frame, "Přidat cestujícího");
             }
         });
         passengers.getSortBy().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Sort By");
+                JDialog dial = new TemporaryDialog(frame, "Řazení");
             }
         });
         passengers.getFilter().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Filter");
+                JDialog dial = new TemporaryDialog(frame, "Filtr");
             }
         });
         Statistics statistics = new Statistics();
         tabs.setFont(UIConstants.fTab);
-        tabs.addTab("Rides", rides.getMain());
-        tabs.addTab("Vehicles", vehicles.getMain());
-        tabs.addTab("Passengers", passengers.getMain());
-        tabs.addTab("Statistics", statistics.getMain());
+        tabs.addTab("Jízdy", rides.getMain());
+        tabs.addTab("Vozidla", vehicles.getMain());
+        tabs.addTab("Cestující", passengers.getMain());
+        tabs.addTab("Statistiky", statistics.getMain());
         tabs.setBackground(UIConstants.WHITE);
 
         tabs.setForeground(UIConstants.TEXT_BROWN);

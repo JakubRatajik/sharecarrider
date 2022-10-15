@@ -22,18 +22,18 @@ public class AddVehicleDialog extends JDialog{
         center.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         center.setLayout(new GridLayout(4,2));
         UIConstants.formatWhiteTextBrownDialog(center);
-        center.add(new JLabel("•  Brand:"));
+        center.add(new JLabel("•  Značka:"));
         center.add(UIConstants.createTextField());
-        center.add(new JLabel("•  Type:"));
+        center.add(new JLabel("•  Typ:"));
         center.add(UIConstants.createTextField());
-        center.add(new JLabel("•  Capacity:"));
+        center.add(new JLabel("•  Počet míst:"));
         center.add(UIConstants.createTextField());
-        center.add(new JLabel("•  Consumption:"));
+        center.add(new JLabel("•  Spotřeba:"));
         center.add(UIConstants.createTextField());
 
         JPanel bottom = new JPanel();
         UIConstants.formatWhiteTextBrownDialog(bottom);
-        JButton create = new JButton("Create");
+        JButton create = new JButton("Vytvořit");
         UIConstants.formatComponentDialog(create);
         UIConstants.formatBeigeTextBrownDialog(create);
         bottom.add(create);
