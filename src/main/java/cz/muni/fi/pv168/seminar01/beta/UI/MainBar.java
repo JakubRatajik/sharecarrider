@@ -7,9 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class MainBar extends JMenuBar {
+    private static Frame frame;
 
-
-    public MainBar() {
+    public MainBar(Frame frame) {
+        MainBar.frame = frame;
         initialize();
     }
 
@@ -23,7 +24,7 @@ public class MainBar extends JMenuBar {
         UIConstants.formatWhiteTextBrownMenu(fuelSettings);
         JMenuItem fuelSettingsItem = new JMenuItem(new AbstractAction("Ceny paliv") {
             public void actionPerformed(ActionEvent e) {
-                // Button pressed logic goes here
+                JDialog dial = new FuelDialog(frame);
             }
         });
         UIConstants.formatWhiteTextBrownMenu(fuelSettingsItem);
