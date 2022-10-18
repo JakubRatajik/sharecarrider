@@ -55,7 +55,7 @@ public class MainWindow {
     }
 
     private void addMainBar() {
-        MainBar panel = new MainBar(frame);
+        MainBar panel = new MainBar();
 
         frame.add(panel);
         frame.add(panel, BorderLayout.NORTH);
