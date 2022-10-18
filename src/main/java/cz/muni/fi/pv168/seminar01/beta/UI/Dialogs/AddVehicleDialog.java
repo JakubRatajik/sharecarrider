@@ -4,50 +4,54 @@ import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Jan Macecek
  */
-public class AddVehicleDialog extends JDialog{
+public class AddVehicleDialog extends AddDialog{
+    private JTextField brand;
+    private JTextField model;
+    private JTextField seats;
+    private JTextField consumption;
 
     public AddVehicleDialog(Frame frame, String name) {
         super(frame, name);
-        initialize();
-
     }
 
-    private void initialize() {
-        JPanel center = new JPanel();
-        setLayout(new BorderLayout());
-        center.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+    @Override
+    protected void setAttributes() {
+        this.brand = UIConstants.createTextField();
+        this.model = UIConstants.createTextField();
+        this.seats = UIConstants.createTextField();
+        this.consumption = UIConstants.createTextField();
+    }
+
+    @Override
+    protected void loadData(JPanel center) {
         center.setLayout(new GridLayout(4,2));
         UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Značka:"));
-        center.add(UIConstants.createTextField());
+        center.add(this.brand);
         center.add(new JLabel("•  Typ:"));
-        center.add(UIConstants.createTextField());
+        center.add(this.model);
         center.add(new JLabel("•  Počet míst:"));
-        center.add(UIConstants.createTextField());
+        center.add(this.seats);
         center.add(new JLabel("•  Spotřeba:"));
-        center.add(UIConstants.createTextField());
-
-        JPanel bottom = new JPanel();
-        UIConstants.formatWhiteTextBrownDialog(bottom);
-        JButton create = new JButton("Vytvořit");
-        UIConstants.formatComponentDialog(create);
-        UIConstants.formatBeigeTextBrownDialog(create);
-        bottom.add(create);
-
-        add(center, BorderLayout.CENTER);
-        add(bottom, BorderLayout.SOUTH);
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-
-        setResizable(false);
+        center.add(this.consumption);
         setSize(300,220);
-        setLocationRelativeTo(null);
-        setVisible(true);
+    }
 
+    @Override
+    protected void onCreateButton(JButton create) {
+        create.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO - there need to be save action, but is not implemented yet
+                dispose();
+            }
+        });
     }
 
 
