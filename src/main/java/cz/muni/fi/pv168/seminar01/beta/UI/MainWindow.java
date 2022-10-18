@@ -3,6 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.UI;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.RideDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.TabCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.Utils.TableInitializer;
@@ -11,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainWindow {
     private static JFrame frame;
@@ -66,7 +69,7 @@ public class MainWindow {
         bar.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         bar.setBackground(UIConstants.LIGHT_BEIGE);
         bar.setForeground(UIConstants.LIGHT_BEIGE);
-        JLabel spacing = new JLabel("HELLO");
+        JLabel spacing = new JLabel("Muminci");
         spacing.setFont(new Font("Arial", Font.PLAIN, 22));
         spacing.setForeground(UIConstants.LIGHT_BEIGE);
         bar.add(spacing);
@@ -97,6 +100,15 @@ public class MainWindow {
                 JDialog dial = new TemporaryDialog(frame, "Filtr");
             }
         });
+
+        /*rides.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                if (me.getClickCount() == 2) {
+                    JTable target = (JTable)me.getSource();
+                    int row = target.getSelectedRow();
+                    RideDetailDialog dialog = new RideDetailDialog()
+                    JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
+                }*/
 
         vehicles = new TabFrame();
         vehicles.getPlus().addActionListener(new ActionListener() {
