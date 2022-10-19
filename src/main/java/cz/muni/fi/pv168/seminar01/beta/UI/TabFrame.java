@@ -2,9 +2,12 @@ package cz.muni.fi.pv168.seminar01.beta.UI;
 
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.TabCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.TableModel;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.ActionListenerProvider;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  * @author Jan Macecek
@@ -68,6 +71,21 @@ public class TabFrame {
         main.add(tabPanel, BorderLayout.CENTER);
         // TODO - for KUBIK... creation of table was moved here
         table.initializeFrame(this);
+
+        // this set actions to all buttons
+        setDialogs();
+
+    }
+
+    private void setDialogs() {
+        List<ActionListener> actions = ActionListenerProvider.getAddALs(category);
+        if (actions == null) {
+            return;
+        }
+        plus.addActionListener(actions.get(0));
+        sortBy.addActionListener(actions.get(1));
+        filter.addActionListener(actions.get(2));
+        select.addActionListener(actions.get(3));
     }
 
     public JPanel getMain() {
