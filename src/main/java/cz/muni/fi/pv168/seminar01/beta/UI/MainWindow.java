@@ -59,8 +59,6 @@ public class MainWindow {
 
     private void addMainBar() {
         MainBar panel = new MainBar();
-
-        frame.add(panel);
         frame.add(panel, BorderLayout.NORTH);
     }
 
@@ -69,7 +67,7 @@ public class MainWindow {
         bar.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         bar.setBackground(UIConstants.LIGHT_BEIGE);
         bar.setForeground(UIConstants.LIGHT_BEIGE);
-        JLabel spacing = new JLabel("Muminci");
+        JLabel spacing = new JLabel("Muminci <3");
         spacing.setFont(new Font("Arial", Font.PLAIN, 22));
         spacing.setForeground(UIConstants.LIGHT_BEIGE);
         bar.add(spacing);
@@ -80,8 +78,7 @@ public class MainWindow {
     private void addTabBar() {
         UIManager.put( "TabbedPane.borderColor", UIConstants.WHITE );
         JTabbedPane tabs = new JTabbedPane();
-        rides = new TabFrame();
-        TableInitializer.initializeTab(rides, TabCategory.RIDES);
+        rides = new TabFrame(TabCategory.RIDES);
         rides.getPlus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -110,7 +107,7 @@ public class MainWindow {
                     JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
                 }*/
 
-        vehicles = new TabFrame();
+        vehicles = new TabFrame(TabCategory.VEHICLES);
         vehicles.getPlus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -129,7 +126,7 @@ public class MainWindow {
                 JDialog dial = new TemporaryDialog(frame, "Filtr");
             }
         });
-        passengers = new TabFrame();
+        passengers = new TabFrame(TabCategory.PASSENGERS);
         passengers.getPlus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

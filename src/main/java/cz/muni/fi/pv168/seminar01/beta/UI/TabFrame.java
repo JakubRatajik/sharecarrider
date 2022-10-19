@@ -1,5 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.TabCategory;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.TableModel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,11 +17,16 @@ public class TabFrame {
     private JButton select;
     private JPanel tabPanel;
 
-    public TabFrame() {
+    private TabCategory category;
+    private TableModel table;
+
+    public TabFrame(TabCategory category) {
+        this.category = category;
         main = new JPanel();
         main.setBackground(UIConstants.WHITE);
         main.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         tabPanel = new JPanel();
+        table = new TableModel(this.category);
         initialize();
     }
 
@@ -56,6 +64,7 @@ public class TabFrame {
         tabPanel.setBackground(UIConstants.WHITE);
         tabPanel.setLayout(new BoxLayout(tabPanel, BoxLayout.PAGE_AXIS));
         main.add(tabPanel, BorderLayout.CENTER);
+        table.initializeFrame(this);
     }
 
     public JPanel getMain() {
