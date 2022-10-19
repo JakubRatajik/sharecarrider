@@ -18,6 +18,8 @@ public class TabFrame {
     private JPanel tabPanel;
 
     private TabCategory category;
+
+    // By writing tableModel.getTable(), JTable object can be accessed
     private TableModel table;
 
     public TabFrame(TabCategory category) {
@@ -64,6 +66,7 @@ public class TabFrame {
         tabPanel.setBackground(UIConstants.WHITE);
         tabPanel.setLayout(new BoxLayout(tabPanel, BoxLayout.PAGE_AXIS));
         main.add(tabPanel, BorderLayout.CENTER);
+        // TODO - for KUBIK... creation of table was moved here
         table.initializeFrame(this);
     }
 

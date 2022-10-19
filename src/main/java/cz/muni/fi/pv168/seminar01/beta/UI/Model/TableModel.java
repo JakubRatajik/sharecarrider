@@ -16,7 +16,12 @@ public class TableModel {
         this.category = category;
     }
 
+    // TODO - KUBIK, it would be great, if you can load actual JTable object to table variable
     public void initializeFrame(TabFrame frame) {
         TableInitializer.initializeTab(frame, category);
+    }
+
+    public JTable getTable() {
+        return table;
     }
 }
