@@ -22,7 +22,7 @@ public class TabFrame {
 
     private TabCategory category;
 
-    // By writing tableModel.getTable(), JTable object can be accessed
+    // By writing tableModel.getTable(), JTable object can be accessed in future
     private TableModel table;
 
     public TabFrame(TabCategory category) {

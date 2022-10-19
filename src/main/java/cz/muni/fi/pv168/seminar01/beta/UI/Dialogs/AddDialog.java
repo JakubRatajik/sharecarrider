@@ -20,6 +20,9 @@ public abstract class AddDialog extends JDialog {
 
     }
 
+    /**
+     * common initialization of all ADD dialogs, can be generalized in future and be used for all dialogs
+     */
     private void initialize() {
         JPanel center = new JPanel();
         setLayout(new BorderLayout());
@@ -50,9 +53,22 @@ public abstract class AddDialog extends JDialog {
 
     }
 
+    /**
+     * sets all attributes correct type
+     */
     protected abstract void setAttributes();
 
+    /**
+     * create dialog content that differs in each dialog
+     * @param center JPanel, that will be filled with data
+     */
     protected abstract void loadData(JPanel center);
+
+    /**
+     * set correct ActionListener
+     * TODO - will be bind to ActionListenerProvider
+     * @param create button that need to have ActionListener (Create button)
+     */
     protected abstract void onCreateButton(JButton create);
 
 
