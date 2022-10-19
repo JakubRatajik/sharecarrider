@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.Model.TabCategory;
+import cz.muni.fi.pv168.seminar01.beta.Model.TabCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.SuperTable;
 import cz.muni.fi.pv168.seminar01.beta.UI.Utils.ActionListenerProvider;
 

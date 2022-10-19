@@ -1,7 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.Model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.UI.Model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 import org.jdatepicker.JDatePicker;
 

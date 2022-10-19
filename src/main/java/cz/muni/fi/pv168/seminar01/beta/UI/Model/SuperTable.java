@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Model;
 
+import cz.muni.fi.pv168.seminar01.beta.Model.TabCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.TabFrame;
 import cz.muni.fi.pv168.seminar01.beta.UI.Utils.TableInitializer;
 
