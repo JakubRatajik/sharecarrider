@@ -15,9 +15,14 @@ import java.util.List;
 
 /**
  * @author Jan Macecek
+ * Util class that load ActionListeners to Dialogs, Tabs, ...
  */
 public final class ActionListenerProvider {
-
+    /**
+     * creates list of ActionListeners needed for specific tab
+     * @param category represents type of tab
+     * @return list loaded with four ActionListeners, null if category == STATISTICS
+     */
     public static List<ActionListener> getAddALs(TabCategory category) {
         return switch (category) {
             case RIDES -> getALsForRides();
@@ -27,6 +32,11 @@ public final class ActionListenerProvider {
         };
 
     }
+
+    /**
+     * makes ActionListeners for rides
+     * @return list of rides ActionListeners
+     */
     public static List<ActionListener> getALsForRides() {
         ActionListener plus = new ActionListener() {
             @Override
@@ -63,7 +73,10 @@ public final class ActionListenerProvider {
         return rides;
     }
 
-
+    /**
+     * makes ActionListeners for vehicles
+     * @return list of vehicles ActionListeners
+     */
     public static List<ActionListener> getALsForVehicles() {
         ActionListener plus = new ActionListener() {
             @Override
@@ -100,6 +113,10 @@ public final class ActionListenerProvider {
         return vehicles;
     }
 
+    /**
+     * makes ActionListeners for passengers
+     * @return list of passengers ActionListeners
+     */
     public static List<ActionListener> getALsForPassengers() {
         ActionListener plus = new ActionListener() {
             @Override

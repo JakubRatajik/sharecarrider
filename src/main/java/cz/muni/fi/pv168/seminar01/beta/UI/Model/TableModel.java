@@ -7,6 +7,8 @@ import javax.swing.*;
 
 /**
  * @author Jan Macecek
+ *
+ * TODO - temporary class!!!
  */
 public class TableModel {
     private JTable table;
