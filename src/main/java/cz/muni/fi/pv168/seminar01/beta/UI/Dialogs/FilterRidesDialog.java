@@ -6,86 +6,62 @@ import org.jdatepicker.JDatePicker;
 import javax.swing.*;
 import java.awt.*;
 
-public class FilterRidesDialog extends JDialog {
-    int categoriesCount = 0;
+public class FilterRidesDialog extends FilterDialog {
+    private JCheckBox dateFilter;
+    private JCheckBox distanceFilter;
+    private JDatePicker dateFrom;
+    private JDatePicker dateTo;
+    private JSlider distanceFrom;
+    private JSlider distanceTo;
+    // TODO categories
+    private int categoriesCount = 0; //temporary
 
     public FilterRidesDialog(Frame frame, String name) {
         super(frame, name);
-        initialize();
     }
 
-    private void initialize() {
-        JPanel center = new JPanel();
-        setLayout(new BorderLayout());
-        center.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
-        center.setBackground(UIConstants.WHITE);
+    public void setAttributes() {
+        dateFilter = new JCheckBox(" Datum");
+        distanceFilter = new JCheckBox(" Vzdálenost");
+        dateFrom = new JDatePicker();
+        UIConstants.formatComponentDialog(dateFrom);
+        dateTo = new JDatePicker();
+        UIConstants.formatComponentDialog(dateTo);
+        distanceFrom = new JSlider(JSlider.HORIZONTAL, 0, 500, 0);
+        distanceFrom.setMajorTickSpacing(100);
+        distanceFrom.setMinorTickSpacing(10);
+        distanceFrom.setPaintTicks(true);
+        distanceFrom.setPaintLabels(true);
+        distanceTo = new JSlider(JSlider.HORIZONTAL, 0, 500, 500);
+        distanceTo.setMajorTickSpacing(100);
+        distanceTo.setMinorTickSpacing(10);
+        distanceTo.setPaintTicks(true);
+        distanceTo.setPaintLabels(true);
+    }
 
+    public void initializeContent(JPanel center) {
         center.setLayout(new GridLayout(7 + categoriesCount,2));
         UIConstants.formatWhiteTextBrownDialog(center);
-
         String paragraph = "      ";
-        JLabel empty1 = new JLabel(" ");
-        JLabel empty2 = new JLabel(" ");
-        JCheckBox date = new JCheckBox(" Datum");
-        JLabel dateFrom = new JLabel(paragraph + "•  Od:");
-        JLabel dateTo = new JLabel(paragraph + "•  Do:");
-        JCheckBox distance = new JCheckBox(" Vzdálenost");
-        JLabel distanceFrom = new JLabel(paragraph + "•  Od:");
-        JLabel distanceTo = new JLabel(paragraph + "•  Do:");
-        JLabel categories = new JLabel("  •  Kategorie");
-
-        JDatePicker dateFromPicker = new JDatePicker();
-        UIConstants.formatComponentDialog(dateFromPicker);
-        JDatePicker dateToPicker = new JDatePicker();
-        UIConstants.formatComponentDialog(dateToPicker);
-        JSlider distanceFromSlider = new JSlider(JSlider.HORIZONTAL, 0, 500, 50);
-        distanceFromSlider.setMajorTickSpacing(100);
-        distanceFromSlider.setMinorTickSpacing(10);
-        distanceFromSlider.setPaintTicks(true);
-        distanceFromSlider.setPaintLabels(true);
-        JSlider distanceToSlider = new JSlider(JSlider.HORIZONTAL, 0, 500, 50);
-        distanceToSlider.setMajorTickSpacing(100);
-        distanceToSlider.setMinorTickSpacing(10);
-        distanceToSlider.setPaintTicks(true);
-        distanceToSlider.setPaintLabels(true);
-
-        center.add(date);
-        center.add(empty1);
+        center.add(dateFilter);
+        center.add(new JLabel(" "));
+        center.add(new JLabel(paragraph + "•  Od:"));
         center.add(dateFrom);
-        center.add(dateFromPicker);
+        center.add(new JLabel(paragraph + "•  Do:"));
         center.add(dateTo);
-        center.add(dateToPicker);
-        center.add(distance);
-        center.add(empty2);
+        center.add(distanceFilter);
+        center.add(new JLabel(" "));
+        center.add(new JLabel(paragraph + "•  Od:"));
         center.add(distanceFrom);
-        center.add(distanceFromSlider);
+        center.add(new JLabel(paragraph + "•  Do:"));
         center.add(distanceTo);
-        center.add(distanceToSlider);
-        center.add(categories);
+        center.add(new JLabel("  •  Kategorie"));
         this.add(center);
-
-
-        JPanel bottom = new JPanel();
-        JButton cancel = new JButton("Zrušit");
-        cancel.addActionListener(e -> dispose());
-        JButton ok = new JButton("Ok");
-        UIConstants.formatComponentDialog(cancel);
-        UIConstants.formatComponentDialog(ok);
-        bottom.add(cancel);
-        bottom.add(ok);
-        bottom.setBackground(UIConstants.WHITE);
-
-        add(bottom, BorderLayout.SOUTH);
-        add(center, BorderLayout.CENTER);
-
-        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
-        setResizable(false);
         setSize(550,400);
-        setLocationRelativeTo(null);
-
-        setVisible(true);
-
     }
+
+    public void onOkButton(JButton ok) {
+        //TODO - set filter on ok button
+    }
+
 }

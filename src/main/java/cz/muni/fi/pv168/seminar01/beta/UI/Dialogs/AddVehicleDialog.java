@@ -29,7 +29,7 @@ public class AddVehicleDialog extends AddDialog{
     }
 
     @Override
-    protected void loadData(JPanel center) {
+    protected void initializeContent(JPanel center) {
         center.setLayout(new GridLayout(4,2));
         UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Značka:"));

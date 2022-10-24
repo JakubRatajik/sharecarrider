@@ -47,7 +47,7 @@ public class AddRideDialog extends AddDialog {
         UIConstants.formatComponentDialog(repetition);
     }
 
-    public void loadData(JPanel center) {
+    public void initializeContent(JPanel center) {
         center.setLayout(new GridLayout(8,2));
         UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Datum:"));

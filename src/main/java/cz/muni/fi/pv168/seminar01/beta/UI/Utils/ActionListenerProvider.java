@@ -1,8 +1,11 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Utils;
 
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterPassengersDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterRidesDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterVehiclesDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.TabCategory;
@@ -96,7 +99,7 @@ public final class ActionListenerProvider {
         ActionListener filter = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Filtr");
+                JDialog dial = new FilterVehiclesDialog(MainWindow.getFrame(), "Filtr");
             }
         };
 
@@ -122,7 +125,7 @@ public final class ActionListenerProvider {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddVehicleDialog(MainWindow.getFrame(), "Přidat cestujícího");
+                JDialog dial = new AddPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího");
             }
         };
 
@@ -136,7 +139,7 @@ public final class ActionListenerProvider {
         ActionListener filter = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Filtr");
+                JDialog dial = new FilterPassengersDialog(MainWindow.getFrame(), "Filtr");
             }
         };
 
