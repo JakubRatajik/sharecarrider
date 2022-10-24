@@ -1,7 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.TabCategory;
-import cz.muni.fi.pv168.seminar01.beta.UI.Model.TableModel;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.SuperTable;
 import cz.muni.fi.pv168.seminar01.beta.UI.Utils.ActionListenerProvider;
 
 import javax.swing.*;
@@ -23,7 +23,7 @@ public class TabFrame {
     private TabCategory category;
 
     // By writing tableModel.getTable(), JTable object can be accessed in future
-    private TableModel table;
+    private SuperTable table;
 
     public TabFrame(TabCategory category) {
         this.category = category;
@@ -31,7 +31,7 @@ public class TabFrame {
         main.setBackground(UIConstants.WHITE);
         main.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         tabPanel = new JPanel();
-        table = new TableModel(this.category);
+        table = new SuperTable(this.category);
         initialize();
     }
 

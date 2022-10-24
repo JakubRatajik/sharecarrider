@@ -10,11 +10,11 @@ import javax.swing.*;
  *
  * TODO - temporary class!!!
  */
-public class TableModel {
+public class SuperTable {
     private JTable table;
     private TabCategory category;
 
-    public TableModel(TabCategory category) {
+    public SuperTable(TabCategory category) {
         this.category = category;
     }
 
