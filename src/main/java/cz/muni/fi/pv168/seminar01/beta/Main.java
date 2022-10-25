@@ -1,7 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import cz.muni.fi.pv168.seminar01.beta.Data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 
 import javax.swing.*;
