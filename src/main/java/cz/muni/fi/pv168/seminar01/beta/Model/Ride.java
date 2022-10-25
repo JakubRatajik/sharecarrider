@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class Ride {
@@ -15,15 +16,16 @@ public class Ride {
     private String from;
     private String to;
     private int distance;
-    private Set<String> categories;
+    private Set<Category> categories;
     private List<Passenger> passengers;
     private Vehicle vehicle;
     private Repetition repetition;
+    private final int id;
 
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-    public Ride(LocalDate date, LocalTime time, String from, String to, int distance, Collection<String> categories,
+    public Ride(LocalDate date, LocalTime time, String from, String to, int distance, Collection<Category> categories,
                 List<Passenger> passengers, Vehicle vehicle, Repetition repetition) {
         this.date = date;
         this.time = time;
@@ -34,6 +36,7 @@ public class Ride {
         this.passengers = passengers;
         this.vehicle = vehicle;
         this.repetition = repetition;
+        id = IDGenerator.getNewID();
     }
 
     public String getDate() {
@@ -44,11 +47,11 @@ public class Ride {
         return time.format(timeFormatter);
     }
 
-    public void addCategory(String category) {
+    public void addCategory(Category category) {
         categories.add(category);
     }
 
-    public void removeCategory(String category) {
+    public void removeCategory(Category category) {
         categories.remove(category);
     }
 
@@ -78,11 +81,11 @@ public class Ride {
         this.time = time;
     }
 
-    public Collection<String> getCategories() {
+    public Collection<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
     }
 
-    public void setCategories(Collection<String> categories) {
+    public void setCategories(Collection<Category> categories) {
         this.categories = new HashSet<>(categories);
     }
 
@@ -124,5 +127,38 @@ public class Ride {
 
     public void setRepetition(Repetition repetition) {
         this.repetition = repetition;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Ride{" +
+                "date=" + date +
+                ", time=" + time +
+                ", from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", distance=" + distance +
+                ", categories=" + categories +
+                ", passengers=" + passengers +
+                ", vehicle=" + vehicle +
+                ", repetition=" + repetition +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ride ride = (Ride) o;
+        return id == ride.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

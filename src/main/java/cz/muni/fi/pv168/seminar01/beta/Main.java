@@ -1,6 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import cz.muni.fi.pv168.seminar01.beta.Data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 
 import javax.swing.*;
@@ -16,6 +17,9 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        SampleUsage sampleUsage = new SampleUsage();
+        sampleUsage.generateSampleData();
 
         try {
             UIManager.setLookAndFeel(new FlatIntelliJLaf());

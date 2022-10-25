@@ -1,10 +1,12 @@
 package cz.muni.fi.pv168.seminar01.beta.Data;
 
+import cz.muni.fi.pv168.seminar01.beta.Model.Category;
 import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.Model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -26,8 +28,10 @@ public final class TestDataGenerator {
             List.of("Nováková", "Novotná", "Dvořáková", "Černá", "Procházková", "Šťastná", "Veselá", "Horáková", "Němcová", "Pokorná");
     private static final List<String> phoneNumbers =
             List.of("+420777408524", "+420668745827", "+420584401287", "+421875428554", "+421668547421", "+421542875142");
-    private static final List<Set<String>> categories =
-            List.of(new HashSet<>(), new HashSet<>(List.of("work", "party")), new HashSet<>(List.of("work")), new HashSet<>(List.of("party")));
+    private static final Category category1 = new Category(Color.BLUE, "work");
+    private static final Category category2 = new Category(Color.YELLOW, "party");
+    private static final List<Set<Category>> categories =
+            List.of(new HashSet<>(), new HashSet<>(List.of(category1, category2)), new HashSet<>(List.of(category1)), new HashSet<>(List.of(category2)));
 
     private static final Map<String,Map<String,Integer>> brands = Map.of(
             "VW", Map.of("Arteon", 5, "Touran", 5, "Golf", 5, "Polo", 5),
