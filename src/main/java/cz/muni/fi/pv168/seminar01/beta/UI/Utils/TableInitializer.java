@@ -1,17 +1,13 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Utils;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.RideDetailDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Model.TabCategory;
+import cz.muni.fi.pv168.seminar01.beta.Model.TabCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.TabFrame;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;

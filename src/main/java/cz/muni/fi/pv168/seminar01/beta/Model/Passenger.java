@@ -1,4 +1,4 @@
-package cz.muni.fi.pv168.seminar01.beta.Data;
+package cz.muni.fi.pv168.seminar01.beta.Model;
 
 import java.util.Collection;
 import java.util.HashSet;
