@@ -18,9 +18,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        SampleUsage sampleUsage = new SampleUsage();
-        sampleUsage.generateSampleData();
-
         try {
             UIManager.setLookAndFeel(new FlatIntelliJLaf());
         } catch (UnsupportedLookAndFeelException e) {
