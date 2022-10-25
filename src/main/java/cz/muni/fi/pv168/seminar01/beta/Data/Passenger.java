@@ -4,13 +4,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Passengers {
+public class Passenger {
     public String firstName;
     public String lastName;
     public String phoneNumber;
     public Set<String> categories;
 
-    public Passengers(String firstName, String lastName, String phoneNumber, Collection<String> categories) {
+    public Passenger(String firstName, String lastName, String phoneNumber, Collection<String> categories) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;

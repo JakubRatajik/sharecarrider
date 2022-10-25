@@ -1,12 +1,12 @@
 package cz.muni.fi.pv168.seminar01.beta.Data;
 
-public class Vehicles {
+public class Vehicle {
     public String brand;
     public String type;
     public int capacity;
     public float consumption;
 
-    public Vehicles(String brand, String type, int capacity, float consumption) {
+    public Vehicle(String brand, String type, int capacity, float consumption) {
         this.brand = brand;
         this.type = type;
         this.capacity = capacity;

@@ -1,21 +1,34 @@
 package cz.muni.fi.pv168.seminar01.beta.Data;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Rides {
-    // TODO - date and time
+public class Ride {
+    private LocalDateTime dateTime;
     private String from;
     private String to;
     private int distance;
     private Set<String> categories;
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
+    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-    public Rides(String from, String to, int distance, Collection<String> categories) {
+    public Ride(LocalDateTime dateTime, String from, String to, int distance, Collection<String> categories) {
+        this.dateTime = dateTime;
         this.from = from;
         this.to = to;
         this.distance = distance;
         this.categories = new HashSet<>(categories);
+    }
+
+    public String getDate() {
+        return dateTime.format(dateFormatter);
+    }
+
+    public String getTime() {
+        return dateTime.format(timeFormatter);
     }
 
     public void addCategory(String category) {
@@ -58,5 +71,13 @@ public class Rides {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 }
