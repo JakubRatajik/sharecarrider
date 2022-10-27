@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -68,7 +69,7 @@ public final class TestDataGenerator {
     public Vehicle createVehicle() {
         String brand = selectRandom(brands.keySet().stream().toList());
         String type = selectRandom(brands.get(brand).keySet().stream().toList());
-        Vehicle vehicle = new Vehicle(brand, type, brands.get(brand).get(type), (float) (randomInt(35, 200)) / 10);
+        Vehicle vehicle = new Vehicle(Integer.toString(Objects.hash(brand, type)), brand, type, brands.get(brand).get(type), (float) (randomInt(35, 200)) / 10);
         vehicles.add(vehicle);
         return vehicle;
     }

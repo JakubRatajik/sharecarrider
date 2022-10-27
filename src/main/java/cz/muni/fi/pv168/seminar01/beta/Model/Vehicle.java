@@ -3,13 +3,15 @@ package cz.muni.fi.pv168.seminar01.beta.Model;
 import java.util.Objects;
 
 public class Vehicle {
+    private String licensePlate;
     private String brand;
     private String type;
     private int capacity;
     private float consumption;
     private final int id;
 
-    public Vehicle(String brand, String type, int capacity, float consumption) {
+    public Vehicle(String licensePlate, String brand, String type, int capacity, float consumption) {
+        this.licensePlate = licensePlate;
         this.brand = brand;
         this.type = type;
         this.capacity = capacity;
@@ -58,12 +60,21 @@ public class Vehicle {
     @Override
     public String toString() {
         return "Vehicle{" +
-                "brand='" + brand + '\'' +
+                "licensePlate='" + licensePlate + '\'' +
+                ", brand='" + brand + '\'' +
                 ", type='" + type + '\'' +
                 ", capacity=" + capacity +
                 ", consumption=" + consumption +
                 ", id=" + id +
                 '}';
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
     @Override
