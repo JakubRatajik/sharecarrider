@@ -11,8 +11,8 @@ public class FilterRidesDialog extends FilterDialog {
     private JCheckBox distanceFilter;
     private JDatePicker dateFrom;
     private JDatePicker dateTo;
-    private JSlider distanceFrom;
-    private JSlider distanceTo;
+    private JTextField distanceFrom;
+    private JTextField distanceTo;
     // TODO categories
     private int categoriesCount = 0; //temporary
 
@@ -27,16 +27,8 @@ public class FilterRidesDialog extends FilterDialog {
         UIConstants.formatComponentDialog(dateFrom);
         dateTo = new JDatePicker();
         UIConstants.formatComponentDialog(dateTo);
-        distanceFrom = new JSlider(JSlider.HORIZONTAL, 0, 500, 0);
-        distanceFrom.setMajorTickSpacing(100);
-        distanceFrom.setMinorTickSpacing(10);
-        distanceFrom.setPaintTicks(true);
-        distanceFrom.setPaintLabels(true);
-        distanceTo = new JSlider(JSlider.HORIZONTAL, 0, 500, 500);
-        distanceTo.setMajorTickSpacing(100);
-        distanceTo.setMinorTickSpacing(10);
-        distanceTo.setPaintTicks(true);
-        distanceTo.setPaintLabels(true);
+        distanceFrom = UIConstants.createTextField();
+        distanceTo = UIConstants.createTextField();
     }
 
     public void initializeContent(JPanel center) {
@@ -57,7 +49,7 @@ public class FilterRidesDialog extends FilterDialog {
         center.add(distanceTo);
         center.add(new JLabel("  •  Kategorie"));
         this.add(center);
-        setSize(550,400);
+        setSize(450,350);
     }
 
     public void onOkButton(JButton ok) {

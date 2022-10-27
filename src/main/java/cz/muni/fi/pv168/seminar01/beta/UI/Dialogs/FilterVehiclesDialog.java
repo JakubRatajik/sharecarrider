@@ -9,10 +9,10 @@ import java.awt.*;
 public class FilterVehiclesDialog extends FilterDialog {
     private JCheckBox capacityFilter;
     private JCheckBox consumptionFilter;
-    private JSlider capacityFrom;
-    private JSlider capacityTo;
-    private JSlider consumptionFrom;
-    private JSlider consumptionTo;
+    private JTextField capacityFrom;
+    private JTextField capacityTo;
+    private JTextField consumptionFrom;
+    private JTextField consumptionTo;
     private JComboBox<Integer> brand;
 
     public FilterVehiclesDialog(Frame frame, String name) {
@@ -22,26 +22,10 @@ public class FilterVehiclesDialog extends FilterDialog {
     public void setAttributes() {
         capacityFilter = new JCheckBox("  Kapacita:");
         consumptionFilter = new JCheckBox("  Spotřeba:");
-        capacityFrom = new JSlider(JSlider.HORIZONTAL, 0, 15, 0);
-        capacityFrom.setMajorTickSpacing(3);
-        capacityFrom.setMinorTickSpacing(1);
-        capacityFrom.setPaintTicks(true);
-        capacityFrom.setPaintLabels(true);
-        capacityTo = new JSlider(JSlider.HORIZONTAL, 0, 15, 12);
-        capacityTo.setMajorTickSpacing(3);
-        capacityTo.setMinorTickSpacing(1);
-        capacityTo.setPaintTicks(true);
-        capacityTo.setPaintLabels(true);
-        consumptionFrom = new JSlider(JSlider.HORIZONTAL, 0, 20, 0);
-        consumptionFrom.setMajorTickSpacing(4);
-        consumptionFrom.setMinorTickSpacing(1);
-        consumptionFrom.setPaintTicks(true);
-        consumptionFrom.setPaintLabels(true);
-        consumptionTo = new JSlider(JSlider.HORIZONTAL, 0, 20, 20);
-        consumptionTo.setMajorTickSpacing(4);
-        consumptionTo.setMinorTickSpacing(1);
-        consumptionTo.setPaintTicks(true);
-        consumptionTo.setPaintLabels(true);
+        capacityFrom = UIConstants.createTextField();
+        capacityTo = UIConstants.createTextField();
+        consumptionFrom = UIConstants.createTextField();
+        consumptionTo = UIConstants.createTextField();
         brand = new JComboBox<>();
         UIConstants.formatComponentDialog(brand);
     }
@@ -65,7 +49,7 @@ public class FilterVehiclesDialog extends FilterDialog {
         center.add(new JLabel("  •  Značka"));
         center.add(brand);
         this.add(center);
-        setSize(550, 400);
+        setSize(450, 350);
     }
 
     public void onOkButton(JButton ok) {
