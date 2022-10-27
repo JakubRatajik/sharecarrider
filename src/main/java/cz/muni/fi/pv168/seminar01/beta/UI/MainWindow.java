@@ -3,21 +3,17 @@ package cz.muni.fi.pv168.seminar01.beta.UI;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.RideDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Model.TabCategory;
-import cz.muni.fi.pv168.seminar01.beta.UI.Utils.TableInitializer;
+import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MainWindow {
     private static JFrame frame;
-    private static TabFrame rides;
+    private static TabFrame ridesTabFrame;
     private static TabFrame vehicles;
     private static TabFrame passengers;
 
@@ -80,21 +76,21 @@ public class MainWindow {
     private void addTabBar() {
         UIManager.put( "TabbedPane.borderColor", UIConstants.WHITE );
         JTabbedPane tabs = new JTabbedPane();
-        rides = new TabFrame();
-        TableInitializer.initializeTab(rides, TabCategory.RIDES);
-        rides.getPlus().addActionListener(new ActionListener() {
+        ridesTabFrame = new TabFrame();
+        ShareCarRiderTable ridesTable = new ShareCarRiderTable(ridesTabFrame, TableCategory.RIDES);
+        ridesTabFrame.getPlus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JDialog dial = new AddRideDialog(frame, "Přidat jízdu");
             }
         });
-        rides.getSortBy().addActionListener(new ActionListener() {
+        ridesTabFrame.getSortBy().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JDialog dial = new TemporaryDialog(frame, "Řazení");
             }
         });
-        rides.getFilter().addActionListener(new ActionListener() {
+        ridesTabFrame.getFilter().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JDialog dial = new TemporaryDialog(frame, "Filtr");
@@ -150,7 +146,7 @@ public class MainWindow {
         });
         Statistics statistics = new Statistics();
         tabs.setFont(UIConstants.fTab);
-        tabs.addTab("Jízdy", rides.getMain());
+        tabs.addTab("Jízdy", ridesTabFrame.getMain());
         tabs.addTab("Vozidla", vehicles.getMain());
         tabs.addTab("Cestující", passengers.getMain());
         tabs.addTab("Statistiky", statistics.getMain());
@@ -169,8 +165,8 @@ public class MainWindow {
         return frame;
     }
 
-    public static TabFrame getRides() {
-        return rides;
+    public static TabFrame getRidesTabFrame() {
+        return ridesTabFrame;
     }
 
     public static TabFrame getVehicles() {

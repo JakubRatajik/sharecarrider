@@ -1,4 +1,4 @@
-package cz.muni.fi.pv168.seminar01.beta.UI.Model;
+package cz.muni.fi.pv168.seminar01.beta.Model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
