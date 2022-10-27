@@ -56,8 +56,6 @@ public class MainWindow {
 
     private void addMainBar() {
         MainBar panel = new MainBar();
-
-        frame.add(panel);
         frame.add(panel, BorderLayout.NORTH);
     }
 
@@ -66,7 +64,7 @@ public class MainWindow {
         bar.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         bar.setBackground(UIConstants.LIGHT_BEIGE);
         bar.setForeground(UIConstants.LIGHT_BEIGE);
-        JLabel spacing = new JLabel("Muminci");
+        JLabel spacing = new JLabel("Muminci <3");
         spacing.setFont(new Font("Arial", Font.PLAIN, 22));
         spacing.setForeground(UIConstants.LIGHT_BEIGE);
         bar.add(spacing);
@@ -77,27 +75,6 @@ public class MainWindow {
     private void addTabBar() {
         UIManager.put( "TabbedPane.borderColor", UIConstants.WHITE );
         JTabbedPane tabs = new JTabbedPane();
-        rides = new TabFrame();
-        TableInitializer.initializeTab(rides, TabCategory.RIDES);
-        rides.getPlus().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddRideDialog(frame, "Přidat jízdu");
-            }
-        });
-        rides.getSortBy().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Řazení");
-            }
-        });
-        rides.getFilter().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Filtr");
-            }
-        });
-
         /*rides.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 if (me.getClickCount() == 2) {
@@ -106,45 +83,9 @@ public class MainWindow {
                     RideDetailDialog dialog = new RideDetailDialog()
                     JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
                 }*/
-
-        vehicles = new TabFrame();
-        vehicles.getPlus().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddVehicleDialog(frame, "Přidat vozidlo");
-            }
-        });
-        vehicles.getSortBy().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Řazení");
-            }
-        });
-        vehicles.getFilter().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Filtr");
-            }
-        });
-        passengers = new TabFrame();
-        passengers.getPlus().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddPassengerDialog(frame, "Přidat cestujícího");
-            }
-        });
-        passengers.getSortBy().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Řazení");
-            }
-        });
-        passengers.getFilter().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Filtr");
-            }
-        });
+        rides = new TabFrame(TabCategory.RIDES);
+        vehicles = new TabFrame(TabCategory.VEHICLES);
+        passengers = new TabFrame(TabCategory.PASSENGERS);
         Statistics statistics = new Statistics();
         tabs.setFont(UIConstants.fTab);
         tabs.addTab("Jízdy", rides.getMain());
