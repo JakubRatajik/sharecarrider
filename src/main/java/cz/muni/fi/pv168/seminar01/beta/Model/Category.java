@@ -11,7 +11,7 @@ public class Category {
     public Category(Color color, String name) {
         this.color = color;
         this.name = name;
-        id = IDGenerator.getNewID();
+        id = IDGenerator.getNewID(this.getClass());
     }
 
     public Color getColor() {

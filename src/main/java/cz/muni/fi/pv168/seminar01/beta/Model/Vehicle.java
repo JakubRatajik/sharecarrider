@@ -16,7 +16,7 @@ public class Vehicle {
         this.type = type;
         this.capacity = capacity;
         this.consumption = consumption;
-        id = IDGenerator.getNewID();
+        id = IDGenerator.getNewID(this.getClass());
     }
 
     // getters and setters

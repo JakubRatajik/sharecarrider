@@ -36,7 +36,7 @@ public class Ride {
         this.passengers = passengers;
         this.vehicle = vehicle;
         this.repetition = repetition;
-        id = IDGenerator.getNewID();
+        id = IDGenerator.getNewID(this.getClass());
     }
 
     public String getDate() {

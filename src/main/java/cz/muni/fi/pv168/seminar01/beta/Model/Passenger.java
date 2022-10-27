@@ -20,7 +20,7 @@ public class Passenger {
             throw new IllegalArgumentException("Phone number is not valid!");
         }
         this.categories = new HashSet<>(categories);
-        id = IDGenerator.getNewID();
+        id = IDGenerator.getNewID(this.getClass());
     }
 
     private boolean isPhoneNumberValid() {
