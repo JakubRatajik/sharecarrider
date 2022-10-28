@@ -21,7 +21,8 @@ public class FilterRidesDialog extends FilterDialog {
     }
 
     @Override
-    protected void addAttribute(Object attribute) {}
+    protected void addAttribute(Object attribute) {
+    }
 
     public void setAttributes() {
         dateFilter = new JCheckBox(" Datum");

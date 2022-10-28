@@ -29,7 +29,8 @@ public class AddRideDialog extends AddDialog {
     }
 
     @Override
-    protected void addAttribute(Object attribute) {}
+    protected void addAttribute(Object attribute) {
+    }
 
     protected void setAttributes() {
         this.date = new JDatePicker();
@@ -38,7 +39,7 @@ public class AddRideDialog extends AddDialog {
         this.startDestination = UIConstants.createTextField();
         this.endDestination = UIConstants.createTextField();
         this.distance = UIConstants.createTextField();
-        this.vehicle = new JComboBox<Vehicle>();
+        this.vehicle = new JComboBox<>();
         UIConstants.formatComponentDialog(vehicle);
 
         // This should be for selecting multiple passengers

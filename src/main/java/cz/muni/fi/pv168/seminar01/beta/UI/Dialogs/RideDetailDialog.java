@@ -7,10 +7,7 @@ import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * @author Katerina Vacova
@@ -35,7 +32,7 @@ public class RideDetailDialog extends DetailDialog {
         UIConstants.formatWhiteTextBrownDialog(center);
 
         JPanel nonChangeable = new JPanel();
-        nonChangeable.setLayout(new GridLayout(7,2));
+        nonChangeable.setLayout(new GridLayout(7, 2));
         UIConstants.formatWhiteTextBrownDialog(nonChangeable);
         nonChangeable.add(new JLabel("•  Datum:"));
         nonChangeable.add(new JLabel(ride.getDate()));
@@ -93,7 +90,6 @@ public class RideDetailDialog extends DetailDialog {
         add(center, BorderLayout.CENTER);
         setSize(330, height);
     }
-
 
 
     @Override
