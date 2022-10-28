@@ -4,48 +4,55 @@ import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class AddPassengerDialog extends JDialog {
+public class AddPassengerDialog extends AddDialog {
+
+    private JTextField name;
+    private JTextField surname;
+    private JTextField phoneNumber;
+    private JComboBox<Integer> category;
 
     public AddPassengerDialog(Frame frame, String name) {
         super(frame, name);
-        initialize();
 
     }
 
-    private void initialize() {
-        JPanel center = new JPanel();
-        setLayout(new BorderLayout());
-        center.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
+
+    @Override
+    protected void setAttributes() {
+        this.name = UIConstants.createTextField();
+        this.surname = UIConstants.createTextField();
+        this.phoneNumber = UIConstants.createTextField();
+        this.category = new JComboBox<Integer>();
+        UIConstants.formatComponentDialog(category);
+    }
+
+    @Override
+    protected void initializeContent(JPanel center) {
         center.setLayout(new GridLayout(4,2));
         UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Jméno:"));
-        center.add(UIConstants.createTextField());
+        center.add(this.name);
         center.add(new JLabel("•  Příjmení:"));
-        center.add(UIConstants.createTextField());
+        center.add(this.surname);
         center.add(new JLabel("•  Telefon:"));
-        center.add(UIConstants.createTextField());
+        center.add(this.phoneNumber);
         center.add(new JLabel("•  Kategorie:"));
-        JComboBox<Integer> categories = new JComboBox<Integer>();
-        UIConstants.formatComponentDialog(categories);
-        center.add(categories);
-        JPanel bottom = new JPanel();
-        JButton create = new JButton("Vytvořit");
-        UIConstants.formatComponentDialog(create);
-        bottom.add(create);
-        bottom.setBackground(UIConstants.WHITE);
-
-        add(bottom, BorderLayout.SOUTH);
-        add(center, BorderLayout.CENTER);
-
-        setModalityType(ModalityType.APPLICATION_MODAL);
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
-        setResizable(false);
+        center.add(this.category);
         setSize(330,220);
-        setLocationRelativeTo(null);
-        setVisible(true);
+    }
 
+    @Override
+    protected void onCreateButton(JButton create) {
+        create.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO - there need to be save action, but is not implemented yet
+                dispose();
+            }
+        });
     }
 
 

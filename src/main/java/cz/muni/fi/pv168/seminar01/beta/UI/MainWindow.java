@@ -14,8 +14,8 @@ import java.awt.event.ActionListener;
 public class MainWindow {
     private static JFrame frame;
     private static TabFrame ridesTabFrame;
-    private static TabFrame vehicles;
-    private static TabFrame passengers;
+    private static TabFrame vehiclesTabFrame;
+    private static TabFrame passengersTabFrame;
 
     private static JPanel topPanel;
     public MainWindow() {
@@ -55,8 +55,6 @@ public class MainWindow {
 
     private void addMainBar() {
         MainBar panel = new MainBar();
-
-        frame.add(panel);
         frame.add(panel, BorderLayout.NORTH);
     }
 
@@ -65,7 +63,7 @@ public class MainWindow {
         bar.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         bar.setBackground(UIConstants.LIGHT_BEIGE);
         bar.setForeground(UIConstants.LIGHT_BEIGE);
-        JLabel spacing = new JLabel("Muminci");
+        JLabel spacing = new JLabel("Muminci <3");
         spacing.setFont(new Font("Arial", Font.PLAIN, 22));
         spacing.setForeground(UIConstants.LIGHT_BEIGE);
         bar.add(spacing);
@@ -97,7 +95,7 @@ public class MainWindow {
             }
         });
 
-        /*rides.addMouseListener(new MouseAdapter() {
+        /*ridesTabFrame.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 if (me.getClickCount() == 2) {
                     JTable target = (JTable)me.getSource();
@@ -105,50 +103,14 @@ public class MainWindow {
                     RideDetailDialog dialog = new RideDetailDialog()
                     JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
                 }*/
-
-        vehicles = new TabFrame();
-        vehicles.getPlus().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddVehicleDialog(frame, "Přidat vozidlo");
-            }
-        });
-        vehicles.getSortBy().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Řazení");
-            }
-        });
-        vehicles.getFilter().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Filtr");
-            }
-        });
-        passengers = new TabFrame();
-        passengers.getPlus().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddPassengerDialog(frame, "Přidat cestujícího");
-            }
-        });
-        passengers.getSortBy().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Řazení");
-            }
-        });
-        passengers.getFilter().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Filtr");
-            }
-        });
+        ridesTabFrame = new TabFrame(TabCategory.RIDES);
+        vehiclesTabFrame = new TabFrame(TabCategory.VEHICLES);
+        passengersTabFrame = new TabFrame(TabCategory.PASSENGERS);
         Statistics statistics = new Statistics();
         tabs.setFont(UIConstants.fTab);
         tabs.addTab("Jízdy", ridesTabFrame.getMain());
-        tabs.addTab("Vozidla", vehicles.getMain());
-        tabs.addTab("Cestující", passengers.getMain());
+        tabs.addTab("Vozidla", vehiclesTabFrame.getMain());
+        tabs.addTab("Cestující", passengersTabFrame.getMain());
         tabs.addTab("Statistiky", statistics.getMain());
         tabs.setBackground(UIConstants.WHITE);
 
@@ -170,10 +132,10 @@ public class MainWindow {
     }
 
     public static TabFrame getVehicles() {
-        return vehicles;
+        return vehiclesTabFrame;
     }
 
     public static TabFrame getPassengers() {
-        return passengers;
+        return passengersTabFrame;
     }
 }
