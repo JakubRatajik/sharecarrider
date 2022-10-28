@@ -1,15 +1,17 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Model;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Jakub Ratajik
  */
-public abstract class ShareCarRiderTableModel extends AbstractTableModel {
-    protected final Object[] data;
+public abstract class ShareCarRiderTableModel<T> extends AbstractTableModel {
+    protected final List<T> data;
     private final String[] columnNames;
 
-    public ShareCarRiderTableModel(String[] columnNames, Object[] data) {
+    public ShareCarRiderTableModel(String[] columnNames, List<T> data) {
         this.columnNames = columnNames;
         this.data = data;
     }
@@ -26,7 +28,7 @@ public abstract class ShareCarRiderTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return data.length;
+        return data.size();
     }
 
     @Override
@@ -34,5 +36,27 @@ public abstract class ShareCarRiderTableModel extends AbstractTableModel {
         return columnNames.length;
     }
 
-    public abstract Object getEntity(int modelRow);
+    public T getEntity(int modelRow) {
+        return data.get(modelRow);
+    }
+
+    public List<?> getData() {
+        return Collections.unmodifiableList(data);
+    }
+
+    public void deleteRow(int rowIndex) {
+        data.remove(rowIndex);
+        fireTableRowsDeleted(rowIndex, rowIndex);
+    }
+
+    public void addRow(T object) {
+        int newRowIndex = data.size();
+        data.add(object);
+        fireTableRowsInserted(newRowIndex, newRowIndex);
+    }
+
+    public void updateRow(T employee) {
+        int rowIndex = data.indexOf(employee);
+        fireTableRowsUpdated(rowIndex, rowIndex);
+    }
 }
