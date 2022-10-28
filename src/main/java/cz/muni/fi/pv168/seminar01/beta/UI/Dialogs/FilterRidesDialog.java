@@ -14,7 +14,7 @@ public class FilterRidesDialog extends FilterDialog {
     private JTextField distanceFrom;
     private JTextField distanceTo;
     // TODO categories
-    private int categoriesCount = 0; //temporary
+    private final int categoriesCount = 0; //temporary
 
     public FilterRidesDialog(Frame frame, String name) {
         super(frame, name);
@@ -32,7 +32,7 @@ public class FilterRidesDialog extends FilterDialog {
     }
 
     public void initializeContent(JPanel center) {
-        center.setLayout(new GridLayout(7 + categoriesCount,2));
+        center.setLayout(new GridLayout(7 + categoriesCount, 2));
         UIConstants.formatWhiteTextBrownDialog(center);
         String paragraph = "      ";
         center.add(dateFilter);
@@ -49,7 +49,7 @@ public class FilterRidesDialog extends FilterDialog {
         center.add(distanceTo);
         center.add(new JLabel("  •  Kategorie"));
         this.add(center);
-        setSize(450,350);
+        setSize(450, 350);
     }
 
     public void onOkButton(JButton ok) {

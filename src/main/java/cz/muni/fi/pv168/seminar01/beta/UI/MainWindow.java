@@ -1,15 +1,9 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainWindow {
     private static JFrame frame;
@@ -18,8 +12,25 @@ public class MainWindow {
     private static TabFrame passengersTabFrame;
 
     private static JPanel topPanel;
+
     public MainWindow() {
         initialize();
+    }
+
+    public static JFrame getFrame() {
+        return frame;
+    }
+
+    public static TabFrame getRidesTabFrame() {
+        return ridesTabFrame;
+    }
+
+    public static TabFrame getVehiclesTabFrame() {
+        return vehiclesTabFrame;
+    }
+
+    public static TabFrame getPassengersTabFrame() {
+        return passengersTabFrame;
     }
 
     private void initialize() {
@@ -46,7 +57,7 @@ public class MainWindow {
 
         frame.pack();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
 
 
         frame.setVisible(true);
@@ -72,30 +83,9 @@ public class MainWindow {
     }
 
     private void addTabBar() {
-        UIManager.put( "TabbedPane.borderColor", UIConstants.WHITE );
+        UIManager.put("TabbedPane.borderColor", UIConstants.WHITE);
         JTabbedPane tabs = new JTabbedPane();
-        ridesTabFrame = new TabFrame();
-        ShareCarRiderTable ridesTable = new ShareCarRiderTable(ridesTabFrame, TableCategory.RIDES);
-        ridesTabFrame.getPlus().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddRideDialog(frame, "Přidat jízdu");
-            }
-        });
-        ridesTabFrame.getSortBy().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Řazení");
-            }
-        });
-        ridesTabFrame.getFilter().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(frame, "Filtr");
-            }
-        });
-
-        /*ridesTabFrame.addMouseListener(new MouseAdapter() {
+        /*rides.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 if (me.getClickCount() == 2) {
                     JTable target = (JTable)me.getSource();
@@ -103,14 +93,14 @@ public class MainWindow {
                     RideDetailDialog dialog = new RideDetailDialog()
                     JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
                 }*/
-        ridesTabFrame = new TabFrame(TabCategory.RIDES);
-        vehiclesTabFrame = new TabFrame(TabCategory.VEHICLES);
-        passengersTabFrame = new TabFrame(TabCategory.PASSENGERS);
+        ridesTabFrame = new TabFrame(TableCategory.RIDES);
+        vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES);
+        passengersTabFrame = new TabFrame(TableCategory.PASSENGERS);
         Statistics statistics = new Statistics();
         tabs.setFont(UIConstants.fTab);
-        tabs.addTab("Jízdy", ridesTabFrame.getMain());
-        tabs.addTab("Vozidla", vehiclesTabFrame.getMain());
-        tabs.addTab("Cestující", passengersTabFrame.getMain());
+        tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());
+        tabs.addTab("Vozidla", vehiclesTabFrame.getMainPanel());
+        tabs.addTab("Cestující", passengersTabFrame.getMainPanel());
         tabs.addTab("Statistiky", statistics.getMain());
         tabs.setBackground(UIConstants.WHITE);
 
@@ -121,21 +111,5 @@ public class MainWindow {
 
         topPanel.add(tabs, BorderLayout.CENTER);
         frame.add(topPanel);
-    }
-
-    public static JFrame getFrame() {
-        return frame;
-    }
-
-    public static TabFrame getRidesTabFrame() {
-        return ridesTabFrame;
-    }
-
-    public static TabFrame getVehicles() {
-        return vehiclesTabFrame;
-    }
-
-    public static TabFrame getPassengers() {
-        return passengersTabFrame;
     }
 }

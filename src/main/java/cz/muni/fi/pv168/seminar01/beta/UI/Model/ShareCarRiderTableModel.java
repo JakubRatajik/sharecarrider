@@ -1,8 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Model;
 
 import javax.swing.table.AbstractTableModel;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 /**
  * @author Jakub Ratajik
@@ -11,7 +9,7 @@ public abstract class ShareCarRiderTableModel extends AbstractTableModel {
     private final Object[][] data;
     private final String[] columnNames;
 
-    public ShareCarRiderTableModel(String[] columnNames, Object[][] data){
+    public ShareCarRiderTableModel(String[] columnNames, Object[][] data) {
         this.columnNames = columnNames;
         this.data = data;
     }

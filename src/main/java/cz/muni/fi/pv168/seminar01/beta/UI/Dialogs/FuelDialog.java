@@ -25,7 +25,7 @@ public class FuelDialog extends DialogBase {
 
     public void initializeCenter(JPanel center) {
         setAttributes();
-        center.setLayout(new GridLayout(5,2));
+        center.setLayout(new GridLayout(5, 2));
         UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Nafta (litr)"));
         center.add(nafta);
@@ -38,7 +38,7 @@ public class FuelDialog extends DialogBase {
         center.add(new JLabel("•  Elektřina (kWh)"));
         center.add(elektro);
         this.add(center);
-        setSize(330,220);
+        setSize(330, 220);
     }
 
     public void setAttributes() {

@@ -5,7 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 import javax.swing.*;
 import java.awt.*;
 
-public class FilterPassengersDialog extends FilterDialog{
+public class FilterPassengersDialog extends FilterDialog {
     private JCheckBox work;
     private JCheckBox family;
     private JCheckBox friends;

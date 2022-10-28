@@ -48,7 +48,7 @@ public class AddRideDialog extends AddDialog {
     }
 
     public void initializeContent(JPanel center) {
-        center.setLayout(new GridLayout(8,2));
+        center.setLayout(new GridLayout(8, 2));
         UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Datum:"));
         center.add(this.date);
@@ -66,7 +66,7 @@ public class AddRideDialog extends AddDialog {
         center.add(this.passengers);
         center.add(new JLabel("•  Opakování:"));
         center.add(this.repetition);
-        setSize(330,350);
+        setSize(330, 350);
     }
 
 

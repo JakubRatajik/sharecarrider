@@ -34,6 +34,7 @@ public abstract class AddDialog extends DialogBase {
 
     /**
      * create dialog content that differs in each dialog
+     *
      * @param center JPanel, that will be filled with data
      */
     protected abstract void initializeContent(JPanel center);
@@ -41,6 +42,7 @@ public abstract class AddDialog extends DialogBase {
     /**
      * set correct ActionListener
      * TODO - will be bind to ActionListenerProvider
+     *
      * @param create button that need to have ActionListener (Create button)
      */
     protected abstract void onCreateButton(JButton create);

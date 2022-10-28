@@ -34,14 +34,14 @@ public final class TestDataGenerator {
     private static final List<Set<Category>> categories =
             List.of(new HashSet<>(), new HashSet<>(List.of(category1, category2)), new HashSet<>(List.of(category1)), new HashSet<>(List.of(category2)));
 
-    private static final Map<String,Map<String,Integer>> brands = Map.of(
+    private static final Map<String, Map<String, Integer>> brands = Map.of(
             "VW", Map.of("Arteon", 5, "Touran", 5, "Golf", 5, "Polo", 5),
             "Audi", Map.of("A6", 5, "A7", 5, "Q5", 5, "R8", 2),
             "Škoda", Map.of("Kodiaq", 5, "Karoq", 5, "Eniaq", 5, "Superb", 5, "Octavia", 5),
             "BMW", Map.of("M5", 5, "M6", 4, "X5", 5, "R 18", 2),
             "Ferrari", Map.of("F8", 2, "458 Italia", 2),
             "Zetor", Map.of("Crystal", 1, "Proxima", 1)
-            );
+    );
 
     private static final List<String> destinations =
             List.of("Supíkovice", "Vranov nad Topľou", "Kino Scala", "Skybar", "Brno", "Bratislava", "Vídeň", "*tajné*");
@@ -57,7 +57,7 @@ public final class TestDataGenerator {
         Passenger passenger;
         if (gender == 'f') {
             passenger = new Passenger(selectRandom(femaleNames), selectRandom(femaleSurnames),
-                                                selectRandom(phoneNumbers), selectRandom(categories));
+                    selectRandom(phoneNumbers), selectRandom(categories));
         } else {
             passenger = new Passenger(selectRandom(maleNames), selectRandom(maleSurnames),
                     selectRandom(phoneNumbers), selectRandom(categories));
@@ -76,7 +76,7 @@ public final class TestDataGenerator {
 
     public Ride createRide() {
         LocalDate date = LocalDate.now().minusDays(random.nextInt(366));
-        LocalTime time = LocalTime.of(0,0,0).plusHours(random.nextInt(24)).plusMinutes(random.nextInt(60));
+        LocalTime time = LocalTime.of(0, 0, 0).plusHours(random.nextInt(24)).plusMinutes(random.nextInt(60));
         String from = selectRandom(destinations);
         String to = selectRandom(destinations.stream().filter(dest -> !from.equals(dest)).toList());
         Vehicle vehicle;

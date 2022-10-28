@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Utils;
 
-import cz.muni.fi.pv168.seminar01.beta.Model.TabCategory;
+import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
@@ -9,7 +9,6 @@ import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterRidesDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterVehiclesDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
-import cz.muni.fi.pv168.seminar01.beta.UI.TabFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,10 +23,11 @@ import java.util.List;
 public final class ActionListenerProvider {
     /**
      * creates list of ActionListeners needed for specific tab
+     *
      * @param category represents type of tab
      * @return list loaded with four ActionListeners, null if category == STATISTICS
      */
-    public static List<ActionListener> getAddALs(TabCategory category) {
+    public static List<ActionListener> getAddALs(TableCategory category) {
         return switch (category) {
             case RIDES -> getALsForRides();
             case VEHICLES -> getALsForVehicles();
@@ -39,6 +39,7 @@ public final class ActionListenerProvider {
 
     /**
      * makes ActionListeners for rides
+     *
      * @return list of rides ActionListeners
      */
     public static List<ActionListener> getALsForRides() {
@@ -66,8 +67,8 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Vybrat");
-                }
+                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Vybrat");
+            }
         };
         List<ActionListener> rides = new ArrayList<>();
         rides.add(plus);
@@ -79,6 +80,7 @@ public final class ActionListenerProvider {
 
     /**
      * makes ActionListeners for vehicles
+     *
      * @return list of vehicles ActionListeners
      */
     public static List<ActionListener> getALsForVehicles() {
@@ -119,6 +121,7 @@ public final class ActionListenerProvider {
 
     /**
      * makes ActionListeners for passengers
+     *
      * @return list of passengers ActionListeners
      */
     public static List<ActionListener> getALsForPassengers() {

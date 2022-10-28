@@ -1,27 +1,27 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Model;
 
-import cz.muni.fi.pv168.seminar01.beta.Model.TabCategory;
+import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.UI.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.UI.TabFrame;
-import cz.muni.fi.pv168.seminar01.beta.UI.Utils.TableInitializer;
 
 import javax.swing.*;
 
 /**
  * @author Jan Macecek
- *
+ * <p>
  * TODO - temporary class!!!
  */
 public class SuperTable {
     private JTable table;
-    private TabCategory category;
+    private final TableCategory category;
 
-    public SuperTable(TabCategory category) {
+    public SuperTable(TableCategory category) {
         this.category = category;
     }
 
     // TODO - KUBIK, it would be great, if you can load actual JTable object to table variable
     public void initializeFrame(TabFrame frame) {
-        TableInitializer.initializeTab(frame, category);
+        new ShareCarRiderTable(category);
     }
 
     public JTable getTable() {
