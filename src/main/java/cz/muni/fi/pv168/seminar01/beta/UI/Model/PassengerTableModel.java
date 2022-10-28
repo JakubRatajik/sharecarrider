@@ -48,7 +48,8 @@ public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
             case 0 -> passenger.setFirstName((String) attribute);
             case 1 -> passenger.setLastName((String) attribute);
             case 2 -> passenger.setPhoneNumber((String) attribute);
-            case 3 -> passenger.setCategories((Set<PassengerCategory>) attribute);
+            case 3 ->
+                    passenger.setCategories((Set<PassengerCategory>) attribute);
         }
     }
 }

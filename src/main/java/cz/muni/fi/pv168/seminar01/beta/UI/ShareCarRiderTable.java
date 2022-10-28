@@ -23,7 +23,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 /**
  * @author Jakub Ratajik
@@ -291,11 +290,14 @@ public class ShareCarRiderTable extends JTable {
                 ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) table.getModel();
                 int modelRow = table.convertRowIndexToModel(row);
                 var entity = tableModel.getEntity(modelRow);
-                switch(tableCategory) {
-                case VEHICLES -> new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla",(Vehicle) entity);
-                case PASSENGERS -> new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího", (Passenger) entity);
-                case RIDES -> new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", (Ride) entity);
-            }
+                switch (tableCategory) {
+                    case VEHICLES ->
+                            new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla", (Vehicle) entity);
+                    case PASSENGERS ->
+                            new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího", (Passenger) entity);
+                    case RIDES ->
+                            new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", (Ride) entity);
+                }
             }
         });
     }

@@ -1,7 +1,5 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.UI.Model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;

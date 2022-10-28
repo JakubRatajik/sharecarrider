@@ -40,7 +40,7 @@ public abstract class ShareCarRiderTableModel<T> extends AbstractTableModel {
         return data.get(modelRow);
     }
 
-    public List<?> getData() {
+    public List<T> getData() {
         return Collections.unmodifiableList(data);
     }
 

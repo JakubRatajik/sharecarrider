@@ -6,7 +6,7 @@ import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 import javax.swing.*;
 import java.awt.*;
 
-public class PassengerDetailDialog extends DetailDialog{
+public class PassengerDetailDialog extends DetailDialog {
     Passenger passenger;
 
     public PassengerDetailDialog(Frame frame, String name, Passenger passenger) {
