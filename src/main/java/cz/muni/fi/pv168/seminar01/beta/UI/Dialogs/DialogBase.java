@@ -40,11 +40,11 @@ public abstract class DialogBase extends JDialog {
     protected abstract void initializeCenter(JPanel center);
 
 
-    public ShareCarRiderTableModel getTableModel(TableCategory tableCategory) {
+    public static ShareCarRiderTableModel<?> getTableModel(TableCategory tableCategory) {
         return switch (tableCategory) {
-            case PASSENGERS -> (ShareCarRiderTableModel) MainWindow.getPassengersTabFrame().getTable().getModel();
-            case RIDES -> (ShareCarRiderTableModel) MainWindow.getRidesTabFrame().getTable().getModel();
-            case VEHICLES -> (ShareCarRiderTableModel) MainWindow.getVehiclesTabFrame().getTable().getModel();
+            case PASSENGERS -> (ShareCarRiderTableModel<?>) MainWindow.getPassengersTabFrame().getTable().getModel();
+            case RIDES -> (ShareCarRiderTableModel<?>) MainWindow.getRidesTabFrame().getTable().getModel();
+            case VEHICLES -> (ShareCarRiderTableModel<?>) MainWindow.getVehiclesTabFrame().getTable().getModel();
         };
     }
 }
