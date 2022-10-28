@@ -21,6 +21,11 @@ public class AddVehicleDialog extends AddDialog {
     }
 
     @Override
+    protected void addAttribute(Object attribute) {
+
+    }
+
+    @Override
     protected void setAttributes() {
         this.brand = UIConstants.createTextField();
         this.model = UIConstants.createTextField();

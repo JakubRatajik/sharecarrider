@@ -1,8 +1,13 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
+import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.PassengerDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.RideDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.VehicleDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.ShareCarRiderTableModel;
@@ -130,7 +135,7 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var ride = tableModel.getEntity(modelRow);
 
-                new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy");
+                new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", (Ride) ride);
             }
         });
 
@@ -285,13 +290,11 @@ public class ShareCarRiderTable extends JTable {
                 ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) table.getModel();
                 int modelRow = table.convertRowIndexToModel(row);
                 var entity = tableModel.getEntity(modelRow);
-
-                new TemporaryDialog(MainWindow.getFrame(), "Detail jízdy/cestujícího/vozidla");
-//            switch(tableCategory) {
-//                case VEHICLES -> new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla", entity);
-//                case PASSENGERS -> new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího", entity);
-//                case RIDES -> new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", entity);
-//            }
+                switch(tableCategory) {
+                case VEHICLES -> new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla",(Vehicle) entity);
+                case PASSENGERS -> new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího", (Passenger) entity);
+                case RIDES -> new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", (Ride) entity);
+            }
             }
         });
     }

@@ -22,6 +22,7 @@ public abstract class FilterDialog extends DialogBase {
         bottom.add(ok);
     }
 
+    @Override
     public void initializeCenter(JPanel center) {
         setAttributes();
         initializeContent(center);

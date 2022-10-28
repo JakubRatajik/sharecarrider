@@ -149,6 +149,10 @@ public class Ride {
                 '}';
     }
 
+    public double countPrice() {
+        return ((double) distance / 100) * vehicle.getConsumption() * FuelPrice.getFuelPrice(vehicle.getFuelType());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

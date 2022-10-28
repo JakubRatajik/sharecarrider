@@ -9,13 +9,15 @@ public class Vehicle {
     private String type;
     private int capacity;
     private float consumption;
+    private final FuelType fuelType;
 
-    public Vehicle(String licensePlate, String brand, String type, int capacity, float consumption) {
+    public Vehicle(String licensePlate, String brand, String type, int capacity, float consumption, FuelType fuelType) {
         this.licensePlate = licensePlate;
         this.brand = brand;
         this.type = type;
         this.capacity = capacity;
         this.consumption = consumption;
+        this.fuelType = fuelType;
         id = IDGenerator.getNewID(this.getClass());
     }
 
@@ -88,5 +90,19 @@ public class Vehicle {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public FuelType getFuelType() {
+        return fuelType;
+    }
+
+    public String getCapacityString() {
+        String result = String.valueOf(capacity);
+        switch (capacity) {
+            case 1 -> result += " člověk";
+            case 2, 3, 4 -> result += " lidi";
+            default -> result += " lidí";
+        }
+        return result;
     }
 }

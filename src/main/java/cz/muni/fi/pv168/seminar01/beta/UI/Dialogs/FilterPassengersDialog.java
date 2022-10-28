@@ -15,6 +15,11 @@ public class FilterPassengersDialog extends FilterDialog {
         super(frame, name);
     }
 
+    @Override
+    protected void addAttribute(Object attribute) {
+
+    }
+
     public void setAttributes() {
         work = new JCheckBox("  Práce");
         family = new JCheckBox("  Rodina");

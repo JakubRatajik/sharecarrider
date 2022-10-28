@@ -1,13 +1,17 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Utils;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.Data.TestDataGenerator;
+import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterPassengersDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterRidesDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterVehiclesDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.RideDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.VehicleDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 
 import javax.swing.*;

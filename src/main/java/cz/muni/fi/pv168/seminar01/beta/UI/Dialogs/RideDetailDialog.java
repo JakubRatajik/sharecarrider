@@ -1,69 +1,103 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.Model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Katerina Vacova
  */
 
-public class RideDetailDialog extends JDialog {
+public class RideDetailDialog extends DetailDialog {
+    private Ride ride;
 
-    public RideDetailDialog(Frame frame, String name) {
-        super(frame, name);
-        initialize();
+    public RideDetailDialog(Frame frame, String name, Ride ride) {
+        super(frame, name, ride);
     }
 
-    private void initialize() {
-        JPanel center = new JPanel();
-        setLayout(new BorderLayout());
-        center.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
-        center.setLayout(new GridLayout(8, 2));
+
+    @Override
+    public void onEditButton(JButton edit) {
+
+    }
+
+    @Override
+    public void initializeCenter(JPanel center) {
+        center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         UIConstants.formatWhiteTextBrownDialog(center);
-        center.add(new JLabel("•  Datum:"));
-        center.add(new JLabel("•  Čas:"));
-        center.add(new JLabel("•  Začátek:"));
-        center.add(new JLabel("•  Cíl:"));
-        center.add(new JLabel("•  Vzdálenost:"));
-        center.add(new JLabel("•  Vozidlo:"));
-        center.add(new JLabel("•  Cestující:"));
-        center.add(new JLabel("•  Kategorie:"));
-        center.add(new JLabel("•  Cena:"));
+
+        JPanel nonChangeable = new JPanel();
+        nonChangeable.setLayout(new GridLayout(7,2));
+        UIConstants.formatWhiteTextBrownDialog(nonChangeable);
+        nonChangeable.add(new JLabel("•  Datum:"));
+        nonChangeable.add(new JLabel(ride.getDate()));
+        nonChangeable.add(new JLabel("•  Čas:"));
+        nonChangeable.add(new JLabel(ride.getTime()));
+        nonChangeable.add(new JLabel("•  Začátek:"));
+        nonChangeable.add(new JLabel(ride.getFrom()));
+        nonChangeable.add(new JLabel("•  Cíl:"));
+        nonChangeable.add(new JLabel(ride.getTo()));
+        nonChangeable.add(new JLabel("•  Vzdálenost:"));
+        nonChangeable.add(new JLabel(ride.getDistance() + " km"));
+        nonChangeable.add(new JLabel("•  Vozidlo:"));
+        nonChangeable.add(new JLabel(ride.getVehicle().getBrand() + " " + ride.getVehicle().getType()));
+        nonChangeable.add(new JLabel("•  Cena:"));
+        nonChangeable.add(new JLabel(String.format("%.5g%n", ride.countPrice()) + " Kč"));
+        center.add(nonChangeable);
+        int height = 260;
+
+        String empty = "";
+        JPanel passengers = new JPanel();
+        int passengersCount = ride.getPassengers().size();
+        List<Passenger> passengerList = null;
+        passengers.setLayout(new GridLayout(passengersCount, 2));
+        UIConstants.formatWhiteTextBrownDialog(passengers);
+        if (passengersCount != 0) {
+            height += 10;
+            passengers.add(new JLabel("•  Cestující:"));
+            passengerList = ride.getPassengers();
+            passengers.add(new JLabel(passengerList.get(0).getFirstName() + " " + passengerList.get(0).getLastName()));
+        }
+        for (int i = 1; i < passengersCount; i++) {
+            height += 10;
+            passengers.add(new JLabel(empty));
+            passengers.add(new JLabel(passengerList.get(i).getFirstName() + " " + passengerList.get(i).getLastName()));
+        }
+        center.add(passengers);
+
+        JPanel categories = new JPanel();
+        int categoriesCount = ride.getCategories().size();
+        List<RideCategory> categoryList = null;
+        categories.setLayout(new GridLayout(categoriesCount, 2));
+        UIConstants.formatWhiteTextBrownDialog(categories);
+        if (categoriesCount != 0) {
+            height += 10;
+            categories.add(new JLabel("•  Kategorie:"));
+            categoryList = ride.getCategories().stream().toList();
+            categories.add(new JLabel(categoryList.get(0).getName()));
+        }
+        for (int i = 1; i < categoriesCount; i++) {
+            height += 10;
+            categories.add(new JLabel(empty));
+            categories.add(new JLabel(categoryList.get(i).getName()));
+        }
+        center.add(categories);
         add(center, BorderLayout.CENTER);
+        setSize(330, height);
+    }
 
-        JPanel bottom = new JPanel();
-        JButton edit = new JButton("Upravit");
-        /*
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                xxx
-            }
-        }); */
-        JButton ok = new JButton("Ok");
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
-        UIConstants.formatComponentDialog(edit);
-        UIConstants.formatComponentDialog(ok);
-        bottom.add(edit);
-        bottom.add(ok);
-        bottom.setBackground(UIConstants.WHITE);
-        add(bottom, BorderLayout.SOUTH);
 
-        setModalityType(ModalityType.APPLICATION_MODAL);
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        setResizable(false);
-        setSize(330, 300);
-        setLocationRelativeTo(null);
-        setVisible(true);
+    @Override
+    public void addAttribute(Object attribute) {
+        ride = (Ride) attribute;
     }
 }
