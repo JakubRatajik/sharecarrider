@@ -1,7 +1,9 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 import org.jdatepicker.JDatePicker;
 
@@ -9,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class AddRideDialog extends AddDialog {
 
@@ -39,10 +42,33 @@ public class AddRideDialog extends AddDialog {
         UIConstants.formatComponentDialog(vehicle);
 
         // This should be for selecting multiple passengers
-        JList<Passenger> passengerList = new JList<Passenger>();
+        DefaultListModel<Passenger> l1 = new DefaultListModel<>();
+        List<Passenger> passengers = (List<Passenger>) DialogBase.getTableModel(TableCategory.PASSENGERS).getData();
+        l1.addAll(passengers);
+
+        JList<Passenger> passengerList = new JList<>(l1);
+        passengerList.setCellRenderer(new DefaultListCellRenderer(){
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list,
+                    Object value,
+                    int index,
+                    boolean isSelected,
+                    boolean cellHasFocus) {
+                Component component = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                setText(((Passenger) value).getFullName());
+
+                return component;
+            }
+
+        });
+       // passengerList.getSelectedValuesList()
         UIConstants.formatComponentDialog(passengerList);
         passengerList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        JScrollPane passengersScroll = new JScrollPane();
+        JScrollPane passengersScroll = new JScrollPane(passengerList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        passengersScroll.setPreferredSize(new Dimension(40, 0));
         UIConstants.formatComponentDialog(passengersScroll);
         this.passengers = passengersScroll;
 
@@ -50,8 +76,11 @@ public class AddRideDialog extends AddDialog {
         UIConstants.formatComponentDialog(repetition);
     }
 
-    public void initializeContent(JPanel center) {
-        center.setLayout(new GridLayout(8, 2));
+    public void initializeContent(JPanel central) {
+        central.setLayout(new BoxLayout(central, BoxLayout.Y_AXIS));
+
+        JPanel center = new JPanel();
+        center.setLayout(new GridLayout(7, 2));
         UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Datum:"));
         center.add(this.date);
@@ -65,11 +94,20 @@ public class AddRideDialog extends AddDialog {
         center.add(this.distance);
         center.add(new JLabel("•  Vozidlo:"));
         center.add(this.vehicle);
-        center.add(new JLabel("•  Cestující:"));
-        center.add(this.passengers);
         center.add(new JLabel("•  Opakování:"));
         center.add(this.repetition);
-        setSize(330, 350);
+        central.add(center);
+
+        JPanel passengerPanel = new JPanel();
+        passengerPanel.setLayout(new GridLayout(1, 2));
+        passengerPanel.add(new JLabel("•  Cestující:"));
+        passengerPanel.add(this.passengers);
+        UIConstants.formatWhiteTextBrownDialog((passengerPanel));
+        central.add(passengerPanel);
+        setSize(330, 400);
+        UIConstants.formatWhiteTextBrownDialog(central);
+
+
     }
 
 

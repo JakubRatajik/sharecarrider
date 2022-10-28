@@ -12,7 +12,10 @@ public class AddPassengerDialog extends AddDialog {
     private JTextField name;
     private JTextField surname;
     private JTextField phoneNumber;
-    private JComboBox<Integer> category;
+    private JCheckBox workCategory;
+    private JCheckBox familyCategory;
+    private JCheckBox friendsCategory;
+    private JCheckBox otherCatgory;
 
     public AddPassengerDialog(Frame frame, String name) {
         super(frame, name);
@@ -27,16 +30,18 @@ public class AddPassengerDialog extends AddDialog {
 
     @Override
     protected void setAttributes() {
-        this.name = UIConstants.createTextField();
-        this.surname = UIConstants.createTextField();
-        this.phoneNumber = UIConstants.createTextField();
-        this.category = new JComboBox<Integer>();
-        UIConstants.formatComponentDialog(category);
+        name = UIConstants.createTextField();
+        surname = UIConstants.createTextField();
+        phoneNumber = UIConstants.createTextField();
+        workCategory = new JCheckBox(" Práce");
+        familyCategory = new JCheckBox(" Rodina");
+        friendsCategory = new JCheckBox(" Přátelé");
+        otherCatgory = new JCheckBox(" Jiné");
     }
 
     @Override
     protected void initializeContent(JPanel center) {
-        center.setLayout(new GridLayout(4, 2));
+        center.setLayout(new GridLayout(7, 2));
         UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Jméno:"));
         center.add(this.name);
@@ -45,7 +50,13 @@ public class AddPassengerDialog extends AddDialog {
         center.add(new JLabel("•  Telefon:"));
         center.add(this.phoneNumber);
         center.add(new JLabel("•  Kategorie:"));
-        center.add(this.category);
+        center.add(workCategory);
+        center.add(new JLabel(" "));
+        center.add(familyCategory);
+        center.add(new JLabel(" "));
+        center.add(friendsCategory);
+        center.add(new JLabel(" "));
+        center.add(otherCatgory);
         setSize(330, 220);
     }
 

@@ -61,10 +61,10 @@ public class AddVehicleDialog extends AddDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO - there need to be validation of data inserted
-                Vehicle vehicle = new Vehicle(licensePlate.getText(), brand.getText(), model.getText(), Integer.parseInt(capacity.getText()), Float.parseFloat(consumption.getText()));
+                //Vehicle vehicle = new Vehicle(licensePlate.getText(), brand.getText(), model.getText(), Integer.parseInt(capacity.getText()), Float.parseFloat(consumption.getText()));
 
-                VehicleTableModel tableModel = (VehicleTableModel) DialogBase.getTableModel(TableCategory.VEHICLES);
-                tableModel.addRow(vehicle);
+                //VehicleTableModel tableModel = (VehicleTableModel) DialogBase.getTableModel(TableCategory.VEHICLES);
+                //tableModel.addRow(vehicle);
                 dispose();
             }
         });

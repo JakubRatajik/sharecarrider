@@ -106,4 +106,8 @@ public class Passenger {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }
