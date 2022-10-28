@@ -3,6 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.UI.Model;
 import cz.muni.fi.pv168.seminar01.beta.Data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.Model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
