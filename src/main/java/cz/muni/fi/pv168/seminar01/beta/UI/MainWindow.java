@@ -1,26 +1,36 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
-import cz.muni.fi.pv168.seminar01.beta.Model.TabCategory;
-import cz.muni.fi.pv168.seminar01.beta.UI.Utils.TableInitializer;
+import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainWindow {
     private static JFrame frame;
-    private static TabFrame rides;
-    private static TabFrame vehicles;
-    private static TabFrame passengers;
+    private static TabFrame ridesTabFrame;
+    private static TabFrame vehiclesTabFrame;
+    private static TabFrame passengersTabFrame;
 
     private static JPanel topPanel;
+
     public MainWindow() {
         initialize();
+    }
+
+    public static JFrame getFrame() {
+        return frame;
+    }
+
+    public static TabFrame getRidesTabFrame() {
+        return ridesTabFrame;
+    }
+
+    public static TabFrame getVehiclesTabFrame() {
+        return vehiclesTabFrame;
+    }
+
+    public static TabFrame getPassengersTabFrame() {
+        return passengersTabFrame;
     }
 
     private void initialize() {
@@ -47,7 +57,7 @@ public class MainWindow {
 
         frame.pack();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
 
 
         frame.setVisible(true);
@@ -73,7 +83,7 @@ public class MainWindow {
     }
 
     private void addTabBar() {
-        UIManager.put( "TabbedPane.borderColor", UIConstants.WHITE );
+        UIManager.put("TabbedPane.borderColor", UIConstants.WHITE);
         JTabbedPane tabs = new JTabbedPane();
         /*rides.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
@@ -83,14 +93,14 @@ public class MainWindow {
                     RideDetailDialog dialog = new RideDetailDialog()
                     JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
                 }*/
-        rides = new TabFrame(TabCategory.RIDES);
-        vehicles = new TabFrame(TabCategory.VEHICLES);
-        passengers = new TabFrame(TabCategory.PASSENGERS);
+        ridesTabFrame = new TabFrame(TableCategory.RIDES);
+        vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES);
+        passengersTabFrame = new TabFrame(TableCategory.PASSENGERS);
         Statistics statistics = new Statistics();
         tabs.setFont(UIConstants.fTab);
-        tabs.addTab("Jízdy", rides.getMain());
-        tabs.addTab("Vozidla", vehicles.getMain());
-        tabs.addTab("Cestující", passengers.getMain());
+        tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());
+        tabs.addTab("Vozidla", vehiclesTabFrame.getMainPanel());
+        tabs.addTab("Cestující", passengersTabFrame.getMainPanel());
         tabs.addTab("Statistiky", statistics.getMain());
         tabs.setBackground(UIConstants.WHITE);
 
@@ -101,21 +111,5 @@ public class MainWindow {
 
         topPanel.add(tabs, BorderLayout.CENTER);
         frame.add(topPanel);
-    }
-
-    public static JFrame getFrame() {
-        return frame;
-    }
-
-    public static TabFrame getRides() {
-        return rides;
-    }
-
-    public static TabFrame getVehicles() {
-        return vehicles;
-    }
-
-    public static TabFrame getPassengers() {
-        return passengers;
     }
 }

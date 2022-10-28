@@ -35,7 +35,7 @@ public class ErrorDialog extends JDialog {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         setResizable(false);
-        setSize(300,280);
+        setSize(300, 280);
         setLocationRelativeTo(null);
 
         setVisible(true);

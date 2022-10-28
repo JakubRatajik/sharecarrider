@@ -31,7 +31,7 @@ public class AddPassengerDialog extends AddDialog {
 
     @Override
     protected void initializeContent(JPanel center) {
-        center.setLayout(new GridLayout(4,2));
+        center.setLayout(new GridLayout(4, 2));
         UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Jméno:"));
         center.add(this.name);
@@ -41,7 +41,7 @@ public class AddPassengerDialog extends AddDialog {
         center.add(this.phoneNumber);
         center.add(new JLabel("•  Kategorie:"));
         center.add(this.category);
-        setSize(330,220);
+        setSize(330, 220);
     }
 
     @Override

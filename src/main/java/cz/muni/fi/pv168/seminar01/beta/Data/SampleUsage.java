@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * Class for example of usage of TestDataGenerator.
- *
  */
 public final class SampleUsage {
     private final TestDataGenerator testDataGenerator = new TestDataGenerator();
@@ -23,7 +22,7 @@ public final class SampleUsage {
      * 10 passengers
      * 4 vehicles
      * 35 rides
-     *
+     * <p>
      * It's also an example of how to generate data with testDataGenerator.
      */
     public void generateSampleData() {

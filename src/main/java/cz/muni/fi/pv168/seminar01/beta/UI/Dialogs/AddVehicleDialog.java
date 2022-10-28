@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * @author Jan Macecek
  */
-public class AddVehicleDialog extends AddDialog{
+public class AddVehicleDialog extends AddDialog {
     private JTextField brand;
     private JTextField model;
     private JTextField seats;
@@ -30,7 +30,7 @@ public class AddVehicleDialog extends AddDialog{
 
     @Override
     protected void initializeContent(JPanel center) {
-        center.setLayout(new GridLayout(4,2));
+        center.setLayout(new GridLayout(4, 2));
         UIConstants.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Značka:"));
         center.add(this.brand);
@@ -40,7 +40,7 @@ public class AddVehicleDialog extends AddDialog{
         center.add(this.seats);
         center.add(new JLabel("•  Spotřeba:"));
         center.add(this.consumption);
-        setSize(300,220);
+        setSize(300, 220);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
@@ -31,7 +30,7 @@ public class FilterVehiclesDialog extends FilterDialog {
     }
 
     public void initializeContent(JPanel center) {
-        center.setLayout(new GridLayout(7,2));
+        center.setLayout(new GridLayout(7, 2));
         UIConstants.formatWhiteTextBrownDialog(center);
         String paragraph = "      ";
         center.add(capacityFilter);

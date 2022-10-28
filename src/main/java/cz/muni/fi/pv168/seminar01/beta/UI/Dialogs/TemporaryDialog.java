@@ -45,7 +45,7 @@ public class TemporaryDialog extends JDialog {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         setResizable(false);
-        setSize(330,220);
+        setSize(330, 220);
         setLocationRelativeTo(null);
 
         setVisible(true);

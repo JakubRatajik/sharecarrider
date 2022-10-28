@@ -11,6 +11,9 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Ride {
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
+    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private final int id;
     private LocalDate date;
     private LocalTime time;
     private String from;
@@ -20,10 +23,6 @@ public class Ride {
     private List<Passenger> passengers;
     private Vehicle vehicle;
     private Repetition repetition;
-    private final int id;
-
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
-    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     public Ride(LocalDate date, LocalTime time, String from, String to, int distance, Collection<Category> categories,
                 List<Passenger> passengers, Vehicle vehicle, Repetition repetition) {
@@ -43,8 +42,16 @@ public class Ride {
         return date.format(dateFormatter);
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public String getTime() {
         return time.format(timeFormatter);
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public void addCategory(Category category) {
@@ -55,6 +62,8 @@ public class Ride {
         categories.remove(category);
     }
 
+    // getters and setters
+
     public void addPassenger(Passenger passenger) {
         passengers.add(passenger);
     }
@@ -63,22 +72,12 @@ public class Ride {
         passengers.remove(passenger);
     }
 
-    // getters and setters
-
     public int getDistance() {
         return distance;
     }
 
     public void setDistance(int distance) {
         this.distance = distance;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public void setTime(LocalTime time) {
-        this.time = time;
     }
 
     public Collection<Category> getCategories() {

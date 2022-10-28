@@ -11,7 +11,7 @@ import java.io.File;
 /**
  * @author Kateřina Vácová
  */
-public class ExportDialog extends DialogBase{
+public class ExportDialog extends DialogBase {
     private File rides;
     private File vehicles;
     private File passengers;
