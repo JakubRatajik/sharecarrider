@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.Data;
 
+import cz.muni.fi.pv168.seminar01.beta.Model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.Model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Repetition;
@@ -11,6 +12,7 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +73,8 @@ public final class TestDataGenerator {
     public Vehicle createVehicle() {
         String brand = selectRandom(brands.keySet().stream().toList());
         String type = selectRandom(brands.get(brand).keySet().stream().toList());
-        Vehicle vehicle = new Vehicle(Integer.toString(Objects.hash(brand, type)), brand, type, brands.get(brand).get(type), (float) (randomInt(35, 200)) / 10);
+        FuelType fuelType = selectRandom(Arrays.stream(FuelType.values()).toList());
+        Vehicle vehicle = new Vehicle(Integer.toString(Objects.hash(brand, type)), brand, type, brands.get(brand).get(type), (float) (randomInt(35, 200)) / 10, fuelType);
         vehicles.add(vehicle);
         return vehicle;
     }

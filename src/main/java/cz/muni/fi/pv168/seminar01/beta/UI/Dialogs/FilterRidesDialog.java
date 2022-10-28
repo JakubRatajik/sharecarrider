@@ -20,6 +20,9 @@ public class FilterRidesDialog extends FilterDialog {
         super(frame, name);
     }
 
+    @Override
+    protected void addAttribute(Object attribute) {}
+
     public void setAttributes() {
         dateFilter = new JCheckBox(" Datum");
         distanceFilter = new JCheckBox(" Vzdálenost");

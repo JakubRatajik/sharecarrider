@@ -82,6 +82,11 @@ public class ImportDialog extends DialogBase {
 
     }
 
+    @Override
+    protected void addAttribute(Object attribute) {
+
+    }
+
     private void onImportButton(JButton importAction) {
         //todo implement funcionality
     }

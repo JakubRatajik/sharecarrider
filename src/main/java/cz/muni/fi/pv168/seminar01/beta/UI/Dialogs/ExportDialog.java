@@ -82,6 +82,11 @@ public class ExportDialog extends DialogBase {
 
     }
 
+    @Override
+    protected void addAttribute(Object attribute) {
+
+    }
+
     private void onExportButton(JButton exportButton) {
         //todo implement funkcionality
     }

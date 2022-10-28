@@ -18,6 +18,11 @@ public class FilterVehiclesDialog extends FilterDialog {
         super(frame, name);
     }
 
+    @Override
+    protected void addAttribute(Object attribute) {
+
+    }
+
     public void setAttributes() {
         capacityFilter = new JCheckBox("  Kapacita:");
         consumptionFilter = new JCheckBox("  Spotřeba:");

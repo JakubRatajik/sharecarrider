@@ -50,3 +50,4 @@ public abstract class AddDialog extends DialogBase {
     protected abstract void onCreateButton(JButton create);
 
 }
+

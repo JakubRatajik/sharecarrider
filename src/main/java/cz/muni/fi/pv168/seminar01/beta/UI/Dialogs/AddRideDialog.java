@@ -25,6 +25,9 @@ public class AddRideDialog extends AddDialog {
         super(frame, name);
     }
 
+    @Override
+    protected void addAttribute(Object attribute) {}
+
     protected void setAttributes() {
         this.date = new JDatePicker();
         UIConstants.formatComponentDialog(date);

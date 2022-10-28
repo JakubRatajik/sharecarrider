@@ -41,6 +41,11 @@ public class FuelDialog extends DialogBase {
         setSize(330, 220);
     }
 
+    @Override
+    protected void addAttribute(Object attribute) {
+
+    }
+
     public void setAttributes() {
         nafta = UIConstants.createTextField();
         benzin = UIConstants.createTextField();

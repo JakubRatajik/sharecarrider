@@ -3,9 +3,11 @@ package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.ShareCarRiderTableModel;
+import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
+import javax.swing.text.html.parser.Entity;
 import java.awt.*;
 
 /**
@@ -16,6 +18,22 @@ public abstract class DialogBase extends JDialog {
 
     public DialogBase(Frame frame, String name) {
         super(frame, name);
+        initialize();
+
+    }
+
+    public DialogBase(Frame frame, String name, Object attribute) {
+        super (frame, name);
+        addAttribute(attribute);
+        initialize();
+    }
+
+
+
+    public void initialize() {
+        setModalityType(ModalityType.APPLICATION_MODAL);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setResizable(false);
         JPanel center = new JPanel();
         setLayout(new BorderLayout());
         center.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
@@ -27,18 +45,15 @@ public abstract class DialogBase extends JDialog {
 
         add(bottom, BorderLayout.SOUTH);
         add(center, BorderLayout.CENTER);
-        setModalityType(ModalityType.APPLICATION_MODAL);
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
-
     }
 
     protected abstract void initializeBottom(JPanel bottom);
 
     protected abstract void initializeCenter(JPanel center);
 
+    protected abstract void addAttribute(Object attribute);
 
     public ShareCarRiderTableModel getTableModel(TableCategory tableCategory) {
         return switch (tableCategory) {

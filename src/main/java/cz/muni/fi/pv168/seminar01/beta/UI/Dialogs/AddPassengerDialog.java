@@ -19,6 +19,11 @@ public class AddPassengerDialog extends AddDialog {
 
     }
 
+    @Override
+    protected void addAttribute(Object attribute) {
+
+    }
+
 
     @Override
     protected void setAttributes() {
