@@ -6,7 +6,7 @@ import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 /**
  * @author Jakub Ratajik
  */
-public class VehicleTableModel extends ShareCarRiderTableModel {
+public class VehicleTableModel extends ShareCarRiderTableModel<Vehicle> {
     public VehicleTableModel() {
         super(new String[]{"Značka", "Typ", "Počet míst", "Průměrná spotřeba"}, (new SampleUsage()).getVehicles());
     }
@@ -19,7 +19,7 @@ public class VehicleTableModel extends ShareCarRiderTableModel {
     @Override
     public Object getValueAt(int row, int col) {
         Object value;
-        Vehicle vehicle = (Vehicle) data[row];
+        Vehicle vehicle = data.get(row);
 
         switch (col) {
             case 0 -> value = vehicle.getBrand();
@@ -34,7 +34,7 @@ public class VehicleTableModel extends ShareCarRiderTableModel {
 
     @Override
     public void setValueAt(Object attribute, int row, int col) {
-        Vehicle vehicle = (Vehicle) data[row];
+        Vehicle vehicle = data.get(row);
 
         switch (col) {
             case 0 -> vehicle.setBrand((String) attribute);
@@ -42,10 +42,5 @@ public class VehicleTableModel extends ShareCarRiderTableModel {
             case 2 -> vehicle.setCapacity((int) attribute);
             case 3 -> vehicle.setConsumption((float) attribute);
         }
-    }
-
-    @Override
-    public Vehicle getEntity(int modelRow) {
-        return (Vehicle) data[modelRow];
     }
 }

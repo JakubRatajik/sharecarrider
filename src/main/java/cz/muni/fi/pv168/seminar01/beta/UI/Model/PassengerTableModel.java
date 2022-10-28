@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * @author Jakub Ratajik
  */
-public class PassengerTableModel extends ShareCarRiderTableModel {
+public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
 
     public PassengerTableModel() {
         super(new String[]{"Jméno", "Příjmení", "Telefon", "Kategorie"}, (new SampleUsage()).getPassengers());
@@ -17,8 +17,6 @@ public class PassengerTableModel extends ShareCarRiderTableModel {
 
     @Override
     public Class<?> getColumnClass(int col) {
-        Class<?> columnClass;
-
         if (col == 3) {
             return Set.class;
         }
@@ -29,7 +27,7 @@ public class PassengerTableModel extends ShareCarRiderTableModel {
     @Override
     public Object getValueAt(int row, int col) {
         Object value;
-        Passenger passenger = (Passenger) data[row];
+        Passenger passenger = data.get(row);
 
         switch (col) {
             case 0 -> value = passenger.getFirstName();
@@ -44,19 +42,13 @@ public class PassengerTableModel extends ShareCarRiderTableModel {
 
     @Override
     public void setValueAt(Object attribute, int row, int col) {
-        Passenger passenger = (Passenger) data[row];
+        Passenger passenger = data.get(row);
 
         switch (col) {
             case 0 -> passenger.setFirstName((String) attribute);
             case 1 -> passenger.setLastName((String) attribute);
             case 2 -> passenger.setPhoneNumber((String) attribute);
-            case 3 ->
-                    passenger.setCategories((Set<PassengerCategory>) attribute);
+            case 3 -> passenger.setCategories((Set<PassengerCategory>) attribute);
         }
-    }
-
-    @Override
-    public Passenger getEntity(int modelRow) {
-        return (Passenger) data[modelRow];
     }
 }

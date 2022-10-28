@@ -3,7 +3,6 @@ package cz.muni.fi.pv168.seminar01.beta.UI.Model;
 import cz.muni.fi.pv168.seminar01.beta.Data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.Model.RideCategory;
-import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,7 +12,7 @@ import java.util.Collection;
 /**
  * @author Jakub Ratajik
  */
-public class RideTableModel extends ShareCarRiderTableModel {
+public class RideTableModel extends ShareCarRiderTableModel<Ride> {
     public RideTableModel() {
         super(new String[]{"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"}, (new SampleUsage()).getRides());
 
@@ -36,7 +35,7 @@ public class RideTableModel extends ShareCarRiderTableModel {
     @Override
     public Object getValueAt(int row, int col) {
         Object value;
-        Ride ride = (Ride) data[row];
+        Ride ride = data.get(row);
 
         switch (col) {
             case 0 -> value = ride.getDate();
@@ -53,7 +52,7 @@ public class RideTableModel extends ShareCarRiderTableModel {
 
     @Override
     public void setValueAt(Object attribute, int row, int col) {
-        Ride ride = (Ride) data[row];
+        Ride ride = data.get(row);
 
         switch (col) {
             case 0 -> ride.setDate((LocalDate) attribute);
@@ -63,10 +62,5 @@ public class RideTableModel extends ShareCarRiderTableModel {
             case 4 -> ride.setDistance((Integer) attribute);
             case 5 -> ride.setCategories((Collection<RideCategory>) attribute);
         }
-    }
-
-    @Override
-    public Ride getEntity(int modelRow) {
-        return (Ride) data[modelRow];
     }
 }

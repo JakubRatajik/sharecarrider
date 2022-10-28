@@ -41,15 +41,15 @@ public final class SampleUsage {
         }
     }
 
-    public Object[] getVehicles() {
-        return vehicles.toArray();
+    public List<Vehicle> getVehicles() {
+        return vehicles;
     }
 
-    public Object[] getPassengers() {
-        return passengers.toArray();
+    public List<Passenger> getPassengers() {
+        return passengers;
     }
 
-    public Object[] getRides() {
-        return rides.toArray();
+    public List<Ride> getRides() {
+        return rides;
     }
 }

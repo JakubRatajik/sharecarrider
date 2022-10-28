@@ -59,6 +59,4 @@ public class AddPassengerDialog extends AddDialog {
             }
         });
     }
-
-
 }
