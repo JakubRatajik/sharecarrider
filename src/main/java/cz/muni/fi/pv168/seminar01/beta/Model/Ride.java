@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Ride {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
@@ -19,12 +20,12 @@ public class Ride {
     private String from;
     private String to;
     private int distance;
-    private Set<Category> categories;
+    private Set<RideCategory> categories;
     private List<Passenger> passengers;
     private Vehicle vehicle;
     private Repetition repetition;
 
-    public Ride(LocalDate date, LocalTime time, String from, String to, int distance, Collection<Category> categories,
+    public Ride(LocalDate date, LocalTime time, String from, String to, int distance, Collection<RideCategory> categories,
                 List<Passenger> passengers, Vehicle vehicle, Repetition repetition) {
         this.date = date;
         this.time = time;
@@ -54,12 +55,12 @@ public class Ride {
         this.time = time;
     }
 
-    public void addCategory(Category category) {
-        categories.add(category);
+    public void addCategory(RideCategory rideCategory) {
+        categories.add(rideCategory);
     }
 
-    public void removeCategory(Category category) {
-        categories.remove(category);
+    public void removeCategory(RideCategory rideCategory) {
+        categories.remove(rideCategory);
     }
 
     // getters and setters
@@ -80,11 +81,11 @@ public class Ride {
         this.distance = distance;
     }
 
-    public Collection<Category> getCategories() {
+    public Collection<RideCategory> getCategories() {
         return Collections.unmodifiableSet(categories);
     }
 
-    public void setCategories(Collection<Category> categories) {
+    public void setCategories(Collection<RideCategory> categories) {
         this.categories = new HashSet<>(categories);
     }
 
@@ -159,5 +160,11 @@ public class Ride {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public String getCategoryNames() {
+        return categories.stream()
+                .map(RideCategory::getName)
+                .collect(Collectors.joining(", "));
     }
 }

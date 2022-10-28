@@ -3,12 +3,12 @@ package cz.muni.fi.pv168.seminar01.beta.Model;
 import java.awt.*;
 import java.util.Objects;
 
-public class Category {
+public class RideCategory {
     private final Color color;
     private final String name;
     private final int id;
 
-    public Category(Color color, String name) {
+    public RideCategory(Color color, String name) {
         this.color = color;
         this.name = name;
         id = IDGenerator.getNewID(this.getClass());
@@ -39,8 +39,8 @@ public class Category {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return id == category.id;
+        RideCategory rideCategory = (RideCategory) o;
+        return id == rideCategory.id;
     }
 
     @Override

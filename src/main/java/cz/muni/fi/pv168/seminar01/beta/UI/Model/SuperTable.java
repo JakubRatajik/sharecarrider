@@ -12,8 +12,8 @@ import javax.swing.*;
  * TODO - temporary class!!!
  */
 public class SuperTable {
-    private JTable table;
     private final TableCategory category;
+    private JTable table;
 
     public SuperTable(TableCategory category) {
         this.category = category;

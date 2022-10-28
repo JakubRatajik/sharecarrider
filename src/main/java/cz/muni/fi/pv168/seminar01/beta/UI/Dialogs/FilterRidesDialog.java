@@ -7,14 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class FilterRidesDialog extends FilterDialog {
+    // TODO categories
+    private final int categoriesCount = 0; //temporary
     private JCheckBox dateFilter;
     private JCheckBox distanceFilter;
     private JDatePicker dateFrom;
     private JDatePicker dateTo;
     private JTextField distanceFrom;
     private JTextField distanceTo;
-    // TODO categories
-    private final int categoriesCount = 0; //temporary
 
     public FilterRidesDialog(Frame frame, String name) {
         super(frame, name);

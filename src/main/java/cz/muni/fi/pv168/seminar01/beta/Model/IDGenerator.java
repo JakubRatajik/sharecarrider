@@ -9,7 +9,7 @@ public class IDGenerator {
     /**
      * Creates unique ID for supported classes. Only Ride, Category, Passenger and Vehicle classes
      * are supported (this ensures uniqueness).
-     *
+     * <p>
      * It uses first letter (as int) from class name as a prefix.
      *
      * @param caller - One of the supported classes.
@@ -19,14 +19,13 @@ public class IDGenerator {
         int prefix;
         if (
                 caller.equals(Ride.class) ||
-                caller.equals(Category.class) ||
-                caller.equals(Passenger.class) ||
-                caller.equals(Vehicle.class)
+                        caller.equals(RideCategory.class) ||
+                        caller.equals(Passenger.class) ||
+                        caller.equals(Vehicle.class)
         ) {
             String[] parsedName = caller.getName().split("\\.");
             prefix = parsedName[parsedName.length - 1].charAt(0);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("This class is not supported by IDGenerator.");
         }
 

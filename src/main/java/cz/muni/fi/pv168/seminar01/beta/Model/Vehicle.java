@@ -3,12 +3,12 @@ package cz.muni.fi.pv168.seminar01.beta.Model;
 import java.util.Objects;
 
 public class Vehicle {
+    private final int id;
     private String licensePlate;
     private String brand;
     private String type;
     private int capacity;
     private float consumption;
-    private final int id;
 
     public Vehicle(String licensePlate, String brand, String type, int capacity, float consumption) {
         this.licensePlate = licensePlate;
