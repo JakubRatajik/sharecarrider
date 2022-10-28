@@ -1,8 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.RideDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
@@ -105,10 +103,10 @@ public class ShareCarRiderTable extends JTable {
         editPopupMenuItem = new JMenuItem("Upravit");
         addPopupMenuItem = new JMenuItem("Přidat");
 
-        jPopupMenu.add(addPopupMenuItem);
+        jPopupMenu.add(detailPopupMenuItem);
         jPopupMenu.add(editPopupMenuItem);
         jPopupMenu.add(deletePopupMenuItem);
-        jPopupMenu.add(detailPopupMenuItem);
+        jPopupMenu.add(addPopupMenuItem);
 
         detailPopupMenuItem.setEnabled(false);
         editPopupMenuItem.setEnabled(false);
@@ -217,7 +215,8 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var vehicle = tableModel.getEntity(modelRow);
 
-                new AddVehicleDialog(MainWindow.getFrame(), "Přidat vozidlo");
+                new TemporaryDialog(MainWindow.getFrame(), "Přidat vozidlo");
+//                new VehicleAddDialog(MainWindow.getFrame(), "Přidat vozidlo");
             }
         });
     }
@@ -266,7 +265,8 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var passenger = tableModel.getEntity(modelRow);
 
-                new AddPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího");
+                new TemporaryDialog(MainWindow.getFrame(), "Přidat cestujícího");
+//                new PassengerAddDialog(MainWindow.getFrame(), "Přidat cestujícího");
             }
         });
     }

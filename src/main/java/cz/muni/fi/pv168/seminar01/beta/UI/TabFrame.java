@@ -1,6 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.DialogBase;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Utils.ActionListenerProvider;
 
 import javax.swing.*;
@@ -113,5 +115,9 @@ public class TabFrame {
 
     public JPanel getTablePanel() {
         return tablePanel;
+    }
+
+    public ShareCarRiderTable getTable() {
+        return table;
     }
 }

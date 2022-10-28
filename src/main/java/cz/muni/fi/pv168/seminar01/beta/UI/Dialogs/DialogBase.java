@@ -1,5 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
@@ -37,4 +40,11 @@ public abstract class DialogBase extends JDialog {
     protected abstract void initializeCenter(JPanel center);
 
 
+    public ShareCarRiderTableModel getTableModel(TableCategory tableCategory) {
+        return switch (tableCategory) {
+            case PASSENGERS -> (ShareCarRiderTableModel) MainWindow.getPassengersTabFrame().getTable().getModel();
+            case RIDES -> (ShareCarRiderTableModel) MainWindow.getRidesTabFrame().getTable().getModel();
+            case VEHICLES -> (ShareCarRiderTableModel) MainWindow.getVehiclesTabFrame().getTable().getModel();
+        };
+    }
 }
