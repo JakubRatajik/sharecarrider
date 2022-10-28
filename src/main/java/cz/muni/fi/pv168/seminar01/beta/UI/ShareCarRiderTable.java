@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * @author Jakub Ratajik
@@ -126,7 +127,7 @@ public class ShareCarRiderTable extends JTable {
         detailPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var ride = tableModel.getEntity(modelRow);
 
@@ -137,7 +138,7 @@ public class ShareCarRiderTable extends JTable {
         editPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var ride = tableModel.getEntity(modelRow);
 
@@ -149,7 +150,7 @@ public class ShareCarRiderTable extends JTable {
         deletePopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var ride = tableModel.getEntity(modelRow);
 
@@ -161,7 +162,7 @@ public class ShareCarRiderTable extends JTable {
         addPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var ride = tableModel.getEntity(modelRow);
 
@@ -175,7 +176,7 @@ public class ShareCarRiderTable extends JTable {
         detailPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var vehicle = tableModel.getEntity(modelRow);
 
@@ -187,7 +188,7 @@ public class ShareCarRiderTable extends JTable {
         editPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var vehicle = tableModel.getEntity(modelRow);
 
@@ -199,7 +200,7 @@ public class ShareCarRiderTable extends JTable {
         deletePopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var vehicle = tableModel.getEntity(modelRow);
 
@@ -211,7 +212,7 @@ public class ShareCarRiderTable extends JTable {
         addPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var vehicle = tableModel.getEntity(modelRow);
 
@@ -225,7 +226,7 @@ public class ShareCarRiderTable extends JTable {
         detailPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var passenger = tableModel.getEntity(modelRow);
 
@@ -237,7 +238,7 @@ public class ShareCarRiderTable extends JTable {
         editPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var passenger = tableModel.getEntity(modelRow);
 
@@ -249,7 +250,7 @@ public class ShareCarRiderTable extends JTable {
         deletePopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var passenger = tableModel.getEntity(modelRow);
 
@@ -261,7 +262,7 @@ public class ShareCarRiderTable extends JTable {
         addPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var passenger = tableModel.getEntity(modelRow);
 
@@ -282,7 +283,7 @@ public class ShareCarRiderTable extends JTable {
                     return;
                 }
 
-                ShareCarRiderTableModel tableModel = (ShareCarRiderTableModel) table.getModel();
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) table.getModel();
                 int modelRow = table.convertRowIndexToModel(row);
                 var entity = tableModel.getEntity(modelRow);
 
