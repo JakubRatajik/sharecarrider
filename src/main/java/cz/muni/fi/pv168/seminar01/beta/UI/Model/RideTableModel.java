@@ -1,9 +1,12 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Model;
 
+import cz.muni.fi.pv168.seminar01.beta.Data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.Model.RideCategory;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collection;
 
 
 /**
@@ -11,32 +14,8 @@ import java.time.LocalTime;
  */
 public class RideTableModel extends ShareCarRiderTableModel {
     public RideTableModel() {
-        super(new String[]{"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"},
-                new Object[][]{
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"},
-                        {LocalDate.of(1925, 12, 1), LocalTime.of(12, 42, 35), "Skybar", "Kino Scala", 3, "Work"},
-                        {LocalDate.now(), LocalTime.now(), "Vranov nad Topľou", "Supíkovce", 987, "Party"}
-                });
+        super(new String[]{"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"}, (new SampleUsage()).getRides());
+
     }
 
     @Override
@@ -53,37 +32,40 @@ public class RideTableModel extends ShareCarRiderTableModel {
         return columnClass;
     }
 
-//    @Override
-//    public Object getValueAt(int row, int col) {
-//        Object value = "??";
-//        Ride ride = (Ride) data[row];
-//
-//        switch (col) {
-//            case 0:
-//                value = user.getUserUsername();
-//                break;
-//            case 1:
-//                value = user.getUserName();
-//                break;
-//            case 2:
-//                value = user.getUserPhone();
-//                break;
-//            case 3:
-//                value = user.getUserNic();
-//                break;
-//            case 4:
-//                value = user.getUserAddress();
-//                break;
-//            case 5:
-//                value = user.getUserEmail();
-//                break;
-//        }
-//
-//        return value;
-//    }
-//
+    @Override
+    public Object getValueAt(int row, int col) {
+        Object value;
+        Ride ride = (Ride) data[row];
+
+        switch (col) {
+            case 0 -> value = ride.getDate();
+            case 1 -> value = ride.getTime();
+            case 2 -> value = ride.getFrom();
+            case 3 -> value = ride.getTo();
+            case 4 -> value = ride.getDistance();
+            case 5 -> value = ride.getCategoryNames();
+            default -> value = null;
+        }
+
+        return value;
+    }
+
+    @Override
+    public void setValueAt(Object attribute, int row, int col) {
+        Ride ride = (Ride) data[row];
+
+        switch (col) {
+            case 0 -> ride.setDate((LocalDate) attribute);
+            case 1 -> ride.setTime((LocalTime) attribute);
+            case 2 -> ride.setFrom((String) attribute);
+            case 3 -> ride.setTo((String) attribute);
+            case 4 -> ride.setDistance((Integer) attribute);
+            case 5 -> ride.setCategories((Collection<RideCategory>) attribute);
+        }
+    }
+
     @Override
     public Ride getEntity(int modelRow) {
-        return null;
+        return (Ride) data[modelRow];
     }
 }

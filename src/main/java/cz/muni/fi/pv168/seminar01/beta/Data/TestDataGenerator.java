@@ -1,9 +1,10 @@
 package cz.muni.fi.pv168.seminar01.beta.Data;
 
-import cz.muni.fi.pv168.seminar01.beta.Model.Category;
 import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.Model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.Model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 
 import java.awt.*;
@@ -29,11 +30,12 @@ public final class TestDataGenerator {
             List.of("Nováková", "Novotná", "Dvořáková", "Černá", "Procházková", "Šťastná", "Veselá", "Horáková", "Němcová", "Pokorná");
     private static final List<String> phoneNumbers =
             List.of("+420777408524", "+420668745827", "+420584401287", "+421875428554", "+421668547421", "+421542875142");
-    private static final Category category1 = new Category(Color.BLUE, "work");
-    private static final Category category2 = new Category(Color.YELLOW, "party");
-    private static final List<Set<Category>> categories =
-            List.of(new HashSet<>(), new HashSet<>(List.of(category1, category2)), new HashSet<>(List.of(category1)), new HashSet<>(List.of(category2)));
-
+    private static final RideCategory RIDE_CATEGORY_1 = new RideCategory(Color.BLUE, "work");
+    private static final RideCategory RIDE_CATEGORY_2 = new RideCategory(Color.YELLOW, "party");
+    private static final List<Set<RideCategory>> rideCategories =
+            List.of(new HashSet<>(), new HashSet<>(List.of(RIDE_CATEGORY_1, RIDE_CATEGORY_2)), new HashSet<>(List.of(RIDE_CATEGORY_1)), new HashSet<>(List.of(RIDE_CATEGORY_2)));
+    private static final List<Set<PassengerCategory>> passengerCategories =
+            List.of(new HashSet<>(), new HashSet<>(List.of(PassengerCategory.OTHER, PassengerCategory.FRIENDS)), new HashSet<>(List.of(PassengerCategory.WORK)), new HashSet<>(List.of(PassengerCategory.WORK, PassengerCategory.FRIENDS)));
     private static final Map<String, Map<String, Integer>> brands = Map.of(
             "VW", Map.of("Arteon", 5, "Touran", 5, "Golf", 5, "Polo", 5),
             "Audi", Map.of("A6", 5, "A7", 5, "Q5", 5, "R8", 2),
@@ -57,10 +59,10 @@ public final class TestDataGenerator {
         Passenger passenger;
         if (gender == 'f') {
             passenger = new Passenger(selectRandom(femaleNames), selectRandom(femaleSurnames),
-                    selectRandom(phoneNumbers), selectRandom(categories));
+                    selectRandom(phoneNumbers), selectRandom(passengerCategories));
         } else {
             passenger = new Passenger(selectRandom(maleNames), selectRandom(maleSurnames),
-                    selectRandom(phoneNumbers), selectRandom(categories));
+                    selectRandom(phoneNumbers), selectRandom(passengerCategories));
         }
         passengers.add(passenger);
         return passenger;
@@ -96,7 +98,7 @@ public final class TestDataGenerator {
             ridePassengers.add(selectRandom(passengers));
         }
 
-        Ride ride = new Ride(date, time, from, to, randomInt(8, 500), selectRandom(categories), ridePassengers, vehicle, Repetition.NONE);
+        Ride ride = new Ride(date, time, from, to, randomInt(8, 500), selectRandom(rideCategories), ridePassengers, vehicle, Repetition.NONE);
         rides.add(ride);
         return ride;
     }

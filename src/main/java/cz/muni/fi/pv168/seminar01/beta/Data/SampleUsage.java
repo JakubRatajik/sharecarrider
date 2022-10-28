@@ -17,6 +17,10 @@ public final class SampleUsage {
     private final List<Passenger> passengers = new ArrayList<>();
     private final List<Ride> rides = new ArrayList<>();
 
+    public SampleUsage() {
+        generateSampleData();
+    }
+
     /**
      * This method generates sample data.
      * 10 passengers
@@ -37,15 +41,15 @@ public final class SampleUsage {
         }
     }
 
-    public List<Vehicle> getVehicles() {
-        return vehicles;
+    public Object[] getVehicles() {
+        return vehicles.toArray();
     }
 
-    public List<Passenger> getPassengers() {
-        return passengers;
+    public Object[] getPassengers() {
+        return passengers.toArray();
     }
 
-    public List<Ride> getRides() {
-        return rides;
+    public Object[] getRides() {
+        return rides.toArray();
     }
 }

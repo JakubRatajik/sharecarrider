@@ -4,15 +4,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Passenger {
+    private final int id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private Set<Category> categories;
-    private final int id;
+    private Set<PassengerCategory> categories;
 
-    public Passenger(String firstName, String lastName, String phoneNumber, Collection<Category> categories) {
+    public Passenger(String firstName, String lastName, String phoneNumber, Collection<PassengerCategory> categories) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -27,12 +28,12 @@ public class Passenger {
         return phoneNumber.matches("[+]?\\d+");
     }
 
-    public void addCategory(Category category) {
-        categories.add(category);
+    public void addCategory(PassengerCategory rideCategory) {
+        categories.add(rideCategory);
     }
 
-    public void removeCategory(Category category) {
-        categories.remove(category);
+    public void removeCategory(PassengerCategory rideCategory) {
+        categories.remove(rideCategory);
     }
 
     // getters and setters
@@ -64,12 +65,18 @@ public class Passenger {
         this.phoneNumber = phoneNumber;
     }
 
-    public Set<Category> getCategories() {
+    public Set<PassengerCategory> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(Set<PassengerCategory> categories) {
         this.categories = categories;
+    }
+
+    public String getCategoryNames() {
+        return categories.stream()
+                .map(PassengerCategory::toString)
+                .collect(Collectors.joining(", "));
     }
 
     public int getId() {
