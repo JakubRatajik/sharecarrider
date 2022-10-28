@@ -3,11 +3,9 @@ package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.ShareCarRiderTableModel;
-import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
-import javax.swing.text.html.parser.Entity;
 import java.awt.*;
 
 /**
@@ -23,12 +21,21 @@ public abstract class DialogBase extends JDialog {
     }
 
     public DialogBase(Frame frame, String name, Object attribute) {
-        super (frame, name);
+        super(frame, name);
         addAttribute(attribute);
         initialize();
     }
 
-
+    public static ShareCarRiderTableModel<?> getTableModel(TableCategory tableCategory) {
+        return switch (tableCategory) {
+            case PASSENGERS ->
+                    (ShareCarRiderTableModel<?>) MainWindow.getPassengersTabFrame().getTable().getModel();
+            case RIDES ->
+                    (ShareCarRiderTableModel<?>) MainWindow.getRidesTabFrame().getTable().getModel();
+            case VEHICLES ->
+                    (ShareCarRiderTableModel<?>) MainWindow.getVehiclesTabFrame().getTable().getModel();
+        };
+    }
 
     public void initialize() {
         setModalityType(ModalityType.APPLICATION_MODAL);
@@ -54,12 +61,4 @@ public abstract class DialogBase extends JDialog {
     protected abstract void initializeCenter(JPanel center);
 
     protected abstract void addAttribute(Object attribute);
-
-    public static ShareCarRiderTableModel<?> getTableModel(TableCategory tableCategory) {
-        return switch (tableCategory) {
-            case PASSENGERS -> (ShareCarRiderTableModel<?>) MainWindow.getPassengersTabFrame().getTable().getModel();
-            case RIDES -> (ShareCarRiderTableModel<?>) MainWindow.getRidesTabFrame().getTable().getModel();
-            case VEHICLES -> (ShareCarRiderTableModel<?>) MainWindow.getVehiclesTabFrame().getTable().getModel();
-        };
-    }
 }

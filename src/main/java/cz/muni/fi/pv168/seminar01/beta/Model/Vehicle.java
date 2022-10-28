@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class Vehicle {
     private final int id;
+    private final FuelType fuelType;
     private String licensePlate;
     private String brand;
     private String type;
     private int capacity;
     private float consumption;
-    private final FuelType fuelType;
 
     public Vehicle(String licensePlate, String brand, String type, int capacity, float consumption, FuelType fuelType) {
         this.licensePlate = licensePlate;

@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * @author Kateřina Vácová
  */
-public class VehicleDetailDialog extends DetailDialog{
+public class VehicleDetailDialog extends DetailDialog {
     private Vehicle vehicle;
 
     public VehicleDetailDialog(Frame frame, String name, Vehicle vehicle) {
@@ -35,7 +35,7 @@ public class VehicleDetailDialog extends DetailDialog{
         center.add(new JLabel("•  Spotřeba:"));
         center.add(new JLabel(vehicle.getConsumption() + " l/100 km"));
         add(center, BorderLayout.CENTER);
-        setSize(220,180);
+        setSize(220, 180);
     }
 
     @Override

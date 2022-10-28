@@ -28,28 +28,28 @@ public class FuelPrice {
         return gasolinePrice;
     }
 
-    public static double getElectricityPrice() {
-        return electricityPrice;
-    }
-
-    public static double getLPGPrice() {
-        return LPGPrice;
-    }
-
-    public static double getDieselPrice() {
-        return dieselPrice;
-    }
-
     public static void setGasolinePrice(double gasolinePrice) {
         FuelPrice.gasolinePrice = gasolinePrice;
+    }
+
+    public static double getElectricityPrice() {
+        return electricityPrice;
     }
 
     public static void setElectricityPrice(double electricityPrice) {
         FuelPrice.electricityPrice = electricityPrice;
     }
 
+    public static double getLPGPrice() {
+        return LPGPrice;
+    }
+
     public static void setLPGPrice(double LPGPrice) {
         FuelPrice.LPGPrice = LPGPrice;
+    }
+
+    public static double getDieselPrice() {
+        return dieselPrice;
     }
 
     public static void setDieselPrice(double dieselPrice) {

@@ -30,7 +30,7 @@ public class AddPassengerDialog extends AddDialog {
         this.name = UIConstants.createTextField();
         this.surname = UIConstants.createTextField();
         this.phoneNumber = UIConstants.createTextField();
-        this.category = new JComboBox<Integer>();
+        this.category = new JComboBox<>();
         UIConstants.formatComponentDialog(category);
     }
 
