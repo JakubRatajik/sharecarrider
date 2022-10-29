@@ -2,16 +2,20 @@ package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.Model.Repetition;
+import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
-import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.JDatePickerDateGetter;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
 
 public class AddRideDialog extends AddDialog {
@@ -23,7 +27,8 @@ public class AddRideDialog extends AddDialog {
     private JTextField distance;
     private JComboBox<Vehicle> vehicle;
     private JScrollPane passengers;
-    private JComboBox<String> repetition;
+    private JComboBox<Repetition> repetition;
+    private JList<Passenger> passengersList;
 
     public AddRideDialog(Frame frame, String name) {
         super(frame, name);
@@ -49,7 +54,7 @@ public class AddRideDialog extends AddDialog {
 
         this.repetition = new JComboBox<>();
         for (Repetition rep : Repetition.values()) {
-            repetition.addItem(rep.toString());
+            repetition.addItem(rep);
         }
         UIConstants.formatComponentDialog(repetition);
 
@@ -83,6 +88,7 @@ public class AddRideDialog extends AddDialog {
         passengersScroll.setPreferredSize(new Dimension(40, 0));
         UIConstants.formatComponentDialog(passengersScroll);
         this.passengers = passengersScroll;
+        this.passengersList = passengerList;
     }
 
     public void initializeContent(JPanel central) {
@@ -124,7 +130,23 @@ public class AddRideDialog extends AddDialog {
         create.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO - there need to be save action, but is not implemented yet
+                //TODO - there need to be validation of data inserted
+                String[] parsedTime = (time.getText().split(":"));
+                LocalTime localTime = LocalTime.of(Integer.parseInt(parsedTime[0]), Integer.parseInt(parsedTime[1]));
+                int parsedDistance = Integer.parseInt(distance.getText());
+                Ride ride = new Ride(
+                        JDatePickerDateGetter.getLocalDate(date),
+                        localTime,
+                        startDestination.getText(),
+                        endDestination.getText(),
+                        parsedDistance,
+                        new HashSet<>(),
+                        passengersList.getSelectedValuesList(),
+                        (Vehicle) vehicle.getSelectedItem(),
+                        (Repetition) repetition.getSelectedItem()
+                );
+                RideTableModel tableModel = (RideTableModel) DialogBase.getTableModel(TableCategory.RIDES);
+                tableModel.addRow(ride);
                 dispose();
             }
         });
