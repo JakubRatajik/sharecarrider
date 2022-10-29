@@ -4,10 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.PassengerDetailDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.RideDetailDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.VehicleDetailDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.*;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.ShareCarRiderTableModel;
@@ -158,8 +155,8 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var ride = tableModel.getEntity(modelRow);
 
-                new TemporaryDialog(MainWindow.getFrame(), "Smazat jízdu");
-//                new RideDeleteDialog(MainWindow.getFrame(), "Smazat jízdu");
+                DeleteDialog dialog = new DeleteDialog(MainWindow.getFrame(), "Smazat jízdu", TableCategory.RIDES, DialogBase.getTable(TableCategory.RIDES).getSelectedRows());
+
             }
         });
 

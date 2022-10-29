@@ -1,14 +1,13 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Utils;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterPassengersDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterRidesDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterVehiclesDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.*;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.DialogsUtils.PassengerListModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.ShareCarRiderTableModel;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.VehicleTableModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -157,6 +156,21 @@ public final class ActionListenerProvider {
         passengers.add(filter);
         passengers.add(select);
         return passengers;
+    }
+
+    public static ActionListener deleteRow(TableCategory category, int[] rows, DeleteDialog dialog) {
+
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int firstRow = rows[0];
+                for (int i = 0; i < rows.length; i++) {
+                    DialogBase.getTableModel(category).deleteRow(firstRow);
+                }
+                dialog.dispose();
+            }
+
+        };
     }
 
 }
