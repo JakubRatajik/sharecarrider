@@ -21,6 +21,16 @@ public class Vehicle implements HasID{
         id = IDGenerator.getNewID(this.getClass());
     }
 
+    public Vehicle(int id, String licensePlate, String brand, String type, int capacity, float consumption, FuelType fuelType) {
+        this.licensePlate = licensePlate;
+        this.brand = brand;
+        this.type = type;
+        this.capacity = capacity;
+        this.consumption = consumption;
+        this.fuelType = fuelType;
+        this.id = id;
+    }
+
     // getters and setters
 
     public String getBrand() {

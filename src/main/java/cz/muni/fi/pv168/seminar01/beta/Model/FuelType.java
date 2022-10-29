@@ -20,5 +20,6 @@ public enum FuelType {
         public String toString() {
             return "elektřina";
         }
-    }
+    };
+
 }

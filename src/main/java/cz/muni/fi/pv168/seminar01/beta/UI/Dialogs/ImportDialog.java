@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.Data.Manipulation.ImporterBase;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
@@ -88,6 +89,16 @@ public class ImportDialog extends DialogBase {
     }
 
     private void onImportButton(JButton importAction) {
-        //todo implement funcionality
+        importAction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (passengers == null || vehicles == null || rides == null) {
+                    throw new NullPointerException("Some files are missing");
+                }
+                ImporterBase.loadData(rides, vehicles, passengers);
+                dispose();
+            }
+        });
+
     }
 }
