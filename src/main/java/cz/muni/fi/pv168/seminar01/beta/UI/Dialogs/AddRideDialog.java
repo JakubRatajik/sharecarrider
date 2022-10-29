@@ -3,6 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.Model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.Model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
@@ -27,8 +28,9 @@ public class AddRideDialog extends AddDialog {
     private JTextField distance;
     private JComboBox<Vehicle> vehicle;
     private JScrollPane passengers;
-    private JComboBox<Repetition> repetition;
     private JList<Passenger> passengersList;
+    private JComboBox<RideCategory> category;
+    private JComboBox<Repetition> repetition;
 
     public AddRideDialog(Frame frame, String name) {
         super(frame, name);
@@ -51,6 +53,11 @@ public class AddRideDialog extends AddDialog {
             vehicle.addItem(v);
         }
         UIConstants.formatComponentDialog(vehicle);
+
+        // TODO - add category ComboBox
+        this.category = new JComboBox<>();
+        //for (RideCategory c : )
+        UIConstants.formatComponentDialog(category);
 
         this.repetition = new JComboBox<>();
         for (Repetition rep : Repetition.values()) {
@@ -131,7 +138,7 @@ public class AddRideDialog extends AddDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO - there need to be validation of data inserted
-                String[] parsedTime = (time.getText().split(":"));
+                String[] parsedTime = (time.getText().split("[:.]"));
                 LocalTime localTime = LocalTime.of(Integer.parseInt(parsedTime[0]), Integer.parseInt(parsedTime[1]));
                 int parsedDistance = Integer.parseInt(distance.getText());
                 Ride ride = new Ride(

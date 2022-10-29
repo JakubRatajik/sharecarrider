@@ -1,5 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.Data.Manipulation.ExportVehicle;
+import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
@@ -7,14 +10,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 
 /**
  * @author Kateřina Vácová
  */
 public class ExportDialog extends DialogBase {
-    private File rides;
-    private File vehicles;
-    private File passengers;
+    private File rides = null;
+    private File vehicles = null;
+    private File passengers = null;
 
     public ExportDialog(Frame frame, String name) {
         super(frame, name);
@@ -88,6 +92,16 @@ public class ExportDialog extends DialogBase {
     }
 
     private void onExportButton(JButton exportButton) {
-        //todo implement funkcionality
+        exportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (vehicles != null) {
+                    ExportVehicle exportVehicle = new ExportVehicle();
+                    exportVehicle.export((List<Vehicle>) DialogBase.getTableModel(TableCategory.VEHICLES).getData(),
+                            vehicles.getAbsolutePath());
+                }
+                dispose();
+            }
+        });
     }
 }
