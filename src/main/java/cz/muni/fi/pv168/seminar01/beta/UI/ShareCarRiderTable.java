@@ -155,8 +155,8 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var ride = tableModel.getEntity(modelRow);
 
-                DeleteDialog dialog = new DeleteDialog(MainWindow.getFrame(),
-                        "Smazat jízdu/y", TableCategory.RIDES, DialogBase.getTable(TableCategory.RIDES).getSelectedRows());
+                new DeleteDialog(MainWindow.getFrame(), "Smazat jízdu/y",
+                        TableCategory.RIDES, DialogBase.getTable(TableCategory.RIDES).getSelectedRows());
 
             }
         });
@@ -206,8 +206,8 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var vehicle = tableModel.getEntity(modelRow);
 
-                DeleteDialog dialog = new DeleteDialog(MainWindow.getFrame(),
-                        "Smazat vozidlo/a", TableCategory.VEHICLES, DialogBase.getTable(TableCategory.VEHICLES).getSelectedRows());
+                new DeleteDialog(MainWindow.getFrame(), "Smazat vozidlo/a",
+                        TableCategory.VEHICLES, DialogBase.getTable(TableCategory.VEHICLES).getSelectedRows());
             }
         });
 
@@ -256,8 +256,8 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var passenger = tableModel.getEntity(modelRow);
 
-                DeleteDialog dialog = new DeleteDialog(MainWindow.getFrame(),
-                        "Smazat cestující/ho", TableCategory.PASSENGERS, DialogBase.getTable(TableCategory.PASSENGERS).getSelectedRows());
+                new DeleteDialog(MainWindow.getFrame(), "Smazat cestující/ho",
+                        TableCategory.PASSENGERS, DialogBase.getTable(TableCategory.PASSENGERS).getSelectedRows());
             }
         });
 
