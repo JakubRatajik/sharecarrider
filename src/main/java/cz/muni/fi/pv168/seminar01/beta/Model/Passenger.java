@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Passenger {
+public class Passenger implements HasID {
     private final int id;
     private String firstName;
     private String lastName;
@@ -79,6 +79,7 @@ public class Passenger {
                 .collect(Collectors.joining(", "));
     }
 
+    @Override
     public int getId() {
         return id;
     }

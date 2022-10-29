@@ -3,7 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.Model;
 import java.awt.*;
 import java.util.Objects;
 
-public class RideCategory {
+public class RideCategory implements HasID{
     private final Color color;
     private final String name;
     private final int id;
@@ -22,6 +22,7 @@ public class RideCategory {
         return name;
     }
 
+    @Override
     public int getId() {
         return id;
     }

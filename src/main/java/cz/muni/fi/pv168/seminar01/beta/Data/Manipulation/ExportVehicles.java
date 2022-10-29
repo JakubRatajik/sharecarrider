@@ -2,7 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.Data.Manipulation;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 
-public final class ExportVehicle extends AbstractExporter<Vehicle> {
+public final class ExportVehicles extends AbstractExporter<Vehicle> {
 
     @Override
     protected String createCsvLine(Vehicle element) {

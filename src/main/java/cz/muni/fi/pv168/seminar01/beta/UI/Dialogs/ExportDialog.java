@@ -1,6 +1,10 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.Data.Manipulation.ExportVehicle;
+import cz.muni.fi.pv168.seminar01.beta.Data.Manipulation.ExportPassengers;
+import cz.muni.fi.pv168.seminar01.beta.Data.Manipulation.ExportRides;
+import cz.muni.fi.pv168.seminar01.beta.Data.Manipulation.ExportVehicles;
+import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
@@ -95,10 +99,21 @@ public class ExportDialog extends DialogBase {
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // TODO - only one file is exported - check why two if branches don't run
+                if (rides != null) {
+                    ExportRides exportRides = new ExportRides();
+                    exportRides.export((List<Ride>) DialogBase.getTableModel(TableCategory.RIDES).getData(),
+                            rides.getAbsolutePath());
+                }
                 if (vehicles != null) {
-                    ExportVehicle exportVehicle = new ExportVehicle();
-                    exportVehicle.export((List<Vehicle>) DialogBase.getTableModel(TableCategory.VEHICLES).getData(),
+                    ExportVehicles exportVehicles = new ExportVehicles();
+                    exportVehicles.export((List<Vehicle>) DialogBase.getTableModel(TableCategory.VEHICLES).getData(),
                             vehicles.getAbsolutePath());
+                }
+                if (passengers != null) {
+                    ExportPassengers exportPassengers = new ExportPassengers();
+                    exportPassengers.export((List<Passenger>) DialogBase.getTableModel(TableCategory.PASSENGERS).getData(),
+                            passengers.getAbsolutePath());
                 }
                 dispose();
             }

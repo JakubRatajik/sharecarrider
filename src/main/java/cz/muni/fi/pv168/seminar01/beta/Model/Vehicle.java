@@ -2,7 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.Model;
 
 import java.util.Objects;
 
-public class Vehicle {
+public class Vehicle implements HasID{
     private final int id;
     private final FuelType fuelType;
     private String licensePlate;
@@ -55,6 +55,7 @@ public class Vehicle {
         this.consumption = consumption;
     }
 
+    @Override
     public int getId() {
         return id;
     }

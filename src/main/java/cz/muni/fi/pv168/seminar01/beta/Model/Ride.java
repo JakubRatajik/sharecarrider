@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Ride {
+public class Ride implements HasID{
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private final int id;
@@ -40,6 +40,10 @@ public class Ride {
 
     public String getDate() {
         return date.format(dateFormatter);
+    }
+
+    public String getDateUnformatted() {
+        return date.toString();
     }
 
     public void setDate(LocalDate date) {
@@ -128,6 +132,7 @@ public class Ride {
         this.repetition = repetition;
     }
 
+    @Override
     public int getId() {
         return id;
     }
