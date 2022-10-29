@@ -60,7 +60,7 @@ public class RideDetailDialog extends DetailDialog {
         if (passengersCount != 0) {
             height += 10;
             passengers.add(new JLabel("•  Cestující:"));
-            passengerList = ride.getPassengers();
+            passengerList = ride.getPassengers().stream().toList();
             passengers.add(new JLabel(passengerList.get(0).getFirstName() + " " + passengerList.get(0).getLastName()));
         }
         for (int i = 1; i < passengersCount; i++) {

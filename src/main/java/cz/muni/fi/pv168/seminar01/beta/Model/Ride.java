@@ -21,19 +21,19 @@ public class Ride {
     private String to;
     private int distance;
     private Set<RideCategory> categories;
-    private List<Passenger> passengers;
+    private Set<Passenger> passengers;
     private Vehicle vehicle;
     private Repetition repetition;
 
     public Ride(LocalDate date, LocalTime time, String from, String to, int distance, Collection<RideCategory> categories,
-                List<Passenger> passengers, Vehicle vehicle, Repetition repetition) {
+                Collection<Passenger> passengers, Vehicle vehicle, Repetition repetition) {
         this.date = date;
         this.time = time;
         this.from = from;
         this.to = to;
         this.distance = distance;
         this.categories = new HashSet<>(categories);
-        this.passengers = passengers;
+        this.passengers = new HashSet<>(passengers);
         this.vehicle = vehicle;
         this.repetition = repetition;
         id = IDGenerator.getNewID(this.getClass());
@@ -105,12 +105,12 @@ public class Ride {
         this.to = to;
     }
 
-    public List<Passenger> getPassengers() {
-        return Collections.unmodifiableList(passengers);
+    public Set<Passenger> getPassengers() {
+        return Collections.unmodifiableSet(passengers);
     }
 
-    public void setPassengers(List<Passenger> passengers) {
-        this.passengers = passengers;
+    public void setPassengers(Collection<Passenger> passengers) {
+        this.passengers = new HashSet<>(passengers);
     }
 
     public Vehicle getVehicle() {
