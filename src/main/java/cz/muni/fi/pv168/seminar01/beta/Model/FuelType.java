@@ -1,8 +1,24 @@
 package cz.muni.fi.pv168.seminar01.beta.Model;
 
 public enum FuelType {
-    DIESEL,
-    GASOLINE,
-    ELECTRICITY,
-    LPG
+    DIESEL {
+        @Override
+        public String toString() {
+            return "nafta";
+        }
+    },
+    GASOLINE {
+        @Override
+        public String toString() {
+            return "benzín";
+        }
+    },
+    LPG,
+    CNG,
+    ELECTRICITY {
+        @Override
+        public String toString() {
+            return "elektřina";
+        }
+    }
 }

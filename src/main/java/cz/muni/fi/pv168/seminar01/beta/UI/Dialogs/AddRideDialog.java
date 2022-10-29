@@ -1,6 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.Model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
@@ -22,7 +23,7 @@ public class AddRideDialog extends AddDialog {
     private JTextField distance;
     private JComboBox<Vehicle> vehicle;
     private JScrollPane passengers;
-    private JComboBox<Integer> repetition;
+    private JComboBox<String> repetition;
 
     public AddRideDialog(Frame frame, String name) {
         super(frame, name);
@@ -39,8 +40,18 @@ public class AddRideDialog extends AddDialog {
         this.startDestination = UIConstants.createTextField();
         this.endDestination = UIConstants.createTextField();
         this.distance = UIConstants.createTextField();
+
         this.vehicle = new JComboBox<>();
+        for (Vehicle v : (List<Vehicle>) DialogBase.getTableModel(TableCategory.VEHICLES).getData()) {
+            vehicle.addItem(v);
+        }
         UIConstants.formatComponentDialog(vehicle);
+
+        this.repetition = new JComboBox<>();
+        for (Repetition rep : Repetition.values()) {
+            repetition.addItem(rep.toString());
+        }
+        UIConstants.formatComponentDialog(repetition);
 
         // This should be for selecting multiple passengers
         DefaultListModel<Passenger> l1 = new DefaultListModel<>();
@@ -72,9 +83,6 @@ public class AddRideDialog extends AddDialog {
         passengersScroll.setPreferredSize(new Dimension(40, 0));
         UIConstants.formatComponentDialog(passengersScroll);
         this.passengers = passengersScroll;
-
-        this.repetition = new JComboBox<Integer>();
-        UIConstants.formatComponentDialog(repetition);
     }
 
     public void initializeContent(JPanel central) {

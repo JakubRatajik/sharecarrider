@@ -61,14 +61,7 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return "Vehicle{" +
-                "licensePlate='" + licensePlate + '\'' +
-                ", brand='" + brand + '\'' +
-                ", type='" + type + '\'' +
-                ", capacity=" + capacity +
-                ", consumption=" + consumption +
-                ", id=" + id +
-                '}';
+        return brand + " " + type + " (" + licensePlate + ")";
     }
 
     public String getLicensePlate() {
