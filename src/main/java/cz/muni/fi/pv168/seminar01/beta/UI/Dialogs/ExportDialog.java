@@ -99,7 +99,6 @@ public class ExportDialog extends DialogBase {
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO - only one file is exported - check why two if branches don't run
                 if (rides != null) {
                     ExportRides exportRides = new ExportRides();
                     exportRides.export((List<Ride>) DialogBase.getTableModel(TableCategory.RIDES).getData(),

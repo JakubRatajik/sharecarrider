@@ -17,6 +17,10 @@ public final class SampleUsage {
     private static final List<Passenger> passengers = new ArrayList<>();
     private static final List<Ride> rides = new ArrayList<>();
 
+    private SampleUsage() {
+        throw new AssertionError("This class is not intended for instantiation.");
+    }
+
     /**
      * This method generates sample data.
      * 10 passengers
