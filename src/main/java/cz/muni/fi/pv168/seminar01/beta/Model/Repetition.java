@@ -30,5 +30,16 @@ public enum Repetition {
         public String toString() {
             return "ročně";
         }
+    };
+
+    public static Repetition fromString(String repetition) {
+        return switch (repetition) {
+            case "neopakovat" -> NONE;
+            case "denně" -> DAILY;
+            case "týdně" -> WEEKLY;
+            case "měsíčně" -> MONTHLY;
+            case "ročně" -> YEARLY;
+            default -> null;
+        };
     }
 }

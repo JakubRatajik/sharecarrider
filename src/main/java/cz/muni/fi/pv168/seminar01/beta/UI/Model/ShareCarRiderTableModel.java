@@ -1,8 +1,12 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Model;
 
+import cz.muni.fi.pv168.seminar01.beta.Model.HasID;
+import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Jakub Ratajik
@@ -58,6 +62,11 @@ public abstract class ShareCarRiderTableModel<T> extends AbstractTableModel {
     public void updateRow(T employee) {
         int rowIndex = data.indexOf(employee);
         fireTableRowsUpdated(rowIndex, rowIndex);
+    }
+
+    public T getObjectById(int id) {
+        Optional<T> obj = data.stream().filter(object -> ((HasID) object).getId() == id).findAny();
+        return obj.orElse(null);
     }
 
 }

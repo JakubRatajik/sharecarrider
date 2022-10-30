@@ -3,6 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.Data.Manipulation;
 import cz.muni.fi.pv168.seminar01.beta.Model.*;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.DialogBase;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.VehicleTableModel;
 
 import java.io.BufferedReader;
@@ -27,7 +28,7 @@ public class ImporterBase {
         try {
             importVehicles(vehicles);
             importPassengers(passengers);
-            //importRides(rides);
+            importRides(rides);
         } catch (Exception e) {
             return;
         }
@@ -46,14 +47,14 @@ public class ImporterBase {
             importPassenger(splitter(reader.nextLine()));
         }
     }
-/*
+
     public static void importRides(File rides) throws FileNotFoundException {
         Scanner reader = new Scanner(rides);
         while (reader.hasNextLine()) {
             importRide(splitter(reader.nextLine()));
         }
     }
-    */
+
 
 
     public static String[] listParser(String list) {
@@ -61,8 +62,9 @@ public class ImporterBase {
         return list.split(", ");
     }
 
-    /*
+
     public static void importRide(String[] split) {
+        System.err.println(split.length);
         if (split.length == RIDE_PARAMETERS) {
             int id = tryToInt(split[0]);
             LocalDate date = LocalDate.parse(split[1]);
@@ -70,18 +72,44 @@ public class ImporterBase {
             String from = split[3];
             String where = split[4];
             int distance = tryToInt(split[5]);
-            Set<PassengerCategory> categorySet = new HashSet<>();
-            String cat = split[5];
-            if (cat.length() > 2) {
-                for (String category: listParser(cat)) {
-                    categorySet.add(RideCategory.fromString(category));
+
+            // CATEGORIES
+//            Set<PassengerCategory> categorySet = new HashSet<>();
+//            String cat = split[6];
+//            if (cat.length() > 2) {
+//                for (String category: listParser(cat)) {
+//                    categorySet.add(RideCategory.fromString(category));
+//                }
+//            }
+
+            String pass = split[7];
+            Set<Passenger> passengerSet = new HashSet<>();
+            if (pass.length() > 2) {
+                for (String passenger: listParser(pass)) {
+                    Passenger passengerObject = (Passenger) DialogBase.getTableModel(TableCategory.PASSENGERS).getObjectById(tryToInt(passenger));
+                    if (passengerObject == null) {
+                        System.err.println("Import not successful - > Person with id " + pass + " is missing in list");
+                    }
+                    passengerSet.add(passengerObject);
                 }
             }
 
-            ((PassengerTableModel) DialogBase.getTableModel(TableCategory.PASSENGERS)).addRow(
-                    new Passenger(id, name, surname, phoneNumber, categorySet));
+            int vehicleID = tryToInt(split[8]);
+            Vehicle vehicleObject = (Vehicle) DialogBase.getTableModel(TableCategory.VEHICLES).getObjectById(vehicleID);
+            if (vehicleObject == null) {
+                System.err.println("Import not successful - > Vehicle with id " + vehicleID + " is missing in list");
+            }
+            Vehicle vehicle = vehicleObject;
+
+            String rep = split[9];
+            Repetition repetition = Repetition.fromString(rep);
+
+
+
+            ((RideTableModel) DialogBase.getTableModel(TableCategory.RIDES)).addRow(
+                    new Ride(id, date, time, from, where, distance, new HashSet<RideCategory>(), passengerSet, vehicle, repetition));
         }
-    }*/
+    }
 
     private static void importPassenger(String[] split) {
         if (split.length == PASSENGER_PARAMETERS) {

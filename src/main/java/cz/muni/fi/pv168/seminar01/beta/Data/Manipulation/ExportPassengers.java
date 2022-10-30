@@ -2,6 +2,8 @@ package cz.muni.fi.pv168.seminar01.beta.Data.Manipulation;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
 
+import java.io.BufferedWriter;
+
 public class ExportPassengers extends AbstractExporter<Passenger> {
 
     @Override
@@ -11,6 +13,11 @@ public class ExportPassengers extends AbstractExporter<Passenger> {
                 element.getLastName() + SEPARATOR +
                 element.getPhoneNumber() + SEPARATOR +
                 element.getCategories();
+    }
+
+    @Override
+    protected void writeAfterMain(BufferedWriter writer) {
+        return;
     }
     // TODO - getCategories method should probably return names instead of toStrings
 }

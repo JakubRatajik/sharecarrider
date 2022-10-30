@@ -16,10 +16,17 @@ public abstract class AbstractExporter<T> {
                 writer.write(line);
                 writer.newLine();
             }
+            writeAfterMain(writer);
         } catch (IOException exception) {
             throw new DataManipulationException("Unable to write to file", exception);
         }
     }
 
     protected abstract String createCsvLine(T element);
+
+    /**
+     * Will be used for importing categories later
+     * @param writer is a BufferedWriter with specific file
+     */
+    protected abstract void writeAfterMain(BufferedWriter writer);
 }

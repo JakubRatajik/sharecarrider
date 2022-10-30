@@ -38,6 +38,20 @@ public class Ride implements HasID{
         id = IDGenerator.getNewID(this.getClass());
     }
 
+    public Ride(int id, LocalDate date, LocalTime time, String from, String to, int distance, Collection<RideCategory> categories,
+                Collection<Passenger> passengers, Vehicle vehicle, Repetition repetition) {
+        this.date = date;
+        this.time = time;
+        this.from = from;
+        this.to = to;
+        this.distance = distance;
+        this.categories = new HashSet<>(categories);
+        this.passengers = new HashSet<>(passengers);
+        this.vehicle = vehicle;
+        this.repetition = repetition;
+        this.id = id;
+    }
+
     public String getDate() {
         return date.format(dateFormatter);
     }

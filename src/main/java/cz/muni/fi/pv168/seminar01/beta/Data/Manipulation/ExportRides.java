@@ -3,6 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.Data.Manipulation;
 import cz.muni.fi.pv168.seminar01.beta.Model.HasID;
 import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 
+import java.io.BufferedWriter;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class ExportRides extends AbstractExporter<Ride>{
                 getIDs(element.getPassengers()) + SEPARATOR +
                 element.getVehicle().getId() + SEPARATOR +
                 element.getRepetition().name();
+    }
+
+    @Override
+    protected void writeAfterMain(BufferedWriter writer) {
+        return; // TODO - ride categories
     }
 
     private <T extends HasID> List<Integer> getIDs(Collection<T> elements) {
