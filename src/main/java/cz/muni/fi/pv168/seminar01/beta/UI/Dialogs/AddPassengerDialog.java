@@ -1,21 +1,27 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.Model.PassengerCategory;
+import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AddPassengerDialog extends AddDialog {
 
     private JTextField name;
     private JTextField surname;
     private JTextField phoneNumber;
-    private JCheckBox workCategory;
-    private JCheckBox familyCategory;
-    private JCheckBox friendsCategory;
-    private JCheckBox otherCatgory;
+    private Map<PassengerCategory,JCheckBox> categories;
 
     public AddPassengerDialog(Frame frame, String name) {
         super(frame, name);
@@ -33,10 +39,10 @@ public class AddPassengerDialog extends AddDialog {
         name = UIConstants.createTextField();
         surname = UIConstants.createTextField();
         phoneNumber = UIConstants.createTextField();
-        workCategory = new JCheckBox(" Práce");
-        familyCategory = new JCheckBox(" Rodina");
-        friendsCategory = new JCheckBox(" Přátelé");
-        otherCatgory = new JCheckBox(" Jiné");
+        categories = new HashMap<>();
+        for (PassengerCategory category : PassengerCategory.values()) {
+            categories.put(category, new JCheckBox(" " + category));
+        }
     }
 
     @Override
@@ -50,13 +56,13 @@ public class AddPassengerDialog extends AddDialog {
         center.add(new JLabel("•  Telefon:"));
         center.add(this.phoneNumber);
         center.add(new JLabel("•  Kategorie:"));
-        center.add(workCategory);
+        center.add(categories.get(PassengerCategory.WORK));
         center.add(new JLabel(" "));
-        center.add(familyCategory);
+        center.add(categories.get(PassengerCategory.FAMILY));
         center.add(new JLabel(" "));
-        center.add(friendsCategory);
+        center.add(categories.get(PassengerCategory.FRIENDS));
         center.add(new JLabel(" "));
-        center.add(otherCatgory);
+        center.add(categories.get(PassengerCategory.OTHER));
         setSize(330, 220);
     }
 
@@ -65,8 +71,24 @@ public class AddPassengerDialog extends AddDialog {
         create.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO - there need to be save action, but is not implemented yet
-                dispose();
+                Set<PassengerCategory> selectedCategories = categories.keySet().stream()
+                        .filter(key -> categories.get(key).isSelected())
+                        .collect(Collectors.toSet());
+
+                try {
+                    Passenger passenger = new Passenger(
+                            name.getText(),
+                            surname.getText(),
+                            phoneNumber.getText(),
+                            selectedCategories
+                    );
+
+                    PassengerTableModel tableModel = (PassengerTableModel) DialogBase.getTableModel(TableCategory.PASSENGERS);
+                    tableModel.addRow(passenger);
+                    dispose();
+                } catch (IllegalArgumentException exception) {
+                    new ErrorDialog(MainWindow.getFrame(), exception.getMessage());
+                }
             }
         });
     }
