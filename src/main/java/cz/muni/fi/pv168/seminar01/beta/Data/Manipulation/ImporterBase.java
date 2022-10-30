@@ -64,7 +64,6 @@ public class ImporterBase {
 
 
     public static void importRide(String[] split) {
-        System.err.println(split.length);
         if (split.length == RIDE_PARAMETERS) {
             int id = tryToInt(split[0]);
             LocalDate date = LocalDate.parse(split[1]);
@@ -102,7 +101,7 @@ public class ImporterBase {
             Vehicle vehicle = vehicleObject;
 
             String rep = split[9];
-            Repetition repetition = Repetition.fromString(rep);
+            Repetition repetition = Enum.valueOf(Repetition.class, rep);
 
 
 
