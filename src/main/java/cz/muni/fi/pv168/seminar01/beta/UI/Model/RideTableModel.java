@@ -14,7 +14,7 @@ import java.util.Collection;
  */
 public class RideTableModel extends ShareCarRiderTableModel<Ride> {
     public RideTableModel() {
-        super(new String[]{"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"}, (new SampleUsage()).getRides());
+        super(new String[]{"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"}, SampleUsage.getRides());
 
     }
 

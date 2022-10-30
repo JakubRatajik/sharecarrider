@@ -8,7 +8,7 @@ import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
  */
 public class VehicleTableModel extends ShareCarRiderTableModel<Vehicle> {
     public VehicleTableModel() {
-        super(new String[]{"Značka", "Typ", "Počet míst", "Průměrná spotřeba"}, (new SampleUsage()).getVehicles());
+        super(new String[]{"Značka", "Typ", "Počet míst", "Průměrná spotřeba"}, SampleUsage.getVehicles());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import cz.muni.fi.pv168.seminar01.beta.Data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 
 import javax.swing.*;
@@ -22,6 +23,8 @@ public class Main {
         } catch (UnsupportedLookAndFeelException e) {
             System.err.println("Cannot load wanted LaF");
         }
+
+        SampleUsage.generateSampleData();
         MainWindow window = new MainWindow();
 
 

@@ -12,7 +12,7 @@ import java.util.Set;
 public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
 
     public PassengerTableModel() {
-        super(new String[]{"Jméno", "Příjmení", "Telefon", "Kategorie"}, (new SampleUsage()).getPassengers());
+        super(new String[]{"Jméno", "Příjmení", "Telefon", "Kategorie"}, SampleUsage.getPassengers());
     }
 
     @Override

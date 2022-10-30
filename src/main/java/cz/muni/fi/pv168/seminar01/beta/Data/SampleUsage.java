@@ -12,14 +12,10 @@ import java.util.List;
  * Class for example of usage of TestDataGenerator.
  */
 public final class SampleUsage {
-    private final TestDataGenerator testDataGenerator = new TestDataGenerator();
-    private final List<Vehicle> vehicles = new ArrayList<>();
-    private final List<Passenger> passengers = new ArrayList<>();
-    private final List<Ride> rides = new ArrayList<>();
-
-    public SampleUsage() {
-        generateSampleData();
-    }
+    private static final TestDataGenerator testDataGenerator = new TestDataGenerator();
+    private static final List<Vehicle> vehicles = new ArrayList<>();
+    private static final List<Passenger> passengers = new ArrayList<>();
+    private static final List<Ride> rides = new ArrayList<>();
 
     /**
      * This method generates sample data.
@@ -29,7 +25,7 @@ public final class SampleUsage {
      * <p>
      * It's also an example of how to generate data with testDataGenerator.
      */
-    public void generateSampleData() {
+    public static void generateSampleData() {
         for (int i = 0; i < 10; i++) {
             passengers.add(testDataGenerator.createPassenger());
         }
@@ -41,15 +37,15 @@ public final class SampleUsage {
         }
     }
 
-    public List<Vehicle> getVehicles() {
+    public static List<Vehicle> getVehicles() {
         return vehicles;
     }
 
-    public List<Passenger> getPassengers() {
+    public static List<Passenger> getPassengers() {
         return passengers;
     }
 
-    public List<Ride> getRides() {
+    public static List<Ride> getRides() {
         return rides;
     }
 }
