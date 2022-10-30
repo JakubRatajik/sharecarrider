@@ -24,6 +24,17 @@ public class Passenger implements HasID {
         id = IDGenerator.getNewID(this.getClass());
     }
 
+    public Passenger(int id, String firstName, String lastName, String phoneNumber, Collection<PassengerCategory> categories) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        if (!isPhoneNumberValid()) {
+            throw new IllegalArgumentException("Phone number is not valid!");
+        }
+        this.categories = new HashSet<>(categories);
+        this.id = id;
+    }
+
     private boolean isPhoneNumberValid() {
         return phoneNumber.matches("[+]?\\d+");
     }

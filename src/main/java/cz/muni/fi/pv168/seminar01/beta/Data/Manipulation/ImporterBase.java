@@ -1,17 +1,23 @@
 package cz.muni.fi.pv168.seminar01.beta.Data.Manipulation;
 
-import cz.muni.fi.pv168.seminar01.beta.Model.FuelType;
-import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.Model.*;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.DialogBase;
+import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.VehicleTableModel;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class ImporterBase {
+    private static final int VEHICLE_PARAMETERS = 7;
+    private static final int PASSENGER_PARAMETERS = 5;
+    private static final int RIDE_PARAMETERS = 10;
 
     private static String[] splitter(String toSplit) {
         return toSplit.split(AbstractExporter.SEPARATOR);
@@ -20,27 +26,86 @@ public class ImporterBase {
     public static void loadData(File rides, File vehicles, File passengers) {
         try {
             importVehicles(vehicles);
+            importPassengers(passengers);
+            //importRides(rides);
         } catch (Exception e) {
             return;
         }
-
-
-
     }
 
     private static void importVehicles(File vehicles) throws FileNotFoundException {
         Scanner reader = new Scanner(vehicles);
         while (reader.hasNextLine()) {
-            String line = reader.nextLine();
-            importVehicle(line);
+            importVehicle(splitter(reader.nextLine()));
+        }
+    }
+
+    public static void importPassengers(File passengers) throws FileNotFoundException {
+        Scanner reader = new Scanner(passengers);
+        while (reader.hasNextLine()) {
+            importPassenger(splitter(reader.nextLine()));
+        }
+    }
+/*
+    public static void importRides(File rides) throws FileNotFoundException {
+        Scanner reader = new Scanner(rides);
+        while (reader.hasNextLine()) {
+            importRide(splitter(reader.nextLine()));
+        }
+    }
+    */
+
+
+    public static String[] listParser(String list) {
+        list = list.substring(1, list.length() - 1);
+        return list.split(", ");
+    }
+
+    /*
+    public static void importRide(String[] split) {
+        if (split.length == RIDE_PARAMETERS) {
+            int id = tryToInt(split[0]);
+            LocalDate date = LocalDate.parse(split[1]);
+            LocalTime time = LocalTime.parse(split[2]);
+            String from = split[3];
+            String where = split[4];
+            int distance = tryToInt(split[5]);
+            Set<PassengerCategory> categorySet = new HashSet<>();
+            String cat = split[5];
+            if (cat.length() > 2) {
+                for (String category: listParser(cat)) {
+                    categorySet.add(RideCategory.fromString(category));
+                }
+            }
+
+            ((PassengerTableModel) DialogBase.getTableModel(TableCategory.PASSENGERS)).addRow(
+                    new Passenger(id, name, surname, phoneNumber, categorySet));
+        }
+    }*/
+
+    private static void importPassenger(String[] split) {
+        if (split.length == PASSENGER_PARAMETERS) {
+            int id = tryToInt(split[0]);
+            String name = split[1];
+            String surname = split[2];
+            String phoneNumber = split[3];
+            String cat = split[4];
+            Set<PassengerCategory> categorySet = new HashSet<>();
+            if (cat.length() > 2) {
+                for (String category: listParser(cat)) {
+                    categorySet.add(PassengerCategory.fromString(category));
+                }
+            }
+
+            ((PassengerTableModel) DialogBase.getTableModel(TableCategory.PASSENGERS)).addRow(
+                    new Passenger(id, name, surname, phoneNumber, categorySet));
         }
     }
 
 
 
-    private static void importVehicle(String vehicle) {
-        String[] split = splitter(vehicle);
-        if (split.length == 7) {
+    private static void importVehicle(String[] split) {
+        if (split.length == VEHICLE_PARAMETERS) {
             int id = tryToInt(split[0]);
             String licencePlate = split[1];
             String brand = split[2];

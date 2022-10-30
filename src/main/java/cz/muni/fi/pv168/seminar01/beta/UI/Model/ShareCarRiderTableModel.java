@@ -59,4 +59,5 @@ public abstract class ShareCarRiderTableModel<T> extends AbstractTableModel {
         int rowIndex = data.indexOf(employee);
         fireTableRowsUpdated(rowIndex, rowIndex);
     }
+
 }
