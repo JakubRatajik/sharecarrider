@@ -1,7 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Model;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.HasID;
-import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Collections;
