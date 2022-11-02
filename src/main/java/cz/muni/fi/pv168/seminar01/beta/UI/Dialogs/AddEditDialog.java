@@ -1,21 +1,21 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
-
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author Jan Macecek
+ * This class represents both add and edit dialogs.
+ * If it is called with two attributes only, it acts like an add dialog.
+ * With three attributes, it acts like an edit dialog.
  */
-public abstract class AddDialog extends DialogBase {
+public abstract class AddEditDialog extends DialogBase {
 
 
-    public AddDialog(Frame frame, String name) {
+    public AddEditDialog(Frame frame, String name) {
         super(frame, name);
     }
 
-    public AddDialog(Frame frame, String name, Object attribute) {
+    public AddEditDialog(Frame frame, String name, Object attribute) {
         super(frame, name, attribute);
     }
 

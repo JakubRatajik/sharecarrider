@@ -143,8 +143,7 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var ride = tableModel.getEntity(modelRow);
 
-                new TemporaryDialog(MainWindow.getFrame(), "Upravit jízdu");
-//                new RideEditDialog(MainWindow.getFrame(), "Upravit jízdu");
+                new AddEditRideDialog(MainWindow.getFrame(), "Upravit jízdu", (Ride) ride);
             }
         });
 
@@ -168,8 +167,7 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var ride = tableModel.getEntity(modelRow);
 
-                new TemporaryDialog(MainWindow.getFrame(), "Přidat jízdu");
-//                new RideAddDialog(MainWindow.getFrame(), "Přidat jízdu");
+                new AddEditRideDialog(MainWindow.getFrame(), "Přidat jízdu");
             }
         });
     }
@@ -182,8 +180,7 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var vehicle = tableModel.getEntity(modelRow);
 
-                new TemporaryDialog(MainWindow.getFrame(), "Detail vozidla");
-//                new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla");
+                new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla", (Vehicle) vehicle);
             }
         });
 
@@ -194,8 +191,7 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var vehicle = tableModel.getEntity(modelRow);
 
-                new TemporaryDialog(MainWindow.getFrame(), "Upravit vozidlo");
-//                new VehicleEditDialog(MainWindow.getFrame(), "Upravit vozidlo");
+                new AddEditVehicleDialog(MainWindow.getFrame(), "Upravit vozidlo", (Vehicle) vehicle);
             }
         });
 
@@ -218,8 +214,7 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var vehicle = tableModel.getEntity(modelRow);
 
-                new TemporaryDialog(MainWindow.getFrame(), "Přidat vozidlo");
-//                new VehicleAddDialog(MainWindow.getFrame(), "Přidat vozidlo");
+                new AddEditVehicleDialog(MainWindow.getFrame(), "Přidat vozidlo");
             }
         });
     }
@@ -232,8 +227,7 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var passenger = tableModel.getEntity(modelRow);
 
-                new TemporaryDialog(MainWindow.getFrame(), "Detail cestujícího");
-//                new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího");
+                new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího", (Passenger) passenger);
             }
         });
 
@@ -244,8 +238,7 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var passenger = tableModel.getEntity(modelRow);
 
-                new TemporaryDialog(MainWindow.getFrame(), "Upravit cestujícího");
-//                new PassengerEditDialog(MainWindow.getFrame(), "Upravit cestujícího");
+                new AddEditPassengerDialog(MainWindow.getFrame(), "Upravit cestujícího", (Passenger) passenger);
             }
         });
 
@@ -268,8 +261,7 @@ public class ShareCarRiderTable extends JTable {
                 int modelRow = convertRowIndexToModel(getSelectedRow());
                 var passenger = tableModel.getEntity(modelRow);
 
-                new TemporaryDialog(MainWindow.getFrame(), "Přidat cestujícího");
-//                new PassengerAddDialog(MainWindow.getFrame(), "Přidat cestujícího");
+                new AddEditPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího");
             }
         });
     }

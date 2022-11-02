@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class AddEditPassengerDialog extends AddDialog {
+public class AddEditPassengerDialog extends AddEditDialog {
     private Passenger passenger = null;
     private JTextField name;
     private JTextField surname;

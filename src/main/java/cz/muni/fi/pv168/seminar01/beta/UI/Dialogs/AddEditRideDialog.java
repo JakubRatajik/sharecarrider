@@ -19,7 +19,7 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
 
-public class AddEditRideDialog extends AddDialog {
+public class AddEditRideDialog extends AddEditDialog {
     private Ride ride = null;
     private JDatePicker date;
     private JTextField time;

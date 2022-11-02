@@ -5,6 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.Validator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.awt.event.ActionListener;
 /**
  * @author Jan Macecek
  */
-public class AddEditVehicleDialog extends AddDialog {
+public class AddEditVehicleDialog extends AddEditDialog {
     private Vehicle vehicle = null;
     private JTextField licensePlate;
     private JTextField brand;
