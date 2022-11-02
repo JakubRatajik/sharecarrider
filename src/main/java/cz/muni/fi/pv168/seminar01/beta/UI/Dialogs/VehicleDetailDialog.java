@@ -24,7 +24,7 @@ public class VehicleDetailDialog extends DetailDialog {
 
     @Override
     public void initializeCenter(JPanel center) {
-        center.setLayout(new GridLayout(4, 2));
+        center.setLayout(new GridLayout(6, 2));
         UIConstants.formatWhiteTextBrownDialog((center));
         center.add(new JLabel("•  Značka:"));
         center.add(new JLabel(vehicle.getBrand()));
@@ -34,6 +34,10 @@ public class VehicleDetailDialog extends DetailDialog {
         center.add(new JLabel(vehicle.getCapacityString()));
         center.add(new JLabel("•  Spotřeba:"));
         center.add(new JLabel(vehicle.getConsumption() + " l/100 km"));
+        center.add(new JLabel("•  SPZ:"));
+        center.add(new JLabel(vehicle.getLicensePlate()));
+        center.add(new JLabel("•  Typ paliva:"));
+        center.add(new JLabel(vehicle.getFuelType().toString()));
         add(center, BorderLayout.CENTER);
         setSize(220, 180);
     }
