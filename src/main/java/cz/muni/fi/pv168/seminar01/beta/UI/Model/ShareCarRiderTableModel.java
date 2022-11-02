@@ -58,8 +58,8 @@ public abstract class ShareCarRiderTableModel<T> extends AbstractTableModel {
         fireTableRowsInserted(newRowIndex, newRowIndex);
     }
 
-    public void updateRow(T employee) {
-        int rowIndex = data.indexOf(employee);
+    public void updateRow(T object) {
+        int rowIndex = data.indexOf(object);
         fireTableRowsUpdated(rowIndex, rowIndex);
     }
 
