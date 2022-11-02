@@ -3,8 +3,10 @@ package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 import cz.muni.fi.pv168.seminar01.beta.Model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.Validator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,8 +72,17 @@ public class AddVehicleDialog extends AddDialog {
         create.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO - there need to be validation of data inserted
-                Vehicle vehicle = new Vehicle(licensePlate.getText(), brand.getText(), model.getText(), Integer.parseInt(capacity.getText()), Float.parseFloat(consumption.getText()), (FuelType) fuelType.getSelectedItem());
+                if (!isValidAddVehicleInputValid()) {
+                    return;
+                }
+
+                Vehicle vehicle = new Vehicle(
+                        licensePlate.getText(),
+                        brand.getText(),
+                        model.getText(),
+                        Integer.parseInt(capacity.getText().trim()),
+                        Float.parseFloat(consumption.getText()),
+                        (FuelType) fuelType.getSelectedItem());
 
                 VehicleTableModel tableModel = (VehicleTableModel) DialogBase.getTableModel(TableCategory.VEHICLES);
                 tableModel.addRow(vehicle);
@@ -80,5 +91,16 @@ public class AddVehicleDialog extends AddDialog {
         });
     }
 
+    private boolean isValidAddVehicleInputValid() {
+        if (!Validator.isValidIntegerNumberInput(capacity.getText())) {
+            new ErrorDialog(MainWindow.getFrame(), "Kapacita musí být celý číslo.");
+            return false;
+        }
 
+        if (!Validator.isValidRealNumberInput(consumption.getText())) {
+            new ErrorDialog(MainWindow.getFrame(), "Spotřeba musí být reální číslo.");
+        }
+
+        return true;
+    }
 }
