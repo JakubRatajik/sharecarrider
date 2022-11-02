@@ -1,6 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class VehicleDetailDialog extends DetailDialog {
 
     @Override
     public void onEditButton(JButton edit) {
-
+        edit.addActionListener(e -> new AddEditVehicleDialog(MainWindow.getFrame(), "Upravit vozidlo", vehicle));
     }
 
     @Override

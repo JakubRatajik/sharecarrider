@@ -3,6 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.Model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
@@ -15,6 +16,16 @@ import java.util.List;
 
 public class RideDetailDialog extends DetailDialog {
     private Ride ride;
+    private JLabel date;
+    private JLabel time;
+    private JLabel startDestination;
+    private JLabel endDestination;
+    private JLabel distance;
+    private JLabel vehicle;
+    private JLabel[] passengers;
+    private JLabel[] categories;
+    private JLabel repetition;
+    private JLabel price;
 
     public RideDetailDialog(Frame frame, String name, Ride ride) {
         super(frame, name, ride);
@@ -23,7 +34,8 @@ public class RideDetailDialog extends DetailDialog {
 
     @Override
     public void onEditButton(JButton edit) {
-
+        edit.addActionListener(e -> new AddEditRideDialog(MainWindow.getFrame(), "Upravit jízdu", ride));
+        update();
     }
 
     @Override
@@ -31,23 +43,27 @@ public class RideDetailDialog extends DetailDialog {
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         UIConstants.formatWhiteTextBrownDialog(center);
 
+        setAttributes();
+
         JPanel nonChangeable = new JPanel();
-        nonChangeable.setLayout(new GridLayout(7, 2));
+        nonChangeable.setLayout(new GridLayout(8, 2));
         UIConstants.formatWhiteTextBrownDialog(nonChangeable);
         nonChangeable.add(new JLabel("•  Datum:"));
-        nonChangeable.add(new JLabel(ride.getDate()));
+        nonChangeable.add(date);
         nonChangeable.add(new JLabel("•  Čas:"));
-        nonChangeable.add(new JLabel(ride.getTime()));
+        nonChangeable.add(time);
         nonChangeable.add(new JLabel("•  Začátek:"));
-        nonChangeable.add(new JLabel(ride.getFrom()));
+        nonChangeable.add(startDestination);
         nonChangeable.add(new JLabel("•  Cíl:"));
-        nonChangeable.add(new JLabel(ride.getTo()));
+        nonChangeable.add(endDestination);
         nonChangeable.add(new JLabel("•  Vzdálenost:"));
-        nonChangeable.add(new JLabel(ride.getDistance() + " km"));
+        nonChangeable.add(distance);
         nonChangeable.add(new JLabel("•  Vozidlo:"));
-        nonChangeable.add(new JLabel(ride.getVehicle().getBrand() + " " + ride.getVehicle().getType()));
+        nonChangeable.add(vehicle);
         nonChangeable.add(new JLabel("•  Cena:"));
-        nonChangeable.add(new JLabel(String.format("%.5g%n", ride.countPrice()) + " Kč"));
+        nonChangeable.add(price);
+        nonChangeable.add(new JLabel("•  Opakování:"));
+        nonChangeable.add(repetition);
         center.add(nonChangeable);
         int height = 260;
 
@@ -91,9 +107,23 @@ public class RideDetailDialog extends DetailDialog {
         setSize(330, height);
     }
 
+    public void setAttributes() {
+        date = new JLabel(ride.getDate());
+        time = new JLabel(ride.getTime());
+        startDestination = new JLabel(ride.getFrom());
+        endDestination = new JLabel(ride.getTo());
+        distance = new JLabel(ride.getDistance() + " km");
+        vehicle = new JLabel(ride.getVehicle().getBrand() + " " + ride.getVehicle().getType());
+        price = new JLabel(String.format("%.5g%n", ride.countPrice()) + " Kč");
+        repetition = new JLabel(String.valueOf(ride.getRepetition()));
+    }
+
 
     @Override
     public void addAttribute(Object attribute) {
         ride = (Ride) attribute;
+    }
+
+    public void update() {
     }
 }

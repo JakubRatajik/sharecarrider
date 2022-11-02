@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Vehicle implements HasID{
     private final int id;
-    private final FuelType fuelType;
+    private FuelType fuelType;
     private String licensePlate;
     private String brand;
     private String type;
@@ -32,6 +32,10 @@ public class Vehicle implements HasID{
     }
 
     // getters and setters
+
+    public void setFuelType(FuelType fuel) {
+        fuelType = fuel;
+    }
 
     public String getBrand() {
         return brand;

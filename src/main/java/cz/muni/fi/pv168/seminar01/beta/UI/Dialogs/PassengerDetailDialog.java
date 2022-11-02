@@ -1,6 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class PassengerDetailDialog extends DetailDialog {
 
     @Override
     public void onEditButton(JButton edit) {
-
+        edit.addActionListener(e -> new AddEditPassengerDialog(MainWindow.getFrame(), "Upravit cestujícího", passenger));
     }
 
     @Override

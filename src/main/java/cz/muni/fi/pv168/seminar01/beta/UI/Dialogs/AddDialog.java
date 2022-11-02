@@ -15,12 +15,11 @@ public abstract class AddDialog extends DialogBase {
         super(frame, name);
     }
 
-    public void initializeBottom(JPanel bottom) {
-        JButton create = new JButton("Vytvořit");
-        onCreateButton(create);
-        UIConstants.formatComponentDialog(create);
-        bottom.add(create);
+    public AddDialog(Frame frame, String name, Object attribute) {
+        super(frame, name, attribute);
     }
+
+    public abstract void initializeBottom(JPanel bottom);
 
     public void initializeCenter(JPanel center) {
         setAttributes();

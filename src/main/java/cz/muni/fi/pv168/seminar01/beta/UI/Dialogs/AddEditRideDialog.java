@@ -19,8 +19,8 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
 
-public class AddRideDialog extends AddDialog {
-
+public class AddEditRideDialog extends AddDialog {
+    private Ride ride = null;
     private JDatePicker date;
     private JTextField time;
     private JTextField startDestination;
@@ -32,12 +32,65 @@ public class AddRideDialog extends AddDialog {
     private JComboBox<RideCategory> category;
     private JComboBox<Repetition> repetition;
 
-    public AddRideDialog(Frame frame, String name) {
+    public AddEditRideDialog(Frame frame, String name) {
         super(frame, name);
+    }
+
+
+    public AddEditRideDialog(JFrame frame, String name, Ride ride) {
+        super(frame, name, ride);
+    }
+
+    @Override
+    public void initializeBottom(JPanel bottom) {
+        if (vehicle != null) {
+            JButton cancel = new JButton("Zrušit");
+            cancel.addActionListener(e -> dispose());
+            UIConstants.formatComponentDialog(cancel);
+            JButton save = new JButton("Uložit");
+            onSaveEditButton(save);
+            UIConstants.formatComponentDialog(save);
+            bottom.add(cancel);
+            bottom.add(save);
+            return;
+        }
+
+        JButton create = new JButton("Vytvořit");
+        onCreateButton(create);
+        UIConstants.formatComponentDialog(create);
+        bottom.add(create);
+    }
+
+    private void onSaveEditButton(JButton save) {
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] parsedTime = (time.getText().split("[:.]"));
+                LocalTime localTime = LocalTime.of(Integer.parseInt(parsedTime[0]), Integer.parseInt(parsedTime[1]));
+                int parsedDistance = Integer.parseInt(distance.getText());
+                RideTableModel tableModel = (RideTableModel) DialogBase.getTableModel(TableCategory.RIDES);
+                ride.setDate(JDatePickerDateGetter.getLocalDate(date));
+                ride.setTime(localTime);
+                ride.setFrom(startDestination.getText());
+                ride.setTo(endDestination.getText());
+                ride.setDistance(parsedDistance);
+                ride.setPassengers(passengersList.getSelectedValuesList());
+                ride.setVehicle((Vehicle) vehicle.getSelectedItem());
+                ride.setRepetition((Repetition) repetition.getSelectedItem());
+                tableModel.updateRow(ride);
+                dispose();
+            }
+        });
+
+    }
+
+    public AddEditRideDialog(Frame frame, String name, Ride ride) {
+        super(frame, name, ride);
     }
 
     @Override
     protected void addAttribute(Object attribute) {
+        ride = (Ride) attribute;
     }
 
     protected void setAttributes() {
@@ -65,7 +118,6 @@ public class AddRideDialog extends AddDialog {
         }
         UIConstants.formatComponentDialog(repetition);
 
-        // This should be for selecting multiple passengers
         DefaultListModel<Passenger> l1 = new DefaultListModel<>();
         List<Passenger> passengers = (List<Passenger>) DialogBase.getTableModel(TableCategory.PASSENGERS).getData();
         l1.addAll(passengers);
@@ -96,6 +148,18 @@ public class AddRideDialog extends AddDialog {
         UIConstants.formatComponentDialog(passengersScroll);
         this.passengers = passengersScroll;
         this.passengersList = passengerList;
+
+        if (ride != null) {
+            time.setText(ride.getTime());
+            startDestination.setText(ride.getFrom());
+            endDestination.setText(ride.getTo());
+            distance.setText(String.valueOf(ride.getDistance()));
+            vehicle.setSelectedItem(ride.getVehicle());
+            repetition.setSelectedItem(ride.getRepetition());
+            for (Passenger passenger: ride.getPassengers()) {
+                this.passengersList.setSelectedValue(passenger, true);
+            }
+        }
     }
 
     public void initializeContent(JPanel central) {
@@ -138,9 +202,12 @@ public class AddRideDialog extends AddDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO - there need to be validation of data inserted
+
                 String[] parsedTime = (time.getText().split("[:.]"));
                 LocalTime localTime = LocalTime.of(Integer.parseInt(parsedTime[0]), Integer.parseInt(parsedTime[1]));
                 int parsedDistance = Integer.parseInt(distance.getText());
+                RideTableModel tableModel = (RideTableModel) DialogBase.getTableModel(TableCategory.RIDES);
+
                 Ride ride = new Ride(
                         JDatePickerDateGetter.getLocalDate(date),
                         localTime,
@@ -152,7 +219,6 @@ public class AddRideDialog extends AddDialog {
                         (Vehicle) vehicle.getSelectedItem(),
                         (Repetition) repetition.getSelectedItem()
                 );
-                RideTableModel tableModel = (RideTableModel) DialogBase.getTableModel(TableCategory.RIDES);
                 tableModel.addRow(ride);
                 dispose();
             }

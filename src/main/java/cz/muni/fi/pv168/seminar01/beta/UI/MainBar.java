@@ -1,8 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.UI;
 
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddPassengerDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddRideDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddVehicleDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddEditPassengerDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddEditRideDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddEditVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.ExportDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FuelDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.ImportDialog;
@@ -86,7 +86,7 @@ public class MainBar extends JMenuBar {
 
         JMenuItem addRide = new JMenuItem(new AbstractAction("Přidat jízdu") {
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddRideDialog(MainWindow.getFrame(), "Přidat jízdu");
+                JDialog dial = new AddEditRideDialog(MainWindow.getFrame(), "Přidat jízdu");
             }
         });
         UIConstants.formatWhiteTextBrownMenu(addRide);
@@ -94,7 +94,7 @@ public class MainBar extends JMenuBar {
 
         JMenuItem addVehicle = new JMenuItem(new AbstractAction("Přidat vozidlo") {
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddVehicleDialog(MainWindow.getFrame(), "Přidat Vozidlo");
+                JDialog dial = new AddEditVehicleDialog(MainWindow.getFrame(), "Přidat Vozidlo");
             }
         });
         UIConstants.formatWhiteTextBrownMenu(addVehicle);
@@ -102,7 +102,7 @@ public class MainBar extends JMenuBar {
 
         JMenuItem addPassenger = new JMenuItem(new AbstractAction("Přidat cestujícího") {
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího");
+                JDialog dial = new AddEditPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího");
             }
         });
         UIConstants.formatWhiteTextBrownMenu(addPassenger);

@@ -16,21 +16,58 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class AddPassengerDialog extends AddDialog {
-
+public class AddEditPassengerDialog extends AddDialog {
+    private Passenger passenger = null;
     private JTextField name;
     private JTextField surname;
     private JTextField phoneNumber;
     private Map<PassengerCategory,JCheckBox> categories;
 
-    public AddPassengerDialog(Frame frame, String name) {
+    public AddEditPassengerDialog(Frame frame, String name) {
         super(frame, name);
+    }
 
+    public AddEditPassengerDialog(Frame frame, String name, Passenger passenger) {
+        super(frame, name, passenger);
     }
 
     @Override
     protected void addAttribute(Object attribute) {
+        passenger = (Passenger) attribute;
+    }
 
+    @Override
+    public void initializeBottom(JPanel bottom) {
+        if (passenger != null) {
+            JButton cancel = new JButton("Zrušit");
+            cancel.addActionListener(e -> dispose());
+            UIConstants.formatComponentDialog(cancel);
+            JButton save = new JButton("Uložit");
+            onSaveEditButton(save);
+            UIConstants.formatComponentDialog(save);
+            bottom.add(cancel);
+            bottom.add(save);
+            return;
+        }
+
+        JButton create = new JButton("Vytvořit");
+        onCreateButton(create);
+        UIConstants.formatComponentDialog(create);
+        bottom.add(create);
+    }
+
+    private void onSaveEditButton(JButton save) {
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PassengerTableModel tableModel = (PassengerTableModel) DialogBase.getTableModel(TableCategory.PASSENGERS);
+                passenger.setFirstName(name.getText());
+                passenger.setLastName(surname.getText());
+                passenger.setPhoneNumber(phoneNumber.getText());
+                passenger.setCategories(getSelectedCategories());
+                tableModel.updateRow(passenger);
+            }
+        });
     }
 
 
@@ -42,6 +79,15 @@ public class AddPassengerDialog extends AddDialog {
         categories = new HashMap<>();
         for (PassengerCategory category : PassengerCategory.values()) {
             categories.put(category, new JCheckBox(" " + category));
+        }
+
+        if (passenger != null) {
+            name.setText(passenger.getFirstName());
+            surname.setText(passenger.getLastName());
+            phoneNumber.setText(passenger.getPhoneNumber());
+            for (PassengerCategory category: passenger.getCategories()) {
+                categories.get(category).setSelected(true);
+            }
         }
     }
 
@@ -71,16 +117,13 @@ public class AddPassengerDialog extends AddDialog {
         create.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Set<PassengerCategory> selectedCategories = categories.keySet().stream()
-                        .filter(key -> categories.get(key).isSelected())
-                        .collect(Collectors.toSet());
 
                 try {
                     Passenger passenger = new Passenger(
                             name.getText(),
                             surname.getText(),
                             phoneNumber.getText(),
-                            selectedCategories
+                            getSelectedCategories()
                     );
 
                     PassengerTableModel tableModel = (PassengerTableModel) DialogBase.getTableModel(TableCategory.PASSENGERS);
@@ -91,5 +134,11 @@ public class AddPassengerDialog extends AddDialog {
                 }
             }
         });
+    }
+
+    public Set<PassengerCategory> getSelectedCategories() {
+        return categories.keySet().stream()
+                .filter(key -> categories.get(key).isSelected())
+                .collect(Collectors.toSet());
     }
 }

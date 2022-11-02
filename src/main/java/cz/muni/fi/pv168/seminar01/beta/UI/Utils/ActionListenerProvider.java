@@ -39,7 +39,7 @@ public final class ActionListenerProvider {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddRideDialog(MainWindow.getFrame(), "Přidat jízdu");
+                JDialog dial = new AddEditRideDialog(MainWindow.getFrame(), "Přidat jízdu");
             }
         };
 
@@ -80,7 +80,7 @@ public final class ActionListenerProvider {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddVehicleDialog(MainWindow.getFrame(), "Přidat vozidlo");
+                JDialog dial = new AddEditVehicleDialog(MainWindow.getFrame(), "Přidat vozidlo");
             }
         };
 
@@ -121,7 +121,7 @@ public final class ActionListenerProvider {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new AddPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího");
+                JDialog dial = new AddEditPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího");
             }
         };
 
