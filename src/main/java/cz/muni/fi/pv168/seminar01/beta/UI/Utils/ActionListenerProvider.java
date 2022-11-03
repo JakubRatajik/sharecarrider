@@ -3,6 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.UI.Utils;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.*;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
+import cz.muni.fi.pv168.seminar01.beta.UI.ShareCarRiderTable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -60,7 +61,8 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Vybrat");
+                ShareCarRiderTable table = DialogBase.getTable(TableCategory.RIDES);
+                table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
         List<ActionListener> rides = new ArrayList<>();
@@ -101,7 +103,8 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Vybrat");
+                ShareCarRiderTable table = DialogBase.getTable(TableCategory.VEHICLES);
+                table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
         List<ActionListener> vehicles = new ArrayList<>();
@@ -142,7 +145,8 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Vybrat");
+                ShareCarRiderTable table = DialogBase.getTable(TableCategory.PASSENGERS);
+                table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
         List<ActionListener> passengers = new ArrayList<>();
@@ -162,6 +166,8 @@ public final class ActionListenerProvider {
                 for (int i = 0; i < rows.length; i++) {
                     DialogBase.getTableModel(category).deleteRow(firstRow);
                 }
+                ShareCarRiderTable table = DialogBase.getTable(category);
+                table.clearSelection();
                 dialog.dispose();
             }
 
