@@ -4,7 +4,12 @@ import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.*;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.DeleteDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.DialogBase;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.PassengerDetailDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.RideDetailDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.VehicleDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.ShareCarRiderTableModel;
@@ -20,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.stream.IntStream;
 
 /**
  * @author Jakub Ratajik
@@ -30,6 +36,8 @@ public class ShareCarRiderTable extends JTable {
     private JMenuItem editPopupMenuItem;
     private JMenuItem deletePopupMenuItem;
     private JMenuItem addPopupMenuItem;
+    private boolean isMultilineSelectionEnabled;
+    private MouseAdapter doubleClickListener;
 
     public ShareCarRiderTable(TableCategory tableCategory) {
         this.tableCategory = tableCategory;
@@ -59,7 +67,8 @@ public class ShareCarRiderTable extends JTable {
 
         setColumnWidths();
         changeDefaultRenderer();
-        addDoubleClickListener();
+        initDoubleClickListener();
+        addMouseListener(doubleClickListener);
         addPopupMenu();
     }
 
@@ -266,8 +275,8 @@ public class ShareCarRiderTable extends JTable {
         });
     }
 
-    private void addDoubleClickListener() {
-        addMouseListener(new MouseAdapter() {
+    private void initDoubleClickListener() {
+        doubleClickListener = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
                 ShareCarRiderTable table = (ShareCarRiderTable) mouseEvent.getSource();
@@ -289,7 +298,7 @@ public class ShareCarRiderTable extends JTable {
                             new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", (Ride) entity);
                 }
             }
-        });
+        };
     }
 
     private void rowSelectionChanged(ListSelectionEvent listSelectionEvent) {
@@ -315,6 +324,25 @@ public class ShareCarRiderTable extends JTable {
         return tableCategory;
     }
 
+    public boolean isMultilineSelectionEnabled() {
+        return isMultilineSelectionEnabled;
+    }
+
+    void setMultilineSelectionEnabled(boolean wantToEnable) {
+        isMultilineSelectionEnabled = wantToEnable;
+    }
+
+    public void enableMultilineSelection(boolean enable) {
+        isMultilineSelectionEnabled = enable;
+        clearSelection();
+
+        if (enable) {
+            removeMouseListener(doubleClickListener);
+        } else {
+            addMouseListener(doubleClickListener);
+        }
+    }
+
     //TODO: add tableRowSorter
 //    MyTableModel model = new MyTableModel();
 //    sorter = new TableRowSorter<MyTableModel>(model);
@@ -325,4 +353,18 @@ public class ShareCarRiderTable extends JTable {
 //    sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
 //    sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
 //    sorter.setSortKeys(sortKeys);
+
+    @Override
+    public void changeSelection(int rowIndex, int columnIndex, boolean toggle, boolean extend) {
+        if (isMultilineSelectionEnabled) {
+            if (IntStream.of(getSelectedRows()).anyMatch(row -> row == rowIndex)) {
+                removeRowSelectionInterval(rowIndex, rowIndex);
+            }
+            else {
+                addRowSelectionInterval(rowIndex, rowIndex);
+            }
+        } else {
+            super.changeSelection(rowIndex, columnIndex, toggle, extend);
+        }
+    }
 }
