@@ -51,12 +51,12 @@ public class TabFrame {
         plusButton.setBackground(UIConstants.OCHER);
         plusButton.setFont(UIConstants.fTab);
         plusButton.setForeground(UIConstants.TEXT_BROWN);
+        selectButton = new JButton("Vybrat");
         sortByButton = new JButton("Řadit");
         filterButton = new JButton("Filtrovat");
-        selectButton = new JButton("Vybrat");
+        UIConstants.formatBeigeTextBrownDialog(selectButton);
         UIConstants.formatBeigeTextBrownDialog(sortByButton);
         UIConstants.formatBeigeTextBrownDialog(filterButton);
-        UIConstants.formatBeigeTextBrownDialog(selectButton);
 
         JPanel topPanel = new JPanel();
         topPanel.setBorder(BorderFactory.createEmptyBorder());
@@ -66,9 +66,9 @@ public class TabFrame {
         topPanel.add(plusButton);
         topPanel.setBackground(UIConstants.WHITE);
         topPanel.add(Box.createHorizontalGlue());
+        topPanel.add(selectButton);
         topPanel.add(sortByButton);
         topPanel.add(filterButton);
-        topPanel.add(selectButton);
 
         return topPanel;
     }
