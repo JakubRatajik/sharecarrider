@@ -9,6 +9,16 @@ public enum PassengerCategory {
     FRIENDS,
     OTHER;
 
+    public static PassengerCategory fromString(String str) {
+        return switch (str) {
+            case "Práce" -> WORK;
+            case "Jiné" -> OTHER;
+            case "Rodina" -> FAMILY;
+            case "Přátelé" -> FRIENDS;
+            default -> null;
+        };
+    }
+
     @Override
     public String toString() {
         String string;
@@ -22,15 +32,5 @@ public enum PassengerCategory {
         }
 
         return string;
-    }
-
-    public static PassengerCategory fromString(String str) {
-        return switch (str) {
-            case "Práce" -> WORK;
-            case "Jiné" -> OTHER;
-            case "Rodina" -> FAMILY;
-            case "Přátelé" -> FRIENDS;
-            default -> null;
-        };
     }
 }

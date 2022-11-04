@@ -7,7 +7,7 @@ import java.io.BufferedWriter;
 import java.util.Collection;
 import java.util.List;
 
-public class ExportRides extends AbstractExporter<Ride>{
+public class ExportRides extends AbstractExporter<Ride> {
     @Override
     protected String createCsvLine(Ride element) {
         return element.getId() + SEPARATOR +

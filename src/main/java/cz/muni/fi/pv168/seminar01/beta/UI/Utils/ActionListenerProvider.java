@@ -1,7 +1,14 @@
 package cz.muni.fi.pv168.seminar01.beta.UI.Utils;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.*;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddEditPassengerDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddEditRideDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddEditVehicleDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.DeleteDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterPassengersDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterRidesDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.FilterVehiclesDialog;
+import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.ShareCarRiderTable;
 

@@ -364,8 +364,7 @@ public class ShareCarRiderTable extends JTable {
         if (isMultilineSelectionEnabled) {
             if (IntStream.of(getSelectedRows()).anyMatch(row -> row == rowIndex)) {
                 removeRowSelectionInterval(rowIndex, rowIndex);
-            }
-            else {
+            } else {
                 addRowSelectionInterval(rowIndex, rowIndex);
             }
         } else {

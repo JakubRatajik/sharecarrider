@@ -5,7 +5,6 @@ import cz.muni.fi.pv168.seminar01.beta.Model.HasID;
 import javax.swing.table.AbstractTableModel;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Jakub Ratajik

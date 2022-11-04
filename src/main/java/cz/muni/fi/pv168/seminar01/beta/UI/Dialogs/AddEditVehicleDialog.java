@@ -142,10 +142,10 @@ public class AddEditVehicleDialog extends AddEditDialog {
     }
 
 
-        //if (!Validator.isValidRealNumberInput(consumption.getText())) {
-        //    new ErrorDialog(MainWindow.getFrame(), "Spotřeba musí být reální číslo.");
-        //}
+    //if (!Validator.isValidRealNumberInput(consumption.getText())) {
+    //    new ErrorDialog(MainWindow.getFrame(), "Spotřeba musí být reální číslo.");
+    //}
 
-        //return true;
+    //return true;
     //}
 }

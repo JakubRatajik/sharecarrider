@@ -26,6 +26,7 @@ public abstract class AbstractExporter<T> {
 
     /**
      * Will be used for importing categories later
+     *
      * @param writer is a BufferedWriter with specific file
      */
     protected abstract void writeAfterMain(BufferedWriter writer);

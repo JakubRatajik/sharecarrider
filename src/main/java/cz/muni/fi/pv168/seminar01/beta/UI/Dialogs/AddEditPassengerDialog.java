@@ -22,7 +22,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
     private JTextField name;
     private JTextField surname;
     private JTextField phoneNumber;
-    private Map<PassengerCategory,JCheckBox> categories;
+    private Map<PassengerCategory, JCheckBox> categories;
 
     public AddEditPassengerDialog(Frame frame, String name) {
         super(frame, name);
@@ -86,7 +86,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
             name.setText(passenger.getFirstName());
             surname.setText(passenger.getLastName());
             phoneNumber.setText(passenger.getPhoneNumber());
-            for (PassengerCategory category: passenger.getCategories()) {
+            for (PassengerCategory category : passenger.getCategories()) {
                 categories.get(category).setSelected(true);
             }
         }

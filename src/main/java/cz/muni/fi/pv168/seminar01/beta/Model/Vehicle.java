@@ -33,10 +33,6 @@ public class Vehicle implements HasID {
 
     // getters and setters
 
-    public void setFuelType(FuelType fuel) {
-        fuelType = fuel;
-    }
-
     public String getBrand() {
         return brand;
     }
@@ -102,6 +98,10 @@ public class Vehicle implements HasID {
 
     public FuelType getFuelType() {
         return fuelType;
+    }
+
+    public void setFuelType(FuelType fuel) {
+        fuelType = fuel;
     }
 
     public String getCapacityString() {

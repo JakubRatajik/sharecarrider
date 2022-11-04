@@ -42,6 +42,10 @@ public class AddEditRideDialog extends AddEditDialog {
         super(frame, name, ride);
     }
 
+    public AddEditRideDialog(Frame frame, String name, Ride ride) {
+        super(frame, name, ride);
+    }
+
     @Override
     public void initializeBottom(JPanel bottom) {
         if (vehicle != null) {
@@ -85,10 +89,6 @@ public class AddEditRideDialog extends AddEditDialog {
 
     }
 
-    public AddEditRideDialog(Frame frame, String name, Ride ride) {
-        super(frame, name, ride);
-    }
-
     @Override
     protected void addAttribute(Object attribute) {
         ride = (Ride) attribute;
@@ -124,7 +124,7 @@ public class AddEditRideDialog extends AddEditDialog {
         l1.addAll(passengers);
 
         JList<Passenger> passengerList = new JList<>(l1);
-        passengerList.setCellRenderer(new DefaultListCellRenderer(){
+        passengerList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(
                     JList<?> list,
@@ -140,7 +140,7 @@ public class AddEditRideDialog extends AddEditDialog {
             }
 
         });
-       // passengerList.getSelectedValuesList()
+        // passengerList.getSelectedValuesList()
         UIConstants.formatComponentDialog(passengerList);
         passengerList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         JScrollPane passengersScroll = new JScrollPane(passengerList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -157,7 +157,7 @@ public class AddEditRideDialog extends AddEditDialog {
             distance.setText(String.valueOf(ride.getDistance()));
             vehicle.setSelectedItem(ride.getVehicle());
             repetition.setSelectedItem(ride.getRepetition());
-            for (Passenger passenger: ride.getPassengers()) {
+            for (Passenger passenger : ride.getPassengers()) {
                 this.passengersList.setSelectedValue(passenger, true);
             }
         }

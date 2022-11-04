@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DeleteDialog extends JDialog{
+public class DeleteDialog extends JDialog {
 
     public DeleteDialog(Frame frame, String name, TableCategory category, int[] rows) {
         super(frame, name);

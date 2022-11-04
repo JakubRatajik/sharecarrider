@@ -1,6 +1,13 @@
 package cz.muni.fi.pv168.seminar01.beta.Data.Manipulation;
 
-import cz.muni.fi.pv168.seminar01.beta.Model.*;
+import cz.muni.fi.pv168.seminar01.beta.Model.FuelType;
+import cz.muni.fi.pv168.seminar01.beta.Model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.Model.PassengerCategory;
+import cz.muni.fi.pv168.seminar01.beta.Model.Repetition;
+import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.Model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.VehicleTableModel;
@@ -55,7 +62,6 @@ public class ImporterBase {
     }
 
 
-
     public static String[] listParser(String list) {
         list = list.substring(1, list.length() - 1);
         return list.split(", ");
@@ -83,7 +89,7 @@ public class ImporterBase {
             String pass = split[7];
             Set<Passenger> passengerSet = new HashSet<>();
             if (pass.length() > 2) {
-                for (String passenger: listParser(pass)) {
+                for (String passenger : listParser(pass)) {
                     Passenger passengerObject = (Passenger) Shortcut.getTableModel(TableCategory.PASSENGERS).getObjectById(tryToInt(passenger));
                     if (passengerObject == null) {
                         System.err.println("Import not successful - > Person with id " + pass + " is missing in list");
@@ -103,7 +109,6 @@ public class ImporterBase {
             Repetition repetition = Enum.valueOf(Repetition.class, rep);
 
 
-
             ((RideTableModel) Shortcut.getTableModel(TableCategory.RIDES)).addRow(
                     new Ride(id, date, time, from, where, distance, new HashSet<RideCategory>(), passengerSet, vehicle, repetition));
         }
@@ -118,7 +123,7 @@ public class ImporterBase {
             String cat = split[4];
             Set<PassengerCategory> categorySet = new HashSet<>();
             if (cat.length() > 2) {
-                for (String category: listParser(cat)) {
+                for (String category : listParser(cat)) {
                     categorySet.add(PassengerCategory.fromString(category));
                 }
             }
@@ -127,7 +132,6 @@ public class ImporterBase {
                     new Passenger(id, name, surname, phoneNumber, categorySet));
         }
     }
-
 
 
     private static void importVehicle(String[] split) {
