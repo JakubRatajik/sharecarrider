@@ -103,6 +103,10 @@ public class TabFrame {
         return plusButton;
     }
 
+    public JButton getSelectButton() {
+        return selectButton;
+    }
+
     public JButton getSortByButton() {
         return sortByButton;
     }
