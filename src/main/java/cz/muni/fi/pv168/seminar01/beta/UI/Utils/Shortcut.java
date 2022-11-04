@@ -34,4 +34,15 @@ public class Shortcut {
                     MainWindow.getVehiclesTabFrame().getTable();
         };
     }
+
+    public static JButton getSelectButton(TableCategory tableCategory) {
+        return switch (tableCategory) {
+            case PASSENGERS ->
+                    MainWindow.getPassengersTabFrame().getSelectButton();
+            case RIDES ->
+                    MainWindow.getRidesTabFrame().getSelectButton();
+            case VEHICLES ->
+                    MainWindow.getVehiclesTabFrame().getSelectButton();
+        };
+    }
 }
