@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * @author Jakub Ratajik
  */
-public abstract class ShareCarRiderTableModel<T> extends AbstractTableModel {
+public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractTableModel {
     protected final List<T> data;
     private final String[] columnNames;
 
@@ -64,8 +64,9 @@ public abstract class ShareCarRiderTableModel<T> extends AbstractTableModel {
     }
 
     public T getObjectById(int id) {
-        Optional<T> obj = data.stream().filter(object -> ((HasID) object).getId() == id).findAny();
-        return obj.orElse(null);
+        return data.stream()
+                .filter(object -> object.getId() == id)
+                .findAny()
+                .orElse(null);
     }
-
 }
