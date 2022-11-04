@@ -37,9 +37,9 @@ public class UIConstants {
         component.setFont(fDialog);
     }
 
-    public static void formatTextBrownBeigeDialog(JComponent component) {
+    public static void formatInverseBeigeTextBrownComponent(JComponent component) {
         component.setForeground(LIGHT_BEIGE);
-        component.setBackground(TEXT_BROWN);
+        component.setBackground(MIDDLE_BROWN);
         component.setFont(fDialog);
     }
 

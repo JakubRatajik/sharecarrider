@@ -337,12 +337,14 @@ public class ShareCarRiderTable extends JTable {
     public void enableMultilineSelection(boolean enable) {
         isMultilineSelectionEnabled = enable;
         clearSelection();
-//        JButton selectButton = Shortcut.getSelectButton(tableCategory);
+        JButton selectButton = Shortcut.getSelectButton(tableCategory);
 
         if (enable) {
             removeMouseListener(doubleClickListener);
+            UIConstants.formatInverseBeigeTextBrownComponent(selectButton);
         } else {
             addMouseListener(doubleClickListener);
+            UIConstants.formatBeigeTextBrownDialog(selectButton);
         }
     }
 
