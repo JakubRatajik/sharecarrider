@@ -1,10 +1,10 @@
 package cz.muni.fi.pv168.seminar01.beta.Data.Manipulation;
 
 import cz.muni.fi.pv168.seminar01.beta.Model.*;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.DialogBase;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.VehicleTableModel;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.Shortcut;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -84,7 +84,7 @@ public class ImporterBase {
             Set<Passenger> passengerSet = new HashSet<>();
             if (pass.length() > 2) {
                 for (String passenger: listParser(pass)) {
-                    Passenger passengerObject = (Passenger) DialogBase.getTableModel(TableCategory.PASSENGERS).getObjectById(tryToInt(passenger));
+                    Passenger passengerObject = (Passenger) Shortcut.getTableModel(TableCategory.PASSENGERS).getObjectById(tryToInt(passenger));
                     if (passengerObject == null) {
                         System.err.println("Import not successful - > Person with id " + pass + " is missing in list");
                     }
@@ -93,7 +93,7 @@ public class ImporterBase {
             }
 
             int vehicleID = tryToInt(split[8]);
-            Vehicle vehicleObject = (Vehicle) DialogBase.getTableModel(TableCategory.VEHICLES).getObjectById(vehicleID);
+            Vehicle vehicleObject = (Vehicle) Shortcut.getTableModel(TableCategory.VEHICLES).getObjectById(vehicleID);
             if (vehicleObject == null) {
                 System.err.println("Import not successful - > Vehicle with id " + vehicleID + " is missing in list");
             }
@@ -104,7 +104,7 @@ public class ImporterBase {
 
 
 
-            ((RideTableModel) DialogBase.getTableModel(TableCategory.RIDES)).addRow(
+            ((RideTableModel) Shortcut.getTableModel(TableCategory.RIDES)).addRow(
                     new Ride(id, date, time, from, where, distance, new HashSet<RideCategory>(), passengerSet, vehicle, repetition));
         }
     }
@@ -123,7 +123,7 @@ public class ImporterBase {
                 }
             }
 
-            ((PassengerTableModel) DialogBase.getTableModel(TableCategory.PASSENGERS)).addRow(
+            ((PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS)).addRow(
                     new Passenger(id, name, surname, phoneNumber, categorySet));
         }
     }
@@ -139,7 +139,7 @@ public class ImporterBase {
             int seats = tryToInt(split[4]);
             float consumption = (float) tryToDouble(split[5]);
             FuelType type = tryToFuelType(split[6]);
-            ((VehicleTableModel) DialogBase.getTableModel(TableCategory.VEHICLES)).addRow(
+            ((VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES)).addRow(
                     new Vehicle(id, licencePlate, brand, model, seats, consumption, type));
         }
     }

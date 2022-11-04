@@ -8,6 +8,7 @@ import cz.muni.fi.pv168.seminar01.beta.Model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.Shortcut;
 
 import javax.swing.*;
 import java.awt.*;
@@ -101,17 +102,17 @@ public class ExportDialog extends DialogBase {
             public void actionPerformed(ActionEvent e) {
                 if (rides != null) {
                     ExportRides exportRides = new ExportRides();
-                    exportRides.export((List<Ride>) DialogBase.getTableModel(TableCategory.RIDES).getData(),
+                    exportRides.export((List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData(),
                             rides.getAbsolutePath());
                 }
                 if (vehicles != null) {
                     ExportVehicles exportVehicles = new ExportVehicles();
-                    exportVehicles.export((List<Vehicle>) DialogBase.getTableModel(TableCategory.VEHICLES).getData(),
+                    exportVehicles.export((List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData(),
                             vehicles.getAbsolutePath());
                 }
                 if (passengers != null) {
                     ExportPassengers exportPassengers = new ExportPassengers();
-                    exportPassengers.export((List<Passenger>) DialogBase.getTableModel(TableCategory.PASSENGERS).getData(),
+                    exportPassengers.export((List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData(),
                             passengers.getAbsolutePath());
                 }
                 dispose();

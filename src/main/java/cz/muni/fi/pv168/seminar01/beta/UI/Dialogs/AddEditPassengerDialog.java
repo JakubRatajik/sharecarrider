@@ -6,6 +6,7 @@ import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.UI.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.Shortcut;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,7 +61,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PassengerTableModel tableModel = (PassengerTableModel) DialogBase.getTableModel(TableCategory.PASSENGERS);
+                PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
                 passenger.setFirstName(name.getText());
                 passenger.setLastName(surname.getText());
                 passenger.setPhoneNumber(phoneNumber.getText());
@@ -126,7 +127,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
                             getSelectedCategories()
                     );
 
-                    PassengerTableModel tableModel = (PassengerTableModel) DialogBase.getTableModel(TableCategory.PASSENGERS);
+                    PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
                     tableModel.addRow(passenger);
                     dispose();
                 } catch (IllegalArgumentException exception) {

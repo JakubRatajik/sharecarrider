@@ -9,6 +9,7 @@ import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
 import cz.muni.fi.pv168.seminar01.beta.UI.Utils.JDatePickerDateGetter;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.Shortcut;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
@@ -68,7 +69,7 @@ public class AddEditRideDialog extends AddEditDialog {
                 String[] parsedTime = (time.getText().split("[:.]"));
                 LocalTime localTime = LocalTime.of(Integer.parseInt(parsedTime[0]), Integer.parseInt(parsedTime[1]));
                 int parsedDistance = Integer.parseInt(distance.getText());
-                RideTableModel tableModel = (RideTableModel) DialogBase.getTableModel(TableCategory.RIDES);
+                RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
                 ride.setDate(JDatePickerDateGetter.getLocalDate(date));
                 ride.setTime(localTime);
                 ride.setFrom(startDestination.getText());
@@ -102,7 +103,7 @@ public class AddEditRideDialog extends AddEditDialog {
         this.distance = UIConstants.createTextField();
 
         this.vehicle = new JComboBox<>();
-        for (Vehicle v : (List<Vehicle>) DialogBase.getTableModel(TableCategory.VEHICLES).getData()) {
+        for (Vehicle v : (List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData()) {
             vehicle.addItem(v);
         }
         UIConstants.formatComponentDialog(vehicle);
@@ -119,7 +120,7 @@ public class AddEditRideDialog extends AddEditDialog {
         UIConstants.formatComponentDialog(repetition);
 
         DefaultListModel<Passenger> l1 = new DefaultListModel<>();
-        List<Passenger> passengers = (List<Passenger>) DialogBase.getTableModel(TableCategory.PASSENGERS).getData();
+        List<Passenger> passengers = (List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData();
         l1.addAll(passengers);
 
         JList<Passenger> passengerList = new JList<>(l1);
@@ -206,7 +207,7 @@ public class AddEditRideDialog extends AddEditDialog {
                 String[] parsedTime = (time.getText().split("[:.]"));
                 LocalTime localTime = LocalTime.of(Integer.parseInt(parsedTime[0]), Integer.parseInt(parsedTime[1]));
                 int parsedDistance = Integer.parseInt(distance.getText());
-                RideTableModel tableModel = (RideTableModel) DialogBase.getTableModel(TableCategory.RIDES);
+                RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
 
                 Ride ride = new Ride(
                         JDatePickerDateGetter.getLocalDate(date),

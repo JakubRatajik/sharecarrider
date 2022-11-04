@@ -5,7 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.Model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.Model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.UIConstants;
-import cz.muni.fi.pv168.seminar01.beta.UI.Utils.Validator;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.Shortcut;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,7 +103,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                VehicleTableModel tableModel = (VehicleTableModel) DialogBase.getTableModel(TableCategory.VEHICLES);
+                VehicleTableModel tableModel = (VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES);
                 vehicle.setLicensePlate(licensePlate.getText());
                 vehicle.setBrand(brand.getText());
                 vehicle.setType(type.getText());
@@ -126,7 +126,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
                 //    return;
                 //}
 
-                VehicleTableModel tableModel = (VehicleTableModel) DialogBase.getTableModel(TableCategory.VEHICLES);
+                VehicleTableModel tableModel = (VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES);
                 Vehicle vehicle = new Vehicle(
                         licensePlate.getText(),
                         brand.getText(),

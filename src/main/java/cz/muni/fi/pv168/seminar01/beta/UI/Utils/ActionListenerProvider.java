@@ -61,7 +61,7 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTable table = DialogBase.getTable(TableCategory.RIDES);
+                ShareCarRiderTable table = Shortcut.getTable(TableCategory.RIDES);
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
@@ -103,7 +103,7 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTable table = DialogBase.getTable(TableCategory.VEHICLES);
+                ShareCarRiderTable table = Shortcut.getTable(TableCategory.VEHICLES);
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
@@ -145,7 +145,7 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTable table = DialogBase.getTable(TableCategory.PASSENGERS);
+                ShareCarRiderTable table = Shortcut.getTable(TableCategory.PASSENGERS);
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
@@ -164,9 +164,9 @@ public final class ActionListenerProvider {
             public void actionPerformed(ActionEvent actionEvent) {
                 int firstRow = rows[0];
                 for (int i = 0; i < rows.length; i++) {
-                    DialogBase.getTableModel(category).deleteRow(firstRow);
+                    Shortcut.getTableModel(category).deleteRow(firstRow);
                 }
-                ShareCarRiderTable table = DialogBase.getTable(category);
+                ShareCarRiderTable table = Shortcut.getTable(category);
                 table.clearSelection();
                 dialog.dispose();
             }

@@ -8,15 +8,14 @@ import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddEditPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddEditRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.AddEditVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.DeleteDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.DialogBase;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.PassengerDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.RideDetailDialog;
-import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.TemporaryDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Dialogs.VehicleDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.UI.Model.VehicleTableModel;
+import cz.muni.fi.pv168.seminar01.beta.UI.Utils.Shortcut;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -167,7 +166,7 @@ public class ShareCarRiderTable extends JTable {
                 var ride = tableModel.getEntity(modelRow);
 
                 new DeleteDialog(MainWindow.getFrame(), "Smazat jízdu/y",
-                        TableCategory.RIDES, DialogBase.getTable(TableCategory.RIDES).getSelectedRows());
+                        TableCategory.RIDES, Shortcut.getTable(TableCategory.RIDES).getSelectedRows());
 
             }
         });
@@ -215,7 +214,7 @@ public class ShareCarRiderTable extends JTable {
                 var vehicle = tableModel.getEntity(modelRow);
 
                 new DeleteDialog(MainWindow.getFrame(), "Smazat vozidlo/a",
-                        TableCategory.VEHICLES, DialogBase.getTable(TableCategory.VEHICLES).getSelectedRows());
+                        TableCategory.VEHICLES, Shortcut.getTable(TableCategory.VEHICLES).getSelectedRows());
             }
         });
 
@@ -262,7 +261,7 @@ public class ShareCarRiderTable extends JTable {
                 var passenger = tableModel.getEntity(modelRow);
 
                 new DeleteDialog(MainWindow.getFrame(), "Smazat cestující/ho",
-                        TableCategory.PASSENGERS, DialogBase.getTable(TableCategory.PASSENGERS).getSelectedRows());
+                        TableCategory.PASSENGERS, Shortcut.getTable(TableCategory.PASSENGERS).getSelectedRows());
             }
         });
 
@@ -338,6 +337,7 @@ public class ShareCarRiderTable extends JTable {
     public void enableMultilineSelection(boolean enable) {
         isMultilineSelectionEnabled = enable;
         clearSelection();
+//        JButton selectButton = Shortcut.getSelectButton(tableCategory);
 
         if (enable) {
             removeMouseListener(doubleClickListener);
