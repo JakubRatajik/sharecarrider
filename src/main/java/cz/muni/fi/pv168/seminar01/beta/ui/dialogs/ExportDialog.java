@@ -7,7 +7,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
@@ -34,15 +34,15 @@ public class ExportDialog extends DialogBase {
         cancel.addActionListener(e -> dispose());
         JButton exportButton = new JButton("Exportovat");
         onExportButton(exportButton);
-        UIConstants.formatComponentDialog(cancel);
-        UIConstants.formatComponentDialog(exportButton);
+        UIUtilities.formatComponentDialog(cancel);
+        UIUtilities.formatComponentDialog(exportButton);
         bottom.add(cancel);
         bottom.add(exportButton);
     }
 
     public void initializeCenter(JPanel center) {
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
 
         JButton exportRidesButton = new JButton("Kam exportovat jízdy");
         exportRidesButton.addActionListener(new ActionListener() {

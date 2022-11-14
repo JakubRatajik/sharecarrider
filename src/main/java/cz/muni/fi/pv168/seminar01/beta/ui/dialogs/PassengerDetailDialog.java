@@ -2,7 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class PassengerDetailDialog extends DetailDialog {
         int categoriesCount = passenger.getCategories().size();
         int height = 200;
         center.setLayout(new GridLayout(3 + categoriesCount, 2));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Jméno:"));
         center.add(new JLabel(passenger.getFirstName()));
         center.add(new JLabel("•  Příjmení"));

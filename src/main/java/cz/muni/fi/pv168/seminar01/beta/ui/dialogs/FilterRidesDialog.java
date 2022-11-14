@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
@@ -28,16 +28,16 @@ public class FilterRidesDialog extends FilterDialog {
         dateFilter = new JCheckBox(" Datum");
         distanceFilter = new JCheckBox(" Vzdálenost");
         dateFrom = new JDatePicker();
-        UIConstants.formatComponentDialog(dateFrom);
+        UIUtilities.formatComponentDialog(dateFrom);
         dateTo = new JDatePicker();
-        UIConstants.formatComponentDialog(dateTo);
-        distanceFrom = UIConstants.createTextField();
-        distanceTo = UIConstants.createTextField();
+        UIUtilities.formatComponentDialog(dateTo);
+        distanceFrom = UIUtilities.createTextField();
+        distanceTo = UIUtilities.createTextField();
     }
 
     public void initializeContent(JPanel center) {
         center.setLayout(new GridLayout(7 + categoriesCount, 2));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
         String paragraph = "      ";
         center.add(dateFilter);
         center.add(new JLabel(" "));

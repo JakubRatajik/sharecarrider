@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +16,8 @@ public abstract class FilterDialog extends DialogBase {
         cancel.addActionListener(e -> dispose());
         JButton ok = new JButton("Ok");
         onOkButton(ok);
-        UIConstants.formatComponentDialog(cancel);
-        UIConstants.formatComponentDialog(ok);
+        UIUtilities.formatComponentDialog(cancel);
+        UIUtilities.formatComponentDialog(ok);
         bottom.add(cancel);
         bottom.add(ok);
     }

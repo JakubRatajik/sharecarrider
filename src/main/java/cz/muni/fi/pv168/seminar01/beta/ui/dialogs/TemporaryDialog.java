@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,7 @@ public class TemporaryDialog extends JDialog {
         JPanel center = new JPanel();
         setLayout(new BorderLayout());
         center.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
-        center.setBackground(UIConstants.WHITE);
+        center.setBackground(UIUtilities.WHITE);
         JPanel bottom = new JPanel();
         JButton cancel = new JButton("Zrušit");
         cancel.addActionListener(new ActionListener() {
@@ -31,11 +31,11 @@ public class TemporaryDialog extends JDialog {
             }
         });
         JButton ok = new JButton("Ok");
-        UIConstants.formatComponentDialog(cancel);
-        UIConstants.formatComponentDialog(ok);
+        UIUtilities.formatComponentDialog(cancel);
+        UIUtilities.formatComponentDialog(ok);
         bottom.add(cancel);
         bottom.add(ok);
-        bottom.setBackground(UIConstants.WHITE);
+        bottom.setBackground(UIUtilities.WHITE);
 
         add(bottom, BorderLayout.SOUTH);
         add(center, BorderLayout.CENTER);

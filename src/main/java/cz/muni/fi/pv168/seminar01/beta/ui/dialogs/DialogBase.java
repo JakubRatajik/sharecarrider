@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +33,7 @@ public abstract class DialogBase extends JDialog {
         initializeCenter(center);
 
         JPanel bottom = new JPanel();
-        bottom.setBackground(UIConstants.WHITE);
+        bottom.setBackground(UIUtilities.WHITE);
         initializeBottom(bottom);
 
         add(bottom, BorderLayout.SOUTH);

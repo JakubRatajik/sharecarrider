@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,17 +26,17 @@ public class FilterVehiclesDialog extends FilterDialog {
     public void setAttributes() {
         capacityFilter = new JCheckBox("  Kapacita:");
         consumptionFilter = new JCheckBox("  Spotřeba:");
-        capacityFrom = UIConstants.createTextField();
-        capacityTo = UIConstants.createTextField();
-        consumptionFrom = UIConstants.createTextField();
-        consumptionTo = UIConstants.createTextField();
+        capacityFrom = UIUtilities.createTextField();
+        capacityTo = UIUtilities.createTextField();
+        consumptionFrom = UIUtilities.createTextField();
+        consumptionTo = UIUtilities.createTextField();
         brand = new JComboBox<>();
-        UIConstants.formatComponentDialog(brand);
+        UIUtilities.formatComponentDialog(brand);
     }
 
     public void initializeContent(JPanel center) {
         center.setLayout(new GridLayout(7, 2));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
         String paragraph = "      ";
         center.add(capacityFilter);
         center.add(new JLabel(" "));

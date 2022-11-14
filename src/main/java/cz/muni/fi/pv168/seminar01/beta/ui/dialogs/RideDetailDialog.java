@@ -4,7 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,13 +41,13 @@ public class RideDetailDialog extends DetailDialog {
     @Override
     public void initializeCenter(JPanel center) {
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
 
         setAttributes();
 
         JPanel nonChangeable = new JPanel();
         nonChangeable.setLayout(new GridLayout(8, 2));
-        UIConstants.formatWhiteTextBrownDialog(nonChangeable);
+        UIUtilities.formatWhiteTextBrownDialog(nonChangeable);
         nonChangeable.add(new JLabel("•  Datum:"));
         nonChangeable.add(date);
         nonChangeable.add(new JLabel("•  Čas:"));
@@ -72,7 +72,7 @@ public class RideDetailDialog extends DetailDialog {
         int passengersCount = ride.getPassengers().size();
         List<Passenger> passengerList = null;
         passengers.setLayout(new GridLayout(passengersCount, 2));
-        UIConstants.formatWhiteTextBrownDialog(passengers);
+        UIUtilities.formatWhiteTextBrownDialog(passengers);
         if (passengersCount != 0) {
             height += 10;
             passengers.add(new JLabel("•  Cestující:"));
@@ -90,7 +90,7 @@ public class RideDetailDialog extends DetailDialog {
         int categoriesCount = ride.getCategories().size();
         List<RideCategory> categoryList = null;
         categories.setLayout(new GridLayout(categoriesCount, 2));
-        UIConstants.formatWhiteTextBrownDialog(categories);
+        UIUtilities.formatWhiteTextBrownDialog(categories);
         if (categoriesCount != 0) {
             height += 10;
             categories.add(new JLabel("•  Kategorie:"));

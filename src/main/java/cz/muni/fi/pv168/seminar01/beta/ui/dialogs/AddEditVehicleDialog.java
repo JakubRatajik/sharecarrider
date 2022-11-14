@@ -4,7 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
@@ -39,16 +39,16 @@ public class AddEditVehicleDialog extends AddEditDialog {
 
     @Override
     protected void setAttributes() {
-        this.licensePlate = UIConstants.createTextField();
-        this.brand = UIConstants.createTextField();
-        this.type = UIConstants.createTextField();
-        this.capacity = UIConstants.createTextField();
-        this.consumption = UIConstants.createTextField();
+        this.licensePlate = UIUtilities.createTextField();
+        this.brand = UIUtilities.createTextField();
+        this.type = UIUtilities.createTextField();
+        this.capacity = UIUtilities.createTextField();
+        this.consumption = UIUtilities.createTextField();
         this.fuelType = new JComboBox<>();
         for (FuelType ft : FuelType.values()) {
             fuelType.addItem(ft);
         }
-        UIConstants.formatComponentDialog(fuelType);
+        UIUtilities.formatComponentDialog(fuelType);
 
         if (vehicle != null) {
             licensePlate.setText(vehicle.getLicensePlate());
@@ -63,7 +63,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
     @Override
     protected void initializeContent(JPanel center) {
         center.setLayout(new GridLayout(6, 2));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  SPZ:"));
         center.add(this.licensePlate);
         center.add(new JLabel("•  Značka:"));
@@ -84,10 +84,10 @@ public class AddEditVehicleDialog extends AddEditDialog {
         if (vehicle != null) {
             JButton cancel = new JButton("Zrušit");
             cancel.addActionListener(e -> dispose());
-            UIConstants.formatComponentDialog(cancel);
+            UIUtilities.formatComponentDialog(cancel);
             JButton save = new JButton("Uložit");
             onSaveEditButton(save);
-            UIConstants.formatComponentDialog(save);
+            UIUtilities.formatComponentDialog(save);
             bottom.add(cancel);
             bottom.add(save);
             return;
@@ -95,7 +95,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
 
         JButton create = new JButton("Vytvořit");
         onCreateButton(create);
-        UIConstants.formatComponentDialog(create);
+        UIUtilities.formatComponentDialog(create);
         bottom.add(create);
     }
 

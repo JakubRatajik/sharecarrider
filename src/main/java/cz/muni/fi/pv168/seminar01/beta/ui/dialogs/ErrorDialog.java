@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,9 +24,9 @@ public class ErrorDialog extends JDialog {
         JPanel bottom = new JPanel();
         JButton ok = new JButton("OK");
         ok.addActionListener(e -> dispose());
-        UIConstants.formatComponentDialog(ok);
+        UIUtilities.formatComponentDialog(ok);
         bottom.add(ok);
-        bottom.setBackground(UIConstants.WHITE);
+        bottom.setBackground(UIUtilities.WHITE);
 
         add(bottom, BorderLayout.SOUTH);
         add(center, BorderLayout.CENTER);

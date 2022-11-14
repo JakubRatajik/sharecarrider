@@ -46,11 +46,11 @@ public class MainWindow {
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1333, 750));
         frame.setSize(1920, 1080);
-        frame.getContentPane().setBackground(UIConstants.WHITE);
+        frame.getContentPane().setBackground(UIUtilities.WHITE);
         topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         topPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        topPanel.setBackground(UIConstants.LIGHT_BEIGE);
+        topPanel.setBackground(UIUtilities.LIGHT_BEIGE);
         addMainBar();
         addPlain();
         addTabBar();
@@ -72,18 +72,18 @@ public class MainWindow {
     private void addPlain() {
         JToolBar bar = new JToolBar();
         bar.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        bar.setBackground(UIConstants.LIGHT_BEIGE);
-        bar.setForeground(UIConstants.LIGHT_BEIGE);
+        bar.setBackground(UIUtilities.LIGHT_BEIGE);
+        bar.setForeground(UIUtilities.LIGHT_BEIGE);
         JLabel spacing = new JLabel("Muminci <3");
         spacing.setFont(new Font("Arial", Font.PLAIN, 22));
-        spacing.setForeground(UIConstants.LIGHT_BEIGE);
+        spacing.setForeground(UIUtilities.LIGHT_BEIGE);
         bar.add(spacing);
         topPanel.add(bar, BorderLayout.NORTH);
 
     }
 
     private void addTabBar() {
-        UIManager.put("TabbedPane.borderColor", UIConstants.WHITE);
+        UIManager.put("TabbedPane.borderColor", UIUtilities.WHITE);
         JTabbedPane tabs = new JTabbedPane();
         /*rides.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
@@ -97,17 +97,17 @@ public class MainWindow {
         vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES);
         passengersTabFrame = new TabFrame(TableCategory.PASSENGERS);
         Statistics statistics = new Statistics();
-        tabs.setFont(UIConstants.fTab);
+        tabs.setFont(UIUtilities.fTab);
         tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());
         tabs.addTab("Vozidla", vehiclesTabFrame.getMainPanel());
         tabs.addTab("Cestující", passengersTabFrame.getMainPanel());
         tabs.addTab("Statistiky", statistics.getMain());
-        tabs.setBackground(UIConstants.WHITE);
+        tabs.setBackground(UIUtilities.WHITE);
 
-        tabs.setForeground(UIConstants.TEXT_BROWN);
+        tabs.setForeground(UIUtilities.TEXT_BROWN);
 
 
-        tabs.setBackgroundAt(3, UIConstants.OCHER);
+        tabs.setBackgroundAt(3, UIUtilities.OCHER);
 
         topPanel.add(tabs, BorderLayout.CENTER);
         frame.add(topPanel);

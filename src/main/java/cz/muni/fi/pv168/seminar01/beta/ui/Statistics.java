@@ -7,7 +7,7 @@ public class Statistics {
 
     public Statistics() {
         main = new JPanel();
-        main.setBackground(UIConstants.WHITE);
+        main.setBackground(UIUtilities.WHITE);
     }
 
     public JPanel getMain() {

@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +29,7 @@ public class FilterPassengersDialog extends FilterDialog {
 
     public void initializeContent(JPanel center) {
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Kategorie:"));
         center.add(work);
         center.add(family);

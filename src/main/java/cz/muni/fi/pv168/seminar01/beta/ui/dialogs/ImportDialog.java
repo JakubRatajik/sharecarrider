@@ -1,7 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ImporterBase;
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,15 +26,15 @@ public class ImportDialog extends DialogBase {
         cancel.addActionListener(e -> dispose());
         JButton importButton = new JButton("Importovat");
         onImportButton(importButton);
-        UIConstants.formatComponentDialog(cancel);
-        UIConstants.formatComponentDialog(importButton);
+        UIUtilities.formatComponentDialog(cancel);
+        UIUtilities.formatComponentDialog(importButton);
         bottom.add(cancel);
         bottom.add(importButton);
     }
 
     public void initializeCenter(JPanel center) {
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
 
         JButton importRidesButton = new JButton("Načíst jízdy");
         importRidesButton.addActionListener(new ActionListener() {

@@ -2,7 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +26,7 @@ public class VehicleDetailDialog extends DetailDialog {
     @Override
     public void initializeCenter(JPanel center) {
         center.setLayout(new GridLayout(6, 2));
-        UIConstants.formatWhiteTextBrownDialog((center));
+        UIUtilities.formatWhiteTextBrownDialog((center));
         center.add(new JLabel("•  Značka:"));
         center.add(new JLabel(vehicle.getBrand()));
         center.add(new JLabel("•  Typ:"));

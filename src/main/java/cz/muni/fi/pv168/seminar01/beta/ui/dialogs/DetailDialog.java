@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +16,8 @@ public abstract class DetailDialog extends DialogBase {
         onEditButton(edit);
         JButton ok = new JButton("Ok");
         ok.addActionListener(e -> dispose());
-        UIConstants.formatComponentDialog(edit);
-        UIConstants.formatComponentDialog(ok);
+        UIUtilities.formatComponentDialog(edit);
+        UIUtilities.formatComponentDialog(ok);
         bottom.add(edit);
         bottom.add(ok);
     }

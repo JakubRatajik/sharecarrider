@@ -5,7 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
@@ -42,10 +42,10 @@ public class AddEditPassengerDialog extends AddEditDialog {
         if (passenger != null) {
             JButton cancel = new JButton("Zrušit");
             cancel.addActionListener(e -> dispose());
-            UIConstants.formatComponentDialog(cancel);
+            UIUtilities.formatComponentDialog(cancel);
             JButton save = new JButton("Uložit");
             onSaveEditButton(save);
-            UIConstants.formatComponentDialog(save);
+            UIUtilities.formatComponentDialog(save);
             bottom.add(cancel);
             bottom.add(save);
             return;
@@ -53,7 +53,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
 
         JButton create = new JButton("Vytvořit");
         onCreateButton(create);
-        UIConstants.formatComponentDialog(create);
+        UIUtilities.formatComponentDialog(create);
         bottom.add(create);
     }
 
@@ -74,9 +74,9 @@ public class AddEditPassengerDialog extends AddEditDialog {
 
     @Override
     protected void setAttributes() {
-        name = UIConstants.createTextField();
-        surname = UIConstants.createTextField();
-        phoneNumber = UIConstants.createTextField();
+        name = UIUtilities.createTextField();
+        surname = UIUtilities.createTextField();
+        phoneNumber = UIUtilities.createTextField();
         categories = new HashMap<>();
         for (PassengerCategory category : PassengerCategory.values()) {
             categories.put(category, new JCheckBox(" " + category));
@@ -95,7 +95,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
     @Override
     protected void initializeContent(JPanel center) {
         center.setLayout(new GridLayout(7, 2));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Jméno:"));
         center.add(this.name);
         center.add(new JLabel("•  Příjmení:"));

@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,15 +18,15 @@ public class FuelDialog extends DialogBase {
 
     public void initializeBottom(JPanel bottom) {
         JButton create = new JButton("Zadat");
-        UIConstants.formatComponentDialog(create);
-        UIConstants.formatBeigeTextBrownDialog(create);
+        UIUtilities.formatComponentDialog(create);
+        UIUtilities.formatBeigeTextBrownDialog(create);
         bottom.add(create);
     }
 
     public void initializeCenter(JPanel center) {
         setAttributes();
         center.setLayout(new GridLayout(5, 2));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Nafta (litr)"));
         center.add(nafta);
         center.add(new JLabel("•  Benzín (litr)"));
@@ -47,11 +47,11 @@ public class FuelDialog extends DialogBase {
     }
 
     public void setAttributes() {
-        nafta = UIConstants.createTextField();
-        benzin = UIConstants.createTextField();
-        lpg = UIConstants.createTextField();
-        cng = UIConstants.createTextField();
-        elektro = UIConstants.createTextField();
+        nafta = UIUtilities.createTextField();
+        benzin = UIUtilities.createTextField();
+        lpg = UIUtilities.createTextField();
+        cng = UIUtilities.createTextField();
+        elektro = UIUtilities.createTextField();
     }
 
 

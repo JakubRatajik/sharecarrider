@@ -25,7 +25,7 @@ public class TabFrame {
         tablePanel = new JPanel();
 
         mainPanel = new JPanel();
-        mainPanel.setBackground(UIConstants.WHITE);
+        mainPanel.setBackground(UIUtilities.WHITE);
         mainPanel.setBorder(BorderFactory.createEmptyBorder());
 
         table = new ShareCarRiderTable(category);
@@ -38,8 +38,8 @@ public class TabFrame {
         mainPanel.add(tablePanel, BorderLayout.CENTER);
 
         tablePanel.add(initTableScrollPane());
-        tablePanel.setBorder(BorderFactory.createEmptyBorder(0, UIConstants.LEFT_FRAME_INDENT, 20, UIConstants.RIGHT_FRAME_INDENT));
-        tablePanel.setBackground(UIConstants.WHITE);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(0, UIUtilities.LEFT_FRAME_INDENT, 20, UIUtilities.RIGHT_FRAME_INDENT));
+        tablePanel.setBackground(UIUtilities.WHITE);
         tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.PAGE_AXIS));
 
         // this set actions to all buttons
@@ -48,23 +48,23 @@ public class TabFrame {
 
     public JPanel topPanelInit() {
         plusButton = new JButton("+");
-        plusButton.setBackground(UIConstants.OCHER);
-        plusButton.setFont(UIConstants.fTab);
-        plusButton.setForeground(UIConstants.TEXT_BROWN);
+        plusButton.setBackground(UIUtilities.OCHER);
+        plusButton.setFont(UIUtilities.fTab);
+        plusButton.setForeground(UIUtilities.TEXT_BROWN);
         selectButton = new JButton("Vybrat");
         sortByButton = new JButton("Řadit");
         filterButton = new JButton("Filtrovat");
-        UIConstants.formatBeigeTextBrownDialog(selectButton);
-        UIConstants.formatBeigeTextBrownDialog(sortByButton);
-        UIConstants.formatBeigeTextBrownDialog(filterButton);
+        UIUtilities.formatBeigeTextBrownDialog(selectButton);
+        UIUtilities.formatBeigeTextBrownDialog(sortByButton);
+        UIUtilities.formatBeigeTextBrownDialog(filterButton);
 
         JPanel topPanel = new JPanel();
         topPanel.setBorder(BorderFactory.createEmptyBorder());
-        topPanel.setBorder(BorderFactory.createEmptyBorder(50, UIConstants.LEFT_FRAME_INDENT, 10, UIConstants.RIGHT_FRAME_INDENT));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(50, UIUtilities.LEFT_FRAME_INDENT, 10, UIUtilities.RIGHT_FRAME_INDENT));
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
 
         topPanel.add(plusButton);
-        topPanel.setBackground(UIConstants.WHITE);
+        topPanel.setBackground(UIUtilities.WHITE);
         topPanel.add(Box.createHorizontalGlue());
         topPanel.add(selectButton);
         topPanel.add(sortByButton);
@@ -77,7 +77,7 @@ public class TabFrame {
         JScrollPane scrollPane = new JScrollPane(table,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBorder(new MatteBorder(1, 1, 1, 1, UIConstants.MIDDLE_BROWN));
+        scrollPane.setBorder(new MatteBorder(1, 1, 1, 1, UIUtilities.MIDDLE_BROWN));
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(15, 0));
         scrollPane.setLayout(new ScrollPaneLayout());
 

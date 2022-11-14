@@ -3,7 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui;
 import javax.swing.*;
 import java.awt.*;
 
-public class UIConstants {
+public class UIUtilities {
     public static final Color DARK_BROWN = new Color(0x4B4237);
     public static final Color LIGHT_BEIGE = new Color(0xEDE7D9);
     public static final Color OCHER = new Color(0xE3B74F);

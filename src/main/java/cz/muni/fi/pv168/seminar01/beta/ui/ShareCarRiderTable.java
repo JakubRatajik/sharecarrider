@@ -55,13 +55,13 @@ public class ShareCarRiderTable extends JTable {
     }
 
     private void initializeTable() {
-        setFont(UIConstants.fTable);
+        setFont(UIUtilities.fTable);
 
         getSelectionModel().addListSelectionListener(this::rowSelectionChanged);
 
         getTableHeader().setReorderingAllowed(false);
-        getTableHeader().setBackground(UIConstants.OCHER);
-        getTableHeader().setFont(UIConstants.fTable);
+        getTableHeader().setBackground(UIUtilities.OCHER);
+        getTableHeader().setFont(UIUtilities.fTable);
 
         setAutoCreateRowSorter(true);
         setRowHeight(25);
@@ -95,10 +95,10 @@ public class ShareCarRiderTable extends JTable {
                 Component component = super.getTableCellRendererComponent(table,
                         object, isSelected, hasFocus, row, col);
 
-                component.setBackground(row % 2 == 0 ? UIConstants.WHITE : UIConstants.LIGHT_BEIGE);
+                component.setBackground(row % 2 == 0 ? UIUtilities.WHITE : UIUtilities.LIGHT_BEIGE);
 
                 if (isSelected) {
-                    component.setBackground(UIConstants.MIDDLE_BROWN);
+                    component.setBackground(UIUtilities.MIDDLE_BROWN);
                 }
                 if (hasFocus) {
                     setBorder(BorderFactory.createEmptyBorder());
@@ -341,10 +341,10 @@ public class ShareCarRiderTable extends JTable {
 
         if (enable) {
             removeMouseListener(doubleClickListener);
-            UIConstants.formatInverseBeigeTextBrownComponent(selectButton);
+            UIUtilities.formatInverseBeigeTextBrownComponent(selectButton);
         } else {
             addMouseListener(doubleClickListener);
-            UIConstants.formatBeigeTextBrownDialog(selectButton);
+            UIUtilities.formatBeigeTextBrownDialog(selectButton);
         }
     }
 

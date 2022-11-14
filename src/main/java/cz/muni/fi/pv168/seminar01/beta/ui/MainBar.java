@@ -19,32 +19,32 @@ public class MainBar extends JMenuBar {
 
     private void initialize() {
 
-        setBackground(UIConstants.WHITE);
+        setBackground(UIUtilities.WHITE);
         setBorder(javax.swing.BorderFactory.createEmptyBorder());
         var fuelSettings = new JMenu("Nastavení paliva");
         fuelSettings.setToolTipText("Otevřít nastavení paliva");
         fuelSettings.setMnemonic('f');
-        UIConstants.formatWhiteTextBrownMenu(fuelSettings);
+        UIUtilities.formatWhiteTextBrownMenu(fuelSettings);
         JMenuItem fuelSettingsItem = new JMenuItem(new AbstractAction("Ceny paliv") {
             public void actionPerformed(ActionEvent e) {
                 JDialog dial = new FuelDialog(MainWindow.getFrame());
             }
         });
-        UIConstants.formatWhiteTextBrownMenu(fuelSettingsItem);
+        UIUtilities.formatWhiteTextBrownMenu(fuelSettingsItem);
         fuelSettings.add(fuelSettingsItem);
         add(fuelSettings);
 
         var importExport = new JMenu("Import / Export");
         importExport.setToolTipText("Otevřít nastavení importu a exportu");
         importExport.setMnemonic('i');
-        UIConstants.formatWhiteTextBrownMenu(importExport);
+        UIUtilities.formatWhiteTextBrownMenu(importExport);
 
         JMenuItem importItem = new JMenuItem(new AbstractAction("Import") {
             public void actionPerformed(ActionEvent e) {
                 JDialog dial = new ImportDialog(MainWindow.getFrame(), "Import");
             }
         });
-        UIConstants.formatWhiteTextBrownMenu(importItem);
+        UIUtilities.formatWhiteTextBrownMenu(importItem);
         importExport.add(importItem);
 
         JMenuItem exportItem = new JMenuItem(new AbstractAction("Export") {
@@ -52,7 +52,7 @@ public class MainBar extends JMenuBar {
                 JDialog dial = new ExportDialog(MainWindow.getFrame(), "Export");
             }
         });
-        UIConstants.formatWhiteTextBrownMenu(exportItem);
+        UIUtilities.formatWhiteTextBrownMenu(exportItem);
         importExport.add(exportItem);
 
         add(importExport);
@@ -60,14 +60,14 @@ public class MainBar extends JMenuBar {
         var categories = new JMenu("Kategorie");
         categories.setToolTipText("Otevřít menu pro kategorie");
         categories.setMnemonic('c');
-        UIConstants.formatWhiteTextBrownMenu(categories);
+        UIUtilities.formatWhiteTextBrownMenu(categories);
 
         JMenuItem showCategoriesItem = new JMenuItem(new AbstractAction("Zobrazit kategorie") {
             public void actionPerformed(ActionEvent e) {
                 // Button pressed logic goes here
             }
         });
-        UIConstants.formatWhiteTextBrownMenu(showCategoriesItem);
+        UIUtilities.formatWhiteTextBrownMenu(showCategoriesItem);
         categories.add(showCategoriesItem);
 
         JMenuItem addCategoryItem = new JMenuItem(new AbstractAction("Přidat kategorii") {
@@ -75,21 +75,21 @@ public class MainBar extends JMenuBar {
                 // Button pressed logic goes here
             }
         });
-        UIConstants.formatWhiteTextBrownMenu(addCategoryItem);
+        UIUtilities.formatWhiteTextBrownMenu(addCategoryItem);
         categories.add(addCategoryItem);
         add(categories);
 
         var addMenuItem = new JMenu("Přidat");
         addMenuItem.setToolTipText("Přidat jízdu, vozidlo nebo pasažéra");
         addMenuItem.setMnemonic('a');
-        UIConstants.formatWhiteTextBrownMenu(addMenuItem);
+        UIUtilities.formatWhiteTextBrownMenu(addMenuItem);
 
         JMenuItem addRide = new JMenuItem(new AbstractAction("Přidat jízdu") {
             public void actionPerformed(ActionEvent e) {
                 JDialog dial = new AddEditRideDialog(MainWindow.getFrame(), "Přidat jízdu");
             }
         });
-        UIConstants.formatWhiteTextBrownMenu(addRide);
+        UIUtilities.formatWhiteTextBrownMenu(addRide);
         addMenuItem.add(addRide);
 
         JMenuItem addVehicle = new JMenuItem(new AbstractAction("Přidat vozidlo") {
@@ -97,7 +97,7 @@ public class MainBar extends JMenuBar {
                 JDialog dial = new AddEditVehicleDialog(MainWindow.getFrame(), "Přidat Vozidlo");
             }
         });
-        UIConstants.formatWhiteTextBrownMenu(addVehicle);
+        UIUtilities.formatWhiteTextBrownMenu(addVehicle);
         addMenuItem.add(addVehicle);
 
         JMenuItem addPassenger = new JMenuItem(new AbstractAction("Přidat cestujícího") {
@@ -105,7 +105,7 @@ public class MainBar extends JMenuBar {
                 JDialog dial = new AddEditPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího");
             }
         });
-        UIConstants.formatWhiteTextBrownMenu(addPassenger);
+        UIUtilities.formatWhiteTextBrownMenu(addPassenger);
         addMenuItem.add(addPassenger);
 
         add(addMenuItem);

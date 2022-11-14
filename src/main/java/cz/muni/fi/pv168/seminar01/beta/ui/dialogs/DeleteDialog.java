@@ -1,7 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.ActionListenerProvider;
 
 import javax.swing.*;
@@ -28,11 +28,11 @@ public class DeleteDialog extends JDialog {
         });
         JButton ok = new JButton("Ok");
         ok.addActionListener(ActionListenerProvider.deleteRow(category, rows, this));
-        UIConstants.formatComponentDialog(cancel);
-        UIConstants.formatComponentDialog(ok);
+        UIUtilities.formatComponentDialog(cancel);
+        UIUtilities.formatComponentDialog(ok);
         bottom.add(cancel);
         bottom.add(ok);
-        bottom.setBackground(UIConstants.WHITE);
+        bottom.setBackground(UIUtilities.WHITE);
         add(bottom, BorderLayout.CENTER);
 
         setModalityType(Dialog.ModalityType.APPLICATION_MODAL);

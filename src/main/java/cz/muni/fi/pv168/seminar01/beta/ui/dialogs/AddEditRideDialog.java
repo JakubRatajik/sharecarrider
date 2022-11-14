@@ -7,7 +7,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.UIConstants;
+import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.JDatePickerDateGetter;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 import org.jdatepicker.JDatePicker;
@@ -51,10 +51,10 @@ public class AddEditRideDialog extends AddEditDialog {
         if (vehicle != null) {
             JButton cancel = new JButton("Zrušit");
             cancel.addActionListener(e -> dispose());
-            UIConstants.formatComponentDialog(cancel);
+            UIUtilities.formatComponentDialog(cancel);
             JButton save = new JButton("Uložit");
             onSaveEditButton(save);
-            UIConstants.formatComponentDialog(save);
+            UIUtilities.formatComponentDialog(save);
             bottom.add(cancel);
             bottom.add(save);
             return;
@@ -62,7 +62,7 @@ public class AddEditRideDialog extends AddEditDialog {
 
         JButton create = new JButton("Vytvořit");
         onCreateButton(create);
-        UIConstants.formatComponentDialog(create);
+        UIUtilities.formatComponentDialog(create);
         bottom.add(create);
     }
 
@@ -96,28 +96,28 @@ public class AddEditRideDialog extends AddEditDialog {
 
     protected void setAttributes() {
         this.date = new JDatePicker();
-        UIConstants.formatComponentDialog(date);
-        this.time = UIConstants.createTextField();
-        this.startDestination = UIConstants.createTextField();
-        this.endDestination = UIConstants.createTextField();
-        this.distance = UIConstants.createTextField();
+        UIUtilities.formatComponentDialog(date);
+        this.time = UIUtilities.createTextField();
+        this.startDestination = UIUtilities.createTextField();
+        this.endDestination = UIUtilities.createTextField();
+        this.distance = UIUtilities.createTextField();
 
         this.vehicle = new JComboBox<>();
         for (Vehicle v : (List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData()) {
             vehicle.addItem(v);
         }
-        UIConstants.formatComponentDialog(vehicle);
+        UIUtilities.formatComponentDialog(vehicle);
 
         // TODO - add category ComboBox
         this.category = new JComboBox<>();
         //for (RideCategory c : )
-        UIConstants.formatComponentDialog(category);
+        UIUtilities.formatComponentDialog(category);
 
         this.repetition = new JComboBox<>();
         for (Repetition rep : Repetition.values()) {
             repetition.addItem(rep);
         }
-        UIConstants.formatComponentDialog(repetition);
+        UIUtilities.formatComponentDialog(repetition);
 
         DefaultListModel<Passenger> l1 = new DefaultListModel<>();
         List<Passenger> passengers = (List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData();
@@ -141,12 +141,12 @@ public class AddEditRideDialog extends AddEditDialog {
 
         });
         // passengerList.getSelectedValuesList()
-        UIConstants.formatComponentDialog(passengerList);
+        UIUtilities.formatComponentDialog(passengerList);
         passengerList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         JScrollPane passengersScroll = new JScrollPane(passengerList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         passengersScroll.setPreferredSize(new Dimension(40, 0));
-        UIConstants.formatComponentDialog(passengersScroll);
+        UIUtilities.formatComponentDialog(passengersScroll);
         this.passengers = passengersScroll;
         this.passengersList = passengerList;
 
@@ -168,7 +168,7 @@ public class AddEditRideDialog extends AddEditDialog {
 
         JPanel center = new JPanel();
         center.setLayout(new GridLayout(7, 2));
-        UIConstants.formatWhiteTextBrownDialog(center);
+        UIUtilities.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Datum:"));
         center.add(this.date);
         center.add(new JLabel("•  Čas:"));
@@ -189,10 +189,10 @@ public class AddEditRideDialog extends AddEditDialog {
         passengerPanel.setLayout(new GridLayout(1, 2));
         passengerPanel.add(new JLabel("•  Cestující:"));
         passengerPanel.add(this.passengers);
-        UIConstants.formatWhiteTextBrownDialog((passengerPanel));
+        UIUtilities.formatWhiteTextBrownDialog((passengerPanel));
         central.add(passengerPanel);
         setSize(330, 400);
-        UIConstants.formatWhiteTextBrownDialog(central);
+        UIUtilities.formatWhiteTextBrownDialog(central);
 
 
     }
