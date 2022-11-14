@@ -13,17 +13,13 @@ public class FuelPrice {
     }
 
     public static BigDecimal getFuelPrice(FuelType fuelType) {
-        BigDecimal price;
-
-        switch (fuelType) {
-            case LPG -> price = LPGPrice;
-            case DIESEL -> price = dieselPrice;
-            case GASOLINE -> price = gasolinePrice;
-            case ELECTRICITY -> price = electricityPrice;
-            default -> price = randomPrice;
-        }
-
-        return price;
+        return switch (fuelType) {
+            case LPG -> LPGPrice;
+            case DIESEL -> dieselPrice;
+            case GASOLINE -> gasolinePrice;
+            case ELECTRICITY -> electricityPrice;
+            default -> randomPrice;
+        };
     }
 
     public static BigDecimal getGasolinePrice() {
