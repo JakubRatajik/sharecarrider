@@ -6,7 +6,7 @@ import java.util.Objects;
 public class RideCategory implements HasID {
     private final Color color;
     private final String name;
-    private final int id;
+    private final long id;
 
     public RideCategory(Color color, String name) {
         this.color = color;
@@ -23,7 +23,7 @@ public class RideCategory implements HasID {
     }
 
     @Override
-    public int getId() {
+    public long getId() {
         return id;
     }
 

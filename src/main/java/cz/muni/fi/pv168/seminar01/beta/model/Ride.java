@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class Ride implements HasID {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    private final int id;
+    private final long id;
     private LocalDate date;
     private LocalTime time;
     private String from;
@@ -148,7 +148,7 @@ public class Ride implements HasID {
     }
 
     @Override
-    public int getId() {
+    public long getId() {
         return id;
     }
 

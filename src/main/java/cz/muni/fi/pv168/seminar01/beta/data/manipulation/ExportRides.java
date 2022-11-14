@@ -32,7 +32,7 @@ public class ExportRides extends AbstractExporter<Ride> {
         return; // TODO - ride categories
     }
 
-    private <T extends HasID> List<Integer> getIDs(Collection<T> elements) {
+    private <T extends HasID> List<Long> getIDs(Collection<T> elements) {
         return elements.stream().map(HasID::getId).toList();
     }
 }

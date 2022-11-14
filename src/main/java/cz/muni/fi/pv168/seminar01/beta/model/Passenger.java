@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Passenger implements HasID {
-    private final int id;
+    private final long id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -91,7 +91,7 @@ public class Passenger implements HasID {
     }
 
     @Override
-    public int getId() {
+    public long getId() {
         return id;
     }
 

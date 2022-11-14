@@ -3,7 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.model;
 import java.util.Objects;
 
 public class Vehicle implements HasID {
-    private final int id;
+    private final long id;
     private FuelType fuelType;
     private String licensePlate;
     private String brand;
@@ -66,7 +66,7 @@ public class Vehicle implements HasID {
     }
 
     @Override
-    public int getId() {
+    public long getId() {
         return id;
     }
 
