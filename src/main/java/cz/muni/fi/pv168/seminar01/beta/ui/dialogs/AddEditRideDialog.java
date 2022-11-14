@@ -42,13 +42,9 @@ public class AddEditRideDialog extends AddEditDialog {
         super(frame, name, ride);
     }
 
-    public AddEditRideDialog(Frame frame, String name, Ride ride) {
-        super(frame, name, ride);
-    }
-
     @Override
     public void initializeBottom(JPanel bottom) {
-        if (vehicle != null) {
+        if (ride != null) {
             JButton cancel = new JButton("Zrušit");
             cancel.addActionListener(e -> dispose());
             UIUtilities.formatComponentDialog(cancel);
