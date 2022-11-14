@@ -2,8 +2,8 @@ package cz.muni.fi.pv168.seminar01.beta.ui.utils;
 
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 
 import javax.swing.*;
 
