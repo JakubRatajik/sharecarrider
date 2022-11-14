@@ -18,7 +18,7 @@ public final class ExportVehicles extends AbstractExporter<Vehicle> {
     }
 
     @Override
-    protected void writeAfterMain(BufferedWriter writer) {
+    protected void writeFooter(BufferedWriter writer) {
         return;
     }
 }

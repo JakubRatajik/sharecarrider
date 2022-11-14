@@ -16,7 +16,7 @@ public class ExportPassengers extends AbstractExporter<Passenger> {
     }
 
     @Override
-    protected void writeAfterMain(BufferedWriter writer) {
+    protected void writeFooter(BufferedWriter writer) {
         return;
     }
     // TODO - getCategories method should probably return names instead of toStrings

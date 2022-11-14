@@ -16,7 +16,7 @@ public abstract class AbstractExporter<T> {
                 writer.write(line);
                 writer.write(System.lineSeparator());
             }
-            writeAfterMain(writer);
+            writeFooter(writer);
         } catch (IOException exception) {
             throw new DataManipulationException("Unable to write to file", exception);
         }
@@ -29,5 +29,5 @@ public abstract class AbstractExporter<T> {
      *
      * @param writer is a BufferedWriter with specific file
      */
-    protected abstract void writeAfterMain(BufferedWriter writer);
+    protected abstract void writeFooter(BufferedWriter writer);
 }

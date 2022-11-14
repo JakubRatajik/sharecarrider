@@ -23,7 +23,7 @@ public class ExportRides extends AbstractExporter<Ride> {
     }
 
     @Override
-    protected void writeAfterMain(BufferedWriter writer) {
+    protected void writeFooter(BufferedWriter writer) {
         return; // TODO - ride categories
     }
 
