@@ -4,22 +4,27 @@ import cz.muni.fi.pv168.seminar01.beta.model.HasID;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 
 import java.io.BufferedWriter;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ExportRides extends AbstractExporter<Ride> {
     @Override
     protected String createCsvLine(Ride element) {
-        return element.getId() + SEPARATOR +
-                element.getDateUnformatted() + SEPARATOR +
-                element.getTime() + SEPARATOR +
-                element.getFrom() + SEPARATOR +
-                element.getTo() + SEPARATOR +
-                element.getDistance() + SEPARATOR +
-                getIDs(element.getCategories()) + SEPARATOR +
-                getIDs(element.getPassengers()) + SEPARATOR +
-                element.getVehicle().getId() + SEPARATOR +
-                element.getRepetition().name();
+        List<String> data = Arrays.asList(
+                String.valueOf(element.getId()),
+                element.getDateUnformatted(),
+                element.getTime(),
+                element.getFrom(),
+                element.getTo(),
+                String.valueOf(element.getDistance()),
+                getIDs(element.getCategories()).toString(),
+                getIDs(element.getPassengers()).toString(),
+                String.valueOf(element.getVehicle().getId()),
+                element.getRepetition().name());
+
+        return String.join(SEPARATOR, data);
     }
 
     @Override
