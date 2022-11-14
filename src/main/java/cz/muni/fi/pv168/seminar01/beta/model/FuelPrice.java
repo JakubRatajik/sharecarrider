@@ -1,17 +1,19 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
+import java.math.BigDecimal;
+
 public class FuelPrice {
-    private static double gasolinePrice = 45.5;
-    private static double electricityPrice = 7.2;
-    private static double LPGPrice = 21.3;
-    private static double dieselPrice = 49.7;
-    private static double randomPrice = 43.2;
+    private static BigDecimal gasolinePrice = new BigDecimal("45.5");
+    private static BigDecimal electricityPrice = new BigDecimal("7.2");
+    private static BigDecimal LPGPrice = new BigDecimal("21.3");
+    private static BigDecimal dieselPrice = new BigDecimal("49.7");
+    private static BigDecimal randomPrice = new BigDecimal("43.2");
 
     private FuelPrice() {
     }
 
-    public static double getFuelPrice(FuelType fuelType) {
-        double price;
+    public static BigDecimal getFuelPrice(FuelType fuelType) {
+        BigDecimal price;
 
         switch (fuelType) {
             case LPG -> price = LPGPrice;
@@ -24,35 +26,35 @@ public class FuelPrice {
         return price;
     }
 
-    public static double getGasolinePrice() {
+    public static BigDecimal getGasolinePrice() {
         return gasolinePrice;
     }
 
-    public static void setGasolinePrice(double gasolinePrice) {
+    public static void setGasolinePrice(BigDecimal gasolinePrice) {
         FuelPrice.gasolinePrice = gasolinePrice;
     }
 
-    public static double getElectricityPrice() {
+    public static BigDecimal getElectricityPrice() {
         return electricityPrice;
     }
 
-    public static void setElectricityPrice(double electricityPrice) {
+    public static void setElectricityPrice(BigDecimal electricityPrice) {
         FuelPrice.electricityPrice = electricityPrice;
     }
 
-    public static double getLPGPrice() {
+    public static BigDecimal getLPGPrice() {
         return LPGPrice;
     }
 
-    public static void setLPGPrice(double LPGPrice) {
+    public static void setLPGPrice(BigDecimal LPGPrice) {
         FuelPrice.LPGPrice = LPGPrice;
     }
 
-    public static double getDieselPrice() {
+    public static BigDecimal getDieselPrice() {
         return dieselPrice;
     }
 
-    public static void setDieselPrice(double dieselPrice) {
+    public static void setDieselPrice(BigDecimal dieselPrice) {
         FuelPrice.dieselPrice = dieselPrice;
     }
 }

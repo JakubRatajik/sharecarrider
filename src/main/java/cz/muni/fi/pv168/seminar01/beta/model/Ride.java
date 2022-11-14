@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -167,8 +168,16 @@ public class Ride implements HasID {
                 '}';
     }
 
-    public double countPrice() {
-        return ((double) distance / 100) * vehicle.getConsumption() * FuelPrice.getFuelPrice(vehicle.getFuelType());
+    public BigDecimal countPrice() {
+        BigDecimal BDdistance = BigDecimal.valueOf(distance);
+        BigDecimal hundred = BigDecimal.valueOf(100);
+        BigDecimal BDConsumption = BigDecimal.valueOf(vehicle.getConsumption());
+        BigDecimal BDFuelPrice = FuelPrice.getFuelPrice(vehicle.getFuelType());
+
+        return BDdistance
+                .divide(hundred)
+                .multiply(BDConsumption)
+                .multiply(BDFuelPrice);
     }
 
     @Override
