@@ -14,7 +14,7 @@ public abstract class AbstractExporter<T> {
             for (var element : data) {
                 String line = createCsvLine(element);
                 writer.write(line);
-                writer.newLine();
+                writer.write(System.lineSeparator());
             }
             writeAfterMain(writer);
         } catch (IOException exception) {
