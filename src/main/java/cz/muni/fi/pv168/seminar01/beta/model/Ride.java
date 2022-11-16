@@ -27,19 +27,10 @@ public class Ride implements HasID {
 
     public Ride(LocalDate date, LocalTime time, String from, String to, int distance, Collection<RideCategory> categories,
                 Collection<Passenger> passengers, Vehicle vehicle, Repetition repetition) {
-        this.date = date;
-        this.time = time;
-        this.from = from;
-        this.to = to;
-        this.distance = distance;
-        this.categories = new HashSet<>(categories);
-        this.passengers = new HashSet<>(passengers);
-        this.vehicle = vehicle;
-        this.repetition = repetition;
-        id = IDGenerator.getNewID(this.getClass());
+        this(IDGenerator.getNewID(Ride.class), date, time, from, to, distance, categories, passengers, vehicle, repetition);
     }
 
-    public Ride(int id, LocalDate date, LocalTime time, String from, String to, int distance, Collection<RideCategory> categories,
+    public Ride(long id, LocalDate date, LocalTime time, String from, String to, int distance, Collection<RideCategory> categories,
                 Collection<Passenger> passengers, Vehicle vehicle, Repetition repetition) {
         this.date = date;
         this.time = time;
