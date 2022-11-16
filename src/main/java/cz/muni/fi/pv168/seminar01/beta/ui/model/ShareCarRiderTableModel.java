@@ -62,7 +62,7 @@ public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractT
         fireTableRowsUpdated(rowIndex, rowIndex);
     }
 
-    public T getObjectById(int id) {
+    public T getObjectById(long id) {
         return data.stream()
                 .filter(object -> object.getId() == id)
                 .findAny()
