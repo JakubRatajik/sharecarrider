@@ -12,16 +12,10 @@ public class Vehicle implements HasID {
     private float consumption;
 
     public Vehicle(String licensePlate, String brand, String type, int capacity, float consumption, FuelType fuelType) {
-        this.licensePlate = licensePlate;
-        this.brand = brand;
-        this.type = type;
-        this.capacity = capacity;
-        this.consumption = consumption;
-        this.fuelType = fuelType;
-        id = IDGenerator.getNewID(this.getClass());
+        this(IDGenerator.getNewID(Vehicle.class), licensePlate, brand, type, capacity, consumption, fuelType);
     }
 
-    public Vehicle(int id, String licensePlate, String brand, String type, int capacity, float consumption, FuelType fuelType) {
+    public Vehicle(long id, String licensePlate, String brand, String type, int capacity, float consumption, FuelType fuelType) {
         this.licensePlate = licensePlate;
         this.brand = brand;
         this.type = type;
