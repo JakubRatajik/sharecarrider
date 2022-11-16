@@ -70,7 +70,7 @@ public class ImporterBase {
 
     public static void importRide(String[] split) {
         if (split.length == RIDE_PARAMETERS) {
-            int id = tryToInt(split[0]);
+            long id = tryToLong(split[0]);
             LocalDate date = LocalDate.parse(split[1]);
             LocalTime time = LocalTime.parse(split[2]);
             String from = split[3];
@@ -90,7 +90,7 @@ public class ImporterBase {
             Set<Passenger> passengerSet = new HashSet<>();
             if (pass.length() > 2) {
                 for (String passenger : listParser(pass)) {
-                    Passenger passengerObject = (Passenger) Shortcut.getTableModel(TableCategory.PASSENGERS).getObjectById(tryToInt(passenger));
+                    Passenger passengerObject = (Passenger) Shortcut.getTableModel(TableCategory.PASSENGERS).getObjectById(tryToLong(passenger));
                     if (passengerObject == null) {
                         System.err.println("Import not successful - > Person with id " + pass + " is missing in list");
                     }
@@ -98,7 +98,7 @@ public class ImporterBase {
                 }
             }
 
-            int vehicleID = tryToInt(split[8]);
+            long vehicleID = tryToLong(split[8]);
             Vehicle vehicleObject = (Vehicle) Shortcut.getTableModel(TableCategory.VEHICLES).getObjectById(vehicleID);
             if (vehicleObject == null) {
                 System.err.println("Import not successful - > Vehicle with id " + vehicleID + " is missing in list");
@@ -116,7 +116,7 @@ public class ImporterBase {
 
     private static void importPassenger(String[] split) {
         if (split.length == PASSENGER_PARAMETERS) {
-            int id = tryToInt(split[0]);
+            long id = tryToLong(split[0]);
             String name = split[1];
             String surname = split[2];
             String phoneNumber = split[3];
@@ -133,10 +133,9 @@ public class ImporterBase {
         }
     }
 
-
     private static void importVehicle(String[] split) {
         if (split.length == VEHICLE_PARAMETERS) {
-            int id = tryToInt(split[0]);
+            long id = tryToLong(split[0]);
             String licencePlate = split[1];
             String brand = split[2];
             String model = split[3];
@@ -148,30 +147,37 @@ public class ImporterBase {
         }
     }
 
-    private static int tryToInt(String integer) {
+    private static long tryToLong(String num) {
         try {
-            return Integer.parseInt(integer);
-        } catch (Exception e) {
-            return -1;
-        }
-
-    }
-
-    private static double tryToDouble(String integer) {
-        try {
-            return Double.parseDouble(integer);
+            return Long.parseLong(num);
         } catch (Exception e) {
             return -1;
         }
     }
 
-    private static FuelType tryToFuelType(String integer) {
+    private static int tryToInt(String num) {
         try {
-            return FuelType.valueOf(integer);
-        } catch (Exception e) {
+            return Integer.parseInt(num);
+        }
+        catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    private static double tryToDouble(String num) {
+        try {
+            return Double.parseDouble(num);
+        }
+        catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    private static FuelType tryToFuelType(String fuelType) {
+        try {
+            return FuelType.valueOf(fuelType);
+        } catch (NumberFormatException e) {
             return null;
         }
-
     }
-
 }
