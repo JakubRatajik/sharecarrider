@@ -66,8 +66,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
 
             try {
                 PassengerValidator.validatePassenger(nameText, surnameText, phoneNumberText);
-            }
-            catch (ValidationException e) {
+            } catch (ValidationException e) {
                 new ErrorDialog(MainWindow.getFrame(), e);
             }
             passenger.setFirstName(nameText);

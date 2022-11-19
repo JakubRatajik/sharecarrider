@@ -5,7 +5,6 @@ import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
@@ -157,8 +156,7 @@ public class ImporterBase {
     private static int tryToInt(String num) {
         try {
             return Integer.parseInt(num.trim());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return -1;
         }
     }
@@ -166,8 +164,7 @@ public class ImporterBase {
     private static double tryToDouble(String num) {
         try {
             return Double.parseDouble(num.trim());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return -1;
         }
     }

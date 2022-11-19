@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
  */
 public class Passenger implements HasID {
     private final long id;
+    private final Set<PassengerCategory> categories = new HashSet<>();
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private final Set<PassengerCategory> categories = new HashSet<>();
 
     public Passenger(String firstName, String lastName, String phoneNumber, Set<PassengerCategory> categories) {
         this(IDGenerator.getNewID(Passenger.class), firstName, lastName, phoneNumber, categories);

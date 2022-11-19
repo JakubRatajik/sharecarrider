@@ -109,7 +109,7 @@ public class AddEditRideDialog extends AddEditDialog {
         this.distance = UIUtilities.createTextField();
         this.description = new JTextArea();
         UIUtilities.formatDefaultComponent(description);
-        description.setBorder(new MatteBorder(3,3,3,3,UIUtilities.LIGHT_BEIGE));
+        description.setBorder(new MatteBorder(3, 3, 3, 3, UIUtilities.LIGHT_BEIGE));
         description.setLineWrap(true);
 
         this.vehicle = new JComboBox<>();
@@ -220,35 +220,32 @@ public class AddEditRideDialog extends AddEditDialog {
         UIUtilities.formatWhiteTextBrownDialog(central);
     }
 
-
     protected void onCreateButton(JButton create) {
         create.addActionListener(actionListener -> {
             //TODO - there need to be validation of data inserted
 
-                String[] departureParsedTime = (departure.getText().split("[:.]"));
-                LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
-                String[] arrivalParsedTime = arrival.getText().split("[:.]");
-                LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
-                int parsedDistance = Integer.parseInt(distance.getText());
-                RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
+            String[] departureParsedTime = (departure.getText().trim().split("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"));
+            LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
+            String[] arrivalParsedTime = arrival.getText().trim().split("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+            LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
+            int parsedDistance = Integer.parseInt(distance.getText().trim());
+            RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
 
-                Ride ride = new Ride(
-                        JDatePickerDateGetter.getLocalDate(date),
-                        departureTime,
-                        arrivalTime,
-                        startDestination.getText(),
-                        endDestination.getText(),
-                        parsedDistance,
-                        new HashSet<>(),
-                        passengersList.getSelectedValuesList(),
-                        (Vehicle) vehicle.getSelectedItem(),
-                        (Repetition) repetition.getSelectedItem(),
-                        description.getText()
-                );
-                tableModel.addRow(ride);
-                dispose();
-            });
+            Ride ride = new Ride(
+                    JDatePickerDateGetter.getLocalDate(date),
+                    departureTime,
+                    arrivalTime,
+                    startDestination.getText(),
+                    endDestination.getText(),
+                    parsedDistance,
+                    new HashSet<>(),
+                    passengersList.getSelectedValuesList(),
+                    (Vehicle) vehicle.getSelectedItem(),
+                    (Repetition) repetition.getSelectedItem(),
+                    description.getText()
+            );
+            tableModel.addRow(ride);
+            dispose();
+        });
     }
-
-
 }

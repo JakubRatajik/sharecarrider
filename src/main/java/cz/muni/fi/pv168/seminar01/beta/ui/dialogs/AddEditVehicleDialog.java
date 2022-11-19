@@ -138,8 +138,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
     public void validateVehicleInput() {
         try {
             VehicleValidator.validateVehicle(licensePlate.getText(), brand.getText(), type.getText(), capacity.getText(), consumption.getText());
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             new ErrorDialog(MainWindow.getFrame(), e);
         }
     }

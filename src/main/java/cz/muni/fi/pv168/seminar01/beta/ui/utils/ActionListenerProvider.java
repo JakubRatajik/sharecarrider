@@ -11,7 +11,6 @@ import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterPassengersDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterRidesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterVehiclesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.TemporaryDialog;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

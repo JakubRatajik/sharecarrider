@@ -6,8 +6,6 @@ import cz.muni.fi.pv168.seminar01.beta.ui.utils.ActionListenerProvider;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class DeleteDialog extends JDialog {
 
@@ -28,7 +26,7 @@ public class DeleteDialog extends JDialog {
 
         JPanel bottom = new JPanel();
         JButton cancel = new JButton("Zrušit");
-        cancel.addActionListener(e->dispose());
+        cancel.addActionListener(e -> dispose());
         JButton ok = new JButton("Ok");
         ok.addActionListener(ActionListenerProvider.deleteRow(category, rows, this));
         UIUtilities.formatDefaultComponent(cancel);

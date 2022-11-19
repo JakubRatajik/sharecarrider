@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
  * @author Jakub Ratajik
  */
 public class VehicleValidator {
-    private VehicleValidator() {}
+    private VehicleValidator() {
+    }
 
     public static void validateVehicle(String licensePlate, String brand, String type, String capacity, String consumption, String fuelType) {
         if (!isLicensePlateValid(licensePlate)) {
@@ -24,7 +25,7 @@ public class VehicleValidator {
         if (!isCapacityValid(capacity)) {
             throw new ValidationException("Kapacita musí být celé číslo menší než 200.");
         }
-        if (!isConsumptionValid(consumption)){
+        if (!isConsumptionValid(consumption)) {
             throw new ValidationException("Spotřeba musí být reální číslo s bodkou/čárkou a 2 desetinnýma místy.");
         }
         if (fuelType == null) {
