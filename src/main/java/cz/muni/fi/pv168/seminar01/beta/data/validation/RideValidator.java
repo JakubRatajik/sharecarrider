@@ -14,10 +14,11 @@ import java.util.stream.Collectors;
  */
 public class RideValidator {
     //TODO: add categories validation
-    private RideValidator() {}
+    private RideValidator() {
+    }
 
     public static void validateRide(String id, String date, String departure, String arrival, String from, String to, String distance, String categories,
-                        String passengers, String vehicleID, String repetition, String description) {
+                                    String passengers, String vehicleID, String repetition, String description) {
         if (!CommonValidator.isValidFloatParsing(id)) {
             throw new ValidationException("Neplatné ID jízdy.");
         }

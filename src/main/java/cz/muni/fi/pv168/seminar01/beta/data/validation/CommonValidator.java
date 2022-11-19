@@ -20,8 +20,7 @@ public class CommonValidator {
         try {
             LocalDate.parse(date.trim());
             return true;
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             return false;
         }
     }
@@ -30,8 +29,7 @@ public class CommonValidator {
         try {
             Integer.parseInt(num.trim());
             return true;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }
@@ -40,8 +38,7 @@ public class CommonValidator {
         try {
             Float.parseFloat(num.trim());
             return true;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }
@@ -50,8 +47,7 @@ public class CommonValidator {
         try {
             LocalTime.parse(time.trim());
             return true;
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             return false;
         }
     }
@@ -60,8 +56,7 @@ public class CommonValidator {
         try {
             Long.parseLong(num.trim());
             return true;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }

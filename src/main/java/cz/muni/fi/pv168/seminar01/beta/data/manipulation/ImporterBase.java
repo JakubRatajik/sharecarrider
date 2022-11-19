@@ -164,8 +164,7 @@ public class ImporterBase {
 
         try {
             PassengerValidator.validatePassenger(idString, name, surname, phoneNumber, categories);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             throw new DataManipulationException("Problém s načtením pasažérů.", e);
         }
 
@@ -203,8 +202,7 @@ public class ImporterBase {
 
         try {
             VehicleValidator.validateVehicle(idString, licencePlate, brand, model, seatsString, consumptionString, fuelTypeString);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             throw new DataManipulationException("Problém s načtením pasažérů.", e);
         }
 
