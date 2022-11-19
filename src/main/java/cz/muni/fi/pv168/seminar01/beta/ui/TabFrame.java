@@ -20,6 +20,7 @@ public class TabFrame {
     private JButton sortByButton;
     private JButton filterButton;
     private JButton selectButton;
+    private JButton deleteButton;
 
     public TabFrame(TableCategory category) {
         tablePanel = new JPanel();
@@ -54,9 +55,11 @@ public class TabFrame {
         selectButton = new JButton("Vybrat");
         sortByButton = new JButton("Řadit");
         filterButton = new JButton("Filtrovat");
+        deleteButton = new JButton("Smazat");
         UIUtilities.formatBeigeTextBrownDialog(selectButton);
         UIUtilities.formatBeigeTextBrownDialog(sortByButton);
         UIUtilities.formatBeigeTextBrownDialog(filterButton);
+        UIUtilities.formatBeigeTextBrownDialog(deleteButton);
 
         JPanel topPanel = new JPanel();
         topPanel.setBorder(BorderFactory.createEmptyBorder());
@@ -69,6 +72,7 @@ public class TabFrame {
         topPanel.add(selectButton);
         topPanel.add(sortByButton);
         topPanel.add(filterButton);
+        topPanel.add(deleteButton);
 
         return topPanel;
     }
@@ -93,6 +97,7 @@ public class TabFrame {
         sortByButton.addActionListener(actions.get(1));
         filterButton.addActionListener(actions.get(2));
         selectButton.addActionListener(actions.get(3));
+        deleteButton.addActionListener(actions.get(4));
     }
 
     public JPanel getMainPanel() {

@@ -6,6 +6,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents a passenger with ID.
+ */
 public class Passenger implements HasID {
     private final long id;
     private String firstName;

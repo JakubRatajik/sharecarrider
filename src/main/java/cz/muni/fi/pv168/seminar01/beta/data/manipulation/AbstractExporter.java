@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
+/**
+ * This class represents a csv exporter for various types and saves it.
+ * @param <T> passenger, vehicle or ride
+ */
 public abstract class AbstractExporter<T> {
     protected static final String SEPARATOR = ";";
 

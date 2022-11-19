@@ -18,14 +18,15 @@ public class DeleteDialog extends JDialog {
     }
 
     private void initialize(TableCategory category, int[] rows) {
+        JPanel center = new JPanel();
+        setLayout(new BorderLayout());
+        JTextArea message = new JTextArea("Opravdu si přejete smazat vybrané položky?\nTato akce je nevratná.");
+        message.setEditable(false);
+        center.add(message);
+
         JPanel bottom = new JPanel();
         JButton cancel = new JButton("Zrušit");
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        cancel.addActionListener(e->dispose());
         JButton ok = new JButton("Ok");
         ok.addActionListener(ActionListenerProvider.deleteRow(category, rows, this));
         UIUtilities.formatComponentDialog(cancel);
@@ -33,13 +34,14 @@ public class DeleteDialog extends JDialog {
         bottom.add(cancel);
         bottom.add(ok);
         bottom.setBackground(UIUtilities.WHITE);
-        add(bottom, BorderLayout.CENTER);
+        add(bottom, BorderLayout.SOUTH);
+        add(center, BorderLayout.CENTER);
 
         setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         setResizable(false);
-        setSize(200, 80);
+        setSize(280, 120);
         setLocationRelativeTo(null);
 
         setVisible(true);

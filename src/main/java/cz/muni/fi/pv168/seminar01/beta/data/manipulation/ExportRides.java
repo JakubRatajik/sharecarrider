@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * This class creates one line for a csv exporter of rides.
+ */
 public class ExportRides extends AbstractExporter<Ride> {
     @Override
     protected String createCsvLine(Ride element) {

@@ -11,6 +11,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterPassengersDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterRidesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterVehiclesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.TemporaryDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -72,11 +73,21 @@ public final class ActionListenerProvider {
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
+
+        ActionListener delete = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DeleteDialog(MainWindow.getFrame(), "Smazat jízdu/y",
+                        TableCategory.RIDES, Shortcut.getTable(TableCategory.RIDES).getSelectedRows());
+            }
+        };
+
         List<ActionListener> rides = new ArrayList<>();
         rides.add(plus);
         rides.add(sort);
         rides.add(filter);
         rides.add(select);
+        rides.add(delete);
         return rides;
     }
 
@@ -114,11 +125,20 @@ public final class ActionListenerProvider {
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
+
+        ActionListener delete = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DeleteDialog(MainWindow.getFrame(), "Smazat vozidlo/a",
+                        TableCategory.VEHICLES, Shortcut.getTable(TableCategory.VEHICLES).getSelectedRows());
+            }
+        };
         List<ActionListener> vehicles = new ArrayList<>();
         vehicles.add(plus);
         vehicles.add(sort);
         vehicles.add(filter);
         vehicles.add(select);
+        vehicles.add(delete);
         return vehicles;
     }
 
@@ -156,16 +176,19 @@ public final class ActionListenerProvider {
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
+
+        ActionListener delete = e -> new DeleteDialog(MainWindow.getFrame(), "Smazat cestující/ho",
+                TableCategory.PASSENGERS, Shortcut.getTable(TableCategory.PASSENGERS).getSelectedRows());
         List<ActionListener> passengers = new ArrayList<>();
         passengers.add(plus);
         passengers.add(sort);
         passengers.add(filter);
         passengers.add(select);
+        passengers.add(delete);
         return passengers;
     }
 
     public static ActionListener deleteRow(TableCategory category, int[] rows, DeleteDialog dialog) {
-
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

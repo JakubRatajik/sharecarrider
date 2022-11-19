@@ -2,6 +2,9 @@ package cz.muni.fi.pv168.seminar01.beta.model;
 
 import java.math.BigDecimal;
 
+/**
+ * This class represents static values of fuel prices, that are used for computing a price for a single ride and some statistics.
+ */
 public class FuelPrice {
     private static BigDecimal gasolinePrice = new BigDecimal("45.5");
     private static BigDecimal electricityPrice = new BigDecimal("7.2");

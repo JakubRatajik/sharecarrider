@@ -1,5 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
+/**
+ * Types of repeating of a ride.
+ */
 public enum Repetition {
     NONE {
         @Override

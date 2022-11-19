@@ -6,6 +6,9 @@ import java.io.BufferedWriter;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class creates one line for a csv exporter of vehicles.
+ */
 public final class ExportVehicles extends AbstractExporter<Vehicle> {
 
     @Override
