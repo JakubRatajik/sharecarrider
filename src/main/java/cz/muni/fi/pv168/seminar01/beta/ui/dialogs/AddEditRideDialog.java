@@ -9,6 +9,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.EnumRendererForComboBox;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.JDatePickerDateGetter;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 import org.jdatepicker.JDatePicker;
@@ -127,7 +128,7 @@ public class AddEditRideDialog extends AddEditDialog {
         for (Repetition rep : Repetition.values()) {
             repetition.addItem(rep);
         }
-        UIUtilities.formatDefaultJComboBox(repetition);
+        UIUtilities.formatDefaultJComboBox(repetition, new EnumRendererForComboBox());
 
         DefaultListModel<Passenger> l1 = new DefaultListModel<>();
         List<Passenger> passengers = (List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData();

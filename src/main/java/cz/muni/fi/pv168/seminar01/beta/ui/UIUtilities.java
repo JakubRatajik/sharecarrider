@@ -53,6 +53,11 @@ public class UIUtilities {
         });
     }
 
+    public static void formatDefaultJComboBox(JComboBox<?> jComboBox, DefaultListCellRenderer renderer) {
+        formatDefaultJComboBox(jComboBox);
+        jComboBox.setRenderer(renderer);
+    }
+
     public static void formatBeigeTextBrownDialog(JComponent component) {
         component.setForeground(TEXT_BROWN);
         component.setBackground(LIGHT_BEIGE);

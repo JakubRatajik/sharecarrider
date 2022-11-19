@@ -135,7 +135,7 @@ public class RideDetailDialog extends DetailDialog {
         distance = new JLabel(ride.getDistance() + " km");
         vehicle = new JLabel(ride.getVehicle().getBrand() + " " + ride.getVehicle().getType());
         price = new JLabel(ride.countPrice().setScale(0, RoundingMode.DOWN) + " Kč");
-        repetition = new JLabel(String.valueOf(ride.getRepetition()));
+        repetition = new JLabel(ride.getRepetition().getDescription());
         //arrival = new JLabel(ride.getArrival());
         arrival = new JLabel("");
         description = new JTextArea(ride.getDescription());
