@@ -1,8 +1,11 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
+import cz.muni.fi.pv168.seminar01.beta.data.validation.VehicleValidator;
 import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.FuelTypeRendererForComboBox;
@@ -10,8 +13,6 @@ import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Jan Macecek
@@ -102,52 +103,44 @@ public class AddEditVehicleDialog extends AddEditDialog {
     }
 
     private void onSaveEditButton(JButton save) {
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                VehicleTableModel tableModel = (VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES);
-                vehicle.setLicensePlate(licensePlate.getText());
-                vehicle.setBrand(brand.getText());
-                vehicle.setType(type.getText());
-                vehicle.setCapacity(Integer.parseInt(capacity.getText().trim()));
-                vehicle.setConsumption(Float.parseFloat(consumption.getText()));
-                vehicle.setFuelType((FuelType) fuelType.getSelectedItem());
-                tableModel.updateRow(vehicle);
-                dispose();
-            }
+        validateVehicleInput();
+        save.addActionListener(actionListener -> {
+            VehicleTableModel tableModel = (VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES);
+            vehicle.setLicensePlate(licensePlate.getText());
+            vehicle.setBrand(brand.getText());
+            vehicle.setType(type.getText());
+            vehicle.setCapacity(Integer.parseInt(capacity.getText().trim()));
+            vehicle.setConsumption(Float.parseFloat(consumption.getText().trim()));
+            vehicle.setFuelType((FuelType) fuelType.getSelectedItem());
+            tableModel.updateRow(vehicle);
+            dispose();
         });
     }
-
 
     @Override
     protected void onCreateButton(JButton create) {
-        create.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //if (!Validator.isValidAddVehicleInputValid()) {
-                //    return;
-                //}
+        validateVehicleInput();
+        create.addActionListener(actionListener -> {
+            VehicleTableModel tableModel = (VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES);
+            Vehicle vehicle = new Vehicle(
+                    licensePlate.getText(),
+                    brand.getText(),
+                    type.getText(),
+                    Integer.parseInt(capacity.getText().trim()),
+                    Float.parseFloat(consumption.getText().trim()),
+                    (FuelType) fuelType.getSelectedItem());
 
-                VehicleTableModel tableModel = (VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES);
-                Vehicle vehicle = new Vehicle(
-                        licensePlate.getText(),
-                        brand.getText(),
-                        type.getText(),
-                        Integer.parseInt(capacity.getText().trim()),
-                        Float.parseFloat(consumption.getText()),
-                        (FuelType) fuelType.getSelectedItem());
-
-                tableModel.addRow(vehicle);
-                dispose();
-            }
+            tableModel.addRow(vehicle);
+            dispose();
         });
     }
 
-
-    //if (!Validator.isValidRealNumberInput(consumption.getText())) {
-    //    new ErrorDialog(MainWindow.getFrame(), "Spotřeba musí být reální číslo.");
-    //}
-
-    //return true;
-    //}
+    public void validateVehicleInput() {
+        try {
+            VehicleValidator.validateVehicle(licensePlate.getText(), brand.getText(), type.getText(), capacity.getText(), consumption.getText());
+        }
+        catch (ValidationException e) {
+            new ErrorDialog(MainWindow.getFrame(), e);
+        }
+    }
 }
