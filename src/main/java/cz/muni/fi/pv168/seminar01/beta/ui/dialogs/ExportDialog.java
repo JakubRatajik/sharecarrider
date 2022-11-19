@@ -45,6 +45,9 @@ public class ExportDialog extends DialogBase {
         UIUtilities.formatWhiteTextBrownDialog(center);
 
         JButton exportRidesButton = new JButton("Kam exportovat jízdy");
+        JTextArea exportRidesPath = new JTextArea();
+        exportRidesPath.setEditable(false);
+        JScrollPane ridesPathScroll = new JScrollPane(exportRidesPath);
         exportRidesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,12 +56,17 @@ public class ExportDialog extends DialogBase {
                 if (dialogResult == JFileChooser.APPROVE_OPTION) {
                     rides = ridesFileChooser.getSelectedFile();
                 }
+                exportRidesPath.setText(String.valueOf(rides));
             }
         });
         exportRidesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         center.add(exportRidesButton);
+        center.add(ridesPathScroll);
 
         JButton exportVehiclesButton = new JButton("Kam exportovat vozidla");
+        JTextArea exportVehiclesPath = new JTextArea();
+        exportVehiclesPath.setEditable(false);
+        JScrollPane vehiclesPathScroll = new JScrollPane(exportVehiclesPath);
         exportVehiclesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,12 +75,17 @@ public class ExportDialog extends DialogBase {
                 if (dialogResult == JFileChooser.APPROVE_OPTION) {
                     vehicles = vehiclesFileChooser.getSelectedFile();
                 }
+                exportVehiclesPath.setText(String.valueOf(vehicles));
             }
         });
         exportVehiclesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         center.add(exportVehiclesButton);
+        center.add(vehiclesPathScroll);
 
         JButton exportPassengersButton = new JButton("Kam exportovat cestující");
+        JTextArea exportPassengersPath = new JTextArea();
+        exportPassengersPath.setEditable(false);
+        JScrollPane passengersPathScroll = new JScrollPane(exportPassengersPath);
         exportPassengersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,13 +94,15 @@ public class ExportDialog extends DialogBase {
                 if (dialogResult == JFileChooser.APPROVE_OPTION) {
                     passengers = passengersFileChooser.getSelectedFile();
                 }
+                exportPassengersPath.setText(String.valueOf(passengers));
             }
         });
         exportPassengersButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         center.add(exportPassengersButton);
+        center.add(passengersPathScroll);
 
         this.add(center);
-        setSize(300, 160);
+        setSize(300, 250);
 
     }
 

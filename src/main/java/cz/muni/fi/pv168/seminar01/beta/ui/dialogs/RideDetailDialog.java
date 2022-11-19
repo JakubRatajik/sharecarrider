@@ -32,6 +32,7 @@ public class RideDetailDialog extends DetailDialog {
     private JLabel[] categories;
     private JLabel repetition;
     private JLabel price;
+    private JTextArea description;
 
     public RideDetailDialog(Frame frame, String name, Ride ride) {
         super(frame, name, ride);
@@ -78,7 +79,7 @@ public class RideDetailDialog extends DetailDialog {
         nonChangeable.add(new JLabel("•  Opakování:"));
         nonChangeable.add(repetition);
         center.add(nonChangeable);
-        int height = 290;
+        int height = 330;
 
         String empty = "";
         JPanel passengers = new JPanel();
@@ -116,6 +117,14 @@ public class RideDetailDialog extends DetailDialog {
             categories.add(new JLabel(categoryList.get(i).getName()));
         }
         center.add(categories);
+
+        JPanel descriptionPanel = new JPanel();
+        descriptionPanel.setLayout(new GridLayout(1, 2));
+        UIUtilities.formatWhiteTextBrownDialog(descriptionPanel);
+        descriptionPanel.add(new JLabel("•  Popis:"));
+        descriptionPanel.add(description);
+
+        center.add(descriptionPanel);
         add(center, BorderLayout.CENTER);
         setSize(330, height);
     }
@@ -131,6 +140,9 @@ public class RideDetailDialog extends DetailDialog {
         repetition = new JLabel(String.valueOf(ride.getRepetition()));
         //arrival = new JLabel(ride.getArrival());
         arrival = new JLabel("");
+        description = new JTextArea(ride.getDescription());
+        description.setEditable(false);
+        description.setBackground(Color.WHITE);
     }
 
 
