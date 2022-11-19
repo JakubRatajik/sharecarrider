@@ -9,6 +9,9 @@ import java.awt.*;
  * @author Kateřina Vácová
  */
 public class ErrorDialog extends JDialog {
+    public ErrorDialog(Frame frame, Exception exception) {
+        this(frame, exception.getMessage());
+    }
 
     public ErrorDialog(Frame frame, String errorMessage) {
         super(frame, "Chyba");
