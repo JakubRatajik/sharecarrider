@@ -17,10 +17,10 @@ public class FuelDialog extends DialogBase {
     }
 
     public void initializeBottom(JPanel bottom) {
-        JButton create = new JButton("Zadat");
-        UIUtilities.formatComponentDialog(create);
-        UIUtilities.formatBeigeTextBrownDialog(create);
-        bottom.add(create);
+        JButton createButton = new JButton("Zadat");
+        UIUtilities.formatDefaultComponent(createButton);
+        UIUtilities.formatBeigeTextBrownDialog(createButton);
+        bottom.add(createButton);
     }
 
     public void initializeCenter(JPanel center) {
@@ -53,6 +53,4 @@ public class FuelDialog extends DialogBase {
         cng = UIUtilities.createTextField();
         elektro = UIUtilities.createTextField();
     }
-
-
 }
