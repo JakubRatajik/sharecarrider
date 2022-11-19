@@ -222,10 +222,8 @@ public class AddEditRideDialog extends AddEditDialog {
 
 
     protected void onCreateButton(JButton create) {
-        create.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO - there need to be validation of data inserted
+        create.addActionListener(actionListener -> {
+            //TODO - there need to be validation of data inserted
 
                 String[] departureParsedTime = (departure.getText().split("[:.]"));
                 LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
@@ -249,8 +247,7 @@ public class AddEditRideDialog extends AddEditDialog {
                 );
                 tableModel.addRow(ride);
                 dispose();
-            }
-        });
+            });
     }
 
 
