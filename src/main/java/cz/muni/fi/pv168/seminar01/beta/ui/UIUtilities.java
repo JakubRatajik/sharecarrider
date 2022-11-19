@@ -21,37 +21,42 @@ public class UIUtilities {
 
     public static JTextField createTextField() {
         JTextField field = new JTextField();
-        formatComponentDialog(field);
+        formatDefaultComponent(field);
         return field;
     }
 
-    public static void formatComponentDialog(JComponent component) {
+    public static void formatDefaultComponent(JComponent component) {
         component.setForeground(TEXT_BROWN);
         component.setBackground(LIGHT_BEIGE);
         component.setFont(fDialog);
+        component.putClientProperty("JComponent.outline", UIUtilities.MIDDLE_BROWN);
     }
 
     public static void formatBeigeTextBrownDialog(JComponent component) {
         component.setForeground(TEXT_BROWN);
         component.setBackground(LIGHT_BEIGE);
         component.setFont(fDialog);
+        component.putClientProperty("JComponent.outline", UIUtilities.MIDDLE_BROWN);
     }
 
     public static void formatInverseBeigeTextBrownComponent(JComponent component) {
         component.setForeground(LIGHT_BEIGE);
         component.setBackground(MIDDLE_BROWN);
         component.setFont(fDialog);
+        component.putClientProperty("JComponent.outline", UIUtilities.MIDDLE_BROWN);
     }
 
     public static void formatWhiteTextBrownDialog(JComponent component) {
         component.setForeground(TEXT_BROWN);
         component.setBackground(WHITE);
         component.setFont(fDialog);
+        component.putClientProperty("JComponent.outline", UIUtilities.MIDDLE_BROWN);
     }
 
     public static void formatWhiteTextBrownMenu(JComponent component) {
         component.setForeground(TEXT_BROWN);
         component.setBackground(WHITE);
         component.setFont(fMenu);
+        component.putClientProperty("JComponent.outline", UIUtilities.MIDDLE_BROWN);
     }
 }
