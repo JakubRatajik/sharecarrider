@@ -16,7 +16,9 @@ public class ErrorDialog extends JDialog {
         JPanel center = new JPanel();
         setLayout(new BorderLayout());
 
-        JLabel message = new JLabel(errorMessage);
+        JTextArea message = new JTextArea(errorMessage);
+        message.setLineWrap(true);
+        message.setEditable(false);
         center.add(message);
         this.add(center);
 
