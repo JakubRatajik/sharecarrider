@@ -21,6 +21,7 @@ public class VehicleDetailDialog extends DetailDialog {
     @Override
     public void onEditButton(JButton edit) {
         edit.addActionListener(e -> new AddEditVehicleDialog(MainWindow.getFrame(), "Upravit vozidlo", vehicle));
+        // TODO - update dialog after edit
     }
 
     @Override
@@ -38,7 +39,7 @@ public class VehicleDetailDialog extends DetailDialog {
         center.add(new JLabel("•  SPZ:"));
         center.add(new JLabel(vehicle.getLicensePlate()));
         center.add(new JLabel("•  Typ paliva:"));
-        center.add(new JLabel(vehicle.getFuelType().toString()));
+        center.add(new JLabel(vehicle.getFuelType().getDescription()));
         add(center, BorderLayout.CENTER);
         setSize(220, 180);
     }

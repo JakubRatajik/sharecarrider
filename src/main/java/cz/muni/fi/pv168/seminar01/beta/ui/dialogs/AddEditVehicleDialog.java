@@ -5,6 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.FuelTypeRendererForComboBox;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
@@ -45,6 +46,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
         this.capacity = UIUtilities.createTextField();
         this.consumption = UIUtilities.createTextField();
         this.fuelType = new JComboBox<>();
+        fuelType.setRenderer(new FuelTypeRendererForComboBox());
         for (FuelType ft : FuelType.values()) {
             fuelType.addItem(ft);
         }
