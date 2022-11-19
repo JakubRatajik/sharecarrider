@@ -30,7 +30,7 @@ public class IDGenerator {
                         caller.equals(Passenger.class) ||
                         caller.equals(Vehicle.class)
         ) {
-            String[] parsedName = caller.getName().split("\\.");
+            String[] parsedName = caller.getName().trim().split("\\.");
             prefix = parsedName[parsedName.length - 1].charAt(0);
         } else {
             throw new IllegalArgumentException("This class is not supported by IDGenerator.");

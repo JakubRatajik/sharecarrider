@@ -17,7 +17,8 @@ public class PassengerValidator {
         if (!isPhoneNumberValid(phoneNumber)) {
             throw new ValidationException("Telefónní číslo musí být ve formátu '712345678' nebo '+421123456789'.");
         }
-        if (!isNameValid(firstName) || !isNameValid(lastName)) {
+        if (!CommonValidator.isValidLongAlphaSpaceString(firstName)
+                || !CommonValidator.isValidLongAlphaSpaceString(lastName)) {
             throw new ValidationException("Jméno musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
         }
         if (categories == null) {
@@ -26,7 +27,6 @@ public class PassengerValidator {
         if (!isCategoryListValid(categories)) {
             throw new ValidationException("Nesprávný formát kategorií.");
         }
-
     }
 
     private static boolean isCategoryListValid(String categories) {
@@ -43,10 +43,6 @@ public class PassengerValidator {
 
     public static void validatePassenger(String firstName, String lastName, String phoneNumber) {
         validatePassenger(firstName, lastName, phoneNumber, null);
-    }
-
-    private static boolean isNameValid(String firstName) {
-        return firstName.matches("^[a-zA-Z ]*$");
     }
 
     private static boolean isPhoneNumberValid(String phoneNumber) {
