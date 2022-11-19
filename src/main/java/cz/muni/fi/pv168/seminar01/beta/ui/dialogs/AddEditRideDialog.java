@@ -127,8 +127,12 @@ public class AddEditRideDialog extends AddEditDialog {
                     Object value,
                     int index,
                     boolean isSelected,
-                    boolean cellHasFocus) {
-                Component component = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                    boolean hasFocus) {
+                Component component = super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
+
+                if (isSelected) {
+                    component.setBackground(UIUtilities.MIDDLE_BROWN);
+                }
 
                 setText(((Passenger) value).getFullName());
 
