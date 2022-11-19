@@ -1,5 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerValidator;
+import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
@@ -10,8 +12,6 @@ import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -58,19 +58,25 @@ public class AddEditPassengerDialog extends AddEditDialog {
     }
 
     private void onSaveEditButton(JButton save) {
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
-                passenger.setFirstName(name.getText());
-                passenger.setLastName(surname.getText());
-                passenger.setPhoneNumber(phoneNumber.getText());
-                passenger.setCategories(getSelectedCategories());
-                tableModel.updateRow(passenger);
+        save.addActionListener(actionListener -> {
+            PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
+            String nameText = name.getText();
+            String surnameText = surname.getText();
+            String phoneNumberText = phoneNumber.getText();
+
+            try {
+                PassengerValidator.validatePassenger(nameText, surnameText, phoneNumberText);
             }
+            catch (ValidationException e) {
+                new ErrorDialog(MainWindow.getFrame(), e);
+            }
+            passenger.setFirstName(nameText);
+            passenger.setLastName(surnameText);
+            passenger.setPhoneNumber(phoneNumberText);
+            passenger.setCategories(getSelectedCategories());
+            tableModel.updateRow(passenger);
         });
     }
-
 
     @Override
     protected void setAttributes() {
@@ -115,24 +121,20 @@ public class AddEditPassengerDialog extends AddEditDialog {
 
     @Override
     protected void onCreateButton(JButton create) {
-        create.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        create.addActionListener(actionListener -> {
+            try {
+                Passenger passenger = new Passenger(
+                        name.getText(),
+                        surname.getText(),
+                        phoneNumber.getText(),
+                        getSelectedCategories()
+                );
 
-                try {
-                    Passenger passenger = new Passenger(
-                            name.getText(),
-                            surname.getText(),
-                            phoneNumber.getText(),
-                            getSelectedCategories()
-                    );
-
-                    PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
-                    tableModel.addRow(passenger);
-                    dispose();
-                } catch (IllegalArgumentException exception) {
-                    new ErrorDialog(MainWindow.getFrame(), exception.getMessage());
-                }
+                PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
+                tableModel.addRow(passenger);
+                dispose();
+            } catch (IllegalArgumentException exception) {
+                new ErrorDialog(MainWindow.getFrame(), exception.getMessage());
             }
         });
     }
