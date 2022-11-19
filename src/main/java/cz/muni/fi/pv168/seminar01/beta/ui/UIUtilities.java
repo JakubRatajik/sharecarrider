@@ -32,6 +32,27 @@ public class UIUtilities {
         component.putClientProperty("JComponent.outline", UIUtilities.MIDDLE_BROWN);
     }
 
+    public static void formatDefaultJComboBox(JComboBox<?> jComboBox) {
+        formatDefaultComponent(jComboBox);
+        jComboBox.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list,
+                    Object value,
+                    int index,
+                    boolean isSelected,
+                    boolean hasFocus) {
+                Component component = super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
+
+                if (isSelected) {
+                    component.setBackground(UIUtilities.MIDDLE_BROWN);
+                }
+
+                return component;
+            }
+        });
+    }
+
     public static void formatBeigeTextBrownDialog(JComponent component) {
         component.setForeground(TEXT_BROWN);
         component.setBackground(LIGHT_BEIGE);
