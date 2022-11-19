@@ -13,7 +13,10 @@ public class PassengerValidator {
     private PassengerValidator() {
     }
 
-    public static void validatePassenger(String firstName, String lastName, String phoneNumber, String categories) {
+    public static void validatePassenger(String id, String firstName, String lastName, String phoneNumber, String categories) {
+        if (id != null && !CommonValidator.isValidLongParsing(id)) {
+            throw new ValidationException("Neplatné ID pasažéra.");
+        }
         if (!isPhoneNumberValid(phoneNumber)) {
             throw new ValidationException("Telefónní číslo musí být ve formátu '712345678' nebo '+421123456789'.");
         }
@@ -24,25 +27,25 @@ public class PassengerValidator {
         if (categories == null) {
             return;
         }
-        if (!isCategoryListValid(categories)) {
+        if (!isValidCategoryList(categories)) {
             throw new ValidationException("Nesprávný formát kategorií.");
         }
     }
 
-    private static boolean isCategoryListValid(String categories) {
+    private static boolean isValidCategoryList(String categories) {
         if (!categories.matches("\\[(([a-zA-z]+)(, [a-zA-z]+)*)*]")) {
             return false;
         }
         List<String> categoriesList = Arrays.asList(
                 categories.substring(1, categories.length() - 1).split(", "));
         return !categoriesList.stream()
-                .map(PassengerCategory::fromString)
+                .map(PassengerCategory::valueOf)
                 .collect(Collectors.toSet())
                 .contains(null);
     }
 
     public static void validatePassenger(String firstName, String lastName, String phoneNumber) {
-        validatePassenger(firstName, lastName, phoneNumber, null);
+        validatePassenger(null, firstName, lastName, phoneNumber, null);
     }
 
     private static boolean isPhoneNumberValid(String phoneNumber) {
