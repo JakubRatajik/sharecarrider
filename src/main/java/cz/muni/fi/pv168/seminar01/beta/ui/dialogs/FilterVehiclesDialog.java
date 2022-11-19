@@ -31,7 +31,7 @@ public class FilterVehiclesDialog extends FilterDialog {
         consumptionFrom = UIUtilities.createTextField();
         consumptionTo = UIUtilities.createTextField();
         brand = new JComboBox<>();
-        UIUtilities.formatComponentDialog(brand);
+        UIUtilities.formatDefaultJComboBox(brand);
     }
 
     public void initializeContent(JPanel center) {

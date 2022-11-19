@@ -42,10 +42,10 @@ public class AddEditPassengerDialog extends AddEditDialog {
         if (passenger != null) {
             JButton cancel = new JButton("Zrušit");
             cancel.addActionListener(e -> dispose());
-            UIUtilities.formatComponentDialog(cancel);
+            UIUtilities.formatDefaultComponent(cancel);
             JButton save = new JButton("Uložit");
             onSaveEditButton(save);
-            UIUtilities.formatComponentDialog(save);
+            UIUtilities.formatDefaultComponent(save);
             bottom.add(cancel);
             bottom.add(save);
             return;
@@ -53,7 +53,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
 
         JButton create = new JButton("Vytvořit");
         onCreateButton(create);
-        UIUtilities.formatComponentDialog(create);
+        UIUtilities.formatDefaultComponent(create);
         bottom.add(create);
     }
 

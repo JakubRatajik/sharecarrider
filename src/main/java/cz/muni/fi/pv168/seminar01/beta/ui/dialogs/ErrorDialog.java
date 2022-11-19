@@ -24,7 +24,7 @@ public class ErrorDialog extends JDialog {
         JPanel bottom = new JPanel();
         JButton ok = new JButton("OK");
         ok.addActionListener(e -> dispose());
-        UIUtilities.formatComponentDialog(ok);
+        UIUtilities.formatDefaultComponent(ok);
         bottom.add(ok);
         bottom.setBackground(UIUtilities.WHITE);
 

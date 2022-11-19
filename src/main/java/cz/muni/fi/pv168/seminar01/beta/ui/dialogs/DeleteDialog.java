@@ -28,8 +28,8 @@ public class DeleteDialog extends JDialog {
         });
         JButton ok = new JButton("Ok");
         ok.addActionListener(ActionListenerProvider.deleteRow(category, rows, this));
-        UIUtilities.formatComponentDialog(cancel);
-        UIUtilities.formatComponentDialog(ok);
+        UIUtilities.formatDefaultComponent(cancel);
+        UIUtilities.formatDefaultComponent(ok);
         bottom.add(cancel);
         bottom.add(ok);
         bottom.setBackground(UIUtilities.WHITE);

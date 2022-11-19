@@ -16,8 +16,8 @@ public abstract class FilterDialog extends DialogBase {
         cancel.addActionListener(e -> dispose());
         JButton ok = new JButton("Ok");
         onOkButton(ok);
-        UIUtilities.formatComponentDialog(cancel);
-        UIUtilities.formatComponentDialog(ok);
+        UIUtilities.formatDefaultComponent(cancel);
+        UIUtilities.formatDefaultComponent(ok);
         bottom.add(cancel);
         bottom.add(ok);
     }

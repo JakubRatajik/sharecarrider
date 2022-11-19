@@ -47,10 +47,10 @@ public class AddEditRideDialog extends AddEditDialog {
         if (ride != null) {
             JButton cancel = new JButton("Zrušit");
             cancel.addActionListener(e -> dispose());
-            UIUtilities.formatComponentDialog(cancel);
+            UIUtilities.formatDefaultComponent(cancel);
             JButton save = new JButton("Uložit");
             onSaveEditButton(save);
-            UIUtilities.formatComponentDialog(save);
+            UIUtilities.formatDefaultComponent(save);
             bottom.add(cancel);
             bottom.add(save);
             return;
@@ -58,7 +58,7 @@ public class AddEditRideDialog extends AddEditDialog {
 
         JButton create = new JButton("Vytvořit");
         onCreateButton(create);
-        UIUtilities.formatComponentDialog(create);
+        UIUtilities.formatDefaultComponent(create);
         bottom.add(create);
     }
 
@@ -92,7 +92,7 @@ public class AddEditRideDialog extends AddEditDialog {
 
     protected void setAttributes() {
         this.date = new JDatePicker();
-        UIUtilities.formatComponentDialog(date);
+        UIUtilities.formatDefaultComponent(date);
         this.time = UIUtilities.createTextField();
         this.startDestination = UIUtilities.createTextField();
         this.endDestination = UIUtilities.createTextField();
@@ -102,18 +102,18 @@ public class AddEditRideDialog extends AddEditDialog {
         for (Vehicle v : (List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData()) {
             vehicle.addItem(v);
         }
-        UIUtilities.formatComponentDialog(vehicle);
+        UIUtilities.formatDefaultJComboBox(vehicle);
 
         // TODO - add category ComboBox
         this.category = new JComboBox<>();
         //for (RideCategory c : )
-        UIUtilities.formatComponentDialog(category);
+        UIUtilities.formatDefaultJComboBox(category);
 
         this.repetition = new JComboBox<>();
         for (Repetition rep : Repetition.values()) {
             repetition.addItem(rep);
         }
-        UIUtilities.formatComponentDialog(repetition);
+        UIUtilities.formatDefaultJComboBox(repetition);
 
         DefaultListModel<Passenger> l1 = new DefaultListModel<>();
         List<Passenger> passengers = (List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData();
@@ -134,15 +134,14 @@ public class AddEditRideDialog extends AddEditDialog {
 
                 return component;
             }
-
         });
-        // passengerList.getSelectedValuesList()
-        UIUtilities.formatComponentDialog(passengerList);
+
+        UIUtilities.formatDefaultComponent(passengerList);
         passengerList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         JScrollPane passengersScroll = new JScrollPane(passengerList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         passengersScroll.setPreferredSize(new Dimension(40, 0));
-        UIUtilities.formatComponentDialog(passengersScroll);
+        UIUtilities.formatDefaultComponent(passengersScroll);
         this.passengers = passengersScroll;
         this.passengersList = passengerList;
 
@@ -189,8 +188,6 @@ public class AddEditRideDialog extends AddEditDialog {
         central.add(passengerPanel);
         setSize(330, 400);
         UIUtilities.formatWhiteTextBrownDialog(central);
-
-
     }
 
 

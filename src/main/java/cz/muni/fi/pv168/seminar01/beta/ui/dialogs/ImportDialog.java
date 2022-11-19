@@ -26,8 +26,8 @@ public class ImportDialog extends DialogBase {
         cancel.addActionListener(e -> dispose());
         JButton importButton = new JButton("Importovat");
         onImportButton(importButton);
-        UIUtilities.formatComponentDialog(cancel);
-        UIUtilities.formatComponentDialog(importButton);
+        UIUtilities.formatDefaultComponent(cancel);
+        UIUtilities.formatDefaultComponent(importButton);
         bottom.add(cancel);
         bottom.add(importButton);
     }
