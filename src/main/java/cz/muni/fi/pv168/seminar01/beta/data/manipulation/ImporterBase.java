@@ -61,7 +61,6 @@ public class ImporterBase {
         }
     }
 
-
     public static String[] listParser(String list) {
         list = list.substring(1, list.length() - 1);
         return list.split(", ");
@@ -110,7 +109,7 @@ public class ImporterBase {
 
 
             ((RideTableModel) Shortcut.getTableModel(TableCategory.RIDES)).addRow(
-                    new Ride(id, date, time, null, from, where, distance, new HashSet<RideCategory>(), passengerSet, vehicle, repetition, "description"));
+                    new Ride(id, date, time, null, from, where, distance, new HashSet<>(), passengerSet, vehicle, repetition, "description"));
         }
     }
 
@@ -149,15 +148,15 @@ public class ImporterBase {
 
     private static long tryToLong(String num) {
         try {
-            return Long.parseLong(num);
-        } catch (Exception e) {
+            return Long.parseLong(num.trim());
+        } catch (NumberFormatException e) {
             return -1;
         }
     }
 
     private static int tryToInt(String num) {
         try {
-            return Integer.parseInt(num);
+            return Integer.parseInt(num.trim());
         }
         catch (NumberFormatException e) {
             return -1;
@@ -166,7 +165,7 @@ public class ImporterBase {
 
     private static double tryToDouble(String num) {
         try {
-            return Double.parseDouble(num);
+            return Double.parseDouble(num.trim());
         }
         catch (NumberFormatException e) {
             return -1;
@@ -175,8 +174,8 @@ public class ImporterBase {
 
     private static FuelType tryToFuelType(String fuelType) {
         try {
-            return FuelType.valueOf(fuelType);
-        } catch (NumberFormatException e) {
+            return FuelType.valueOf(fuelType.trim());
+        } catch (IllegalArgumentException e) {
             return null;
         }
     }
