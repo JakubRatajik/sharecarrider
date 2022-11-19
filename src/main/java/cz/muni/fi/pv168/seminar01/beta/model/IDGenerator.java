@@ -3,6 +3,13 @@ package cz.muni.fi.pv168.seminar01.beta.model;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * TEMPORARY SOLUTION!
+ * This class will be replaced by database auto-generator.
+ * The database will generate IDs automatically as soon as it is implemented.
+ * <p>
+ * Class for ID generation.
+ */
 public class IDGenerator {
     private static final Map<Long, Long> IDs = new HashMap<>();
 
