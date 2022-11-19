@@ -28,9 +28,9 @@ public class FilterRidesDialog extends FilterDialog {
         dateFilter = new JCheckBox(" Datum");
         distanceFilter = new JCheckBox(" Vzdálenost");
         dateFrom = new JDatePicker();
-        UIUtilities.formatComponentDialog(dateFrom);
+        UIUtilities.formatDefaultComponent(dateFrom);
         dateTo = new JDatePicker();
-        UIUtilities.formatComponentDialog(dateTo);
+        UIUtilities.formatDefaultComponent(dateTo);
         distanceFrom = UIUtilities.createTextField();
         distanceTo = UIUtilities.createTextField();
     }

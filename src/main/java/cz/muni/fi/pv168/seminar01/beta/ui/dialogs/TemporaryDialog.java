@@ -31,8 +31,8 @@ public class TemporaryDialog extends JDialog {
             }
         });
         JButton ok = new JButton("Ok");
-        UIUtilities.formatComponentDialog(cancel);
-        UIUtilities.formatComponentDialog(ok);
+        UIUtilities.formatDefaultComponent(cancel);
+        UIUtilities.formatDefaultComponent(ok);
         bottom.add(cancel);
         bottom.add(ok);
         bottom.setBackground(UIUtilities.WHITE);

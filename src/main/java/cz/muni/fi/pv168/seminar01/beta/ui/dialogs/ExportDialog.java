@@ -34,8 +34,8 @@ public class ExportDialog extends DialogBase {
         cancel.addActionListener(e -> dispose());
         JButton exportButton = new JButton("Exportovat");
         onExportButton(exportButton);
-        UIUtilities.formatComponentDialog(cancel);
-        UIUtilities.formatComponentDialog(exportButton);
+        UIUtilities.formatDefaultComponent(cancel);
+        UIUtilities.formatDefaultComponent(exportButton);
         bottom.add(cancel);
         bottom.add(exportButton);
     }

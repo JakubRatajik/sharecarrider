@@ -16,8 +16,8 @@ public abstract class DetailDialog extends DialogBase {
         onEditButton(edit);
         JButton ok = new JButton("Ok");
         ok.addActionListener(e -> dispose());
-        UIUtilities.formatComponentDialog(edit);
-        UIUtilities.formatComponentDialog(ok);
+        UIUtilities.formatDefaultComponent(edit);
+        UIUtilities.formatDefaultComponent(ok);
         bottom.add(edit);
         bottom.add(ok);
     }
