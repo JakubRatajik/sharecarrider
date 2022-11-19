@@ -310,6 +310,7 @@ public class ShareCarRiderTable extends JTable {
         detailPopupMenuItem.setEnabled(count == 1);
         editPopupMenuItem.setEnabled(count == 1);
         deletePopupMenuItem.setEnabled(count >= 1);
+
     }
 
     public void hideColumn(int col) {

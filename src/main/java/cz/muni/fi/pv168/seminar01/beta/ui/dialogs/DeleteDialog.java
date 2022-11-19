@@ -23,6 +23,8 @@ public class DeleteDialog extends JDialog {
         JTextArea message = new JTextArea("Opravdu si přejete smazat vybrané položky?\nTato akce je nevratná.");
         message.setEditable(false);
         center.add(message);
+        message.setBackground(Color.WHITE);
+        center.setBackground(Color.WHITE);
 
         JPanel bottom = new JPanel();
         JButton cancel = new JButton("Zrušit");

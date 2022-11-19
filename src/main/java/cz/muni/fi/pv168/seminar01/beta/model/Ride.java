@@ -19,7 +19,8 @@ public class Ride implements HasID {
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private final long id;
     private LocalDate date;
-    private LocalTime time;
+    private LocalTime departure;
+    private LocalTime arrival;
     private String from;
     private String to;
     private int distance;
@@ -27,16 +28,18 @@ public class Ride implements HasID {
     private Set<Passenger> passengers;
     private Vehicle vehicle;
     private Repetition repetition;
+    private String description;
 
-    public Ride(LocalDate date, LocalTime time, String from, String to, int distance, Collection<RideCategory> categories,
-                Collection<Passenger> passengers, Vehicle vehicle, Repetition repetition) {
-        this(IDGenerator.getNewID(Ride.class), date, time, from, to, distance, categories, passengers, vehicle, repetition);
+    public Ride(LocalDate date, LocalTime departure, LocalTime arrival, String from, String to, int distance, Collection<RideCategory> categories,
+                Collection<Passenger> passengers, Vehicle vehicle, Repetition repetition, String description) {
+        this(IDGenerator.getNewID(Ride.class), date, departure, arrival, from, to, distance, categories, passengers, vehicle, repetition, description);
     }
 
-    public Ride(long id, LocalDate date, LocalTime time, String from, String to, int distance, Collection<RideCategory> categories,
-                Collection<Passenger> passengers, Vehicle vehicle, Repetition repetition) {
+    public Ride(long id, LocalDate date, LocalTime departure, LocalTime arrival, String from, String to, int distance, Collection<RideCategory> categories,
+                Collection<Passenger> passengers, Vehicle vehicle, Repetition repetition, String description) {
         this.date = date;
-        this.time = time;
+        this.departure = departure;
+        this.arrival = arrival;
         this.from = from;
         this.to = to;
         this.distance = distance;
@@ -45,6 +48,7 @@ public class Ride implements HasID {
         this.vehicle = vehicle;
         this.repetition = repetition;
         this.id = id;
+        this.description = description;
     }
 
     public String getDate() {
@@ -59,12 +63,12 @@ public class Ride implements HasID {
         return date.toString();
     }
 
-    public String getTime() {
-        return time.format(timeFormatter);
+    public String getDeparture() {
+        return departure.format(timeFormatter);
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setDeparture(LocalTime departure) {
+        this.departure = departure;
     }
 
     public void addCategory(RideCategory rideCategory) {
@@ -141,6 +145,23 @@ public class Ride implements HasID {
         this.repetition = repetition;
     }
 
+    public String getArrival() {
+        return arrival.format(timeFormatter);
+    }
+
+    public void setArrival(LocalTime arrival) {
+        this.arrival = arrival;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
     @Override
     public long getId() {
         return id;
@@ -150,7 +171,7 @@ public class Ride implements HasID {
     public String toString() {
         return "Ride{" +
                 "date=" + date +
-                ", time=" + time +
+                ", time=" + departure +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
                 ", distance=" + distance +

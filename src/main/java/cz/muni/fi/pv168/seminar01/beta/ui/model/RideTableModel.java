@@ -39,7 +39,7 @@ public class RideTableModel extends ShareCarRiderTableModel<Ride> {
 
         switch (col) {
             case 0 -> value = ride.getDate();
-            case 1 -> value = ride.getTime();
+            case 1 -> value = ride.getDeparture();
             case 2 -> value = ride.getFrom();
             case 3 -> value = ride.getTo();
             case 4 -> value = ride.getDistance();
@@ -56,7 +56,7 @@ public class RideTableModel extends ShareCarRiderTableModel<Ride> {
 
         switch (col) {
             case 0 -> ride.setDate((LocalDate) attribute);
-            case 1 -> ride.setTime((LocalTime) attribute);
+            case 1 -> ride.setDeparture((LocalTime) attribute);
             case 2 -> ride.setFrom((String) attribute);
             case 3 -> ride.setTo((String) attribute);
             case 4 -> ride.setDistance((Integer) attribute);
