@@ -205,7 +205,8 @@ public class AddEditRideDialog extends AddEditDialog {
         JPanel descrptionPanel = new JPanel();
         descrptionPanel.setLayout(new GridLayout(1, 2));
         descrptionPanel.add(new JLabel("• Popis:"));
-        descrptionPanel.add(description);
+        JScrollPane descriptionScroll = new JScrollPane(description); // Added to keep size of layout the same
+        descrptionPanel.add(descriptionScroll); // Added to keep size of layout the same
         UIUtilities.formatWhiteTextBrownDialog(descrptionPanel);
         central.add(descrptionPanel);
 
