@@ -6,6 +6,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.JDatePickerDateGetter;
@@ -13,6 +14,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +25,8 @@ import java.util.List;
 public class AddEditRideDialog extends AddEditDialog {
     private Ride ride = null;
     private JDatePicker date;
-    private JTextField time;
+    private JTextField departure;
+    private JTextField arrival;
     private JTextField startDestination;
     private JTextField endDestination;
     private JTextField distance;
@@ -32,6 +35,7 @@ public class AddEditRideDialog extends AddEditDialog {
     private JList<Passenger> passengersList;
     private JComboBox<RideCategory> category;
     private JComboBox<Repetition> repetition;
+    private JTextArea description;
 
     public AddEditRideDialog(Frame frame, String name) {
         super(frame, name);
@@ -66,20 +70,25 @@ public class AddEditRideDialog extends AddEditDialog {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] parsedTime = (time.getText().split("[:.]"));
-                LocalTime localTime = LocalTime.of(Integer.parseInt(parsedTime[0]), Integer.parseInt(parsedTime[1]));
+                String[] departureParsedTime = (departure.getText().split("[:.]"));
+                String[] arrivalParsedTime = arrival.getText().split("[:.]");
+                LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
+                LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
                 int parsedDistance = Integer.parseInt(distance.getText());
                 RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
                 ride.setDate(JDatePickerDateGetter.getLocalDate(date));
-                ride.setTime(localTime);
+                ride.setDeparture(departureTime);
                 ride.setFrom(startDestination.getText());
                 ride.setTo(endDestination.getText());
                 ride.setDistance(parsedDistance);
                 ride.setPassengers(passengersList.getSelectedValuesList());
                 ride.setVehicle((Vehicle) vehicle.getSelectedItem());
                 ride.setRepetition((Repetition) repetition.getSelectedItem());
+                ride.setArrival(arrivalTime);
+
                 tableModel.updateRow(ride);
                 dispose();
+                new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", ride);
             }
         });
 
@@ -93,10 +102,15 @@ public class AddEditRideDialog extends AddEditDialog {
     protected void setAttributes() {
         this.date = new JDatePicker();
         UIUtilities.formatDefaultComponent(date);
-        this.time = UIUtilities.createTextField();
+        this.departure = UIUtilities.createTextField();
+        this.arrival = UIUtilities.createTextField();
         this.startDestination = UIUtilities.createTextField();
         this.endDestination = UIUtilities.createTextField();
         this.distance = UIUtilities.createTextField();
+        this.description = new JTextArea();
+        UIUtilities.formatDefaultComponent(description);
+        description.setBorder(new MatteBorder(3,3,3,3,UIUtilities.LIGHT_BEIGE));
+        description.setLineWrap(true);
 
         this.vehicle = new JComboBox<>();
         for (Vehicle v : (List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData()) {
@@ -149,8 +163,10 @@ public class AddEditRideDialog extends AddEditDialog {
         this.passengers = passengersScroll;
         this.passengersList = passengerList;
 
+
         if (ride != null) {
-            time.setText(ride.getTime());
+            departure.setText(ride.getDeparture());
+            arrival.setText(ride.getArrival());
             startDestination.setText(ride.getFrom());
             endDestination.setText(ride.getTo());
             distance.setText(String.valueOf(ride.getDistance()));
@@ -166,12 +182,14 @@ public class AddEditRideDialog extends AddEditDialog {
         central.setLayout(new BoxLayout(central, BoxLayout.Y_AXIS));
 
         JPanel center = new JPanel();
-        center.setLayout(new GridLayout(7, 2));
+        center.setLayout(new GridLayout(8, 2));
         UIUtilities.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Datum:"));
         center.add(this.date);
-        center.add(new JLabel("•  Čas:"));
-        center.add(this.time);
+        center.add(new JLabel("•  Čas odjezdu:"));
+        center.add(this.departure);
+        center.add(new JLabel("•  Čas příjezdu"));
+        center.add(this.arrival);
         center.add(new JLabel("•  Začátek:"));
         center.add(this.startDestination);
         center.add(new JLabel("•  Cíl:"));
@@ -184,13 +202,20 @@ public class AddEditRideDialog extends AddEditDialog {
         center.add(this.repetition);
         central.add(center);
 
+        JPanel descrptionPanel = new JPanel();
+        descrptionPanel.setLayout(new GridLayout(1, 2));
+        descrptionPanel.add(new JLabel("• Popis:"));
+        descrptionPanel.add(description);
+        UIUtilities.formatWhiteTextBrownDialog(descrptionPanel);
+        central.add(descrptionPanel);
+
         JPanel passengerPanel = new JPanel();
         passengerPanel.setLayout(new GridLayout(1, 2));
         passengerPanel.add(new JLabel("•  Cestující:"));
         passengerPanel.add(this.passengers);
-        UIUtilities.formatWhiteTextBrownDialog((passengerPanel));
+        UIUtilities.formatWhiteTextBrownDialog(passengerPanel);
         central.add(passengerPanel);
-        setSize(330, 400);
+        setSize(500, 420);
         UIUtilities.formatWhiteTextBrownDialog(central);
     }
 
@@ -201,21 +226,25 @@ public class AddEditRideDialog extends AddEditDialog {
             public void actionPerformed(ActionEvent e) {
                 //TODO - there need to be validation of data inserted
 
-                String[] parsedTime = (time.getText().split("[:.]"));
-                LocalTime localTime = LocalTime.of(Integer.parseInt(parsedTime[0]), Integer.parseInt(parsedTime[1]));
+                String[] departureParsedTime = (departure.getText().split("[:.]"));
+                LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
+                String[] arrivalParsedTime = arrival.getText().split("[:.]");
+                LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
                 int parsedDistance = Integer.parseInt(distance.getText());
                 RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
 
                 Ride ride = new Ride(
                         JDatePickerDateGetter.getLocalDate(date),
-                        localTime,
+                        departureTime,
+                        arrivalTime,
                         startDestination.getText(),
                         endDestination.getText(),
                         parsedDistance,
                         new HashSet<>(),
                         passengersList.getSelectedValuesList(),
                         (Vehicle) vehicle.getSelectedItem(),
-                        (Repetition) repetition.getSelectedItem()
+                        (Repetition) repetition.getSelectedItem(),
+                        description.getText()
                 );
                 tableModel.addRow(ride);
                 dispose();

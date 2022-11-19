@@ -101,7 +101,7 @@ public final class TestDataGenerator {
             ridePassengers.add(selectRandom(passengers));
         }
 
-        Ride ride = new Ride(date, time, from, to, randomInt(8, 500), selectRandom(rideCategories), ridePassengers, vehicle, Repetition.NONE);
+        Ride ride = new Ride(date, time, null, from, to, randomInt(8, 500), selectRandom(rideCategories), ridePassengers, vehicle, Repetition.NONE, "");
         rides.add(ride);
         return ride;
     }

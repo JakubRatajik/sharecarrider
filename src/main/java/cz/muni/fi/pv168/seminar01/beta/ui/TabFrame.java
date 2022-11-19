@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 /**
@@ -56,6 +57,7 @@ public class TabFrame {
         sortByButton = new JButton("Řadit");
         filterButton = new JButton("Filtrovat");
         deleteButton = new JButton("Smazat");
+        deleteButton.setMnemonic(KeyEvent.VK_BACK_SPACE);
         UIUtilities.formatBeigeTextBrownDialog(selectButton);
         UIUtilities.formatBeigeTextBrownDialog(sortByButton);
         UIUtilities.formatBeigeTextBrownDialog(filterButton);

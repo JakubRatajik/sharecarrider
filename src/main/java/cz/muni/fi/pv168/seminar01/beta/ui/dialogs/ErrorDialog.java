@@ -15,7 +15,6 @@ public class ErrorDialog extends JDialog {
 
         JPanel center = new JPanel();
         setLayout(new BorderLayout());
-        center.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
 
         JLabel message = new JLabel(errorMessage);
         center.add(message);
@@ -35,7 +34,7 @@ public class ErrorDialog extends JDialog {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         setResizable(false);
-        setSize(300, 280);
+        setSize(300, 150);
         setLocationRelativeTo(null);
 
         setVisible(true);

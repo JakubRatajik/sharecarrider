@@ -110,7 +110,7 @@ public class ImporterBase {
 
 
             ((RideTableModel) Shortcut.getTableModel(TableCategory.RIDES)).addRow(
-                    new Ride(id, date, time, from, where, distance, new HashSet<RideCategory>(), passengerSet, vehicle, repetition));
+                    new Ride(id, date, time, null, from, where, distance, new HashSet<RideCategory>(), passengerSet, vehicle, repetition, "description"));
         }
     }
 
