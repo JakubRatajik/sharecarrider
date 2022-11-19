@@ -12,7 +12,10 @@ public class VehicleValidator {
     private VehicleValidator() {
     }
 
-    public static void validateVehicle(String licensePlate, String brand, String type, String capacity, String consumption, String fuelType) {
+    public static void validateVehicle(String id, String licensePlate, String brand, String type, String capacity, String consumption, String fuelType) {
+        if (id != null && !CommonValidator.isValidLongParsing(id)) {
+            throw new ValidationException("Neplatdné ID vozidla.");
+        }
         if (!isLicensePlateValid(licensePlate)) {
             throw new ValidationException("SPZ musí být ve formátu '6A81234' nebo '6A9 1234'");
         }
@@ -22,11 +25,11 @@ public class VehicleValidator {
         if (CommonValidator.isValidLongAlphaSpaceString(type)) {
             throw new ValidationException("Model auta musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
         }
-        if (!isCapacityValid(capacity)) {
-            throw new ValidationException("Kapacita musí být celé číslo menší než 200.");
+        if (!CommonValidator.isValidIntParsing(capacity)) {
+            throw new ValidationException("Kapacita musí být celé číslo.");
         }
-        if (!isConsumptionValid(consumption)) {
-            throw new ValidationException("Spotřeba musí být reální číslo s bodkou/čárkou a 2 desetinnýma místy.");
+        if (!CommonValidator.isValidFloatParsing(consumption)) {
+            throw new ValidationException("Spotřeba musí být reální číslo.");
         }
         if (fuelType == null) {
             return;
@@ -37,15 +40,7 @@ public class VehicleValidator {
     }
 
     public static void validateVehicle(String licensePlate, String brand, String type, String capacity, String consumption) {
-        validateVehicle(licensePlate, brand, type, capacity, consumption, null);
-    }
-
-    public static boolean isConsumptionValid(String consumption) {
-        return consumption.matches("\\s*\\d+([,.][0-9]{1,2})?\\s*");
-    }
-
-    public static boolean isCapacityValid(String capacity) {
-        return capacity.matches("\\s*\\d{1,2}\\s*");
+        validateVehicle(null, licensePlate, brand, type, capacity, consumption, null);
     }
 
     public static boolean isLicensePlateValid(String licensePlate) {
