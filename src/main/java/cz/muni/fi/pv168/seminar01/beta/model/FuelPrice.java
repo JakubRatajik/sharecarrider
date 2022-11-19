@@ -6,16 +6,26 @@ import java.math.BigDecimal;
  * This class represents static values of fuel prices, that are used for computing a price for a single ride and some statistics.
  */
 public class FuelPrice {
-    private static BigDecimal gasolinePrice = new BigDecimal("45.5");
-    private static BigDecimal electricityPrice = new BigDecimal("7.2");
-    private static BigDecimal LPGPrice = new BigDecimal("21.3");
-    private static BigDecimal dieselPrice = new BigDecimal("49.7");
+    private static final BigDecimal DEFAULT_PRICE = new BigDecimal("-1");
+    private static final String NOT_SET = "Not set";
+    private BigDecimal gasolinePrice;
+    private BigDecimal electricityPrice;
+    private BigDecimal LPGPrice;
+    private BigDecimal CNGPrice;
+    private BigDecimal dieselPrice;
 
-    private FuelPrice() {}
+    public FuelPrice() {
+        dieselPrice = DEFAULT_PRICE;
+        gasolinePrice = DEFAULT_PRICE;
+        LPGPrice = DEFAULT_PRICE;
+        CNGPrice = DEFAULT_PRICE;
+        electricityPrice = DEFAULT_PRICE;
+    }
 
-    public static BigDecimal getFuelPrice(FuelType fuelType) {
+    public BigDecimal getFuelPrice(FuelType fuelType) {
         return switch (fuelType) {
             case LPG -> LPGPrice;
+            case CNG -> CNGPrice;
             case DIESEL -> dieselPrice;
             case GASOLINE -> gasolinePrice;
             case ELECTRICITY -> electricityPrice;
@@ -23,35 +33,78 @@ public class FuelPrice {
         };
     }
 
-    public static BigDecimal getGasolinePrice() {
+    public BigDecimal getGasolinePrice() {
         return gasolinePrice;
     }
 
-    public static void setGasolinePrice(BigDecimal gasolinePrice) {
-        FuelPrice.gasolinePrice = gasolinePrice;
+    public void setGasolinePrice(BigDecimal gasolinePrice) {
+        this.gasolinePrice = gasolinePrice;
     }
 
-    public static BigDecimal getElectricityPrice() {
+    public BigDecimal getElectricityPrice() {
         return electricityPrice;
     }
 
-    public static void setElectricityPrice(BigDecimal electricityPrice) {
-        FuelPrice.electricityPrice = electricityPrice;
+    public void setElectricityPrice(BigDecimal electricityPrice) {
+        this.electricityPrice = electricityPrice;
     }
 
-    public static BigDecimal getLPGPrice() {
+    public BigDecimal getLPGPrice() {
         return LPGPrice;
     }
 
-    public static void setLPGPrice(BigDecimal LPGPrice) {
-        FuelPrice.LPGPrice = LPGPrice;
+    public void setLPGPrice(BigDecimal LPGPrice) {
+        this.LPGPrice = LPGPrice;
     }
 
-    public static BigDecimal getDieselPrice() {
+    public BigDecimal getDieselPrice() {
         return dieselPrice;
     }
 
-    public static void setDieselPrice(BigDecimal dieselPrice) {
-        FuelPrice.dieselPrice = dieselPrice;
+    public void setDieselPrice(BigDecimal dieselPrice) {
+        this.dieselPrice = dieselPrice;
+    }
+
+    public BigDecimal getCNGPrice() {
+        return CNGPrice;
+    }
+
+    public void setCNGPrice(BigDecimal CNGPrice) {
+        this.CNGPrice = CNGPrice;
+    }
+
+    public String getGasolinePriceString() {
+        if (gasolinePrice.compareTo(BigDecimal.ZERO) < 0) {
+            return NOT_SET;
+        }
+        return gasolinePrice.toString();
+    }
+
+    public String getElectricityPriceString() {
+        if (electricityPrice.compareTo(BigDecimal.ZERO) < 0) {
+            return NOT_SET;
+        }
+        return electricityPrice.toString();
+    }
+
+    public String getLPGPriceString() {
+        if (LPGPrice.compareTo(BigDecimal.ZERO) < 0) {
+            return NOT_SET;
+        }
+        return LPGPrice.toString();
+    }
+
+    public String getDieselPriceString() {
+        if (dieselPrice.compareTo(BigDecimal.ZERO) < 0) {
+            return NOT_SET;
+        }
+        return dieselPrice.toString();
+    }
+
+    public String getCNGPriceString() {
+        if (CNGPrice.compareTo(BigDecimal.ZERO) < 0) {
+            return NOT_SET;
+        }
+        return CNGPrice.toString();
     }
 }

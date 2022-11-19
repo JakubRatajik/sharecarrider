@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
+import cz.muni.fi.pv168.seminar01.beta.model.FuelPrice;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 
 import javax.swing.*;
@@ -10,8 +11,8 @@ public class MainWindow {
     private static TabFrame ridesTabFrame;
     private static TabFrame vehiclesTabFrame;
     private static TabFrame passengersTabFrame;
-
     private static JPanel topPanel;
+    private static FuelPrice fuelPrice;
 
     public MainWindow() {
         initialize();
@@ -31,6 +32,10 @@ public class MainWindow {
 
     public static TabFrame getPassengersTabFrame() {
         return passengersTabFrame;
+    }
+
+    public static FuelPrice getFuelPrice() {
+        return fuelPrice;
     }
 
     private void initialize() {
@@ -54,6 +59,10 @@ public class MainWindow {
         addMainBar();
         addPlain();
         addTabBar();
+
+        // fuelPrice will be moved to Repository and accessed via DependencyProvider
+        // TODO - use dependency provider to access repositories for FuelPrice and other data
+        fuelPrice = new FuelPrice();
 
         frame.pack();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

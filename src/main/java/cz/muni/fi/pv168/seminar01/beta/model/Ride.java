@@ -1,5 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
+import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -166,7 +168,8 @@ public class Ride implements HasID {
         BigDecimal BDdistance = BigDecimal.valueOf(distance);
         BigDecimal hundred = BigDecimal.valueOf(100);
         BigDecimal BDConsumption = BigDecimal.valueOf(vehicle.getConsumption());
-        BigDecimal BDFuelPrice = FuelPrice.getFuelPrice(vehicle.getFuelType());
+        BigDecimal BDFuelPrice = MainWindow.getFuelPrice().getFuelPrice(vehicle.getFuelType());
+        // MainWindow.getFuelPrice() is temporary solution, check MainWindow for more info
 
         return BDdistance
                 .divide(hundred)
