@@ -16,13 +16,13 @@ public class Vehicle implements HasID {
     }
 
     public Vehicle(long id, String licensePlate, String brand, String type, int capacity, float consumption, FuelType fuelType) {
-        this.licensePlate = licensePlate;
+        this.id = id;
+        setLicensePlate(licensePlate);
         this.brand = brand;
         this.type = type;
         this.capacity = capacity;
         this.consumption = consumption;
         this.fuelType = fuelType;
-        this.id = id;
     }
 
     // getters and setters
@@ -74,7 +74,7 @@ public class Vehicle implements HasID {
     }
 
     public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
+        this.licensePlate = Objects.requireNonNull(licensePlate).toUpperCase();
     }
 
     @Override
