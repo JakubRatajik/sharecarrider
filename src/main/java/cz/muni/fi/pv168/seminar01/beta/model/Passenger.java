@@ -1,6 +1,5 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,25 +13,18 @@ public class Passenger implements HasID {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private Set<PassengerCategory> categories;
+    private final Set<PassengerCategory> categories = new HashSet<>();
 
-    public Passenger(String firstName, String lastName, String phoneNumber, Collection<PassengerCategory> categories) {
+    public Passenger(String firstName, String lastName, String phoneNumber, Set<PassengerCategory> categories) {
         this(IDGenerator.getNewID(Passenger.class), firstName, lastName, phoneNumber, categories);
     }
 
-    public Passenger(long id, String firstName, String lastName, String phoneNumber, Collection<PassengerCategory> categories) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        if (!isPhoneNumberValid()) {
-            throw new IllegalArgumentException("Phone number is not valid!");
-        }
-        this.categories = new HashSet<>(categories);
+    public Passenger(long id, String firstName, String lastName, String phoneNumber, Set<PassengerCategory> categories) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setPhoneNumber(phoneNumber);
+        setCategories(categories);
         this.id = id;
-    }
-
-    private boolean isPhoneNumberValid() {
-        return phoneNumber.matches("\\+?\\d+");
     }
 
     public void addCategory(PassengerCategory rideCategory) {
@@ -50,7 +42,7 @@ public class Passenger implements HasID {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = Objects.requireNonNull(firstName, "first name must not be null");
     }
 
     public String getLastName() {
@@ -58,7 +50,7 @@ public class Passenger implements HasID {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = Objects.requireNonNull(lastName, "last name must not be null");
     }
 
     public String getPhoneNumber() {
@@ -66,10 +58,7 @@ public class Passenger implements HasID {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        if (!isPhoneNumberValid()) {
-            throw new IllegalArgumentException("Phone number is not valid!");
-        }
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = Objects.requireNonNull(phoneNumber, "phone number must not be null");
     }
 
     public Set<PassengerCategory> getCategories() {
@@ -77,7 +66,8 @@ public class Passenger implements HasID {
     }
 
     public void setCategories(Set<PassengerCategory> categories) {
-        this.categories = categories;
+        categories.clear();
+        this.categories.addAll(Objects.requireNonNull(categories, "categories must not be null"));
     }
 
     public String getCategoryNames() {
