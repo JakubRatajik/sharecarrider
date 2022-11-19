@@ -32,7 +32,7 @@ public class Passenger implements HasID {
     }
 
     private boolean isPhoneNumberValid() {
-        return phoneNumber.matches("[+]?\\d+");
+        return phoneNumber.matches("\\+?\\d+");
     }
 
     public void addCategory(PassengerCategory rideCategory) {
