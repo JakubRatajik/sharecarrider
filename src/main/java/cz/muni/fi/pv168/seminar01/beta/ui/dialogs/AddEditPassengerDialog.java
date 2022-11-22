@@ -11,25 +11,27 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AddEditPassengerDialog extends AddEditDialog {
     private Passenger passenger = null;
-    private JTextField name;
-    private JTextField surname;
+    private JTextField firstName;
+    private JTextField lastName;
     private JTextField phoneNumber;
     private Map<PassengerCategory, JCheckBox> categories;
 
-    public AddEditPassengerDialog(Frame frame, String name) {
-        super(frame, name);
+    public AddEditPassengerDialog(Frame frame, String firstName) {
+        super(frame, firstName);
     }
 
-    public AddEditPassengerDialog(Frame frame, String name, Passenger passenger) {
-        super(frame, name, passenger);
+    public AddEditPassengerDialog(Frame frame, String firstName, Passenger passenger) {
+        super(frame, firstName, passenger);
     }
 
     @Override
@@ -59,18 +61,18 @@ public class AddEditPassengerDialog extends AddEditDialog {
 
     private void onSaveEditButton(JButton save) {
         save.addActionListener(actionListener -> {
+            trimAllTextFields();
+            if (!validatePassengerInput()) {
+                return;
+            }
+
             PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
-            String nameText = name.getText();
-            String surnameText = surname.getText();
+            String firstNameText = firstName.getText();
+            String lastNameText = lastName.getText();
             String phoneNumberText = phoneNumber.getText();
 
-            try {
-                PassengerValidator.validatePassenger(nameText, surnameText, phoneNumberText);
-            } catch (ValidationException e) {
-                new ErrorDialog(MainWindow.getFrame(), e);
-            }
-            passenger.setFirstName(nameText);
-            passenger.setLastName(surnameText);
+            passenger.setFirstName(firstNameText);
+            passenger.setLastName(lastNameText);
             passenger.setPhoneNumber(phoneNumberText);
             passenger.setCategories(getSelectedCategories());
             tableModel.updateRow(passenger);
@@ -79,8 +81,8 @@ public class AddEditPassengerDialog extends AddEditDialog {
 
     @Override
     protected void setAttributes() {
-        name = UIUtilities.createTextField();
-        surname = UIUtilities.createTextField();
+        firstName = UIUtilities.createTextField();
+        lastName = UIUtilities.createTextField();
         phoneNumber = UIUtilities.createTextField();
         categories = new HashMap<>();
         for (PassengerCategory category : PassengerCategory.values()) {
@@ -88,8 +90,8 @@ public class AddEditPassengerDialog extends AddEditDialog {
         }
 
         if (passenger != null) {
-            name.setText(passenger.getFirstName());
-            surname.setText(passenger.getLastName());
+            firstName.setText(passenger.getFirstName());
+            lastName.setText(passenger.getLastName());
             phoneNumber.setText(passenger.getPhoneNumber());
             for (PassengerCategory category : passenger.getCategories()) {
                 categories.get(category).setSelected(true);
@@ -102,9 +104,9 @@ public class AddEditPassengerDialog extends AddEditDialog {
         center.setLayout(new GridLayout(7, 2));
         UIUtilities.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Jméno:"));
-        center.add(this.name);
+        center.add(this.firstName);
         center.add(new JLabel("•  Příjmení:"));
-        center.add(this.surname);
+        center.add(this.lastName);
         center.add(new JLabel("•  Telefon:"));
         center.add(this.phoneNumber);
         center.add(new JLabel("•  Kategorie:"));
@@ -121,26 +123,44 @@ public class AddEditPassengerDialog extends AddEditDialog {
     @Override
     protected void onCreateButton(JButton create) {
         create.addActionListener(actionListener -> {
-            try {
-                Passenger passenger = new Passenger(
-                        name.getText(),
-                        surname.getText(),
-                        phoneNumber.getText(),
-                        getSelectedCategories()
-                );
-
-                PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
-                tableModel.addRow(passenger);
-                dispose();
-            } catch (IllegalArgumentException exception) {
-                new ErrorDialog(MainWindow.getFrame(), exception.getMessage());
+            trimAllTextFields();
+            if (!validatePassengerInput()) {
+                return;
             }
+
+            Passenger passenger = new Passenger(
+                    firstName.getText(),
+                    lastName.getText(),
+                    phoneNumber.getText(),
+                    getSelectedCategories());
+
+            PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
+            tableModel.addRow(passenger);
+            dispose();
         });
+    }
+
+    public boolean validatePassengerInput() {
+        try {
+            PassengerValidator.validatePassenger(firstName.getText(), lastName.getText(), phoneNumber.getText());
+            return true;
+        } catch (ValidationException e) {
+            new ErrorDialog(MainWindow.getFrame(), e);
+            return false;
+        }
     }
 
     public Set<PassengerCategory> getSelectedCategories() {
         return categories.keySet().stream()
                 .filter(key -> categories.get(key).isSelected())
                 .collect(Collectors.toSet());
+    }
+
+    private void trimAllTextFields() {
+        List<JTextField> textFields = List.of(firstName, lastName, phoneNumber);
+
+        for (JTextField textField : textFields) {
+            textField.setText(textField.getText().trim());
+        }
     }
 }

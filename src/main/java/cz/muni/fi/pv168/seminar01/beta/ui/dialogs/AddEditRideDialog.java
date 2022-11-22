@@ -1,5 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.data.validation.RideValidator;
+import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
@@ -16,9 +18,8 @@ import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
@@ -68,29 +69,31 @@ public class AddEditRideDialog extends AddEditDialog {
     }
 
     private void onSaveEditButton(JButton save) {
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String[] departureParsedTime = (departure.getText().split("[:.]"));
-                String[] arrivalParsedTime = arrival.getText().split("[:.]");
-                LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
-                LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
-                int parsedDistance = Integer.parseInt(distance.getText());
-                RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
-                ride.setDate(JDatePickerDateGetter.getLocalDate(date));
-                ride.setDeparture(departureTime);
-                ride.setFrom(startDestination.getText());
-                ride.setTo(endDestination.getText());
-                ride.setDistance(parsedDistance);
-                ride.setPassengers(passengersList.getSelectedValuesList());
-                ride.setVehicle((Vehicle) vehicle.getSelectedItem());
-                ride.setRepetition((Repetition) repetition.getSelectedItem());
-                ride.setArrival(arrivalTime);
-
-                tableModel.updateRow(ride);
-                dispose();
-                new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", ride);
+        save.addActionListener(actionListener -> {
+            trimAllTextComponents();
+            if (!validateRideInput()) {
+                return;
             }
+
+            String[] departureParsedTime = (departure.getText().split("[:.]"));
+            String[] arrivalParsedTime = arrival.getText().split("[:.]");
+            LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
+            LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
+            int parsedDistance = Integer.parseInt(distance.getText());
+            RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
+            ride.setDate(JDatePickerDateGetter.getLocalDate(date));
+            ride.setDeparture(departureTime);
+            ride.setFrom(startDestination.getText());
+            ride.setTo(endDestination.getText());
+            ride.setDistance(parsedDistance);
+            ride.setPassengers(passengersList.getSelectedValuesList());
+            ride.setVehicle((Vehicle) vehicle.getSelectedItem());
+            ride.setRepetition((Repetition) repetition.getSelectedItem());
+            ride.setArrival(arrivalTime);
+
+            tableModel.updateRow(ride);
+            dispose();
+            new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", ride);
         });
 
     }
@@ -223,13 +226,16 @@ public class AddEditRideDialog extends AddEditDialog {
 
     protected void onCreateButton(JButton create) {
         create.addActionListener(actionListener -> {
-            //TODO - there need to be validation of data inserted
+            trimAllTextComponents();
+            if (!validateRideInput()) {
+                return;
+            }
 
-            String[] departureParsedTime = (departure.getText().trim().split("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"));
+            String[] departureParsedTime = (departure.getText().split("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"));
             LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
-            String[] arrivalParsedTime = arrival.getText().trim().split("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+            String[] arrivalParsedTime = arrival.getText().split("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
             LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
-            int parsedDistance = Integer.parseInt(distance.getText().trim());
+            int parsedDistance = Integer.parseInt(distance.getText());
             RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
 
             Ride ride = new Ride(
@@ -248,5 +254,23 @@ public class AddEditRideDialog extends AddEditDialog {
             tableModel.addRow(ride);
             dispose();
         });
+    }
+
+    public boolean validateRideInput() {
+        try {
+            RideValidator.validateRide(departure.getText(), arrival.getText(), startDestination.getText(), endDestination.getText(), distance.getText(), description.getText());
+            return true;
+        } catch (ValidationException e) {
+            new ErrorDialog(MainWindow.getFrame(), e);
+            return false;
+        }
+    }
+
+    private void trimAllTextComponents() {
+        List<JTextComponent> textComponents = List.of(departure, arrival, startDestination, endDestination, distance, description);
+
+        for (JTextComponent textComponent : textComponents) {
+            textComponent.setText(textComponent.getText().trim());
+        }
     }
 }

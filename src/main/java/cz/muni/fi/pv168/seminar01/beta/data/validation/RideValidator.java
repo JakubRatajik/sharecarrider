@@ -19,10 +19,10 @@ public class RideValidator {
 
     public static void validateRide(String id, String date, String departure, String arrival, String from, String to, String distance, String categories,
                                     String passengers, String vehicleID, String repetition, String description) {
-        if (!CommonValidator.isValidFloatParsing(id)) {
+        if (id != null && !CommonValidator.isValidFloatParsing(id)) {
             throw new ValidationException("Neplatné ID jízdy.");
         }
-        if (!CommonValidator.isValidDateParsing(date)) {
+        if (date != null && !CommonValidator.isValidDateParsing(date)) {
             throw new ValidationException("Nesprávný formát datumu jízdy.");
         }
         if (!CommonValidator.isValidTimeParsing(departure)
@@ -36,18 +36,35 @@ public class RideValidator {
         if (!CommonValidator.isValidIntParsing(distance)) {
             throw new ValidationException("Vzdálenost musí být celé číslo.");
         }
-        if (!isPassengerIdListValid(passengers)) {
+        if (categories != null && !isCategoryListValid(categories)) {
+            throw new ValidationException("Nesprávný formát kategorií jízdy.");
+        }
+        if (passengers != null && !isPassengerIdListValid(passengers)) {
             throw new ValidationException("Nesprávný formát pasažérů jízdy.");
         }
-        if (!isVehicleIDValid(vehicleID)) {
+        if (vehicleID != null && !isVehicleIDValid(vehicleID)) {
             throw new ValidationException("Neplatné ID vozidla jízdy.");
         }
-        if (!isRepetitionValid(repetition)) {
+        if (repetition != null && !isRepetitionValid(repetition)) {
             throw new ValidationException("Neplatné opakování jízdy.");
         }
         if (description.length() > 300) {
             throw new ValidationException("Maximální délka popisu je 300 znaků.");
         }
+    }
+
+    private static boolean isCategoryListValid(String categoryList) {
+        //TODO: change, after implementing categories
+        return true;
+    }
+
+    public static void validateRide(String date, String departure, String arrival, String from, String to, String distance, String categories,
+                                    String passengers, String vehicleID, String repetition, String description) {
+        validateRide(null, date, departure, arrival, from, to, distance, categories, passengers, vehicleID, repetition, description);
+    }
+
+    public static void validateRide(String departure, String arrival, String from, String to, String distance, String description) {
+        validateRide(null, null, departure, arrival, from, to, distance, null, null, null, null, description);
     }
 
     private static boolean isVehicleIDValid(String string) {

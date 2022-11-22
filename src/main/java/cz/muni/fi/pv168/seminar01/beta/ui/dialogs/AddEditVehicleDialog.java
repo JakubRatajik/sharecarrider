@@ -13,6 +13,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 /**
  * @author Jan Macecek
@@ -102,31 +103,47 @@ public class AddEditVehicleDialog extends AddEditDialog {
     }
 
     private void onSaveEditButton(JButton save) {
-        validateVehicleInput();
         save.addActionListener(actionListener -> {
+            trimAllTextFields();
+            if (!validateVehicleInput()) {
+                return;
+            }
+
             VehicleTableModel tableModel = (VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES);
             vehicle.setLicensePlate(licensePlate.getText());
             vehicle.setBrand(brand.getText());
             vehicle.setType(type.getText());
-            vehicle.setCapacity(Integer.parseInt(capacity.getText().trim()));
-            vehicle.setConsumption(Float.parseFloat(consumption.getText().trim()));
+            vehicle.setCapacity(Integer.parseInt(capacity.getText()));
+            vehicle.setConsumption(Float.parseFloat(consumption.getText()));
             vehicle.setFuelType((FuelType) fuelType.getSelectedItem());
             tableModel.updateRow(vehicle);
             dispose();
         });
     }
 
+    private void trimAllTextFields() {
+        List<JTextField> textFields = List.of(licensePlate, brand, type, capacity, consumption);
+
+        for (JTextField textField : textFields) {
+            textField.setText(textField.getText().trim());
+        }
+    }
+
     @Override
     protected void onCreateButton(JButton create) {
-        validateVehicleInput();
         create.addActionListener(actionListener -> {
+            trimAllTextFields();
+            if (!validateVehicleInput()) {
+                return;
+            }
+
             VehicleTableModel tableModel = (VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES);
             Vehicle vehicle = new Vehicle(
                     licensePlate.getText(),
                     brand.getText(),
                     type.getText(),
-                    Integer.parseInt(capacity.getText().trim()),
-                    Float.parseFloat(consumption.getText().trim()),
+                    Integer.parseInt(capacity.getText()),
+                    Float.parseFloat(consumption.getText()),
                     (FuelType) fuelType.getSelectedItem());
 
             tableModel.addRow(vehicle);
@@ -134,11 +151,13 @@ public class AddEditVehicleDialog extends AddEditDialog {
         });
     }
 
-    public void validateVehicleInput() {
+    public boolean validateVehicleInput() {
         try {
             VehicleValidator.validateVehicle(licensePlate.getText(), brand.getText(), type.getText(), capacity.getText(), consumption.getText());
+            return true;
         } catch (ValidationException e) {
             new ErrorDialog(MainWindow.getFrame(), e);
+            return false;
         }
     }
 }
