@@ -28,7 +28,8 @@ public class IDGenerator {
                 caller.equals(Ride.class) ||
                         caller.equals(RideCategory.class) ||
                         caller.equals(Passenger.class) ||
-                        caller.equals(Vehicle.class)
+                        caller.equals(Vehicle.class) ||
+                        caller.equals(Category.class)
         ) {
             String[] parsedName = caller.getName().trim().split("\\.");
             prefix = parsedName[parsedName.length - 1].charAt(0);
