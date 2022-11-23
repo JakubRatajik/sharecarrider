@@ -26,6 +26,8 @@ public class ExportDialog extends DialogBase {
     private File rides = null;
     private File vehicles = null;
     private File passengers = null;
+    private File ridesCategories = null;
+    private File passengersCategories = null;
 
     public ExportDialog(Frame frame, String name) {
         super(frame, name);
@@ -46,7 +48,7 @@ public class ExportDialog extends DialogBase {
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         UIUtilities.formatWhiteTextBrownDialog(center);
 
-        JButton exportRidesButton = new JButton("Kam exportovat jízdy");
+        JButton exportRidesButton = new JButton("Vyberte složku pro export");
         JTextArea exportRidesPath = new JTextArea();
         exportRidesPath.setEditable(false);
         JScrollPane ridesPathScroll = new JScrollPane(exportRidesPath);
@@ -54,57 +56,24 @@ public class ExportDialog extends DialogBase {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser ridesFileChooser = new JFileChooser();
+                ridesFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 int dialogResult = ridesFileChooser.showOpenDialog(center);
                 if (dialogResult == JFileChooser.APPROVE_OPTION) {
-                    rides = ridesFileChooser.getSelectedFile();
+                    rides = new File(ridesFileChooser.getSelectedFile() + "/rides");
+                    vehicles = new File(ridesFileChooser.getSelectedFile() + "/vehicles");
+                    passengers = new File(ridesFileChooser.getSelectedFile() + "/passengers");
+                    ridesCategories = new File(ridesFileChooser.getSelectedFile() + "/ridesCategories");
+                    passengersCategories = new File(ridesFileChooser.getSelectedFile() + "/passengersCategories");
                 }
-                exportRidesPath.setText(String.valueOf(rides));
+                exportRidesPath.setText(String.valueOf(ridesFileChooser.getSelectedFile()));
             }
         });
         exportRidesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         center.add(exportRidesButton);
         center.add(ridesPathScroll);
 
-        JButton exportVehiclesButton = new JButton("Kam exportovat vozidla");
-        JTextArea exportVehiclesPath = new JTextArea();
-        exportVehiclesPath.setEditable(false);
-        JScrollPane vehiclesPathScroll = new JScrollPane(exportVehiclesPath);
-        exportVehiclesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser vehiclesFileChooser = new JFileChooser();
-                int dialogResult = vehiclesFileChooser.showOpenDialog(center);
-                if (dialogResult == JFileChooser.APPROVE_OPTION) {
-                    vehicles = vehiclesFileChooser.getSelectedFile();
-                }
-                exportVehiclesPath.setText(String.valueOf(vehicles));
-            }
-        });
-        exportVehiclesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        center.add(exportVehiclesButton);
-        center.add(vehiclesPathScroll);
-
-        JButton exportPassengersButton = new JButton("Kam exportovat cestující");
-        JTextArea exportPassengersPath = new JTextArea();
-        exportPassengersPath.setEditable(false);
-        JScrollPane passengersPathScroll = new JScrollPane(exportPassengersPath);
-        exportPassengersButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser passengersFileChooser = new JFileChooser();
-                int dialogResult = passengersFileChooser.showOpenDialog(center);
-                if (dialogResult == JFileChooser.APPROVE_OPTION) {
-                    passengers = passengersFileChooser.getSelectedFile();
-                }
-                exportPassengersPath.setText(String.valueOf(passengers));
-            }
-        });
-        exportPassengersButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        center.add(exportPassengersButton);
-        center.add(passengersPathScroll);
-
         this.add(center);
-        setSize(300, 250);
+        setSize(300, 130);
 
     }
 
@@ -117,7 +86,8 @@ public class ExportDialog extends DialogBase {
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (passengers == null || vehicles == null || rides == null) {
+                if (passengers == null || vehicles == null || rides == null ||
+                        passengersCategories == null || ridesCategories == null) {
                     //throw new ValidationException("Some files are missing");
                     new ErrorDialog(MainWindow.getFrame(), new ValidationException("Some files are missing"));
                 } else {

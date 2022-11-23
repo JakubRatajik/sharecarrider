@@ -18,6 +18,8 @@ public class ImportDialog extends DialogBase {
     private File rides;
     private File vehicles;
     private File passengers;
+    private File ridesCategories;
+    private File passengersCategories;
 
     public ImportDialog(Frame frame, String name) {
         super(frame, name);
@@ -99,8 +101,46 @@ public class ImportDialog extends DialogBase {
         center.add(importPassengersButton);
         center.add(passengersPathScroll);
 
+        JButton importRidesCategoriesButton = new JButton("Načíst kategorie jízd");
+        JTextArea importRidesCategoriesPath = new JTextArea();
+        importRidesCategoriesPath.setEditable(false);
+        JScrollPane ridesCategoriesPathScroll = new JScrollPane(importRidesCategoriesPath);
+        importRidesCategoriesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser ridesCategoriesFileChooser = new JFileChooser();
+                int dialogResult = ridesCategoriesFileChooser.showOpenDialog(center);
+                if (dialogResult == JFileChooser.APPROVE_OPTION) {
+                    ridesCategories = ridesCategoriesFileChooser.getSelectedFile();
+                }
+                importRidesCategoriesPath.setText(String.valueOf(ridesCategories));
+            }
+        });
+        importRidesCategoriesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        center.add(importRidesCategoriesButton);
+        center.add(ridesCategoriesPathScroll);
+
+        JButton importPassengersCategoriesButton = new JButton("Načíst kategorie cestujících");
+        JTextArea importPassengersCategoriesPath = new JTextArea();
+        importPassengersCategoriesPath.setEditable(false);
+        JScrollPane passengersCategoriesPathScroll = new JScrollPane(importPassengersCategoriesPath);
+        importPassengersCategoriesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser passengersCategoriesFileChooser = new JFileChooser();
+                int dialogResult = passengersCategoriesFileChooser.showOpenDialog(center);
+                if (dialogResult == JFileChooser.APPROVE_OPTION) {
+                    passengersCategories = passengersCategoriesFileChooser.getSelectedFile();
+                }
+                importPassengersCategoriesPath.setText(String.valueOf(passengersCategories));
+            }
+        });
+        importPassengersCategoriesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        center.add(importPassengersCategoriesButton);
+        center.add(passengersCategoriesPathScroll);
+
         this.add(center);
-        setSize(300, 250);
+        setSize(300, 350);
 
     }
 
@@ -113,7 +153,8 @@ public class ImportDialog extends DialogBase {
         importAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (passengers == null || vehicles == null || rides == null) {
+                if (passengers == null || vehicles == null || rides == null ||
+                        passengersCategories == null || ridesCategories == null) {
                     //throw new ValidationException("Some files are missing");
                     new ErrorDialog(MainWindow.getFrame(), new ValidationException("Some files are missing"));
                 } else {
