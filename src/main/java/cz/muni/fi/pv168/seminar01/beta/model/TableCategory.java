@@ -7,4 +7,6 @@ public enum TableCategory {
     RIDES,
     VEHICLES,
     PASSENGERS,
+    PASSENGERCATEGORY,
+    RIDECATEGORY
 }

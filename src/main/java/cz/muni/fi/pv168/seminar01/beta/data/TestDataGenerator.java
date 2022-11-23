@@ -2,6 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.data;
 
 import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
@@ -77,6 +78,15 @@ public final class TestDataGenerator {
         Vehicle vehicle = new Vehicle(Integer.toString(Objects.hash(brand, type)), brand, type, brands.get(brand).get(type), (float) (randomInt(35, 200)) / 10, fuelType);
         vehicles.add(vehicle);
         return vehicle;
+    }
+
+    public List<PassengerCat> getPassengerCategories() {
+        List<PassengerCat> list = new ArrayList<>();
+        list.add(new PassengerCat("Firma A"));
+        list.add(new PassengerCat("Firma B"));
+        list.add(new PassengerCat("Rodina"));
+        list.add(new PassengerCat("Milenky"));
+        return list;
     }
 
     public Ride createRide() {

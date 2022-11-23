@@ -22,6 +22,8 @@ public class Shortcut {
                     (ShareCarRiderTableModel<?>) MainWindow.getRidesTabFrame().getTable().getModel();
             case VEHICLES ->
                     (ShareCarRiderTableModel<?>) MainWindow.getVehiclesTabFrame().getTable().getModel();
+            case PASSENGERCATEGORY -> (ShareCarRiderTableModel<?>) MainWindow.getPassengerCategoriesTabFrame().getTable().getModel();
+            case RIDECATEGORY -> (ShareCarRiderTableModel<?>) MainWindow.getRideCategoriesTabFrame().getTable().getModel();
         };
     }
 
@@ -30,6 +32,8 @@ public class Shortcut {
             case PASSENGERS -> MainWindow.getPassengersTabFrame().getTable();
             case RIDES -> MainWindow.getRidesTabFrame().getTable();
             case VEHICLES -> MainWindow.getVehiclesTabFrame().getTable();
+            case PASSENGERCATEGORY -> MainWindow.getPassengerCategoriesTabFrame().getTable();
+            case RIDECATEGORY -> MainWindow.getRideCategoriesTabFrame().getTable();
         };
     }
 
@@ -40,6 +44,8 @@ public class Shortcut {
             case RIDES -> MainWindow.getRidesTabFrame().getSelectButton();
             case VEHICLES ->
                     MainWindow.getVehiclesTabFrame().getSelectButton();
+            case PASSENGERCATEGORY -> MainWindow.getPassengerCategoriesTabFrame().getSelectButton();
+            case RIDECATEGORY -> MainWindow.getRideCategoriesTabFrame().getSelectButton();
         };
     }
 }

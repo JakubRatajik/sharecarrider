@@ -7,6 +7,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.DeleteDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterPassengersDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterRidesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterVehiclesDialog;
@@ -34,8 +35,58 @@ public final class ActionListenerProvider {
             case RIDES -> getALsForRides();
             case VEHICLES -> getALsForVehicles();
             case PASSENGERS -> getALsForPassengers();
+            case PASSENGERCATEGORY -> getALsForPassengerCategories();
+            case RIDECATEGORY -> new ArrayList<>();
         };
 
+    }
+
+    private static List<ActionListener> getALsForPassengerCategories() {
+        ActionListener plus = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+            }
+        };
+
+
+        ActionListener sort = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+            }
+        };
+
+        ActionListener filter = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+            }
+        };
+
+        ActionListener select = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShareCarRiderTable table = Shortcut.getTable(TableCategory.PASSENGERCATEGORY);
+                table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
+            }
+        };
+
+        ActionListener delete = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
+                        TableCategory.PASSENGERCATEGORY, Shortcut.getTable(TableCategory.PASSENGERCATEGORY).getSelectedRows());
+            }
+        };
+
+        List<ActionListener> categories = new ArrayList<>();
+        categories.add(plus);
+        categories.add(sort);
+        categories.add(filter);
+        categories.add(select);
+        categories.add(delete);
+        return categories;
     }
 
     /**

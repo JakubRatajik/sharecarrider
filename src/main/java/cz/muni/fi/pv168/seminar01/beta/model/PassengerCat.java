@@ -14,4 +14,5 @@ public class PassengerCat extends Category{
         super(name);
     }
 
+
 }

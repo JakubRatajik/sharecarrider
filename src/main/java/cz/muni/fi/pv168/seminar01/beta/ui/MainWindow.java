@@ -11,6 +11,8 @@ public class MainWindow {
     private static TabFrame ridesTabFrame;
     private static TabFrame vehiclesTabFrame;
     private static TabFrame passengersTabFrame;
+    private static TabFrame passengerCategoriesTabFrame;
+    private static TabFrame rideCategoriesTabFrame;
     private static JPanel topPanel;
     private static FuelPrice fuelPrice;
 
@@ -34,6 +36,9 @@ public class MainWindow {
         return passengersTabFrame;
     }
 
+    public static TabFrame getPassengerCategoriesTabFrame() {return passengerCategoriesTabFrame;}
+
+    public static TabFrame getRideCategoriesTabFrame() {return rideCategoriesTabFrame;}
     public static FuelPrice getFuelPrice() {
         return fuelPrice;
     }
@@ -105,18 +110,20 @@ public class MainWindow {
         ridesTabFrame = new TabFrame(TableCategory.RIDES);
         vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES);
         passengersTabFrame = new TabFrame(TableCategory.PASSENGERS);
+        passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGERCATEGORY);
         Statistics statistics = new Statistics();
         tabs.setFont(UIUtilities.fTab);
         tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());
         tabs.addTab("Vozidla", vehiclesTabFrame.getMainPanel());
         tabs.addTab("Cestující", passengersTabFrame.getMainPanel());
+        tabs.addTab("Kategorie P", passengerCategoriesTabFrame.getMainPanel());
         tabs.addTab("Statistiky", statistics.getMain());
         tabs.setBackground(UIUtilities.WHITE);
 
         tabs.setForeground(UIUtilities.TEXT_BROWN);
 
 
-        tabs.setBackgroundAt(3, UIUtilities.OCHER);
+        tabs.setBackgroundAt(4, UIUtilities.OCHER);
 
         topPanel.add(tabs, BorderLayout.CENTER);
         frame.add(topPanel);

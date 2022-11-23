@@ -11,6 +11,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.DeleteDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.PassengerDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.RideDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.VehicleDetailDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
@@ -48,6 +49,7 @@ public class ShareCarRiderTable extends JTable {
             case RIDES -> setModel(new RideTableModel());
             case VEHICLES -> setModel(new VehicleTableModel());
             case PASSENGERS -> setModel(new PassengerTableModel());
+            case PASSENGERCATEGORY -> setModel(new PassengerCategoryTableModel());
             default -> setModel(new DefaultTableModel());
         }
 
