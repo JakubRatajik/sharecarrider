@@ -20,8 +20,13 @@ public class ErrorDialog extends JDialog {
         setLayout(new BorderLayout());
 
         JTextArea message = new JTextArea(errorMessage);
+        message.setWrapStyleWord(true);
         message.setLineWrap(true);
+        message.setSize(270, 130);
+        message.setAlignmentX(Component.CENTER_ALIGNMENT);
         message.setEditable(false);
+        message.setBackground(Color.WHITE);
+        center.setBackground(Color.WHITE);
         center.add(message);
         this.add(center);
 
