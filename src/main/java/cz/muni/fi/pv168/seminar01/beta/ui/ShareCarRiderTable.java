@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
+import cz.muni.fi.pv168.seminar01.beta.Main;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
@@ -8,11 +9,13 @@ import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.DeleteDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.PassengerDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.RideDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.VehicleDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
@@ -50,6 +53,7 @@ public class ShareCarRiderTable extends JTable {
             case VEHICLES -> setModel(new VehicleTableModel());
             case PASSENGERS -> setModel(new PassengerTableModel());
             case PASSENGERCATEGORY -> setModel(new PassengerCategoryTableModel());
+            case RIDECATEGORY -> setModel(new RideCategoryTableModel());
             default -> setModel(new DefaultTableModel());
         }
 
@@ -132,6 +136,8 @@ public class ShareCarRiderTable extends JTable {
             case VEHICLES -> addVehicleTableActionListeners();
             case RIDES -> addRideTableActionListeners();
             case PASSENGERS -> addPassengerTableActionListeners();
+            case PASSENGERCATEGORY -> addPassengerCategoryTableActionListeners();
+            case RIDECATEGORY -> addRideCategoryTableActionListeners();
         }
 
         setComponentPopupMenu(jPopupMenu);
@@ -278,6 +284,86 @@ public class ShareCarRiderTable extends JTable {
             }
         });
     }
+
+
+    private void addPassengerCategoryTableActionListeners() {
+        detailPopupMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ErrorDialog(MainWindow.getFrame(), "Tento objekt nemá detail k dispozici");
+            }
+        });
+
+        editPopupMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
+                int modelRow = convertRowIndexToModel(getSelectedRow());
+                var passengerCategory = tableModel.getEntity(modelRow);
+
+                new ErrorDialog(MainWindow.getFrame(), "Kategorii prozatím není možné měnit");
+            }
+        });
+
+        deletePopupMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
+                        TableCategory.PASSENGERCATEGORY, Shortcut.getTable(TableCategory.PASSENGERCATEGORY).getSelectedRows());
+            }
+        });
+
+        addPopupMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                new ErrorDialog(MainWindow.getFrame(), "Kategorie nemohou prozatím být vytvořeny");
+            }
+        });
+    }
+
+
+
+    private void addRideCategoryTableActionListeners() {
+        detailPopupMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ErrorDialog(MainWindow.getFrame(), "Tento objekt nemá detail k dispozici");
+            }
+        });
+
+        editPopupMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
+                int modelRow = convertRowIndexToModel(getSelectedRow());
+                var rideCategory = tableModel.getEntity(modelRow);
+
+                new ErrorDialog(MainWindow.getFrame(), "Kategorii prozatím není možné měnit");
+            }
+        });
+
+        deletePopupMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
+                        TableCategory.RIDECATEGORY, Shortcut.getTable(TableCategory.RIDECATEGORY).getSelectedRows());
+            }
+        });
+
+        addPopupMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                new ErrorDialog(MainWindow.getFrame(), "Kategorie nemohou prozatím být vytvořeny");
+            }
+        });
+    }
+
+
+
+
+
 
     private void initDoubleClickListener() {
         doubleClickListener = new MouseAdapter() {

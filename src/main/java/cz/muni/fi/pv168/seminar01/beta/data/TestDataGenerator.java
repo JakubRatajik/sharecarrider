@@ -6,6 +6,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 
@@ -86,6 +87,16 @@ public final class TestDataGenerator {
         list.add(new PassengerCat("Firma B"));
         list.add(new PassengerCat("Rodina"));
         list.add(new PassengerCat("Milenky"));
+        return list;
+    }
+
+    public List<RideCat> getRideCategories() {
+        List<RideCat> list = new ArrayList<>();
+        list.add(new RideCat("Dovolená"));
+        list.add(new RideCat("Cesta do práce"));
+        list.add(new RideCat("Projížďka"));
+        list.add(new RideCat("Nákupy"));
+        list.add(new RideCat("Jiné"));
         return list;
     }
 

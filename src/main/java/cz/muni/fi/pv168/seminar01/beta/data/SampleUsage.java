@@ -3,6 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.data;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public final class SampleUsage {
 
     private static final List<PassengerCat> passengerCategories = new ArrayList<>();
 
-    private static final List<PassengerCat> rideCategories = new ArrayList<>();
+    private static final List<RideCat> rideCategories = new ArrayList<>();
 
     private SampleUsage() {
         throw new AssertionError("This class is not intended for instantiation.");
@@ -45,6 +46,7 @@ public final class SampleUsage {
             rides.add(testDataGenerator.createRide());
         }
         passengerCategories.addAll(testDataGenerator.getPassengerCategories());
+        rideCategories.addAll(testDataGenerator.getRideCategories());
 
     }
 
@@ -61,4 +63,6 @@ public final class SampleUsage {
     }
 
     public static List<PassengerCat> getPassengerCategories() { return passengerCategories;}
+
+    public static List<RideCat> getRideCategories() { return rideCategories;}
 }

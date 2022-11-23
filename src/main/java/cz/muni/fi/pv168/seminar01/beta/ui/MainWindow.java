@@ -111,19 +111,21 @@ public class MainWindow {
         vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES);
         passengersTabFrame = new TabFrame(TableCategory.PASSENGERS);
         passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGERCATEGORY);
+        rideCategoriesTabFrame = new TabFrame(TableCategory.RIDECATEGORY);
         Statistics statistics = new Statistics();
         tabs.setFont(UIUtilities.fTab);
         tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());
         tabs.addTab("Vozidla", vehiclesTabFrame.getMainPanel());
         tabs.addTab("Cestující", passengersTabFrame.getMainPanel());
-        tabs.addTab("Kategorie P", passengerCategoriesTabFrame.getMainPanel());
+        tabs.addTab("Kategorie pasažérů", passengerCategoriesTabFrame.getMainPanel());
+        tabs.addTab("Kategorie jízd", rideCategoriesTabFrame.getMainPanel());
         tabs.addTab("Statistiky", statistics.getMain());
         tabs.setBackground(UIUtilities.WHITE);
 
         tabs.setForeground(UIUtilities.TEXT_BROWN);
 
 
-        tabs.setBackgroundAt(4, UIUtilities.OCHER);
+        tabs.setBackgroundAt(5, UIUtilities.OCHER);
 
         topPanel.add(tabs, BorderLayout.CENTER);
         frame.add(topPanel);

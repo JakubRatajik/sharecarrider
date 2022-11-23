@@ -36,7 +36,7 @@ public final class ActionListenerProvider {
             case VEHICLES -> getALsForVehicles();
             case PASSENGERS -> getALsForPassengers();
             case PASSENGERCATEGORY -> getALsForPassengerCategories();
-            case RIDECATEGORY -> new ArrayList<>();
+            case RIDECATEGORY -> getALsForRideCategories();
         };
 
     }
@@ -88,6 +88,64 @@ public final class ActionListenerProvider {
         categories.add(delete);
         return categories;
     }
+
+
+
+
+
+
+
+
+
+    private static List<ActionListener> getALsForRideCategories() {
+        ActionListener plus = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+            }
+        };
+
+
+        ActionListener sort = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+            }
+        };
+
+        ActionListener filter = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+            }
+        };
+
+        ActionListener select = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShareCarRiderTable table = Shortcut.getTable(TableCategory.RIDECATEGORY);
+                table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
+            }
+        };
+
+        ActionListener delete = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
+                        TableCategory.RIDECATEGORY, Shortcut.getTable(TableCategory.RIDECATEGORY).getSelectedRows());
+            }
+        };
+
+        List<ActionListener> categories = new ArrayList<>();
+        categories.add(plus);
+        categories.add(sort);
+        categories.add(filter);
+        categories.add(select);
+        categories.add(delete);
+        return categories;
+    }
+
+
 
     /**
      * makes ActionListeners for rides
