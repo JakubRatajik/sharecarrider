@@ -1,6 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
 import cz.muni.fi.pv168.seminar01.beta.Main;
+import cz.muni.fi.pv168.seminar01.beta.model.HasID;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
@@ -143,13 +144,17 @@ public class ShareCarRiderTable extends JTable {
         setComponentPopupMenu(jPopupMenu);
     }
 
+    private HasID getObjectFromTable() {
+        ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
+        int modelRow = convertRowIndexToModel(getSelectedRow());
+        return tableModel.getEntity(modelRow);
+    }
+
     private void addRideTableActionListeners() {
         detailPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var ride = tableModel.getEntity(modelRow);
+                var ride = getObjectFromTable();
 
                 new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", (Ride) ride);
             }
@@ -158,9 +163,7 @@ public class ShareCarRiderTable extends JTable {
         editPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var ride = tableModel.getEntity(modelRow);
+                var ride = getObjectFromTable();
 
                 new AddEditRideDialog(MainWindow.getFrame(), "Upravit jízdu", (Ride) ride);
             }
@@ -169,9 +172,7 @@ public class ShareCarRiderTable extends JTable {
         deletePopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var ride = tableModel.getEntity(modelRow);
+                var ride = getObjectFromTable();
 
                 new DeleteDialog(MainWindow.getFrame(), "Smazat jízdu/y",
                         TableCategory.RIDES, Shortcut.getTable(TableCategory.RIDES).getSelectedRows());
@@ -182,9 +183,6 @@ public class ShareCarRiderTable extends JTable {
         addPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var ride = tableModel.getEntity(modelRow);
 
                 new AddEditRideDialog(MainWindow.getFrame(), "Přidat jízdu");
             }
@@ -195,9 +193,7 @@ public class ShareCarRiderTable extends JTable {
         detailPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var vehicle = tableModel.getEntity(modelRow);
+                var vehicle = getObjectFromTable();
 
                 new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla", (Vehicle) vehicle);
             }
@@ -206,9 +202,7 @@ public class ShareCarRiderTable extends JTable {
         editPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var vehicle = tableModel.getEntity(modelRow);
+                var vehicle = getObjectFromTable();
 
                 new AddEditVehicleDialog(MainWindow.getFrame(), "Upravit vozidlo", (Vehicle) vehicle);
             }
@@ -217,10 +211,6 @@ public class ShareCarRiderTable extends JTable {
         deletePopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var vehicle = tableModel.getEntity(modelRow);
-
                 new DeleteDialog(MainWindow.getFrame(), "Smazat vozidlo/a",
                         TableCategory.VEHICLES, Shortcut.getTable(TableCategory.VEHICLES).getSelectedRows());
             }
@@ -229,10 +219,6 @@ public class ShareCarRiderTable extends JTable {
         addPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var vehicle = tableModel.getEntity(modelRow);
-
                 new AddEditVehicleDialog(MainWindow.getFrame(), "Přidat vozidlo");
             }
         });
@@ -242,9 +228,7 @@ public class ShareCarRiderTable extends JTable {
         detailPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var passenger = tableModel.getEntity(modelRow);
+                var passenger = getObjectFromTable();
 
                 new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího", (Passenger) passenger);
             }
@@ -253,9 +237,7 @@ public class ShareCarRiderTable extends JTable {
         editPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var passenger = tableModel.getEntity(modelRow);
+                var passenger = getObjectFromTable();
 
                 new AddEditPassengerDialog(MainWindow.getFrame(), "Upravit cestujícího", (Passenger) passenger);
             }
@@ -264,10 +246,6 @@ public class ShareCarRiderTable extends JTable {
         deletePopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var passenger = tableModel.getEntity(modelRow);
-
                 new DeleteDialog(MainWindow.getFrame(), "Smazat cestující/ho",
                         TableCategory.PASSENGERS, Shortcut.getTable(TableCategory.PASSENGERS).getSelectedRows());
             }
@@ -276,10 +254,6 @@ public class ShareCarRiderTable extends JTable {
         addPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var passenger = tableModel.getEntity(modelRow);
-
                 new AddEditPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího");
             }
         });
@@ -297,9 +271,7 @@ public class ShareCarRiderTable extends JTable {
         editPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var passengerCategory = tableModel.getEntity(modelRow);
+                var passengerCategory = getObjectFromTable();
 
                 new ErrorDialog(MainWindow.getFrame(), "Kategorii prozatím není možné měnit");
             }
@@ -335,9 +307,7 @@ public class ShareCarRiderTable extends JTable {
         editPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTableModel<?> tableModel = (ShareCarRiderTableModel<?>) getModel();
-                int modelRow = convertRowIndexToModel(getSelectedRow());
-                var rideCategory = tableModel.getEntity(modelRow);
+                var rideCategory = getObjectFromTable();
 
                 new ErrorDialog(MainWindow.getFrame(), "Kategorii prozatím není možné měnit");
             }

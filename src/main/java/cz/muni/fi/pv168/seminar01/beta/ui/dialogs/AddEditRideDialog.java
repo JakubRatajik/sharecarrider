@@ -231,9 +231,9 @@ public class AddEditRideDialog extends AddEditDialog {
                 return;
             }
 
-            String[] departureParsedTime = (departure.getText().split("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"));
+            String[] departureParsedTime = (departure.getText().split("\\s*:\\s*"));
             LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
-            String[] arrivalParsedTime = arrival.getText().split("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+            String[] arrivalParsedTime = arrival.getText().split("\\s*:\\s*");
             LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
             int parsedDistance = Integer.parseInt(distance.getText());
             RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
