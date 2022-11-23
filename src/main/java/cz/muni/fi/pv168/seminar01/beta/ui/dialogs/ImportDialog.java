@@ -1,6 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ImporterBase;
+import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
+import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
@@ -25,11 +27,15 @@ public class ImportDialog extends DialogBase {
         JButton cancel = new JButton("Zrušit");
         cancel.addActionListener(e -> dispose());
         JButton importButton = new JButton("Importovat");
-        onImportButton(importButton);
         UIUtilities.formatDefaultComponent(cancel);
         UIUtilities.formatDefaultComponent(importButton);
         bottom.add(cancel);
         bottom.add(importButton);
+        try {
+            onImportButton(importButton);
+        } catch (ValidationException e) {
+            new ErrorDialog(MainWindow.getFrame(), e);
+        }
     }
 
     public void initializeCenter(JPanel center) {
@@ -108,10 +114,12 @@ public class ImportDialog extends DialogBase {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (passengers == null || vehicles == null || rides == null) {
-                    throw new NullPointerException("Some files are missing");
+                    //throw new ValidationException("Some files are missing");
+                    new ErrorDialog(MainWindow.getFrame(), new ValidationException("Some files are missing"));
+                } else {
+                    ImporterBase.loadData(rides, vehicles, passengers);
+                    dispose();
                 }
-                ImporterBase.loadData(rides, vehicles, passengers);
-                dispose();
             }
         });
 

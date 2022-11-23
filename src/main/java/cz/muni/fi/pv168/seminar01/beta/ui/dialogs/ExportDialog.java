@@ -3,10 +3,12 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportPassengers;
 import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportRides;
 import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportVehicles;
+import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
@@ -115,22 +117,21 @@ public class ExportDialog extends DialogBase {
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rides != null) {
+                if (passengers == null || vehicles == null || rides == null) {
+                    //throw new ValidationException("Some files are missing");
+                    new ErrorDialog(MainWindow.getFrame(), new ValidationException("Some files are missing"));
+                } else {
                     ExportRides exportRides = new ExportRides();
                     exportRides.export((List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData(),
                             rides.getAbsolutePath());
-                }
-                if (vehicles != null) {
                     ExportVehicles exportVehicles = new ExportVehicles();
                     exportVehicles.export((List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData(),
                             vehicles.getAbsolutePath());
-                }
-                if (passengers != null) {
                     ExportPassengers exportPassengers = new ExportPassengers();
                     exportPassengers.export((List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData(),
                             passengers.getAbsolutePath());
+                    dispose();
                 }
-                dispose();
             }
         });
     }

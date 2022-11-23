@@ -141,6 +141,7 @@ public class RideDetailDialog extends DetailDialog {
         description = new JTextArea(ride.getDescription());
         description.setEditable(false);
         description.setBackground(Color.WHITE);
+        description.setLineWrap(true);
     }
 
 
