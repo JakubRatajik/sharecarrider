@@ -2,14 +2,10 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.data.validation.RideValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
-import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.model.*;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.EnumRendererForComboBox;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.JDatePickerDateGetter;
@@ -35,9 +31,12 @@ public class AddEditRideDialog extends AddEditDialog {
     private JComboBox<Vehicle> vehicle;
     private JScrollPane passengers;
     private JList<Passenger> passengersList;
-    private JComboBox<RideCategory> category;
+
+    private JScrollPane categories;
+    private JList<RideCat> categoryList;
     private JComboBox<Repetition> repetition;
     private JTextArea description;
+
 
     public AddEditRideDialog(Frame frame, String name) {
         super(frame, name);
@@ -122,17 +121,14 @@ public class AddEditRideDialog extends AddEditDialog {
         }
         UIUtilities.formatDefaultJComboBox(vehicle);
 
-        // TODO - add category ComboBox
-        this.category = new JComboBox<>();
-        //for (RideCategory c : )
-        UIUtilities.formatDefaultJComboBox(category);
-
         this.repetition = new JComboBox<>();
         for (Repetition rep : Repetition.values()) {
             repetition.addItem(rep);
         }
         UIUtilities.formatDefaultJComboBox(repetition, new EnumRendererForComboBox());
 
+
+        // Passengers
         DefaultListModel<Passenger> l1 = new DefaultListModel<>();
         List<Passenger> passengers = (List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData();
         l1.addAll(passengers);
@@ -167,6 +163,41 @@ public class AddEditRideDialog extends AddEditDialog {
         this.passengers = passengersScroll;
         this.passengersList = passengerList;
 
+        // Categories
+        DefaultListModel<RideCat> r1 = new DefaultListModel<>();
+        List<RideCat> rides = (List<RideCat>) Shortcut.getTableModel(TableCategory.RIDECATEGORY).getData();
+        r1.addAll(rides);
+
+        JList<RideCat> rideList = new JList<>(r1);
+        rideList.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list,
+                    Object value,
+                    int index,
+                    boolean isSelected,
+                    boolean hasFocus) {
+                Component component = super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
+
+                if (isSelected) {
+                    component.setBackground(UIUtilities.MIDDLE_BROWN);
+                }
+
+                setText(((RideCat) value).getName());
+
+                return component;
+            }
+        });
+
+        UIUtilities.formatDefaultComponent(rideList);
+        rideList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        JScrollPane ridesScroll = new JScrollPane(rideList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        ridesScroll.setPreferredSize(new Dimension(40, 5));
+        UIUtilities.formatDefaultComponent(ridesScroll);
+        this.categories = ridesScroll;
+        this.categoryList = rideList;
+
 
         if (ride != null) {
             departure.setText(ride.getDeparture());
@@ -186,7 +217,7 @@ public class AddEditRideDialog extends AddEditDialog {
         central.setLayout(new BoxLayout(central, BoxLayout.Y_AXIS));
 
         JPanel center = new JPanel();
-        center.setLayout(new GridLayout(8, 2));
+        center.setLayout(new GridLayout(10, 2));
         UIUtilities.formatWhiteTextBrownDialog(center);
         center.add(new JLabel("•  Datum:"));
         center.add(this.date);
@@ -220,7 +251,20 @@ public class AddEditRideDialog extends AddEditDialog {
         passengerPanel.add(this.passengers);
         UIUtilities.formatWhiteTextBrownDialog(passengerPanel);
         central.add(passengerPanel);
-        setSize(500, 420);
+
+        central.add(new JLabel(" "));
+        central.add(new JLabel(" "));
+
+        JPanel categoriesPanel = new JPanel();
+        categoriesPanel.setLayout(new GridLayout(1, 2));
+        categoriesPanel.add(new JLabel("•  Kategorie:"));
+        categoriesPanel.add(this.categories);
+        UIUtilities.formatWhiteTextBrownDialog(categoriesPanel);
+        central.add(categoriesPanel);
+
+
+
+        setSize(500, 600);
         UIUtilities.formatWhiteTextBrownDialog(central);
     }
 
@@ -245,7 +289,7 @@ public class AddEditRideDialog extends AddEditDialog {
                     startDestination.getText(),
                     endDestination.getText(),
                     parsedDistance,
-                    new HashSet<>(),
+                    categoryList.getSelectedValuesList(),
                     passengersList.getSelectedValuesList(),
                     (Vehicle) vehicle.getSelectedItem(),
                     (Repetition) repetition.getSelectedItem(),

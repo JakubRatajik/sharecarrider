@@ -17,13 +17,15 @@ public class ExportRides extends AbstractExporter<Ride> {
                 String.valueOf(element.getId()),
                 element.getDateUnformatted(),
                 element.getDeparture(),
+                element.getArrival(),
                 element.getFrom(),
                 element.getTo(),
                 String.valueOf(element.getDistance()),
                 getIDs(element.getCategories()).toString(),
                 getIDs(element.getPassengers()).toString(),
                 String.valueOf(element.getVehicle().getId()),
-                element.getRepetition().name());
+                element.getRepetition().name(),
+                element.getDescription());
 
         return String.join(SEPARATOR, data);
     }

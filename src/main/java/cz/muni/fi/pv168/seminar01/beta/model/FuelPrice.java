@@ -6,7 +6,8 @@ import java.math.BigDecimal;
  * This class represents static values of fuel prices, that are used for computing a price for a single ride and some statistics.
  */
 public class FuelPrice {
-    private static final BigDecimal DEFAULT_PRICE = new BigDecimal("-1");
+    // --TODO temporarily changed because we want the application to work well when showing to customer
+    private static final BigDecimal DEFAULT_PRICE = new BigDecimal("35");
     private static final String NOT_SET = "Not set";
     private BigDecimal gasolinePrice;
     private BigDecimal electricityPrice;

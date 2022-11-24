@@ -37,8 +37,10 @@ public final class TestDataGenerator {
     private static final RideCategory RIDE_CATEGORY_2 = new RideCategory(Color.YELLOW, "party");
 
     private static List<PassengerCategory> categs = getPassengerCategories();
-    private static final List<Set<RideCategory>> rideCategories =
-            List.of(new HashSet<>(), new HashSet<>(List.of(RIDE_CATEGORY_1, RIDE_CATEGORY_2)), new HashSet<>(List.of(RIDE_CATEGORY_1)), new HashSet<>(List.of(RIDE_CATEGORY_2)));
+
+    private static List<RideCat> ridecategs = getRideCategories();
+    private static final List<Set<RideCat>> rideCategories =
+            List.of(new HashSet<>(), new HashSet<>(List.of(ridecategs.get(0), ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(2), ridecategs.get(3))));
     private static final List<Set<PassengerCategory>> passengerCategories =
             List.of(new HashSet<>(), new HashSet<>(List.of(categs.get(0), categs.get(1))), new HashSet<>(List.of(categs.get(2))), new HashSet<>(List.of(categs.get(3), categs.get(0))));
     private static final Map<String, Map<String, Integer>> brands = Map.of(
@@ -49,6 +51,20 @@ public final class TestDataGenerator {
             "Ferrari", Map.of("F8", 2, "458 Italia", 2),
             "Zetor", Map.of("Crystal", 1, "Proxima", 1)
     );
+
+    private static final List<String> descriptions = getDescriptions();
+
+    private static List<String> getDescriptions()  {
+        List<String> s = new ArrayList<>();
+        s.add("");
+        s.add("Super jízda");
+        s.add("Dobrá trasa");
+        s.add("");
+        s.add("Komárovu se radši vyhnout");
+        s.add("Nezapomenout vyzvednout babiččin knedlík!");
+        s.add("");
+        return s;
+    }
 
     private static final List<String> destinations =
             List.of("Supíkovice", "Vranov nad Topľou", "Kino Scala", "Skybar", "Brno", "Bratislava", "Vídeň", "*tajné*");
@@ -104,6 +120,7 @@ public final class TestDataGenerator {
     public Ride createRide() {
         LocalDate date = LocalDate.now().minusDays(random.nextInt(366));
         LocalTime time = LocalTime.of(0, 0, 0).plusHours(random.nextInt(24)).plusMinutes(random.nextInt(60));
+        LocalTime arrival = LocalTime.of(0, 0, 0).plusHours(random.nextInt(24)).plusMinutes(random.nextInt(60));
         String from = selectRandom(destinations);
         String to = selectRandom(destinations.stream().filter(dest -> !from.equals(dest)).toList());
         Vehicle vehicle;
@@ -123,7 +140,7 @@ public final class TestDataGenerator {
             ridePassengers.add(selectRandom(passengers));
         }
 
-        Ride ride = new Ride(date, time, null, from, to, randomInt(8, 500), selectRandom(rideCategories), ridePassengers, vehicle, Repetition.NONE, "");
+        Ride ride = new Ride(date, time, arrival, from, to, randomInt(8, 500), selectRandom(rideCategories), ridePassengers, vehicle, Repetition.NONE, selectRandom(descriptions));
         rides.add(ride);
         return ride;
     }

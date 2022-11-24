@@ -24,12 +24,6 @@ public class ExportPassengers extends AbstractExporter<Passenger> {
                 element.getLastName(),
                 element.getPhoneNumber(),
                 element.getCategoryIDs().toString());
-        List<Long> cats = ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY)).getCategories().stream().map(Category::getId).toList();
-        System.out.println("START");
-        for (long cat: cats) {
-            System.out.println(cat);
-        }
-        System.out.println("END");
         return String.join(SEPARATOR, data);
     }
 

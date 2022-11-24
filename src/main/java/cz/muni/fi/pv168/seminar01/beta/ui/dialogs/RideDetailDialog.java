@@ -2,6 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
@@ -62,7 +63,7 @@ public class RideDetailDialog extends DetailDialog {
         nonChangeable.add(date);
         nonChangeable.add(new JLabel("•  Čas odjezdu:"));
         nonChangeable.add(departure);
-        nonChangeable.add(new JLabel("•  Čas příjezdy:"));
+        nonChangeable.add(new JLabel("•  Čas příjezdu:"));
         nonChangeable.add(arrival);
         nonChangeable.add(new JLabel("•  Začátek:"));
         nonChangeable.add(startDestination);
@@ -100,7 +101,7 @@ public class RideDetailDialog extends DetailDialog {
 
         JPanel categories = new JPanel();
         int categoriesCount = ride.getCategories().size();
-        List<RideCategory> categoryList = null;
+        List<RideCat> categoryList = null;
         categories.setLayout(new GridLayout(categoriesCount, 2));
         UIUtilities.formatWhiteTextBrownDialog(categories);
         if (categoriesCount != 0) {
