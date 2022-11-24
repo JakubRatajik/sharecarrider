@@ -1,10 +1,9 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
-import cz.muni.fi.pv168.seminar01.beta.Main;
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideDialog;
@@ -53,8 +52,8 @@ public class ShareCarRiderTable extends JTable {
             case RIDES -> setModel(new RideTableModel());
             case VEHICLES -> setModel(new VehicleTableModel());
             case PASSENGERS -> setModel(new PassengerTableModel());
-            case PASSENGERCATEGORY -> setModel(new PassengerCategoryTableModel());
-            case RIDECATEGORY -> setModel(new RideCategoryTableModel());
+            case PASSENGER_CATEGORY -> setModel(new PassengerCategoryTableModel());
+            case RIDE_CATEGORY -> setModel(new RideCategoryTableModel());
             default -> setModel(new DefaultTableModel());
         }
 
@@ -137,8 +136,8 @@ public class ShareCarRiderTable extends JTable {
             case VEHICLES -> addVehicleTableActionListeners();
             case RIDES -> addRideTableActionListeners();
             case PASSENGERS -> addPassengerTableActionListeners();
-            case PASSENGERCATEGORY -> addPassengerCategoryTableActionListeners();
-            case RIDECATEGORY -> addRideCategoryTableActionListeners();
+            case PASSENGER_CATEGORY -> addPassengerCategoryTableActionListeners();
+            case RIDE_CATEGORY -> addRideCategoryTableActionListeners();
         }
 
         setComponentPopupMenu(jPopupMenu);
@@ -281,7 +280,7 @@ public class ShareCarRiderTable extends JTable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
-                        TableCategory.PASSENGERCATEGORY, Shortcut.getTable(TableCategory.PASSENGERCATEGORY).getSelectedRows());
+                        TableCategory.PASSENGER_CATEGORY, Shortcut.getTable(TableCategory.PASSENGER_CATEGORY).getSelectedRows());
             }
         });
 
@@ -317,7 +316,7 @@ public class ShareCarRiderTable extends JTable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
-                        TableCategory.RIDECATEGORY, Shortcut.getTable(TableCategory.RIDECATEGORY).getSelectedRows());
+                        TableCategory.RIDE_CATEGORY, Shortcut.getTable(TableCategory.RIDE_CATEGORY).getSelectedRows());
             }
         });
 

@@ -2,7 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 

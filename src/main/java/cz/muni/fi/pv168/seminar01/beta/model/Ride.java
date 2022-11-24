@@ -26,18 +26,18 @@ public class Ride implements HasID {
     private String from;
     private String to;
     private int distance;
-    private Set<RideCat> categories;
+    private Set<RideCategory> categories;
     private Set<Passenger> passengers;
     private Vehicle vehicle;
     private Repetition repetition;
     private String description;
 
-    public Ride(LocalDate date, LocalTime departure, LocalTime arrival, String from, String to, int distance, Collection<RideCat> categories,
+    public Ride(LocalDate date, LocalTime departure, LocalTime arrival, String from, String to, int distance, Collection<RideCategory> categories,
                 Collection<Passenger> passengers, Vehicle vehicle, Repetition repetition, String description) {
         this(IDGenerator.getNewID(Ride.class), date, departure, arrival, from, to, distance, categories, passengers, vehicle, repetition, description);
     }
 
-    public Ride(long id, LocalDate date, LocalTime departure, LocalTime arrival, String from, String to, int distance, Collection<RideCat> categories,
+    public Ride(long id, LocalDate date, LocalTime departure, LocalTime arrival, String from, String to, int distance, Collection<RideCategory> categories,
                 Collection<Passenger> passengers, Vehicle vehicle, Repetition repetition, String description) {
         this.date = date;
         this.departure = departure;
@@ -73,11 +73,11 @@ public class Ride implements HasID {
         this.departure = departure;
     }
 
-    public void addCategory(RideCat rideCategory) {
+    public void addCategory(RideCategory rideCategory) {
         categories.add(rideCategory);
     }
 
-    public void removeCategory(RideCat rideCategory) {
+    public void removeCategory(RideCategory rideCategory) {
         categories.remove(rideCategory);
     }
 
@@ -99,11 +99,11 @@ public class Ride implements HasID {
         this.distance = distance;
     }
 
-    public Collection<RideCat> getCategories() {
+    public Collection<RideCategory> getCategories() {
         return Collections.unmodifiableSet(categories);
     }
 
-    public void setCategories(Collection<RideCat> categories) {
+    public void setCategories(Collection<RideCategory> categories) {
         this.categories = new HashSet<>(categories);
     }
 
@@ -213,7 +213,7 @@ public class Ride implements HasID {
 
     public String getCategoryNames() {
         return categories.stream()
-                .map(RideCat::getName)
+                .map(RideCategory::getName)
                 .collect(Collectors.joining(", "));
     }
 }

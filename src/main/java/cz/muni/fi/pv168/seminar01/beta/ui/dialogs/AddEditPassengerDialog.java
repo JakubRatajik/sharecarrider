@@ -4,7 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
@@ -85,7 +85,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
         lastName = UIUtilities.createTextField();
         phoneNumber = UIUtilities.createTextField();
         categories = new HashMap<>();
-        for (PassengerCategory category : ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY)).getCategories()) {
+        for (PassengerCategory category : ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY)).getCategories()) {
             categories.put(category, new JCheckBox(" " + category.getName()));
         }
 

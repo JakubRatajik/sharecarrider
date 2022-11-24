@@ -1,8 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
 import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 /**
  * @author Jan Macecek
  */
-public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCat>{
+public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCategory>{
 
 
     public RideCategoryTableModel() {
@@ -25,7 +24,7 @@ public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCat>{
     @Override
     public Object getValueAt(int row, int col) {
         Object value;
-        RideCat rideCategory = data.get(row);
+        RideCategory rideCategory = data.get(row);
 
         switch (col) {
             case 0 -> value = rideCategory.getName();
@@ -37,7 +36,7 @@ public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCat>{
 
     @Override
     public void setValueAt(Object attribute, int row, int col) {
-        RideCat rideCategory = data.get(row);
+        RideCategory rideCategory = data.get(row);
 
         switch (col) {
             case 0 -> rideCategory.setName((String) attribute);
@@ -45,21 +44,21 @@ public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCat>{
         }
     }
 
-    public List<RideCat> getCategories() {
-        List<RideCat> list = new ArrayList<>();
+    public List<RideCategory> getCategories() {
+        List<RideCategory> list = new ArrayList<>();
         for (int i = 0; i < getRowCount(); i++) {
             list.add(data.get(i));
         }
         return list;
     }
 
-    public RideCat[] getCategoriesArray() {
-        RideCat[] array = new RideCat[getCategories().size()];
+    public RideCategory[] getCategoriesArray() {
+        RideCategory[] array = new RideCategory[getCategories().size()];
         getCategories().toArray(array);
         return array;
     }
 
-    public RideCat getCategoryByID(long wantedID) {
+    public RideCategory getCategoryByID(long wantedID) {
         return getCategories().stream().filter(x -> x.getId() == wantedID).findFirst().orElse(null);
     }
 }

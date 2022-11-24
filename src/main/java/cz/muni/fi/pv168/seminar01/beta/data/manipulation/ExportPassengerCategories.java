@@ -1,7 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
 
 import java.util.Arrays;
 import java.util.List;

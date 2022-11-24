@@ -5,8 +5,8 @@ import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.*;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.EnumRendererForComboBox;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.JDatePickerDateGetter;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
@@ -17,7 +17,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.time.LocalTime;
-import java.util.HashSet;
 import java.util.List;
 
 public class AddEditRideDialog extends AddEditDialog {
@@ -33,7 +32,7 @@ public class AddEditRideDialog extends AddEditDialog {
     private JList<Passenger> passengersList;
 
     private JScrollPane categories;
-    private JList<RideCat> categoryList;
+    private JList<RideCategory> categoryList;
     private JComboBox<Repetition> repetition;
     private JTextArea description;
 
@@ -164,11 +163,11 @@ public class AddEditRideDialog extends AddEditDialog {
         this.passengersList = passengerList;
 
         // Categories
-        DefaultListModel<RideCat> r1 = new DefaultListModel<>();
-        List<RideCat> rides = (List<RideCat>) Shortcut.getTableModel(TableCategory.RIDECATEGORY).getData();
+        DefaultListModel<RideCategory> r1 = new DefaultListModel<>();
+        List<RideCategory> rides = (List<RideCategory>) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY).getData();
         r1.addAll(rides);
 
-        JList<RideCat> rideList = new JList<>(r1);
+        JList<RideCategory> rideList = new JList<>(r1);
         rideList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(
@@ -183,7 +182,7 @@ public class AddEditRideDialog extends AddEditDialog {
                     component.setBackground(UIUtilities.MIDDLE_BROWN);
                 }
 
-                setText(((RideCat) value).getName());
+                setText(((RideCategory) value).getName());
 
                 return component;
             }

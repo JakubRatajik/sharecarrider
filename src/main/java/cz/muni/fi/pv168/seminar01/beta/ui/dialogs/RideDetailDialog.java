@@ -2,7 +2,6 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
@@ -101,7 +100,7 @@ public class RideDetailDialog extends DetailDialog {
 
         JPanel categories = new JPanel();
         int categoriesCount = ride.getCategories().size();
-        List<RideCat> categoryList = null;
+        List<RideCategory> categoryList = null;
         categories.setLayout(new GridLayout(categoriesCount, 2));
         UIUtilities.formatWhiteTextBrownDialog(categories);
         if (categoriesCount != 0) {

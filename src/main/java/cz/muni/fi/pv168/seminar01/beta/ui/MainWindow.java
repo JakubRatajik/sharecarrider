@@ -1,7 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
 import cz.muni.fi.pv168.seminar01.beta.model.FuelPrice;
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -110,8 +110,8 @@ public class MainWindow {
         ridesTabFrame = new TabFrame(TableCategory.RIDES);
         vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES);
         passengersTabFrame = new TabFrame(TableCategory.PASSENGERS);
-        passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGERCATEGORY);
-        rideCategoriesTabFrame = new TabFrame(TableCategory.RIDECATEGORY);
+        passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGER_CATEGORY);
+        rideCategoriesTabFrame = new TabFrame(TableCategory.RIDE_CATEGORY);
         Statistics statistics = new Statistics();
         tabs.setFont(UIUtilities.fTab);
         tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());

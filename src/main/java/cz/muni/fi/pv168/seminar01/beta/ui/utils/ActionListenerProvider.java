@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.utils;
 
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
@@ -35,8 +35,8 @@ public final class ActionListenerProvider {
             case RIDES -> getALsForRides();
             case VEHICLES -> getALsForVehicles();
             case PASSENGERS -> getALsForPassengers();
-            case PASSENGERCATEGORY -> getALsForPassengerCategories();
-            case RIDECATEGORY -> getALsForRideCategories();
+            case PASSENGER_CATEGORY -> getALsForPassengerCategories();
+            case RIDE_CATEGORY -> getALsForRideCategories();
         };
 
     }
@@ -67,7 +67,7 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTable table = Shortcut.getTable(TableCategory.PASSENGERCATEGORY);
+                ShareCarRiderTable table = Shortcut.getTable(TableCategory.PASSENGER_CATEGORY);
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
@@ -76,7 +76,7 @@ public final class ActionListenerProvider {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
-                        TableCategory.PASSENGERCATEGORY, Shortcut.getTable(TableCategory.PASSENGERCATEGORY).getSelectedRows());
+                        TableCategory.PASSENGER_CATEGORY, Shortcut.getTable(TableCategory.PASSENGER_CATEGORY).getSelectedRows());
             }
         };
 
@@ -123,7 +123,7 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTable table = Shortcut.getTable(TableCategory.RIDECATEGORY);
+                ShareCarRiderTable table = Shortcut.getTable(TableCategory.RIDE_CATEGORY);
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
@@ -132,7 +132,7 @@ public final class ActionListenerProvider {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
-                        TableCategory.RIDECATEGORY, Shortcut.getTable(TableCategory.RIDECATEGORY).getSelectedRows());
+                        TableCategory.RIDE_CATEGORY, Shortcut.getTable(TableCategory.RIDE_CATEGORY).getSelectedRows());
             }
         };
 

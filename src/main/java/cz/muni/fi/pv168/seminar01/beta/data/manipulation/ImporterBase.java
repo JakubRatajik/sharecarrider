@@ -1,8 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 
-import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.data.validation.VehicleValidator;
 import cz.muni.fi.pv168.seminar01.beta.model.*;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
@@ -11,8 +9,6 @@ import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
 
 public class ImporterBase {
@@ -22,12 +18,12 @@ public class ImporterBase {
         List<Ride> rideList = new ArrayList<>();
         List<Vehicle> vehicleList = new ArrayList<>();
         List<PassengerCategory> passengerCategoryList = new ArrayList<>();
-        List<RideCat> rideCategoryList = new ArrayList<>();
+        List<RideCategory> rideCategoryList = new ArrayList<>();
         try {
             if (passengerCategories != null) {
                 passengerCategoryList = ImportPassengerCategories.importPassengerCategories(passengerCategories);
                 for (PassengerCategory passengerCategory: passengerCategoryList) {
-                    ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY)).addRow(passengerCategory);
+                    ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY)).addRow(passengerCategory);
                 }
             } if (vehicles != null) {
                 vehicleList = ImportVehicles.importVehicles(vehicles);
@@ -41,8 +37,8 @@ public class ImporterBase {
                 }
             } if (rideCategories != null) {
                 rideCategoryList = ImportRideCategories.importRideCategories(rideCategories);
-                for (RideCat rideCategory: rideCategoryList) {
-                    ((RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDECATEGORY)).addRow(rideCategory);
+                for (RideCategory rideCategory: rideCategoryList) {
+                    ((RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY)).addRow(rideCategory);
                 }
             } if (rides != null) {
                 rideList = ImportRides.importRides(rides);

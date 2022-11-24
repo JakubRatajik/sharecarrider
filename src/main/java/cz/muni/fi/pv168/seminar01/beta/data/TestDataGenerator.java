@@ -5,11 +5,9 @@ import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -33,21 +31,18 @@ public final class TestDataGenerator {
             List.of("Nováková", "Novotná", "Dvořáková", "Černá", "Procházková", "Šťastná", "Veselá", "Horáková", "Němcová", "Pokorná");
     private static final List<String> phoneNumbers =
             List.of("+420777408524", "+420668745827", "+420584401287", "+421875428554", "+421668547421", "+421542875142");
-    private static final RideCategory RIDE_CATEGORY_1 = new RideCategory(Color.BLUE, "work");
-    private static final RideCategory RIDE_CATEGORY_2 = new RideCategory(Color.YELLOW, "party");
-
     private static List<PassengerCategory> categs = getPassengerCategories();
 
     public List<PassengerCategory> getCategs() {
         return categs;
     }
 
-    private static List<RideCat> ridecategs = getRideCategories();
+    private static List<RideCategory> ridecategs = getRideCategories();
 
-    public List<RideCat> getRidecategs() {
+    public List<RideCategory> getRidecategs() {
         return ridecategs;
     }
-    private static final List<Set<RideCat>> rideCategories =
+    private static final List<Set<RideCategory>> rideCategories =
             List.of(new HashSet<>(), new HashSet<>(List.of(ridecategs.get(0), ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(2), ridecategs.get(3))));
     private static final List<Set<PassengerCategory>> passengerCategories =
             List.of(new HashSet<>(), new HashSet<>(List.of(categs.get(0), categs.get(1))), new HashSet<>(List.of(categs.get(2))), new HashSet<>(List.of(categs.get(3), categs.get(0))));
@@ -115,13 +110,13 @@ public final class TestDataGenerator {
         return list;
     }
 
-    public static List<RideCat> getRideCategories() {
-        List<RideCat> list = new ArrayList<>();
-        list.add(new RideCat("Dovolená"));
-        list.add(new RideCat("Cesta do práce"));
-        list.add(new RideCat("Projížďka"));
-        list.add(new RideCat("Nákupy"));
-        list.add(new RideCat("Jiné"));
+    public static List<RideCategory> getRideCategories() {
+        List<RideCategory> list = new ArrayList<>();
+        list.add(new RideCategory("Dovolená"));
+        list.add(new RideCategory("Cesta do práce"));
+        list.add(new RideCategory("Projížďka"));
+        list.add(new RideCategory("Nákupy"));
+        list.add(new RideCategory("Jiné"));
         return list;
     }
 

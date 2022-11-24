@@ -1,10 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 
-import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerCategoryValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.RideCategoryValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 
@@ -16,16 +14,16 @@ import java.util.Scanner;
 
 public class ImportRideCategories {
 
-    static List<RideCat> importRideCategories(File rideCategories) throws FileNotFoundException {
+    static List<RideCategory> importRideCategories(File rideCategories) throws FileNotFoundException {
         Scanner reader = new Scanner(rideCategories);
-        List<RideCat> rideCategoryList = new ArrayList<>();
+        List<RideCategory> rideCategoryList = new ArrayList<>();
         while (reader.hasNextLine()) {
             rideCategoryList.add(importRideCategory(ManipulationUtils.splitter(reader.nextLine())));
         }
         return rideCategoryList;
     }
 
-    private static RideCat importRideCategory(String[] lineSplit) {
+    private static RideCategory importRideCategory(String[] lineSplit) {
         ManipulationUtils.trimAllStringsInArray(lineSplit);
 
         if (lineSplit.length != ManipulationUtils.RIDE_CATEGORIES_PARAMETER_COUNT) {
@@ -42,6 +40,6 @@ public class ImportRideCategories {
             new ErrorDialog(MainWindow.getFrame(), "Problém při načítání kategorií jízd");
             throw new DataManipulationException("Problém s načtením kategorií jízd.", e);
         }
-        return new RideCat(Long.parseLong(idString), name);
+        return new RideCategory(Long.parseLong(idString), name);
     }
 }

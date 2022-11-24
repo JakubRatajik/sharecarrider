@@ -5,6 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.*;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
@@ -96,10 +97,10 @@ public class ExportDialog extends DialogBase {
                     exportPassengers.export((List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData(),
                             passengers.getAbsolutePath());
                     ExportPassengerCategories exportPassengerCategories = new ExportPassengerCategories();
-                    exportPassengerCategories.export((List<PassengerCategory>) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY).getData(),
+                    exportPassengerCategories.export((List<PassengerCategory>) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY).getData(),
                             passengersCategories.getAbsolutePath());
                     ExportRideCategories exportRideCategories = new ExportRideCategories();
-                    exportRideCategories.export((List<RideCat>) Shortcut.getTableModel(TableCategory.RIDECATEGORY).getData(),
+                    exportRideCategories.export((List<RideCategory>) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY).getData(),
                             ridesCategories.getAbsolutePath());
                     dispose();
                 }

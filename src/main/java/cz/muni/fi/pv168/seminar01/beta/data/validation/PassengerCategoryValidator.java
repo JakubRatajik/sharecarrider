@@ -1,12 +1,11 @@
 package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 public class PassengerCategoryValidator {
     public static void validatePassengerCategory(String id, String name) {
-        if (id == null || !CommonValidator.isValidLongParsing(id) || Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY).getObjectById(Long.parseLong(id)) != null) {
+        if (id == null || !CommonValidator.isValidLongParsing(id) || Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY).getObjectById(Long.parseLong(id)) != null) {
             throw new ValidationException("Neplatné ID Kategorie pasažérů.");
         }
 //        if (!CommonValidator.isValidLongAlphaSpaceString(name)) {

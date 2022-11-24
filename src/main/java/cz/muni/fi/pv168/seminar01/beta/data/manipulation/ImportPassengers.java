@@ -4,11 +4,10 @@ import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import java.io.File;
@@ -48,7 +47,7 @@ public class ImportPassengers {
         Set<PassengerCategory> categorySet = new HashSet<>();
         if (categories.length() > 2) {
             for (String category : ManipulationUtils.listParser(categories)) {
-                PassengerCategory temporaryObject = ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY)).getObjectById(Long.parseLong(category));
+                PassengerCategory temporaryObject = ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY)).getObjectById(Long.parseLong(category));
                 categorySet.add(temporaryObject);
             }
 

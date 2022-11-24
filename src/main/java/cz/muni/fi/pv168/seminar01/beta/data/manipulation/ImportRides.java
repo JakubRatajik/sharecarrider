@@ -5,9 +5,8 @@ import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.*;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import java.io.File;
@@ -64,7 +63,7 @@ public class ImportRides {
         LocalTime departure = LocalTime.parse(departureString);
         LocalTime arrival = LocalTime.parse(arrivalString);
         int distance = Integer.parseInt(distanceString);
-        Set<RideCat> categories = new HashSet<>();
+        Set<RideCategory> categories = new HashSet<>();
         Set<Passenger> passengers = new HashSet<>();
         Vehicle vehicle = (Vehicle) Shortcut.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(vehicleIdString));
         Repetition repetition = Enum.valueOf(Repetition.class, repetitionString);
@@ -73,7 +72,7 @@ public class ImportRides {
         String cat = lineSplit[7];
         if (cat.length() > 2) {
             for (String category: ManipulationUtils.listParser(cat)) {
-                categories.add(((RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDECATEGORY)).getCategoryByID(Long.parseLong(category)));
+                categories.add(((RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY)).getCategoryByID(Long.parseLong(category)));
             }
         }
 

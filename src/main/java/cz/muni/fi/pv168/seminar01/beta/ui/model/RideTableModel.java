@@ -2,7 +2,6 @@ package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
 import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 
 import java.time.LocalDate;
@@ -61,7 +60,7 @@ public class RideTableModel extends ShareCarRiderTableModel<Ride> {
             case 2 -> ride.setFrom((String) attribute);
             case 3 -> ride.setTo((String) attribute);
             case 4 -> ride.setDistance((Integer) attribute);
-            case 5 -> ride.setCategories((Collection<RideCat>) attribute);
+            case 5 -> ride.setCategories((Collection<RideCategory>) attribute);
         }
     }
 }

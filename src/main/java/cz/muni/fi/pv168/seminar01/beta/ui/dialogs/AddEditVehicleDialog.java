@@ -3,7 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.VehicleValidator;
 import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;

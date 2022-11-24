@@ -26,7 +26,6 @@ public class IDGenerator {
         long prefix;
         if (
                 caller.equals(Ride.class) ||
-                        caller.equals(RideCategory.class) ||
                         caller.equals(Passenger.class) ||
                         caller.equals(Vehicle.class) ||
                         caller.equals(Category.class)
