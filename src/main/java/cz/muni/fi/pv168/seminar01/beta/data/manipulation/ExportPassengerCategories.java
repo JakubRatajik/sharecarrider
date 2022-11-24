@@ -5,7 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import java.util.Arrays;
 import java.util.List;
 
-public class ExportPassengerCategories extends AbstractExporter<PassengerCategory>{
+public class ExportPassengerCategories extends AbstractExporter<PassengerCategory> {
 
     @Override
     protected String createCsvLine(PassengerCategory element) {

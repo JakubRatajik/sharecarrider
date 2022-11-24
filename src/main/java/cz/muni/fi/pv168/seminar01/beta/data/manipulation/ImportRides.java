@@ -2,7 +2,11 @@ package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 
 import cz.muni.fi.pv168.seminar01.beta.data.validation.RideValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.model.*;
+import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
+import cz.muni.fi.pv168.seminar01.beta.model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
@@ -13,7 +17,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
 
 public class ImportRides {
 
@@ -53,8 +61,7 @@ public class ImportRides {
         try {
             RideValidator.validateRide(idString, dateString, departureString, arrivalString, from, to,
                     distanceString, categoriesString, passengerListString, vehicleIdString, repetitionString, description);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             throw new DataManipulationException("Problém s načtením jízd.", e);
         }
 
@@ -71,7 +78,7 @@ public class ImportRides {
 
         String cat = lineSplit[7];
         if (cat.length() > 2) {
-            for (String category: ManipulationUtils.listParser(cat)) {
+            for (String category : ManipulationUtils.listParser(cat)) {
                 categories.add(((RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY)).getCategoryByID(Long.parseLong(category)));
             }
         }

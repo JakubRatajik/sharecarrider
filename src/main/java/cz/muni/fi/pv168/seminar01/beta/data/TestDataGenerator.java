@@ -31,21 +31,6 @@ public final class TestDataGenerator {
             List.of("Nováková", "Novotná", "Dvořáková", "Černá", "Procházková", "Šťastná", "Veselá", "Horáková", "Němcová", "Pokorná");
     private static final List<String> phoneNumbers =
             List.of("+420777408524", "+420668745827", "+420584401287", "+421875428554", "+421668547421", "+421542875142");
-    private static List<PassengerCategory> categs = getPassengerCategories();
-
-    public List<PassengerCategory> getCategs() {
-        return categs;
-    }
-
-    private static List<RideCategory> ridecategs = getRideCategories();
-
-    public List<RideCategory> getRidecategs() {
-        return ridecategs;
-    }
-    private static final List<Set<RideCategory>> rideCategories =
-            List.of(new HashSet<>(), new HashSet<>(List.of(ridecategs.get(0), ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(2), ridecategs.get(3))));
-    private static final List<Set<PassengerCategory>> passengerCategories =
-            List.of(new HashSet<>(), new HashSet<>(List.of(categs.get(0), categs.get(1))), new HashSet<>(List.of(categs.get(2))), new HashSet<>(List.of(categs.get(3), categs.get(0))));
     private static final Map<String, Map<String, Integer>> brands = Map.of(
             "VW", Map.of("Arteon", 5, "Touran", 5, "Golf", 5, "Polo", 5),
             "Audi", Map.of("A6", 5, "A7", 5, "Q5", 5, "R8", 2),
@@ -54,10 +39,21 @@ public final class TestDataGenerator {
             "Ferrari", Map.of("F8", 2, "458 Italia", 2),
             "Zetor", Map.of("Crystal", 1, "Proxima", 1)
     );
-
     private static final List<String> descriptions = getDescriptions();
+    private static final List<String> destinations =
+            List.of("Supíkovice", "Vranov nad Topľou", "Kino Scala", "Skybar", "Brno", "Bratislava", "Vídeň", "*tajné*");
+    private static List<PassengerCategory> categs = getPassengerCategories();
+    private static final List<Set<PassengerCategory>> passengerCategories =
+            List.of(new HashSet<>(), new HashSet<>(List.of(categs.get(0), categs.get(1))), new HashSet<>(List.of(categs.get(2))), new HashSet<>(List.of(categs.get(3), categs.get(0))));
+    private static List<RideCategory> ridecategs = getRideCategories();
+    private static final List<Set<RideCategory>> rideCategories =
+            List.of(new HashSet<>(), new HashSet<>(List.of(ridecategs.get(0), ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(2), ridecategs.get(3))));
+    private final Random random = new Random(2L);
+    private final List<Passenger> passengers = new ArrayList<>();
+    private final List<Vehicle> vehicles = new ArrayList<>();
+    private final List<Ride> rides = new ArrayList<>();
 
-    private static List<String> getDescriptions()  {
+    private static List<String> getDescriptions() {
         List<String> s = new ArrayList<>();
         s.add("");
         s.add("Super jízda");
@@ -69,14 +65,32 @@ public final class TestDataGenerator {
         return s;
     }
 
-    private static final List<String> destinations =
-            List.of("Supíkovice", "Vranov nad Topľou", "Kino Scala", "Skybar", "Brno", "Bratislava", "Vídeň", "*tajné*");
+    public static List<PassengerCategory> getPassengerCategories() {
+        List<PassengerCategory> list = new ArrayList<>();
+        list.add(new PassengerCategory("Firma A"));
+        list.add(new PassengerCategory("Firma B"));
+        list.add(new PassengerCategory("Rodina"));
+        list.add(new PassengerCategory("Milenky"));
+        return list;
+    }
 
-    private final Random random = new Random(2L);
+    public static List<RideCategory> getRideCategories() {
+        List<RideCategory> list = new ArrayList<>();
+        list.add(new RideCategory("Dovolená"));
+        list.add(new RideCategory("Cesta do práce"));
+        list.add(new RideCategory("Projížďka"));
+        list.add(new RideCategory("Nákupy"));
+        list.add(new RideCategory("Jiné"));
+        return list;
+    }
 
-    private final List<Passenger> passengers = new ArrayList<>();
-    private final List<Vehicle> vehicles = new ArrayList<>();
-    private final List<Ride> rides = new ArrayList<>();
+    public List<PassengerCategory> getCategs() {
+        return categs;
+    }
+
+    public List<RideCategory> getRidecategs() {
+        return ridecategs;
+    }
 
     public Passenger createPassenger() {
         int gender = selectRandom(genders);
@@ -99,25 +113,6 @@ public final class TestDataGenerator {
         Vehicle vehicle = new Vehicle(Integer.toString(Objects.hash(brand, type)), brand, type, brands.get(brand).get(type), (float) (randomInt(35, 200)) / 10, fuelType);
         vehicles.add(vehicle);
         return vehicle;
-    }
-
-    public static List<PassengerCategory> getPassengerCategories() {
-        List<PassengerCategory> list = new ArrayList<>();
-        list.add(new PassengerCategory("Firma A"));
-        list.add(new PassengerCategory("Firma B"));
-        list.add(new PassengerCategory("Rodina"));
-        list.add(new PassengerCategory("Milenky"));
-        return list;
-    }
-
-    public static List<RideCategory> getRideCategories() {
-        List<RideCategory> list = new ArrayList<>();
-        list.add(new RideCategory("Dovolená"));
-        list.add(new RideCategory("Cesta do práce"));
-        list.add(new RideCategory("Projížďka"));
-        list.add(new RideCategory("Nákupy"));
-        list.add(new RideCategory("Jiné"));
-        return list;
     }
 
     public Ride createRide() {

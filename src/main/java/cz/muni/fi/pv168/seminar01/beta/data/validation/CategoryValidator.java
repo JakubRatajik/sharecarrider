@@ -4,7 +4,8 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 public class CategoryValidator {
-    private CategoryValidator() {}
+    private CategoryValidator() {
+    }
 
     private static boolean isCategoryValid(String id, String name, TableCategory tableCategory) {
         return id != null

@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * @author Jan Macecek
  */
-public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCategory>{
+public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCategory> {
 
 
     public RideCategoryTableModel() {
-        super(new String[] {"Název"}, SampleUsage.getRideCategories());
+        super(new String[]{"Název"}, SampleUsage.getRideCategories());
     }
 
     @Override

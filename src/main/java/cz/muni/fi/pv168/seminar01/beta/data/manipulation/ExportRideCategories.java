@@ -5,7 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import java.util.Arrays;
 import java.util.List;
 
-public class ExportRideCategories extends AbstractExporter<RideCategory>{
+public class ExportRideCategories extends AbstractExporter<RideCategory> {
 
     @Override
     protected String createCsvLine(RideCategory element) {

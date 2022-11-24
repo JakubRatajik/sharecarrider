@@ -20,6 +20,7 @@ public class CommonValidator {
     /**
      * Checks if given string contains only czech characters, space, and consists
      * of exactly 1-100 characters.
+     *
      * @param string to validate
      * @return true if string satisfies given conditions, false otherwise.
      */
@@ -30,6 +31,7 @@ public class CommonValidator {
     /**
      * Checks if given string contains only czech alphanumeric characters, space,
      * and consists of exactly 1-100 characters.
+     *
      * @param string to validate
      * @return true if string satisfies given requirements, false otherwise.
      */

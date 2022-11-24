@@ -36,9 +36,14 @@ public class MainWindow {
         return passengersTabFrame;
     }
 
-    public static TabFrame getPassengerCategoriesTabFrame() {return passengerCategoriesTabFrame;}
+    public static TabFrame getPassengerCategoriesTabFrame() {
+        return passengerCategoriesTabFrame;
+    }
 
-    public static TabFrame getRideCategoriesTabFrame() {return rideCategoriesTabFrame;}
+    public static TabFrame getRideCategoriesTabFrame() {
+        return rideCategoriesTabFrame;
+    }
+
     public static FuelPrice getFuelPrice() {
         return fuelPrice;
     }

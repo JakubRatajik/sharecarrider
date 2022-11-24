@@ -2,7 +2,11 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.data.validation.RideValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.model.*;
+import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
+import cz.muni.fi.pv168.seminar01.beta.model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
@@ -260,7 +264,6 @@ public class AddEditRideDialog extends AddEditDialog {
         categoriesPanel.add(this.categories);
         UIUtilities.formatWhiteTextBrownDialog(categoriesPanel);
         central.add(categoriesPanel);
-
 
 
         setSize(500, 600);

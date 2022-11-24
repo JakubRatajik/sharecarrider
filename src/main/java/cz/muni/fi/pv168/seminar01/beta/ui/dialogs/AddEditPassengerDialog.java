@@ -4,11 +4,11 @@ import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
@@ -111,7 +111,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
         center.add(new JLabel("•  Telefon:"));
         center.add(this.phoneNumber);
         center.add(new JLabel("•  Kategorie:"));
-        for (PassengerCategory cat: categories.keySet()) {
+        for (PassengerCategory cat : categories.keySet()) {
             center.add(categories.get(cat));
             center.add(new JLabel(" "));
         }

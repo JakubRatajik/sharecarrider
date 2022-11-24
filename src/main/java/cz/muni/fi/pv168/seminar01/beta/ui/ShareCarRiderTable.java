@@ -3,7 +3,6 @@ package cz.muni.fi.pv168.seminar01.beta.ui;
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideDialog;
@@ -18,6 +17,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
@@ -52,7 +52,8 @@ public class ShareCarRiderTable extends JTable {
             case RIDES -> setModel(new RideTableModel());
             case VEHICLES -> setModel(new VehicleTableModel());
             case PASSENGERS -> setModel(new PassengerTableModel());
-            case PASSENGER_CATEGORY -> setModel(new PassengerCategoryTableModel());
+            case PASSENGER_CATEGORY ->
+                    setModel(new PassengerCategoryTableModel());
             case RIDE_CATEGORY -> setModel(new RideCategoryTableModel());
             default -> setModel(new DefaultTableModel());
         }
@@ -136,7 +137,8 @@ public class ShareCarRiderTable extends JTable {
             case VEHICLES -> addVehicleTableActionListeners();
             case RIDES -> addRideTableActionListeners();
             case PASSENGERS -> addPassengerTableActionListeners();
-            case PASSENGER_CATEGORY -> addPassengerCategoryTableActionListeners();
+            case PASSENGER_CATEGORY ->
+                    addPassengerCategoryTableActionListeners();
             case RIDE_CATEGORY -> addRideCategoryTableActionListeners();
         }
 
@@ -294,7 +296,6 @@ public class ShareCarRiderTable extends JTable {
     }
 
 
-
     private void addRideCategoryTableActionListeners() {
         detailPopupMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -328,10 +329,6 @@ public class ShareCarRiderTable extends JTable {
             }
         });
     }
-
-
-
-
 
 
     private void initDoubleClickListener() {

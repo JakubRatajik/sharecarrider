@@ -62,7 +62,11 @@ public final class SampleUsage {
         return rides;
     }
 
-    public static List<PassengerCategory> getPassengerCategories() { return PASSENGER_CATEGORIES;}
+    public static List<PassengerCategory> getPassengerCategories() {
+        return PASSENGER_CATEGORIES;
+    }
 
-    public static List<RideCategory> getRideCategories() { return rideCategories;}
+    public static List<RideCategory> getRideCategories() {
+        return rideCategories;
+    }
 }

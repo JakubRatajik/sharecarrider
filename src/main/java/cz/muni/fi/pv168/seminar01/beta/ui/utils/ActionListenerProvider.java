@@ -1,6 +1,5 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.utils;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
@@ -12,6 +11,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterPassengersDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterRidesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterVehiclesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.TemporaryDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,7 +45,7 @@ public final class ActionListenerProvider {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
             }
         };
 
@@ -53,14 +53,14 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
             }
         };
 
         ActionListener filter = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
             }
         };
 
@@ -90,18 +90,11 @@ public final class ActionListenerProvider {
     }
 
 
-
-
-
-
-
-
-
     private static List<ActionListener> getALsForRideCategories() {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
             }
         };
 
@@ -109,14 +102,14 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
             }
         };
 
         ActionListener filter = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
             }
         };
 
@@ -144,7 +137,6 @@ public final class ActionListenerProvider {
         categories.add(delete);
         return categories;
     }
-
 
 
     /**
