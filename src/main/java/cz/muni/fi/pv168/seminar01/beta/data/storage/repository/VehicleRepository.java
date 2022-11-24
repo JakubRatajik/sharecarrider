@@ -11,6 +11,8 @@ import java.util.Optional;
  * @author Jan Macecek
  */
 public class VehicleRepository implements Repository<Vehicle> {
+
+    // --TODO Add Mapper, Dao as attributes
     private List<Vehicle> vehicles = new ArrayList<>();
 
     public VehicleRepository() {
@@ -41,7 +43,7 @@ public class VehicleRepository implements Repository<Vehicle> {
 
     @Override
     public void refresh() {
-
+        //--TODO db functionality add
     }
 
     @Override
@@ -52,7 +54,7 @@ public class VehicleRepository implements Repository<Vehicle> {
 
     @Override
     public void update(Vehicle entity) {
-
+        //--TODO db functionality add
     }
 
     @Override
