@@ -11,6 +11,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+/**
+ * Class used for importing
+ * as input, class gets 5 File handlers and using other Manipulation package classes
+ * imports all necessary data to the application
+ */
 public class ImporterBase {
 
     public static void loadData(File rides, File vehicles, File passengers, File passengerCategories, File rideCategories) {
