@@ -1,7 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
 import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
 
 /**

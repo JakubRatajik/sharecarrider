@@ -2,7 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.data;
 
 import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
@@ -35,10 +35,12 @@ public final class TestDataGenerator {
             List.of("+420777408524", "+420668745827", "+420584401287", "+421875428554", "+421668547421", "+421542875142");
     private static final RideCategory RIDE_CATEGORY_1 = new RideCategory(Color.BLUE, "work");
     private static final RideCategory RIDE_CATEGORY_2 = new RideCategory(Color.YELLOW, "party");
+
+    private static List<PassengerCategory> categs = getPassengerCategories();
     private static final List<Set<RideCategory>> rideCategories =
             List.of(new HashSet<>(), new HashSet<>(List.of(RIDE_CATEGORY_1, RIDE_CATEGORY_2)), new HashSet<>(List.of(RIDE_CATEGORY_1)), new HashSet<>(List.of(RIDE_CATEGORY_2)));
-    private static final List<Set<PassengerCat>> passengerCategories =
-            List.of(new HashSet<>(), new HashSet<>(List.of(getPassengerCategories().get(0), getPassengerCategories().get(1))), new HashSet<>(List.of(getPassengerCategories().get(2))), new HashSet<>(List.of(getPassengerCategories().get(3), getPassengerCategories().get(0))));
+    private static final List<Set<PassengerCategory>> passengerCategories =
+            List.of(new HashSet<>(), new HashSet<>(List.of(categs.get(0), categs.get(1))), new HashSet<>(List.of(categs.get(2))), new HashSet<>(List.of(categs.get(3), categs.get(0))));
     private static final Map<String, Map<String, Integer>> brands = Map.of(
             "VW", Map.of("Arteon", 5, "Touran", 5, "Golf", 5, "Polo", 5),
             "Audi", Map.of("A6", 5, "A7", 5, "Q5", 5, "R8", 2),
@@ -80,12 +82,12 @@ public final class TestDataGenerator {
         return vehicle;
     }
 
-    public static List<PassengerCat> getPassengerCategories() {
-        List<PassengerCat> list = new ArrayList<>();
-        list.add(new PassengerCat("Firma A"));
-        list.add(new PassengerCat("Firma B"));
-        list.add(new PassengerCat("Rodina"));
-        list.add(new PassengerCat("Milenky"));
+    public static List<PassengerCategory> getPassengerCategories() {
+        List<PassengerCategory> list = new ArrayList<>();
+        list.add(new PassengerCategory("Firma A"));
+        list.add(new PassengerCategory("Firma B"));
+        list.add(new PassengerCategory("Rodina"));
+        list.add(new PassengerCategory("Milenky"));
         return list;
     }
 

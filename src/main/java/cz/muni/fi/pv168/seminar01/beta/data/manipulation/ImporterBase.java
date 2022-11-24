@@ -163,7 +163,7 @@ public class ImporterBase {
             throw new DataManipulationException("Problém s načtením pasažérů.", e);
         }
 
-        Set<PassengerCat> categorySet = new HashSet<>();
+        Set<PassengerCategory> categorySet = new HashSet<>();
         if (categories.length() > 2) {
             for (String category : listParser(categories)) {
                 categorySet.add(((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY)).getCategoryByID(Long.parseLong(category)));

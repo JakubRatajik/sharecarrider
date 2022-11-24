@@ -3,7 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
@@ -24,7 +24,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
     private JTextField firstName;
     private JTextField lastName;
     private JTextField phoneNumber;
-    private Map<PassengerCat, JCheckBox> categories;
+    private Map<PassengerCategory, JCheckBox> categories;
 
     public AddEditPassengerDialog(Frame frame, String firstName) {
         super(frame, firstName);
@@ -85,7 +85,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
         lastName = UIUtilities.createTextField();
         phoneNumber = UIUtilities.createTextField();
         categories = new HashMap<>();
-        for (PassengerCat category : ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY)).getCategories()) {
+        for (PassengerCategory category : ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY)).getCategories()) {
             categories.put(category, new JCheckBox(" " + category.getName()));
         }
 
@@ -93,7 +93,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
             firstName.setText(passenger.getFirstName());
             lastName.setText(passenger.getLastName());
             phoneNumber.setText(passenger.getPhoneNumber());
-            for (PassengerCat category : passenger.getCategories()) {
+            for (PassengerCategory category : passenger.getCategories()) {
                 categories.get(category).setSelected(true);
             }
         }
@@ -111,7 +111,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
         center.add(new JLabel("•  Telefon:"));
         center.add(this.phoneNumber);
         center.add(new JLabel("•  Kategorie:"));
-        for (PassengerCat cat: categories.keySet()) {
+        for (PassengerCategory cat: categories.keySet()) {
             center.add(categories.get(cat));
             center.add(new JLabel(" "));
         }
@@ -150,7 +150,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
         }
     }
 
-    public Set<PassengerCat> getSelectedCategories() {
+    public Set<PassengerCategory> getSelectedCategories() {
         return categories.keySet().stream()
                 .filter(key -> categories.get(key).isSelected())
                 .collect(Collectors.toSet());

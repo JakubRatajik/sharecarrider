@@ -1,11 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Jakub Ratajik

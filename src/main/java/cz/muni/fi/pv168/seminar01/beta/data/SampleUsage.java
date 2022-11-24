@@ -1,7 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.data;
 
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
@@ -19,7 +19,7 @@ public final class SampleUsage {
     private static final List<Passenger> passengers = new ArrayList<>();
     private static final List<Ride> rides = new ArrayList<>();
 
-    private static final List<PassengerCat> passengerCategories = new ArrayList<>();
+    private static final List<PassengerCategory> PASSENGER_CATEGORIES = new ArrayList<>();
 
     private static final List<RideCat> rideCategories = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public final class SampleUsage {
         for (int i = 0; i < 35; i++) {
             rides.add(testDataGenerator.createRide());
         }
-        passengerCategories.addAll(testDataGenerator.getPassengerCategories());
+        PASSENGER_CATEGORIES.addAll(testDataGenerator.getPassengerCategories());
         rideCategories.addAll(testDataGenerator.getRideCategories());
 
     }
@@ -62,7 +62,7 @@ public final class SampleUsage {
         return rides;
     }
 
-    public static List<PassengerCat> getPassengerCategories() { return passengerCategories;}
+    public static List<PassengerCategory> getPassengerCategories() { return PASSENGER_CATEGORIES;}
 
     public static List<RideCat> getRideCategories() { return rideCategories;}
 }
