@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * author @Kateřina Vácová
+ * @author Kateřina Vácová
  */
 
 public abstract class DialogBase extends JDialog {
@@ -17,6 +17,11 @@ public abstract class DialogBase extends JDialog {
 
     }
 
+    /**
+     * @param attribute This parameter is for passing an object to a dialog.
+     *                  It's useful mainly for edit dialogs, where should be an object prefilled.
+     *                  For example passenger edit dialog can get Passenger object, and get its name, phone number etc.
+     */
     public DialogBase(Frame frame, String name, Object attribute) {
         super(frame, name);
         addAttribute(attribute);
