@@ -19,11 +19,11 @@ import java.util.*;
 public class ImporterBase {
 
     public static void loadData(File rides, File vehicles, File passengers, File passengerCategories, File rideCategories) {
-        List<Passenger> passengerList = new ArrayList<>();
-        List<Ride> rideList = new ArrayList<>();
-        List<Vehicle> vehicleList = new ArrayList<>();
-        List<PassengerCategory> passengerCategoryList = new ArrayList<>();
-        List<RideCategory> rideCategoryList = new ArrayList<>();
+        List<Passenger> passengerList;
+        List<Ride> rideList;
+        List<Vehicle> vehicleList;
+        List<PassengerCategory> passengerCategoryList;
+        List<RideCategory> rideCategoryList;
         try {
             if (passengerCategories != null) {
                 passengerCategoryList = ImportPassengerCategories.importPassengerCategories(passengerCategories);
@@ -52,26 +52,8 @@ public class ImporterBase {
                 }
             }
         } catch (DataManipulationException | ValidationException | FileNotFoundException e) {
-            System.out.println(e.getStackTrace());
+            System.out.println(Arrays.toString(e.getStackTrace()));
             new ErrorDialog(MainWindow.getFrame(), e);
-            return;
         }
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
 }
