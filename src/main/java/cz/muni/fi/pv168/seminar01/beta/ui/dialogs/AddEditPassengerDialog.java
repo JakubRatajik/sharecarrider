@@ -3,15 +3,15 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
 import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +24,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
     private JTextField firstName;
     private JTextField lastName;
     private JTextField phoneNumber;
-    private Map<PassengerCategory, JCheckBox> categories;
+    private Map<PassengerCat, JCheckBox> categories;
 
     public AddEditPassengerDialog(Frame frame, String firstName) {
         super(frame, firstName);
@@ -85,15 +85,15 @@ public class AddEditPassengerDialog extends AddEditDialog {
         lastName = UIUtilities.createTextField();
         phoneNumber = UIUtilities.createTextField();
         categories = new HashMap<>();
-        for (PassengerCategory category : PassengerCategory.values()) {
-            categories.put(category, new JCheckBox(" " + category));
+        for (PassengerCat category : ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY)).getCategories()) {
+            categories.put(category, new JCheckBox(" " + category.getName()));
         }
 
         if (passenger != null) {
             firstName.setText(passenger.getFirstName());
             lastName.setText(passenger.getLastName());
             phoneNumber.setText(passenger.getPhoneNumber());
-            for (PassengerCategory category : passenger.getCategories()) {
+            for (PassengerCat category : passenger.getCategories()) {
                 categories.get(category).setSelected(true);
             }
         }
@@ -101,8 +101,9 @@ public class AddEditPassengerDialog extends AddEditDialog {
 
     @Override
     protected void initializeContent(JPanel center) {
-        center.setLayout(new GridLayout(7, 2));
+        center.setLayout(new GridLayout(4 + categories.size(), 2));
         UIUtilities.formatWhiteTextBrownDialog(center);
+
         center.add(new JLabel("•  Jméno:"));
         center.add(this.firstName);
         center.add(new JLabel("•  Příjmení:"));
@@ -110,14 +111,13 @@ public class AddEditPassengerDialog extends AddEditDialog {
         center.add(new JLabel("•  Telefon:"));
         center.add(this.phoneNumber);
         center.add(new JLabel("•  Kategorie:"));
-        center.add(categories.get(PassengerCategory.WORK));
+        for (PassengerCat cat: categories.keySet()) {
+            center.add(categories.get(cat));
+            center.add(new JLabel(" "));
+        }
         center.add(new JLabel(" "));
-        center.add(categories.get(PassengerCategory.FAMILY));
-        center.add(new JLabel(" "));
-        center.add(categories.get(PassengerCategory.FRIENDS));
-        center.add(new JLabel(" "));
-        center.add(categories.get(PassengerCategory.OTHER));
-        setSize(330, 220);
+
+        setSize(330, 300);
     }
 
     @Override
@@ -150,7 +150,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
         }
     }
 
-    public Set<PassengerCategory> getSelectedCategories() {
+    public Set<PassengerCat> getSelectedCategories() {
         return categories.keySet().stream()
                 .filter(key -> categories.get(key).isSelected())
                 .collect(Collectors.toSet());

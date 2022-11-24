@@ -1,8 +1,9 @@
 package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,10 +39,7 @@ public class PassengerValidator {
         }
         List<String> categoriesList = Arrays.asList(
                 categories.substring(1, categories.length() - 1).split(", "));
-        return !categoriesList.stream()
-                .map(PassengerCategory::valueOf)
-                .collect(Collectors.toSet())
-                .contains(null);
+        return !new HashSet<>(categoriesList).contains(null);
     }
 
     public static void validatePassenger(String firstName, String lastName, String phoneNumber) {

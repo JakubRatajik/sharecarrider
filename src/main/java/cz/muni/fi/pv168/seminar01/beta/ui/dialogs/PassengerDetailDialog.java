@@ -35,12 +35,12 @@ public class PassengerDetailDialog extends DetailDialog {
         if (categoriesCount != 0) {
             height += 10;
             center.add(new JLabel("•  Kategorie:"));
-            center.add(new JLabel(passenger.getCategories().stream().toList().get(0).toString()));
+            center.add(new JLabel(passenger.getCategories().stream().toList().get(0).getName()));
         }
         for (int i = 1; i < categoriesCount; i++) {
             height += 10;
             center.add(new JLabel(""));
-            center.add(new JLabel(passenger.getCategories().stream().toList().get(i).toString()));
+            center.add(new JLabel(passenger.getCategories().stream().toList().get(i).getName()));
         }
         add(center, BorderLayout.CENTER);
         setSize(330, height);

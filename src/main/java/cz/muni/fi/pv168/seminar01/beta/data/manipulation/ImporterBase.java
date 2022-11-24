@@ -3,13 +3,8 @@ package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.VehicleValidator;
-import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
-import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
-import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.model.*;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
@@ -168,10 +163,10 @@ public class ImporterBase {
             throw new DataManipulationException("Problém s načtením pasažérů.", e);
         }
 
-        Set<PassengerCategory> categorySet = new HashSet<>();
+        Set<PassengerCat> categorySet = new HashSet<>();
         if (categories.length() > 2) {
             for (String category : listParser(categories)) {
-                categorySet.add(PassengerCategory.fromString(category));
+                categorySet.add(((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY)).getCategoryByID(Long.parseLong(category)));
             }
 
         }

@@ -17,7 +17,7 @@ public class ExportPassengers extends AbstractExporter<Passenger> {
                 element.getFirstName(),
                 element.getLastName(),
                 element.getPhoneNumber(),
-                element.getCategories().toString());
+                element.getCategoryIDs().toString());
 
         return String.join(SEPARATOR, data);
     }

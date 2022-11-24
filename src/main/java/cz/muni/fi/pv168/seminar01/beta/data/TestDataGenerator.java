@@ -3,7 +3,6 @@ package cz.muni.fi.pv168.seminar01.beta.data;
 import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCat;
@@ -38,8 +37,8 @@ public final class TestDataGenerator {
     private static final RideCategory RIDE_CATEGORY_2 = new RideCategory(Color.YELLOW, "party");
     private static final List<Set<RideCategory>> rideCategories =
             List.of(new HashSet<>(), new HashSet<>(List.of(RIDE_CATEGORY_1, RIDE_CATEGORY_2)), new HashSet<>(List.of(RIDE_CATEGORY_1)), new HashSet<>(List.of(RIDE_CATEGORY_2)));
-    private static final List<Set<PassengerCategory>> passengerCategories =
-            List.of(new HashSet<>(), new HashSet<>(List.of(PassengerCategory.OTHER, PassengerCategory.FRIENDS)), new HashSet<>(List.of(PassengerCategory.WORK)), new HashSet<>(List.of(PassengerCategory.WORK, PassengerCategory.FRIENDS)));
+    private static final List<Set<PassengerCat>> passengerCategories =
+            List.of(new HashSet<>(), new HashSet<>(List.of(getPassengerCategories().get(0), getPassengerCategories().get(1))), new HashSet<>(List.of(getPassengerCategories().get(2))), new HashSet<>(List.of(getPassengerCategories().get(3), getPassengerCategories().get(0))));
     private static final Map<String, Map<String, Integer>> brands = Map.of(
             "VW", Map.of("Arteon", 5, "Touran", 5, "Golf", 5, "Polo", 5),
             "Audi", Map.of("A6", 5, "A7", 5, "Q5", 5, "R8", 2),
@@ -81,7 +80,7 @@ public final class TestDataGenerator {
         return vehicle;
     }
 
-    public List<PassengerCat> getPassengerCategories() {
+    public static List<PassengerCat> getPassengerCategories() {
         List<PassengerCat> list = new ArrayList<>();
         list.add(new PassengerCat("Firma A"));
         list.add(new PassengerCat("Firma B"));
@@ -90,7 +89,7 @@ public final class TestDataGenerator {
         return list;
     }
 
-    public List<RideCat> getRideCategories() {
+    public static List<RideCat> getRideCategories() {
         List<RideCat> list = new ArrayList<>();
         list.add(new RideCat("Dovolená"));
         list.add(new RideCat("Cesta do práce"));

@@ -10,16 +10,16 @@ import java.util.stream.Collectors;
  */
 public class Passenger implements HasID {
     private final long id;
-    private final Set<PassengerCategory> categories = new HashSet<>();
+    private final Set<PassengerCat> categories = new HashSet<>();
     private String firstName;
     private String lastName;
     private String phoneNumber;
 
-    public Passenger(String firstName, String lastName, String phoneNumber, Set<PassengerCategory> categories) {
+    public Passenger(String firstName, String lastName, String phoneNumber, Set<PassengerCat> categories) {
         this(IDGenerator.getNewID(Passenger.class), firstName, lastName, phoneNumber, categories);
     }
 
-    public Passenger(long id, String firstName, String lastName, String phoneNumber, Set<PassengerCategory> categories) {
+    public Passenger(long id, String firstName, String lastName, String phoneNumber, Set<PassengerCat> categories) {
         setFirstName(firstName);
         setLastName(lastName);
         setPhoneNumber(phoneNumber);
@@ -27,12 +27,12 @@ public class Passenger implements HasID {
         this.id = id;
     }
 
-    public void addCategory(PassengerCategory rideCategory) {
-        categories.add(rideCategory);
+    public void addCategory(PassengerCat passengerCategory) {
+        categories.add(passengerCategory);
     }
 
-    public void removeCategory(PassengerCategory rideCategory) {
-        categories.remove(rideCategory);
+    public void removeCategory(PassengerCat passengerCategory) {
+        categories.remove(passengerCategory);
     }
 
     // getters and setters
@@ -61,18 +61,26 @@ public class Passenger implements HasID {
         this.phoneNumber = Objects.requireNonNull(phoneNumber, "phone number must not be null");
     }
 
-    public Set<PassengerCategory> getCategories() {
+    public Set<PassengerCat> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<PassengerCategory> categories) {
-        categories.clear();
+    public Set<Long> getCategoryIDs() {
+        Set<Long> set = new HashSet<>();
+        for(PassengerCat cat: categories) {
+            set.add(cat.getId());
+        }
+        return set;
+    }
+
+    public void setCategories(Set<PassengerCat> categories) {
+        this.categories.clear();
         this.categories.addAll(Objects.requireNonNull(categories, "categories must not be null"));
     }
 
     public String getCategoryNames() {
         return categories.stream()
-                .map(PassengerCategory::toString)
+                .map(PassengerCat::getName)
                 .collect(Collectors.joining(", "));
     }
 

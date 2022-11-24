@@ -1,12 +1,10 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
 import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
-import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCat;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Jan Macecek
@@ -44,5 +42,17 @@ public class PassengerCategoryTableModel extends ShareCarRiderTableModel<Passeng
             case 0 -> passengerCategory.setName((String) attribute);
 
         }
+    }
+
+    public List<PassengerCat> getCategories() {
+        List<PassengerCat> list = new ArrayList<>();
+        for (int i = 0; i < getRowCount(); i++) {
+            list.add(data.get(i));
+        }
+        return list;
+    }
+
+    public PassengerCat getCategoryByID(long wantedID) {
+        return getCategories().stream().filter(x -> x.getId() == wantedID).findFirst().orElse(null);
     }
 }
