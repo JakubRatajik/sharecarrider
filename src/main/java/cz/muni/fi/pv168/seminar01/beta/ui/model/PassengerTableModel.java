@@ -52,4 +52,5 @@ public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
                     passenger.setCategories((Set<PassengerCategory>) attribute);
         }
     }
+
 }

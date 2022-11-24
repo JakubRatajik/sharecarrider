@@ -45,8 +45,8 @@ public final class SampleUsage {
         for (int i = 0; i < 35; i++) {
             rides.add(testDataGenerator.createRide());
         }
-        PASSENGER_CATEGORIES.addAll(testDataGenerator.getPassengerCategories());
-        rideCategories.addAll(testDataGenerator.getRideCategories());
+        PASSENGER_CATEGORIES.addAll(testDataGenerator.getCategs());
+        rideCategories.addAll(testDataGenerator.getRidecategs());
 
     }
 

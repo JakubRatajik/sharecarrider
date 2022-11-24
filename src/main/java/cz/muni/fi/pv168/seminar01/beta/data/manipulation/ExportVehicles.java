@@ -21,6 +21,8 @@ public final class ExportVehicles extends AbstractExporter<Vehicle> {
                 String.valueOf(element.getConsumption()),
                 element.getFuelType().name());
 
-        return String.join(SEPARATOR, data);
+        return String.join(ManipulationUtils.SEPARATOR, data);
     }
+
+
 }

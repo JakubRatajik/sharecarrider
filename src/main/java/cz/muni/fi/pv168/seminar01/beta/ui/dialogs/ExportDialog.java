@@ -1,13 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportPassengers;
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportRides;
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportVehicles;
+import cz.muni.fi.pv168.seminar01.beta.data.manipulation.*;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.model.*;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
@@ -100,6 +95,12 @@ public class ExportDialog extends DialogBase {
                     ExportPassengers exportPassengers = new ExportPassengers();
                     exportPassengers.export((List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData(),
                             passengers.getAbsolutePath());
+                    ExportPassengerCategories exportPassengerCategories = new ExportPassengerCategories();
+                    exportPassengerCategories.export((List<PassengerCategory>) Shortcut.getTableModel(TableCategory.PASSENGERCATEGORY).getData(),
+                            passengersCategories.getAbsolutePath());
+                    ExportRideCategories exportRideCategories = new ExportRideCategories();
+                    exportRideCategories.export((List<RideCat>) Shortcut.getTableModel(TableCategory.RIDECATEGORY).getData(),
+                            ridesCategories.getAbsolutePath());
                     dispose();
                 }
             }

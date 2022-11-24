@@ -63,6 +63,9 @@ public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractT
     }
 
     public T getObjectById(long id) {
+        if (data.size() == 0) {
+            return null;
+        }
         return data.stream()
                 .filter(object -> object.getId() == id)
                 .findAny()

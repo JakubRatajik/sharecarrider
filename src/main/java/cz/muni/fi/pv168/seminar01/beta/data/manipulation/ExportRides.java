@@ -27,7 +27,7 @@ public class ExportRides extends AbstractExporter<Ride> {
                 element.getRepetition().name(),
                 element.getDescription());
 
-        return String.join(SEPARATOR, data);
+        return String.join(ManipulationUtils.SEPARATOR, data);
     }
 
     private <T extends HasID> List<Long> getIDs(Collection<T> elements) {

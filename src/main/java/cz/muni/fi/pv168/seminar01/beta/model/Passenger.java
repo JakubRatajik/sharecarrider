@@ -73,6 +73,7 @@ public class Passenger implements HasID {
         return set;
     }
 
+
     public void setCategories(Set<PassengerCategory> categories) {
         this.categories.clear();
         this.categories.addAll(Objects.requireNonNull(categories, "categories must not be null"));

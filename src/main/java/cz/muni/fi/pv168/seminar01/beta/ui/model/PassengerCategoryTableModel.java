@@ -52,7 +52,4 @@ public class PassengerCategoryTableModel extends ShareCarRiderTableModel<Passeng
         return list;
     }
 
-    public PassengerCategory getCategoryByID(long wantedID) {
-        return getCategories().stream().filter(x -> x.getId() == wantedID).findFirst().orElse(null);
-    }
 }

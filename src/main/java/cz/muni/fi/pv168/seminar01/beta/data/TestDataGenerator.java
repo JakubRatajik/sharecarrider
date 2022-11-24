@@ -38,7 +38,15 @@ public final class TestDataGenerator {
 
     private static List<PassengerCategory> categs = getPassengerCategories();
 
+    public List<PassengerCategory> getCategs() {
+        return categs;
+    }
+
     private static List<RideCat> ridecategs = getRideCategories();
+
+    public List<RideCat> getRidecategs() {
+        return ridecategs;
+    }
     private static final List<Set<RideCat>> rideCategories =
             List.of(new HashSet<>(), new HashSet<>(List.of(ridecategs.get(0), ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(2), ridecategs.get(3))));
     private static final List<Set<PassengerCategory>> passengerCategories =

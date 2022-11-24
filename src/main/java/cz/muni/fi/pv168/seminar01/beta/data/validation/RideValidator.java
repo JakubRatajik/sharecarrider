@@ -19,7 +19,7 @@ public class RideValidator {
 
     public static void validateRide(String id, String date, String departure, String arrival, String from, String to, String distance, String categories,
                                     String passengers, String vehicleID, String repetition, String description) {
-        if (id != null && !CommonValidator.isValidFloatParsing(id)) {
+        if (id == null || !CommonValidator.isValidFloatParsing(id) || Shortcut.getTableModel(TableCategory.RIDES).getObjectById(Long.parseLong(id)) != null) {
             throw new ValidationException("Neplatné ID jízdy.");
         }
         if (date != null && !CommonValidator.isValidDateParsing(date)) {
@@ -29,10 +29,11 @@ public class RideValidator {
                 || !CommonValidator.isValidTimeParsing(arrival)) {
             throw new ValidationException("Nesprávný formát času.");
         }
-        if (!CommonValidator.isValidLongAlphaSpaceString(from)
-                || !CommonValidator.isValidLongAlphaSpaceString(to)) {
-            throw new ValidationException("Místo odjezdu a příjezdu musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
-        }
+//        if (!CommonValidator.isValidLongAlphaSpaceString(from)
+//                || !CommonValidator.isValidLongAlphaSpaceString(to)) {
+//            throw new ValidationException("Místo odjezdu a příjezdu musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
+//        }
+        // --TODO kvůli tomuto padá import
         if (!CommonValidator.isValidIntParsing(distance)) {
             throw new ValidationException("Vzdálenost musí být celé číslo.");
         }
@@ -42,12 +43,9 @@ public class RideValidator {
         if (passengers != null && !isPassengerIdListValid(passengers)) {
             throw new ValidationException("Nesprávný formát pasažérů jízdy.");
         }
-        if (vehicleID != null && !isVehicleIDValid(vehicleID)) {
-            throw new ValidationException("Neplatné ID vozidla jízdy.");
-        }
-        if (repetition != null && !isRepetitionValid(repetition)) {
-            throw new ValidationException("Neplatné opakování jízdy.");
-        }
+//        if (vehicleID != null && !isVehicleIDValid(vehicleID)) {
+//            throw new ValidationException("Neplatné ID vozidla jízdy.");
+//        }
         if (description.length() > 300) {
             throw new ValidationException("Maximální délka popisu je 300 znaků.");
         }

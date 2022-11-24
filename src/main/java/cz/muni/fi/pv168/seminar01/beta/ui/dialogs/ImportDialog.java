@@ -153,12 +153,14 @@ public class ImportDialog extends DialogBase {
         importAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (passengers == null || vehicles == null || rides == null ||
-                        passengersCategories == null || ridesCategories == null) {
+                if (rides != null && (passengers == null || vehicles == null ||
+                        passengersCategories == null || ridesCategories == null)) {
                     //throw new ValidationException("Some files are missing");
-                    new ErrorDialog(MainWindow.getFrame(), new ValidationException("Some files are missing"));
+                    new ErrorDialog(MainWindow.getFrame(), new ValidationException("Pokud chcete naimportovat jízdy, musíte naimportovat i vše ostatní"));
+                } else if (passengers != null && passengersCategories == null) {
+                    new ErrorDialog(MainWindow.getFrame(), new ValidationException("Pokud chcete naimportovat pasažéry, musíte naimportovat i jejich kategorie"));
                 } else {
-                    ImporterBase.loadData(rides, vehicles, passengers);
+                    ImporterBase.loadData(rides, vehicles, passengers, passengersCategories, ridesCategories);
                     dispose();
                 }
             }
