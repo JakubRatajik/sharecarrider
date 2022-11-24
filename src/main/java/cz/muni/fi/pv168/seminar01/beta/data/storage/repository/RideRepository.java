@@ -12,6 +12,8 @@ import java.util.Optional;
  * @author Jan Macecek
  */
 public class RideRepository implements Repository<Ride>{
+
+    // --TODO Add Mapper, Dao as attributes
     private List<Ride> rides = new ArrayList<>();
 
     public RideRepository() {
@@ -42,7 +44,7 @@ public class RideRepository implements Repository<Ride>{
 
     @Override
     public void refresh() {
-
+        //--TODO db functionality add
     }
 
     @Override
@@ -53,7 +55,7 @@ public class RideRepository implements Repository<Ride>{
 
     @Override
     public void update(Ride entity) {
-
+        //--TODO db functionality add
     }
 
     @Override

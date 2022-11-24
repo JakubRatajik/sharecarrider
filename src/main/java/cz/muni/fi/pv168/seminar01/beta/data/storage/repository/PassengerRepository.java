@@ -12,7 +12,7 @@ import java.util.Optional;
  * @author Jan Macecek
  */
 public class PassengerRepository implements Repository<Passenger>{
-
+    // --TODO Add Mapper, Dao as attributes
     private List<Passenger> passengers = new ArrayList<>();
 
     public PassengerRepository() {
@@ -43,7 +43,7 @@ public class PassengerRepository implements Repository<Passenger>{
 
     @Override
     public void refresh() {
-
+        //--TODO db functionality add
     }
 
     @Override
@@ -54,7 +54,7 @@ public class PassengerRepository implements Repository<Passenger>{
 
     @Override
     public void update(Passenger entity) {
-
+        //--TODO db functionality add
     }
 
     @Override

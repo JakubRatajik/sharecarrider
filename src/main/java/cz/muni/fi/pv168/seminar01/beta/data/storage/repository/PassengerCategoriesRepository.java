@@ -13,7 +13,7 @@ import java.util.Optional;
 public class PassengerCategoriesRepository implements Repository<PassengerCategory> {
 
     private List<PassengerCategory> passengerCategories = new ArrayList<>();
-
+    // --TODO Add Mapper, Dao as attributes
     public PassengerCategoriesRepository() {
 
         this.refresh();
@@ -42,7 +42,7 @@ public class PassengerCategoriesRepository implements Repository<PassengerCatego
 
     @Override
     public void refresh() {
-
+        //--TODO db functionality add
     }
 
     @Override
@@ -53,7 +53,7 @@ public class PassengerCategoriesRepository implements Repository<PassengerCatego
 
     @Override
     public void update(PassengerCategory entity) {
-
+        //--TODO db functionality add
     }
 
     @Override
