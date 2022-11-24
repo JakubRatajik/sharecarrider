@@ -1,4 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.data.storage.repository;
+
+import cz.muni.fi.pv168.seminar01.beta.model.Fuel;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 
 import java.util.ArrayList;
@@ -9,35 +11,35 @@ import java.util.Optional;
 /**
  * @author Jan Macecek
  */
-public class RideCategoriesRepository implements Repository<RideCategory> {
+public class FuelRepository implements Repository<Fuel>{
     // --TODO Add Mapper, Dao as attributes
 
-    private List<RideCategory> rideCategories = new ArrayList<>();
+    private List<Fuel> fuels = new ArrayList<>();
 
-    public RideCategoriesRepository() {
+    public FuelRepository() {
 
         this.refresh();
     }
     @Override
     public int getSize() {
-        return rideCategories.size();
+        return fuels.size();
     }
 
     @Override
-    public Optional<RideCategory> findById(long id) {
-        return rideCategories.stream().filter(e -> e.getId() == id).findFirst();
+    public Optional<Fuel> findById(long id) {
+        return fuels.stream().filter(e -> e.getId() == id).findFirst();
     }
 
     @Override
-    public Optional<RideCategory> findByIndex(int index) {
+    public Optional<Fuel> findByIndex(int index) {
         if (index < getSize())
-            return Optional.of(rideCategories.get(index));
+            return Optional.of(fuels.get(index));
         return Optional.empty();
     }
 
     @Override
-    public List<RideCategory> findAll() {
-        return Collections.unmodifiableList(rideCategories);
+    public List<Fuel> findAll() {
+        return Collections.unmodifiableList(fuels);
     }
 
     @Override
@@ -45,20 +47,20 @@ public class RideCategoriesRepository implements Repository<RideCategory> {
         //--TODO db functionality add
     }
 
-@Override
-    public void create(RideCategory newEntity) {
+    @Override
+    public void create(Fuel newEntity) {
         //--TODO db functionality add
-        rideCategories.add(newEntity);
+        fuels.add(newEntity);
     }
 
     @Override
-    public void update(RideCategory entity) {
+    public void update(Fuel entity) {
         //--TODO db functionality add
     }
 
     @Override
     public void deleteByIndex(int index) {
         //--TODO connect this to DAO
-        findByIndex(index).ifPresent(x -> rideCategories.remove(x));
+        findByIndex(index).ifPresent(x -> fuels.remove(x));
     }
 }

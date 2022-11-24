@@ -10,11 +10,11 @@ import java.util.Optional;
 /**
  * @author Jan Macecek
  */
-public class PassengerCategoriesRepository implements Repository<PassengerCategory> {
+public class PassengerCategoryRepository implements Repository<PassengerCategory> {
 
     private List<PassengerCategory> passengerCategories = new ArrayList<>();
     // --TODO Add Mapper, Dao as attributes
-    public PassengerCategoriesRepository() {
+    public PassengerCategoryRepository() {
 
         this.refresh();
     }
