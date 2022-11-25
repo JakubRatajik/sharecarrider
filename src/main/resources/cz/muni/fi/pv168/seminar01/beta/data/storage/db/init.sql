@@ -1,31 +1,4 @@
 --
--- RideToRideCategory table definition (many-to-many)
---
-CREATE TABLE IF NOT EXISTS RideToRideCategory
-(
-    rideId          BIGINT REFERENCES Ride (id),
-    rideCategoryId  BIGINT REFERENCES RideCategory (id)
-);
-
---
--- RideToPassenger table definition (many-to-many)
---
-CREATE TABLE IF NOT EXISTS RideToPassenger
-(
-    rideId      BIGINT REFERENCES Ride (id),
-    passenger   BIGINT REFERENCES Passenger (id)
-);
-
---
--- PassengerToPassengerCategory table definition (many-to-many)
---
-CREATE TABLE IF NOT EXISTS PassengerToPassengerCategory
-(
-    passengerId           BIGINT REFERENCES Passenger (id),
-    passengerCategoryId   BIGINT REFERENCES PassengerCategory (id)
-);
-
---
 -- RideCategory table definition
 --
 CREATE TABLE IF NOT EXISTS RideCategory
@@ -51,10 +24,7 @@ CREATE TABLE IF NOT EXISTS Passenger
     id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     firstName   VARCHAR(50)     NOT NULL,
     lastName    VARCHAR(50)     NOT NULL,
-    phoneNumber VARCHAR(20)     NOT NULL,
-    // TODO
-    //categories  BIGINT REFERENCES PassengerToPassengerCategory (passengerId)
-
+    phoneNumber VARCHAR(20)     NOT NULL
 );
 
 --
@@ -92,9 +62,33 @@ CREATE TABLE IF NOT EXISTS Ride
     startDest  VARCHAR(50) NOT NULL,
     endDest    VARCHAR(50) NOT NULL,
     distance   INT         NOT NULL,
-    // TODO
-    //categories BIGINT REFERENCES RideToRideCategory (rideId),
-    //passengers BIGINT REFERENCES RideToPassenger (rideId),
     vehicle    BIGINT REFERENCES Vehicle (id),
     repetition ENUM('none', 'daily', 'weekly', 'monthly', 'yearly') NOT NULL
+);
+
+--
+-- RideToRideCategory table definition (many-to-many)
+--
+CREATE TABLE IF NOT EXISTS RideCategories
+(
+    rideId          BIGINT REFERENCES Ride (id),
+    rideCategoryId  BIGINT REFERENCES RideCategory (id)
+);
+
+--
+-- RideToPassenger table definition (many-to-many)
+--
+CREATE TABLE IF NOT EXISTS RidePassengers
+(
+    rideId      BIGINT REFERENCES Ride (id),
+    passenger   BIGINT REFERENCES Passenger (id)
+);
+
+--
+-- PassengerToPassengerCategory table definition (many-to-many)
+--
+CREATE TABLE IF NOT EXISTS PassengerCategories
+(
+    passengerId           BIGINT REFERENCES Passenger (id),
+    passengerCategoryId   BIGINT REFERENCES PassengerCategory (id)
 );
