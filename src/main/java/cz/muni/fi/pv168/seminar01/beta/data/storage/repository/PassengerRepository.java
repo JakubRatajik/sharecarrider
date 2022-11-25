@@ -11,63 +11,8 @@ import java.util.Optional;
 /**
  * @author Jan Macecek
  */
-public class PassengerRepository implements Repository<Passenger>{
-    // --TODO Add Mapper, Dao as attributes
-    private List<Passenger> passengers = new ArrayList<>();
-
+public class PassengerRepository extends AbstractRepository<Passenger>{
     public PassengerRepository() {
-
-        this.refresh();
-    }
-    @Override
-    public int getSize() {
-        return passengers.size();
-    }
-
-    @Override
-    public Optional<Passenger> findById(long id) {
-        return passengers.stream().filter(e -> e.getId() == id).findFirst();
-    }
-
-    @Override
-    public Optional<Passenger> findByIndex(int index) {
-        if (index < getSize())
-            return Optional.of(passengers.get(index));
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Passenger> findAll() {
-        return Collections.unmodifiableList(passengers);
-    }
-
-    @Override
-    public void refresh() {
-        //--TODO db functionality add
-    }
-
-    @Override
-    public void create(Passenger newEntity) {
-        //--TODO db functionality add
-        passengers.add(newEntity);
-    }
-
-    @Override
-    public void update(Passenger entity) {
-        //--TODO db functionality add
-    }
-
-    @Override
-    public void deleteByIndex(int index) {
-        //--TODO connect this to DAO
-        findByIndex(index).ifPresent(x -> passengers.remove(x));
-    }
-
-    @Override
-    public int findIndexByEntity(Passenger entity) {
-        if (passengers.contains(entity)) {
-            return passengers.indexOf(entity);
-        }
-        return -1;
+        super();
     }
 }
