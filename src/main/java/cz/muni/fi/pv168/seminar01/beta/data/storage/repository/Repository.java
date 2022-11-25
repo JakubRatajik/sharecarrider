@@ -25,4 +25,6 @@ public interface Repository<M> {
     void update(M entity);
 
     void deleteByIndex(int index);
+
+    int findIndexByEntity(M entity);
 }

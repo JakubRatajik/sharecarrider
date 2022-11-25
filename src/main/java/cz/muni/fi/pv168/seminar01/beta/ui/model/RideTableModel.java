@@ -1,8 +1,10 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
 import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,8 +15,8 @@ import java.util.Collection;
  * @author Jakub Ratajik
  */
 public class RideTableModel extends ShareCarRiderTableModel<Ride> {
-    public RideTableModel() {
-        super(new String[]{"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"}, SampleUsage.getRides());
+    public RideTableModel(Repository<Ride> repository) {
+        super(new String[]{"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"}, SampleUsage.getRides(), repository);
 
     }
 

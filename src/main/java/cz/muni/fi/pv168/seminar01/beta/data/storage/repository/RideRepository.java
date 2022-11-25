@@ -63,4 +63,12 @@ public class RideRepository implements Repository<Ride>{
         //--TODO connect this to DAO
         findByIndex(index).ifPresent(x -> rides.remove(x));
     }
+
+    @Override
+    public int findIndexByEntity(Ride entity) {
+        if (rides.contains(entity)) {
+            return rides.indexOf(entity);
+        }
+        return -1;
+    }
 }

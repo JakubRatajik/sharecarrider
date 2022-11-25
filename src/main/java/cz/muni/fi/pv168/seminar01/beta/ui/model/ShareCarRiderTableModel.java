@@ -1,21 +1,35 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Jakub Ratajik
  */
 public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractTableModel {
-    protected final List<T> data;
+    protected List<T> data;
+    private final Repository<T> repository;
     private final String[] columnNames;
 
-    public ShareCarRiderTableModel(String[] columnNames, List<T> data) {
+    public ShareCarRiderTableModel(String[] columnNames, List<T> data, Repository<T> repository) {
         this.columnNames = columnNames;
         this.data = data;
+        this.repository = repository;
+        for (T record: data) {
+            repository.create(record);
+        }
+
+    }
+
+    public ShareCarRiderTableModel(String[] columnNames, Repository<T> repository) {
+        this.columnNames = columnNames;
+        this.repository = repository;
+
     }
 
     @Override
@@ -30,7 +44,7 @@ public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractT
 
     @Override
     public int getRowCount() {
-        return data.size();
+        return repository.getSize();
     }
 
     @Override
@@ -39,36 +53,31 @@ public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractT
     }
 
     public T getEntity(int modelRow) {
-        return data.get(modelRow);
+        return repository.findByIndex(modelRow).orElse(null);
     }
 
     public List<T> getData() {
-        return Collections.unmodifiableList(data);
+        return repository.findAll();
     }
 
     public void deleteRow(int rowIndex) {
-        data.remove(rowIndex);
+        repository.deleteByIndex(rowIndex);
         fireTableRowsDeleted(rowIndex, rowIndex);
     }
 
     public void addRow(T object) {
-        int newRowIndex = data.size();
-        data.add(object);
+        int newRowIndex = repository.getSize();
+        repository.create(object);
         fireTableRowsInserted(newRowIndex, newRowIndex);
     }
 
     public void updateRow(T object) {
-        int rowIndex = data.indexOf(object);
+        int rowIndex = repository.findIndexByEntity(object);
+        repository.update(object);
         fireTableRowsUpdated(rowIndex, rowIndex);
     }
 
     public T getObjectById(long id) {
-        if (data.size() == 0) {
-            return null;
-        }
-        return data.stream()
-                .filter(object -> object.getId() == id)
-                .findAny()
-                .orElse(null);
+        return repository.findById(id).orElse(null);
     }
 }

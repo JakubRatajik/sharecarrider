@@ -20,6 +20,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -45,15 +46,15 @@ public class ShareCarRiderTable extends JTable {
     private boolean isMultilineSelectionEnabled;
     private MouseAdapter doubleClickListener;
 
-    public ShareCarRiderTable(TableCategory tableCategory) {
+    public ShareCarRiderTable(TableCategory tableCategory, ProductionDependencyProvider provider) {
         this.tableCategory = tableCategory;
 
         switch (tableCategory) {
-            case RIDES -> setModel(new RideTableModel());
-            case VEHICLES -> setModel(new VehicleTableModel());
-            case PASSENGERS -> setModel(new PassengerTableModel());
-            case PASSENGER_CATEGORY -> setModel(new PassengerCategoryTableModel());
-            case RIDE_CATEGORY -> setModel(new RideCategoryTableModel());
+            case RIDES -> setModel(new RideTableModel(provider.getRideRepository()));
+            case VEHICLES -> setModel(new VehicleTableModel(provider.getVehicleRepository()));
+            case PASSENGERS -> setModel(new PassengerTableModel(provider.getPassengerRepository()));
+            case PASSENGER_CATEGORY -> setModel(new PassengerCategoryTableModel(provider.getPassengerCategoryRepository()));
+            case RIDE_CATEGORY -> setModel(new RideCategoryTableModel(provider.getRideCategoryRepository()));
             default -> setModel(new DefaultTableModel());
         }
 
@@ -148,6 +149,7 @@ public class ShareCarRiderTable extends JTable {
         int modelRow = convertRowIndexToModel(getSelectedRow());
         return tableModel.getEntity(modelRow);
     }
+
 
     private void addRideTableActionListeners() {
         detailPopupMenuItem.addActionListener(new ActionListener() {

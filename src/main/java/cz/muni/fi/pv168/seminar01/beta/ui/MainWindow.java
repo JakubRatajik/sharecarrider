@@ -2,6 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui;
 
 import cz.muni.fi.pv168.seminar01.beta.model.FuelPrice;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,8 @@ public class MainWindow {
     private static TabFrame rideCategoriesTabFrame;
     private static JPanel topPanel;
     private static FuelPrice fuelPrice;
+
+    private ProductionDependencyProvider provider;
 
     public MainWindow() {
         initialize();
@@ -44,7 +47,7 @@ public class MainWindow {
     }
 
     private void initialize() {
-
+        provider = new ProductionDependencyProvider();
         frame = new JFrame();
         var im = getClass().getResource("/SCR.png");
         if (im != null) {
@@ -107,11 +110,11 @@ public class MainWindow {
                     RideDetailDialog dialog = new RideDetailDialog()
                     JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
                 }*/
-        ridesTabFrame = new TabFrame(TableCategory.RIDES);
-        vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES);
-        passengersTabFrame = new TabFrame(TableCategory.PASSENGERS);
-        passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGER_CATEGORY);
-        rideCategoriesTabFrame = new TabFrame(TableCategory.RIDE_CATEGORY);
+        ridesTabFrame = new TabFrame(TableCategory.RIDES, provider);
+        vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES, provider);
+        passengersTabFrame = new TabFrame(TableCategory.PASSENGERS, provider);
+        passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGER_CATEGORY, provider);
+        rideCategoriesTabFrame = new TabFrame(TableCategory.RIDE_CATEGORY, provider);
         Statistics statistics = new Statistics();
         tabs.setFont(UIUtilities.fTab);
         tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());

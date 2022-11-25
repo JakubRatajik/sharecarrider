@@ -61,4 +61,12 @@ public class PassengerCategoryRepository implements Repository<PassengerCategory
         //--TODO connect this to DAO
         findByIndex(index).ifPresent(x -> passengerCategories.remove(x));
     }
+
+    @Override
+    public int findIndexByEntity(PassengerCategory entity) {
+        if (passengerCategories.contains(entity)) {
+            return passengerCategories.indexOf(entity);
+        }
+        return -1;
+    }
 }
