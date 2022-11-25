@@ -8,7 +8,7 @@ public record VehicleEntity(
         String brand,
         String type,
         int capacity,
-        double consumption,
+        float consumption,
         FuelType fuelType
 ) {
     public VehicleEntity(
@@ -16,7 +16,7 @@ public record VehicleEntity(
             String brand,
             String type,
             int capacity,
-            double consumption,
+            float consumption,
             FuelType fuelType
     ) {
         this(null, licensePlate, brand, type, capacity, consumption, fuelType);

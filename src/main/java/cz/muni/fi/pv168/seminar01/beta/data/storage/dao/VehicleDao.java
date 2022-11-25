@@ -38,7 +38,7 @@ public class VehicleDao implements DataAccessObject<VehicleEntity> {
             statement.setString(2, entity.brand());
             statement.setString(3, entity.type());
             statement.setInt(4, entity.capacity());
-            statement.setDouble(5, entity.consumption());
+            statement.setFloat(5, entity.consumption());
             statement.setString(6, entity.fuelType().name().toLowerCase());
             statement.executeUpdate();
 
@@ -198,7 +198,7 @@ public class VehicleDao implements DataAccessObject<VehicleEntity> {
                 resultSet.getString("brand"),
                 resultSet.getString("type"),
                 resultSet.getInt("capacity"),
-                resultSet.getDouble("consumption"),
+                resultSet.getFloat("consumption"),
                 FuelType.valueOf(resultSet.getString("fuelType").toUpperCase())
         );
     }
