@@ -61,4 +61,12 @@ public class RideCategoryRepository implements Repository<RideCategory> {
         //--TODO connect this to DAO
         findByIndex(index).ifPresent(x -> rideCategories.remove(x));
     }
+
+    @Override
+    public int findIndexByEntity(RideCategory entity) {
+        if (rideCategories.contains(entity)) {
+            return rideCategories.indexOf(entity);
+        }
+        return -1;
+    }
 }

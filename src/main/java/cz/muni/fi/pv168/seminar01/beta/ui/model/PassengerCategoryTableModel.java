@@ -1,7 +1,9 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
 import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +14,8 @@ import java.util.List;
 public class PassengerCategoryTableModel extends ShareCarRiderTableModel<PassengerCategory> {
 
 
-    public PassengerCategoryTableModel() {
-        super(new String[]{"Název"}, SampleUsage.getPassengerCategories());
+    public PassengerCategoryTableModel(Repository<PassengerCategory> repository) {
+        super(new String[] {"Název"},SampleUsage.getPassengerCategories(), repository);
     }
 
     @Override

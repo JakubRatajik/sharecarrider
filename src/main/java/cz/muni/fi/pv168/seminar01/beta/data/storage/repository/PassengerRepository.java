@@ -62,4 +62,12 @@ public class PassengerRepository implements Repository<Passenger>{
         //--TODO connect this to DAO
         findByIndex(index).ifPresent(x -> passengers.remove(x));
     }
+
+    @Override
+    public int findIndexByEntity(Passenger entity) {
+        if (passengers.contains(entity)) {
+            return passengers.indexOf(entity);
+        }
+        return -1;
+    }
 }

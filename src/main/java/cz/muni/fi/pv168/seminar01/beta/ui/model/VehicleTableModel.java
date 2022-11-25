@@ -1,14 +1,16 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
 import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 /**
  * @author Jakub Ratajik
  */
 public class VehicleTableModel extends ShareCarRiderTableModel<Vehicle> {
-    public VehicleTableModel() {
-        super(new String[]{"Značka", "Typ", "Počet míst", "Průměrná spotřeba"}, SampleUsage.getVehicles());
+    public VehicleTableModel(Repository<Vehicle> repository) {
+        super(new String[]{"Značka", "Typ", "Počet míst", "Průměrná spotřeba"}, SampleUsage.getVehicles(), repository);
     }
 
     @Override

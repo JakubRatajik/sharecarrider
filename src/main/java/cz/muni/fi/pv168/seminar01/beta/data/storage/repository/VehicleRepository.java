@@ -62,4 +62,12 @@ public class VehicleRepository implements Repository<Vehicle> {
         //--TODO connect this to DAO
         findByIndex(index).ifPresent(x -> vehicles.remove(x));
     }
+
+    @Override
+    public int findIndexByEntity(Vehicle entity) {
+        if (vehicles.contains(entity)) {
+            return vehicles.indexOf(entity);
+        }
+        return -1;
+    }
 }

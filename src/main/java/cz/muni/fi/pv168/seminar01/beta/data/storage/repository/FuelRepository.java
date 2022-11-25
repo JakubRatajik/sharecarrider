@@ -63,4 +63,12 @@ public class FuelRepository implements Repository<Fuel>{
         //--TODO connect this to DAO
         findByIndex(index).ifPresent(x -> fuels.remove(x));
     }
+
+    @Override
+    public int findIndexByEntity(Fuel entity) {
+        if (fuels.contains(entity)) {
+            return fuels.indexOf(entity);
+        }
+        return -1;
+    }
 }
