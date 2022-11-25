@@ -57,6 +57,8 @@ public class AbstractRepository<T extends HasID> implements Repository<T>{
     @Override
     public void update(T entity) {
         //--TODO db functionality add
+        int index = findIndexByEntity(findById(entity.getId()).orElse(null));
+        repositoryMembers.add(index, entity);
     }
 
     @Override

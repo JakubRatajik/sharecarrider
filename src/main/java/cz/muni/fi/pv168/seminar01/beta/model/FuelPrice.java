@@ -1,6 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
+import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.FuelRepository;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import java.math.BigDecimal;
 
@@ -8,10 +10,13 @@ import java.math.BigDecimal;
  * This class represents static values of fuel prices, that are used for computing a price for a single ride and some statistics.
  */
 public class FuelPrice {
-    private final FuelRepository fuels = new FuelRepository();
+    private final FuelRepository fuels;
 
-    public FuelPrice() {
-
+    public FuelPrice(ProductionDependencyProvider provider) {
+        fuels = (FuelRepository) provider.getFuelRepository();
+        for (Fuel fuel: SampleUsage.getFuels()) {
+            fuels.create(fuel);
+        }
     }
 
     public BigDecimal getFuelPrice(FuelType fuelType) {
