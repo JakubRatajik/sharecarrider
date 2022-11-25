@@ -26,10 +26,13 @@ public class PassengerCategoryTableModel extends ShareCarRiderTableModel<Passeng
     @Override
     public Object getValueAt(int row, int col) {
         Object value;
-        PassengerCategory passengerCategory = data.get(row);
+        PassengerCategory category = repository.findByIndex(row).orElse(null);
+        if (category == null) {
+            throw new NullPointerException("Vehicle cannot be null at this point (PCTM -> getValueAt)");
+        }
 
         switch (col) {
-            case 0 -> value = passengerCategory.getName();
+            case 0 -> value = category.getName();
             default -> value = null;
         }
 
