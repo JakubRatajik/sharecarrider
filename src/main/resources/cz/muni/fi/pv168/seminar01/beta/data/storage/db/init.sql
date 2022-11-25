@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS Vehicle
     type            VARCHAR(50) NOT NULL,
     capacity        INT         NOT NULL,
     consumption     DOUBLE      NOT NULL,
-    fuelType        BIGINT REFERENCES Fuel (fuelType)
+    fuelType        VARCHAR(15) REFERENCES Fuel (fuelType)
 );
 
 --
