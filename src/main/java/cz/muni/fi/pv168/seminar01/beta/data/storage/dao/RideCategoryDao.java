@@ -2,8 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.data.storage.dao;
 
 import cz.muni.fi.pv168.seminar01.beta.data.storage.DataStorageException;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.db.ConnectionHandler;
-import cz.muni.fi.pv168.seminar01.beta.data.storage.entity.VehicleEntity;
-import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.entity.RideCategoryEntity;
 import org.tinylog.Logger;
 
 import java.sql.ResultSet;
@@ -16,37 +15,32 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class VehicleDao implements DataAccessObject<VehicleEntity> {
+public class RideCategoryDao implements DataAccessObject<RideCategoryEntity> {
 
     private final Supplier<ConnectionHandler> connections;
 
-    public VehicleDao(Supplier<ConnectionHandler> connections) {
+    public RideCategoryDao(Supplier<ConnectionHandler> connections) {
         this.connections = connections;
     }
 
     @Override
-    public VehicleEntity create(VehicleEntity entity) {
+    public RideCategoryEntity create(RideCategoryEntity entity) {
         String sql = """
-                   INSERT INTO "Vehicle" ("licensePlate", "brand", "type", "capacity", "consumption", "fuelType") VALUES (?, ?, ?, ?, ?, ?);
+                   INSERT INTO "RideCategory" ("name") VALUES (?);
                    """;
 
         try (
                 var connection = connections.get();
                 var statement = connection.use().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
-            statement.setString(1, entity.licensePlate());
-            statement.setString(2, entity.brand());
-            statement.setString(3, entity.type());
-            statement.setInt(4, entity.capacity());
-            statement.setFloat(5, entity.consumption());
-            statement.setString(6, entity.fuelType().name().toLowerCase());
+            statement.setString(1, entity.name());
             statement.executeUpdate();
 
             try (ResultSet keyResultSet = statement.getGeneratedKeys()) {
-                long vehicleId;
+                long rideCategoryId;
 
                 if (keyResultSet.next()) {
-                    vehicleId = keyResultSet.getLong(1);
+                    rideCategoryId = keyResultSet.getLong(1);
                 } else {
                     throw new DataStorageException("Failed to fetch generated key for: " + entity);
                 }
@@ -54,7 +48,7 @@ public class VehicleDao implements DataAccessObject<VehicleEntity> {
                     throw new DataStorageException("Multiple keys returned for: " + entity);
                 }
 
-                return findById(vehicleId).orElseThrow();
+                return findById(rideCategoryId).orElseThrow();
             }
         } catch (SQLException ex) {
             throw new DataStorageException("Failed to store: " + entity, ex);
@@ -63,48 +57,38 @@ public class VehicleDao implements DataAccessObject<VehicleEntity> {
     }
 
     @Override
-    public Collection<VehicleEntity> findAll() {
+    public Collection<RideCategoryEntity> findAll() {
         Logger.debug("Fetching all");
         var sql = """
                 SELECT "id",
-                       "licensePlate",
-                       "brand",
-                       "type",
-                       "capacity",
-                       "consumption",
-                       "fuelType"
-                    FROM "Vehicle"
+                       "name"
+                    FROM "RideCategory"
                 """;
 
         try (
                 var connection = connections.get();
                 var statement = connection.use().prepareStatement(sql)) {
 
-            List<VehicleEntity> vehicles = new ArrayList<>();
+            List<RideCategoryEntity> rideCategories = new ArrayList<>();
             try (var resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    var vehicle = vehicleFromResultSet(resultSet);
-                    vehicles.add(vehicle);
+                    var rideCategory = rideCategoryFromResultSet(resultSet);
+                    rideCategories.add(rideCategory);
                 }
             }
 
-            return vehicles;
+            return rideCategories;
         } catch (SQLException ex) {
-            throw new DataStorageException("Failed to load all vehicles", ex);
+            throw new DataStorageException("Failed to load all rideCategories", ex);
         }
     }
 
     @Override
-    public Optional<VehicleEntity> findById(long id) {
+    public Optional<RideCategoryEntity> findById(long id) {
         var sql = """
                 SELECT "id",
-                       "licensePlate",
-                       "brand",
-                       "type",
-                       "capacity",
-                       "consumption",
-                       "fuelType"
-                    FROM "Vehicle"
+                       "name"
+                    FROM "RideCategory"
                     WHERE "id" = ?
                 """;
 
@@ -115,31 +99,26 @@ public class VehicleDao implements DataAccessObject<VehicleEntity> {
             statement.setLong(1, id);
             var resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return Optional.of(vehicleFromResultSet(resultSet));
+                return Optional.of(rideCategoryFromResultSet(resultSet));
             } else {
                 Logger.debug("No entity for id {}", id);
-                // vehicle not found
+                // rideCategory not found
                 return Optional.empty();
             }
         } catch (SQLException ex) {
-            throw new DataStorageException("Failed to load vehicle by id", ex);
+            throw new DataStorageException("Failed to load rideCategories by id", ex);
         }
     }
 
     @Override
-    public VehicleEntity update(VehicleEntity entity) {
+    public RideCategoryEntity update(RideCategoryEntity entity) {
         Objects.requireNonNull(entity.id(), "Entity id cannot be null");
         Logger.debug("Updating entity {}", entity);
 
         final var sql = """
-                UPDATE "Vehicle"
+                UPDATE "RideCategory"
                 SET
-                    "licensePlate" = ? ,
-                    "brand" = ?,
-                    "type" = ?,
-                    "capacity" = ?,
-                    "consumption" = ?,
-                    "fuelType" = ?
+                    "name" = ?
                 WHERE "id" = ?
                 """;
 
@@ -147,20 +126,15 @@ public class VehicleDao implements DataAccessObject<VehicleEntity> {
                 var connection = connections.get();
                 var statement = connection.use().prepareStatement(sql)
         ) {
-            statement.setString(1, entity.licensePlate());
-            statement.setString(2, entity.brand());
-            statement.setString(3, entity.type());
-            statement.setInt(4, entity.capacity());
-            statement.setDouble(5, entity.consumption());
-            statement.setString(6, entity.fuelType().name().toLowerCase());
+            statement.setString(1, entity.name());
             statement.setLong(7, entity.id());
 
             if (statement.executeUpdate() == 0) {
-                throw new DataStorageException("Failed to update non-existing vehicles: " + entity);
+                throw new DataStorageException("Failed to update non-existing rideCategories: " + entity);
             }
             Logger.debug("Update successful for {}", entity);
         } catch (SQLException ex) {
-            throw new DataStorageException("Failed to update vehicle with id: " + entity.id(), ex);
+            throw new DataStorageException("Failed to update rideCategory with id: " + entity.id(), ex);
         }
 
         return findById(entity.id()).orElseThrow();
@@ -170,7 +144,7 @@ public class VehicleDao implements DataAccessObject<VehicleEntity> {
     public void deleteById(long entityId) {
         Logger.debug("Deleting entity with id {}", entityId);
         var sql = """
-                DELETE FROM "Vehicle" WHERE "id" = ?
+                DELETE FROM "RideCategory" WHERE "id" = ?
                 """;
 
         try (
@@ -180,27 +154,22 @@ public class VehicleDao implements DataAccessObject<VehicleEntity> {
             statement.setLong(1, entityId);
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated == 0) {
-                throw new DataStorageException("Vehicle not found: %d".formatted(entityId));
+                throw new DataStorageException("RideCategory not found: %d".formatted(entityId));
             }
             if (rowsUpdated > 1) {
-                throw new DataStorageException("More then 1 vehicle (rows=%d) has been deleted: %d"
+                throw new DataStorageException("More then 1 rideCategory (rows=%d) has been deleted: %d"
                         .formatted(rowsUpdated, entityId));
             }
             Logger.debug("Successfully deleted entity with id {}", entityId);
         } catch (SQLException ex) {
-            throw new DataStorageException("Failed to delete vehicle: %d".formatted(entityId), ex);
+            throw new DataStorageException("Failed to delete rideCategory: %d".formatted(entityId), ex);
         }
     }
 
-    private static VehicleEntity vehicleFromResultSet(ResultSet resultSet) throws SQLException {
-        return new VehicleEntity(
+    private static RideCategoryEntity rideCategoryFromResultSet(ResultSet resultSet) throws SQLException {
+        return new RideCategoryEntity(
                 resultSet.getLong("id"),
-                resultSet.getString("licensePlate"),
-                resultSet.getString("brand"),
-                resultSet.getString("type"),
-                resultSet.getInt("capacity"),
-                resultSet.getFloat("consumption"),
-                FuelType.valueOf(resultSet.getString("fuelType").toUpperCase())
+                resultSet.getString("name")
         );
     }
 }
