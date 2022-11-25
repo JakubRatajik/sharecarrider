@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS Passenger
 --
 CREATE TABLE IF NOT EXISTS Fuel
 (
-    id      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    price   DECIMAL NOT NULL
+    fuelType    VARCHAR(15) PRIMARY KEY,
+    price       DECIMAL NOT NULL
 );
 
 --
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS Vehicle
     type            VARCHAR(50) NOT NULL,
     capacity        INT         NOT NULL,
     consumption     DOUBLE      NOT NULL,
-    fuelType        BIGINT REFERENCES Fuel (id)
+    fuelType        BIGINT REFERENCES Fuel (fuelType)
 );
 
 --
@@ -92,3 +92,22 @@ CREATE TABLE IF NOT EXISTS PassengerCategories
     passengerId           BIGINT REFERENCES Passenger (id),
     passengerCategoryId   BIGINT REFERENCES PassengerCategory (id)
 );
+
+--
+-- Fuel type initialization
+--
+-- IDs from enum (not used):
+-- 0 - DIESEL
+-- 1 - GASOLINE
+-- 2 - LPG
+-- 3 - CNG
+-- 4 - ELECTRICITY
+--
+INSERT INTO Fuel SELECT * FROM
+(
+       SELECT 'DIESEL', 42 UNION
+       SELECT 'GASOLINE', 42 UNION
+       SELECT 'LPG', 42 UNION
+       SELECT 'CNG', 42 UNION
+       SELECT 'ELECTRICITY', 42
+) x WHERE NOT EXISTS (SELECT * FROM Fuel);
