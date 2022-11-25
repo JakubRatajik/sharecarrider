@@ -70,7 +70,7 @@ public class MainWindow {
 
         // fuelPrice will be moved to Repository and accessed via DependencyProvider
         // TODO - use dependency provider to access repositories for FuelPrice and other data
-        fuelPrice = new FuelPrice();
+        fuelPrice = new FuelPrice(provider);
 
         frame.pack();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
