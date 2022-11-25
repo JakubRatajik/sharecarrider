@@ -37,7 +37,10 @@ public class RideTableModel extends ShareCarRiderTableModel<Ride> {
     @Override
     public Object getValueAt(int row, int col) {
         Object value;
-        Ride ride = data.get(row);
+        Ride ride = repository.findByIndex(row).orElse(null);
+        if (ride == null) {
+            throw new NullPointerException("Vehicle cannot be null at this point (RTM -> getValueAt)");
+        }
 
         switch (col) {
             case 0 -> value = ride.getDate();

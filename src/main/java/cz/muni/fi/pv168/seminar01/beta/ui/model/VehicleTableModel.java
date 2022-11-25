@@ -21,7 +21,10 @@ public class VehicleTableModel extends ShareCarRiderTableModel<Vehicle> {
     @Override
     public Object getValueAt(int row, int col) {
         Object value;
-        Vehicle vehicle = data.get(row);
+        Vehicle vehicle = repository.findByIndex(row).orElse(null);
+        if (vehicle == null) {
+            throw new NullPointerException("Vehicle cannot be null at this point (VTM -> getValueAt)");
+        }
 
         switch (col) {
             case 0 -> value = vehicle.getBrand();

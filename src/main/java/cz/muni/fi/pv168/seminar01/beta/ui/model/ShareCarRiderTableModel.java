@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractTableModel {
     protected List<T> data;
-    private final Repository<T> repository;
+    protected final Repository<T> repository;
     private final String[] columnNames;
 
     public ShareCarRiderTableModel(String[] columnNames, List<T> data, Repository<T> repository) {
