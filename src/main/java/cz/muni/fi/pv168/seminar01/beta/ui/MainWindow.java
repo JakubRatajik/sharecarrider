@@ -122,7 +122,7 @@ public class MainWindow {
         tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());
         tabs.addTab("Vozidla", vehiclesTabFrame.getMainPanel());
         tabs.addTab("Cestující", passengersTabFrame.getMainPanel());
-        tabs.addTab("Kategorie pasažérů", passengerCategoriesTabFrame.getMainPanel());
+        tabs.addTab("Kategorie cestujících", passengerCategoriesTabFrame.getMainPanel());
         tabs.addTab("Kategorie jízd", rideCategoriesTabFrame.getMainPanel());
         tabs.addTab("Statistiky", statistics.getMain());
         tabs.setBackground(UIUtilities.WHITE);

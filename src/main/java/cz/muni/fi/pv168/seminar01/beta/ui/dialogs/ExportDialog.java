@@ -77,7 +77,7 @@ public class ExportDialog extends DialogBase {
         center.add(ridesPathScroll);
 
         this.add(center);
-        setSize(300, 130);
+        setSize(300, 160);
 
     }
 

@@ -14,5 +14,4 @@ public class PassengerCategory extends Category {
         super(name);
     }
 
-
 }
