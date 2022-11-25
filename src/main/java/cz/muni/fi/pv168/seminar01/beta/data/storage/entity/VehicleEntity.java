@@ -1,5 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.data.storage.entity;
 
+import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
+
 public record VehicleEntity(
         Long id,
         String licensePlate,
@@ -7,7 +9,7 @@ public record VehicleEntity(
         String type,
         int capacity,
         double consumption,
-        String fuelType
+        FuelType fuelType
 ) {
     public VehicleEntity(
             String licensePlate,
@@ -15,7 +17,7 @@ public record VehicleEntity(
             String type,
             int capacity,
             double consumption,
-            String fuelType
+            FuelType fuelType
     ) {
         this(null, licensePlate, brand, type, capacity, consumption, fuelType);
     }

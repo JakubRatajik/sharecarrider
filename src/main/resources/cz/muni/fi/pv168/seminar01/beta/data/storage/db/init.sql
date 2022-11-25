@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS PassengerCategories
 -- 3 - CNG
 -- 4 - ELECTRICITY
 --
+// TODO - to lower case?
 INSERT INTO Fuel SELECT * FROM
 (
        SELECT 'DIESEL', 42 UNION
