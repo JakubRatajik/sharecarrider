@@ -19,6 +19,6 @@ public class PassengerMapper implements EntityMapper<PassengerEntity, Passenger>
 
     @Override
     public Passenger mapToModel(PassengerEntity entity) {
-        return
+        return null; // TODO
     }
 }
