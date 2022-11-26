@@ -9,8 +9,9 @@ public class CategoryValidator {
 
     private static boolean isCategoryValid(String id, String name, TableCategory tableCategory) {
         return id != null
-                && CommonValidator.isValidLongParsing(id)
-                && Shortcut.getTableModel(tableCategory).getObjectById(Long.parseLong(id)) == null;
+                && CommonValidator.isValidLongParsing(id);
+                // TODO - cannot check ID's uniqueness, because of edit operation edits existing object with ID
+                //&& Shortcut.getTableModel(tableCategory).getObjectById(Long.parseLong(id)) == null;
     }
 
     public static void validateRideCategory(String id, String name) {

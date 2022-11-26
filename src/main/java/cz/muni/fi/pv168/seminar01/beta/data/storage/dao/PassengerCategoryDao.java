@@ -127,7 +127,7 @@ public class PassengerCategoryDao implements DataAccessObject<PassengerCategoryE
                 var statement = connection.use().prepareStatement(sql)
         ) {
             statement.setString(1, entity.name());
-            statement.setLong(7, entity.id()); //--TODO proč 7?
+            statement.setLong(2, entity.id());
 
             if (statement.executeUpdate() == 0) {
                 throw new DataStorageException("Failed to update non-existing passengerCategories: " + entity);
