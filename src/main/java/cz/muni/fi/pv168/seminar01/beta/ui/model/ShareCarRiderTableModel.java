@@ -75,7 +75,7 @@ public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractT
     }
 
     public void updateRow(T object) {
-        int rowIndex = repository.findIndexByEntity(object);
+        int rowIndex = repository.findIndexByEntity(repository.findById(object.getId()).orElse(null));
         repository.update(object);
         fireTableRowsUpdated(rowIndex, rowIndex);
     }
