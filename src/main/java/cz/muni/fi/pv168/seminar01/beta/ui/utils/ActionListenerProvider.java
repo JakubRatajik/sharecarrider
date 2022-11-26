@@ -2,7 +2,9 @@ package cz.muni.fi.pv168.seminar01.beta.ui.utils;
 
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.DeleteDialog;
@@ -10,6 +12,9 @@ import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterPassengersDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterRidesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterVehiclesDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.SortPassengersDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.SortRidesDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.SortVehiclesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.TemporaryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 
@@ -45,7 +50,7 @@ public final class ActionListenerProvider {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
+                JDialog dial = new AddEditPassengerCategoryDialog(MainWindow.getFrame(), "Vytvořit kategorii cestujících");
             }
         };
 
@@ -94,7 +99,7 @@ public final class ActionListenerProvider {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
+                JDialog dial = new AddEditRideCategoryDialog(MainWindow.getFrame(), "Přidat kategorii jízd");
             }
         };
 
@@ -155,7 +160,7 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Řazení");
+                JDialog dial = new SortRidesDialog(MainWindow.getFrame(), "Řazení");
             }
         };
 
@@ -207,7 +212,7 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Řazení");
+                JDialog dial = new SortVehiclesDialog(MainWindow.getFrame(), "Řazení");
             }
         };
 
@@ -258,7 +263,7 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Řazení");
+                JDialog dial = new SortPassengersDialog(MainWindow.getFrame(), "Řazení");
             }
         };
 

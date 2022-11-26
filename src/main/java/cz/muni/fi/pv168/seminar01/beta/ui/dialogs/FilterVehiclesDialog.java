@@ -5,14 +5,14 @@ import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import javax.swing.*;
 import java.awt.*;
 
-public class FilterVehiclesDialog extends FilterDialog {
+public class FilterVehiclesDialog extends SortFilterDialog {
     private JCheckBox capacityFilter;
     private JCheckBox consumptionFilter;
     private JTextField capacityFrom;
     private JTextField capacityTo;
     private JTextField consumptionFrom;
     private JTextField consumptionTo;
-    private JComboBox<Integer> brand;
+   // private JComboBox<Integer> brand;
 
     public FilterVehiclesDialog(Frame frame, String name) {
         super(frame, name);
@@ -30,12 +30,12 @@ public class FilterVehiclesDialog extends FilterDialog {
         capacityTo = UIUtilities.createTextField();
         consumptionFrom = UIUtilities.createTextField();
         consumptionTo = UIUtilities.createTextField();
-        brand = new JComboBox<>();
-        UIUtilities.formatDefaultJComboBox(brand);
+       // brand = new JComboBox<>();
+       // UIUtilities.formatDefaultJComboBox(brand);
     }
 
     public void initializeContent(JPanel center) {
-        center.setLayout(new GridLayout(7, 2));
+        center.setLayout(new GridLayout(6, 2));
         UIUtilities.formatWhiteTextBrownDialog(center);
         String paragraph = "      ";
         center.add(capacityFilter);
@@ -50,8 +50,8 @@ public class FilterVehiclesDialog extends FilterDialog {
         center.add(consumptionFrom);
         center.add(new JLabel(paragraph + "•  Do:"));
         center.add(consumptionTo);
-        center.add(new JLabel("  •  Značka"));
-        center.add(brand);
+        //center.add(new JLabel("  •  Značka"));
+        //center.add(brand);
         this.add(center);
         setSize(450, 350);
     }

@@ -1,7 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
@@ -10,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class FilterPassengersDialog extends FilterDialog {
+public class FilterPassengersDialog extends SortFilterDialog {
     private JScrollPane categories;
     private JList<PassengerCategory> categoriesList;
 
