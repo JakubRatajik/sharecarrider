@@ -6,6 +6,8 @@ import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -54,7 +56,7 @@ public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
             case 1 -> passenger.setLastName((String) attribute);
             case 2 -> passenger.setPhoneNumber((String) attribute);
             case 3 ->
-                    passenger.setCategories((Set<PassengerCategory>) attribute);
+                    passenger.setCategories((ArrayList<PassengerCategory>) attribute);
         }
     }
 

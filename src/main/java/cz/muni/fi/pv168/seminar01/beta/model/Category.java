@@ -28,4 +28,8 @@ public abstract class Category implements HasID {
     public void setName(String attribute) {
         this.name = attribute;
     }
+
+    public String toString() {
+        return this.getName();
+    }
 }

@@ -46,7 +46,7 @@ public class AddEditRideDialog extends AddEditDialog {
     }
 
 
-    public AddEditRideDialog(JFrame frame, String name, Ride ride) {
+    public AddEditRideDialog(Frame frame, String name, Ride ride) {
         super(frame, name, ride);
     }
 

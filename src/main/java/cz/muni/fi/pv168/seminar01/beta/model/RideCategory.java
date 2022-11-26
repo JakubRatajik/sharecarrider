@@ -14,9 +14,4 @@ public class RideCategory extends Category {
         super(name);
     }
 
-
-    @Override
-    public String toString() {
-        return this.getName();
-    }
 }

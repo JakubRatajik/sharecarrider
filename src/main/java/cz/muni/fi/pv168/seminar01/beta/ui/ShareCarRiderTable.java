@@ -1,12 +1,18 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
+import cz.muni.fi.pv168.seminar01.beta.model.Category;
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditVehicleDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.CategoryDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.DeleteDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.PassengerDetailDialog;
@@ -266,7 +272,8 @@ public class ShareCarRiderTable extends JTable {
         detailPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ErrorDialog(MainWindow.getFrame(), "Tento objekt nemá detail k dispozici");
+                var passengerCategory = getObjectFromTable();
+                new CategoryDetailDialog(MainWindow.getFrame(), "Detail kategorie", (Category) passengerCategory);
             }
         });
 
@@ -275,7 +282,7 @@ public class ShareCarRiderTable extends JTable {
             public void actionPerformed(ActionEvent e) {
                 var passengerCategory = getObjectFromTable();
 
-                new ErrorDialog(MainWindow.getFrame(), "Kategorii prozatím není možné měnit");
+                new AddEditPassengerCategoryDialog(MainWindow.getFrame(), "Upravit kategorii", (PassengerCategory) passengerCategory);
             }
         });
 
@@ -291,7 +298,7 @@ public class ShareCarRiderTable extends JTable {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new ErrorDialog(MainWindow.getFrame(), "Kategorie nemohou prozatím být vytvořeny");
+                new AddEditPassengerCategoryDialog(MainWindow.getFrame(), "Vytvořit kategorii");
             }
         });
     }
@@ -301,7 +308,8 @@ public class ShareCarRiderTable extends JTable {
         detailPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ErrorDialog(MainWindow.getFrame(), "Tento objekt nemá detail k dispozici");
+                var category = getObjectFromTable();
+                new CategoryDetailDialog(MainWindow.getFrame(), "Detail kategorie", (Category) category);;
             }
         });
 
@@ -310,7 +318,7 @@ public class ShareCarRiderTable extends JTable {
             public void actionPerformed(ActionEvent e) {
                 var rideCategory = getObjectFromTable();
 
-                new ErrorDialog(MainWindow.getFrame(), "Kategorii prozatím není možné měnit");
+                new AddEditRideCategoryDialog(MainWindow.getFrame(), "Upravit kategorii", (RideCategory) rideCategory);
             }
         });
 
@@ -325,8 +333,7 @@ public class ShareCarRiderTable extends JTable {
         addPopupMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                new ErrorDialog(MainWindow.getFrame(), "Kategorie nemohou prozatím být vytvořeny");
+                new AddEditRideCategoryDialog(MainWindow.getFrame(), "Vytvořit kategorii jízdy");
             }
         });
     }
@@ -353,6 +360,8 @@ public class ShareCarRiderTable extends JTable {
                             new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího", (Passenger) entity);
                     case RIDES ->
                             new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", (Ride) entity);
+                    case RIDE_CATEGORY, PASSENGER_CATEGORY ->
+                            new CategoryDetailDialog(MainWindow.getFrame(), "Detail kategorie", (Category) entity);
                 }
             }
         };
