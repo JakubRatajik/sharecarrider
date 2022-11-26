@@ -1,6 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.wiring;
 
+import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.PassengerCategoryDao;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.db.DatabaseManager;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.PassengerCategoryMapper;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.FuelRepository;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.PassengerCategoryRepository;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.PassengerRepository;
@@ -32,7 +34,7 @@ public abstract class CommonDependencyProvider implements DependencyProvider {
         this.rides = new RideRepository();
         this.vehicles = new VehicleRepository();
         this.passengers = new PassengerRepository();
-        this.passengerCategories = new PassengerCategoryRepository();
+        this.passengerCategories = new PassengerCategoryRepository(new PassengerCategoryMapper(), new PassengerCategoryDao(databaseManager::getConnectionHandler));
         this.rideCategories = new RideCategoryRepository();
         this.fuels = new FuelRepository();
 

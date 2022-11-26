@@ -20,9 +20,12 @@ public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractT
         this.columnNames = columnNames;
         this.data = data;
         this.repository = repository;
-        for (T record: data) {
-            repository.create(record);
+        if (repository.getSize() == 0) {
+            for (T record: data) {
+                repository.create(record);
+            }
         }
+
 
     }
 

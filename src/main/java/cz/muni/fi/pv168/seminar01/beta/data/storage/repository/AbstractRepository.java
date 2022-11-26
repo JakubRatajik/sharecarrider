@@ -16,7 +16,7 @@ public class AbstractRepository<T extends HasID> implements Repository<T>{
     // --TODO Add Mapper, Dao as attributes
 
     AbstractRepository() {
-        this.refresh();
+        //this.refresh();
     }
 
     protected List<T> repositoryMembers = new ArrayList<>();
