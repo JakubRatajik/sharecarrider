@@ -19,6 +19,6 @@ public class PassengerMapper implements EntityMapper<PassengerEntity, Passenger>
 
     @Override
     public Passenger mapToModel(PassengerEntity entity) {
-        return null; // TODO
+        return new Passenger(entity.id(), entity.firstName(), entity.lastName(), entity.phoneNumber(), null);
     }
 }

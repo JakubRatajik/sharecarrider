@@ -9,7 +9,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 /**
  * Mapper from the {@link PassengerCategoryEntity} to {@link PassengerCategory}.
  */
-public final class PassengerCategoryMapper implements EntityMapper<PassengerCategoryEntity, PassengerCategory> {
+public class PassengerCategoryMapper implements EntityMapper<PassengerCategoryEntity, PassengerCategory> {
 
 
     public PassengerCategoryMapper() {
