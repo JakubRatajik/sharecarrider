@@ -1,7 +1,5 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.model.Category;
-import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
@@ -11,8 +9,6 @@ import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AddEditRideCategoryDialog extends AddEditDialog{
     private RideCategory category = null;
@@ -77,7 +73,7 @@ public class AddEditRideCategoryDialog extends AddEditDialog{
         center.add(new JLabel("•  Název:"));
         center.add(name);
         this.add(center);
-        setSize(270, 100);
+        setSize(270, 110);
     }
 
     @Override

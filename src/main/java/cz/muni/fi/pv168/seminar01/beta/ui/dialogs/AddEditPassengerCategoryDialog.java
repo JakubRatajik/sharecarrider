@@ -1,8 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.model.Category;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
@@ -75,7 +73,7 @@ public class AddEditPassengerCategoryDialog extends AddEditDialog{
         center.add(new JLabel("•  Název:"));
         center.add(name);
         this.add(center);
-        setSize(270, 100);
+        setSize(270, 110);
     }
 
     @Override
