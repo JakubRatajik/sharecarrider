@@ -127,7 +127,7 @@ public class RideCategoryDao implements DataAccessObject<RideCategoryEntity> {
                 var statement = connection.use().prepareStatement(sql)
         ) {
             statement.setString(1, entity.name());
-            statement.setLong(7, entity.id());
+            statement.setLong(2, entity.id());
 
             if (statement.executeUpdate() == 0) {
                 throw new DataStorageException("Failed to update non-existing rideCategories: " + entity);

@@ -15,7 +15,7 @@ public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCategory
 
 
     public RideCategoryTableModel(Repository<RideCategory> repository) {
-        super(new String[] {"Název"}, SampleUsage.getRideCategories(), repository);
+        super(new String[] {"Název"}, repository);
     }
 
     @Override
