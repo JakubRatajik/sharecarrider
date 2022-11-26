@@ -2,9 +2,11 @@ package cz.muni.fi.pv168.seminar01.beta.wiring;
 
 import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.PassengerCategoryDao;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.RideCategoryDao;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.VehicleDao;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.db.DatabaseManager;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.PassengerCategoryMapper;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.RideCategoryMapper;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.VehicleMapper;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.FuelRepository;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.PassengerCategoryRepository;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.PassengerRepository;
@@ -34,7 +36,7 @@ public abstract class CommonDependencyProvider implements DependencyProvider {
     protected CommonDependencyProvider(DatabaseManager databaseManager) {
 
         this.rides = new RideRepository();
-        this.vehicles = new VehicleRepository();
+        this.vehicles = new VehicleRepository(new VehicleMapper(), new VehicleDao(databaseManager::getConnectionHandler));
         this.passengers = new PassengerRepository();
         this.passengerCategories = new PassengerCategoryRepository(new PassengerCategoryMapper(), new PassengerCategoryDao(databaseManager::getConnectionHandler));
         this.rideCategories = new RideCategoryRepository(new RideCategoryMapper(), new RideCategoryDao(databaseManager::getConnectionHandler));

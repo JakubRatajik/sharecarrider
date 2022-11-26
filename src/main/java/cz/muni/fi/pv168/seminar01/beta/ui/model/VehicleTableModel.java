@@ -10,7 +10,7 @@ import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
  */
 public class VehicleTableModel extends ShareCarRiderTableModel<Vehicle> {
     public VehicleTableModel(Repository<Vehicle> repository) {
-        super(new String[]{"Značka", "Typ", "Počet míst", "Průměrná spotřeba"}, SampleUsage.getVehicles(), repository);
+        super(new String[]{"Značka", "Typ", "Počet míst", "Průměrná spotřeba"}, repository);
     }
 
     @Override

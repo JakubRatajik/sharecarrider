@@ -52,8 +52,8 @@ public class PassengerCategoryRepository extends AbstractRepository<PassengerCat
 
     @Override
     public void deleteByIndex(int index) {
-        PassengerCategory department = repositoryMembers.get(index);
-        dao.deleteById(department.getId());
+        PassengerCategory passengerCategory = repositoryMembers.get(index);
+        dao.deleteById(passengerCategory.getId());
         repositoryMembers.remove(index);
     }
 
