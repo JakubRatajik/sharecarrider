@@ -136,12 +136,12 @@ public class RideDetailDialog extends DetailDialog {
         vehicle = new JLabel(ride.getVehicle().getBrand() + " " + ride.getVehicle().getType());
         price = new JLabel(ride.countPrice().setScale(0, RoundingMode.DOWN) + " Kč");
         repetition = new JLabel(ride.getRepetition().getDescription());
-        //arrival = new JLabel(ride.getArrival());
-        arrival = new JLabel("");
+        arrival = new JLabel(ride.getArrival());
         description = new JTextArea(ride.getDescription());
         description.setEditable(false);
         description.setBackground(Color.WHITE);
         description.setLineWrap(true);
+        description.setWrapStyleWord(true);
     }
 
 
@@ -150,6 +150,4 @@ public class RideDetailDialog extends DetailDialog {
         ride = (Ride) attribute;
     }
 
-    public void update() {
-    }
 }

@@ -97,10 +97,10 @@ public final class TestDataGenerator {
         Passenger passenger;
         if (gender == 'f') {
             passenger = new Passenger(selectRandom(femaleNames), selectRandom(femaleSurnames),
-                    selectRandom(phoneNumbers), selectRandom(passengerCategories));
+                    selectRandom(phoneNumbers), selectRandom(passengerCategories).stream().toList());
         } else {
             passenger = new Passenger(selectRandom(maleNames), selectRandom(maleSurnames),
-                    selectRandom(phoneNumbers), selectRandom(passengerCategories));
+                    selectRandom(phoneNumbers), selectRandom(passengerCategories).stream().toList());
         }
         passengers.add(passenger);
         return passenger;

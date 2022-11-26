@@ -48,7 +48,7 @@ public class ImportPassengers {
             throw new DataManipulationException("Problém s načtením pasažérů.", e);
         }
 
-        Set<PassengerCategory> categorySet = new HashSet<>();
+        List<PassengerCategory> categorySet = new ArrayList<>();
         if (categories.length() > 2) {
             for (String category : ManipulationUtils.listParser(categories)) {
                 PassengerCategory temporaryObject = ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY)).getObjectById(Long.parseLong(category));

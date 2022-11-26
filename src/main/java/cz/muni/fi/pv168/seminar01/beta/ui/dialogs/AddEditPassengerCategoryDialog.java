@@ -1,11 +1,11 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.model.Category;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
@@ -20,8 +20,8 @@ public class AddEditPassengerCategoryDialog extends AddEditDialog{
         super(frame, name);
     }
 
-    public AddEditPassengerCategoryDialog(Frame frame, String name, Ride ride) {
-        super(frame, name, ride);
+    public AddEditPassengerCategoryDialog(Frame frame, String name, PassengerCategory category) {
+        super(frame, name, category);
     }
 
     @Override
@@ -49,6 +49,7 @@ public class AddEditPassengerCategoryDialog extends AddEditDialog{
             PassengerCategoryTableModel tableModel = (PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY);
             tableModel.updateRow(category);
             dispose();
+            new CategoryDetailDialog(MainWindow.getFrame(), "Detail kategorie", category);
         });
     }
 
@@ -82,7 +83,7 @@ public class AddEditPassengerCategoryDialog extends AddEditDialog{
         create.addActionListener(actionListener -> {
             PassengerCategory category = new PassengerCategory(name.getText());
             PassengerCategoryTableModel tableModel = (PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY);
-            tableModel.updateRow(category);
+            tableModel.addRow(category);
             dispose();
         });
     }
