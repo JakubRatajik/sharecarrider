@@ -114,7 +114,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
             vehicle.setBrand(brand.getText());
             vehicle.setType(type.getText());
             vehicle.setCapacity(Integer.parseInt(capacity.getText()));
-            vehicle.setConsumption(Float.parseFloat(consumption.getText()));
+            vehicle.setConsumption(Double.parseDouble(consumption.getText()));
             vehicle.setFuelType((FuelType) fuelType.getSelectedItem());
             tableModel.updateRow(vehicle);
             dispose();
@@ -144,7 +144,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
                     brand.getText(),
                     type.getText(),
                     Integer.parseInt(capacity.getText()),
-                    Float.parseFloat(consumption.getText()),
+                    Double.parseDouble(consumption.getText()),
                     (FuelType) fuelType.getSelectedItem());
 
             tableModel.addRow(vehicle);

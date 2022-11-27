@@ -56,7 +56,7 @@ public class RideValidator {
     }
 
     private static boolean isValidRideId(String id) {
-        return CommonValidator.isValidFloatParsing(id)
+        return CommonValidator.isValidDoubleParsing(id)
                 && Shortcut.getTableModel(TableCategory.RIDES).getObjectById(Long.parseLong(id)) == null;
     }
 
