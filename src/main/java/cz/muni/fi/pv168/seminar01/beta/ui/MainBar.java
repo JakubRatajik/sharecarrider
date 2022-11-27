@@ -1,6 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ExportDialog;
@@ -57,27 +59,6 @@ public class MainBar extends JMenuBar {
 
         add(importExport);
 
-        var categories = new JMenu("Kategorie");
-        categories.setToolTipText("Otevřít menu pro kategorie");
-        categories.setMnemonic('c');
-        UIUtilities.formatWhiteTextBrownMenu(categories);
-
-        JMenuItem showCategoriesItem = new JMenuItem(new AbstractAction("Zobrazit kategorie") {
-            public void actionPerformed(ActionEvent e) {
-                // Button pressed logic goes here
-            }
-        });
-        UIUtilities.formatWhiteTextBrownMenu(showCategoriesItem);
-        categories.add(showCategoriesItem);
-
-        JMenuItem addCategoryItem = new JMenuItem(new AbstractAction("Přidat kategorii") {
-            public void actionPerformed(ActionEvent e) {
-                // Button pressed logic goes here
-            }
-        });
-        UIUtilities.formatWhiteTextBrownMenu(addCategoryItem);
-        categories.add(addCategoryItem);
-        add(categories);
 
         var addMenuItem = new JMenu("Přidat");
         addMenuItem.setToolTipText("Přidat jízdu, vozidlo nebo pasažéra");
@@ -107,6 +88,22 @@ public class MainBar extends JMenuBar {
         });
         UIUtilities.formatWhiteTextBrownMenu(addPassenger);
         addMenuItem.add(addPassenger);
+
+        JMenuItem addRideCategory = new JMenuItem(new AbstractAction("Přidat kategorii jízd") {
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new AddEditRideCategoryDialog(MainWindow.getFrame(), "Přidat kategorii jízdy");
+            }
+        });
+        UIUtilities.formatWhiteTextBrownMenu(addRideCategory);
+        addMenuItem.add(addRideCategory);
+
+        JMenuItem addPassengerCategory = new JMenuItem(new AbstractAction("Přidat kategorii cestujícího") {
+            public void actionPerformed(ActionEvent e) {
+                JDialog dial = new AddEditPassengerCategoryDialog(MainWindow.getFrame(), "Přidat kategorii cestujícího");
+            }
+        });
+        UIUtilities.formatWhiteTextBrownMenu(addPassengerCategory);
+        addMenuItem.add(addPassengerCategory);
 
         add(addMenuItem);
 

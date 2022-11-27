@@ -92,7 +92,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
         DefaultListModel<PassengerCategory> r1 = new DefaultListModel<>();
         r1.addAll((List<PassengerCategory>) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY).getData());
 
-        JList<PassengerCategory> categoryList = new JList<>(r1);
+        categoryList = new JList<>(r1);
         categoryList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(

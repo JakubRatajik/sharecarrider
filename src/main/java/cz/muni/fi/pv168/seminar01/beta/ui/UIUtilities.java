@@ -15,6 +15,7 @@ public class UIUtilities {
     public static final Font fMenu = new Font("Inter", Font.PLAIN, 15);
     public static final Font fTable = new Font("Inter", Font.PLAIN, 15);
     public static final Font fDialog = new Font("Inter", Font.PLAIN, 12);
+    public static final Font fStatistics = new Font("Inter", Font.PLAIN, 20);
 
     public static final int LEFT_FRAME_INDENT = 60;
     public static final int RIGHT_FRAME_INDENT = 60;

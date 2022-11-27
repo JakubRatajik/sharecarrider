@@ -118,6 +118,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
             vehicle.setFuelType((FuelType) fuelType.getSelectedItem());
             tableModel.updateRow(vehicle);
             dispose();
+            new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla", vehicle);
         });
     }
 

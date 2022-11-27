@@ -72,8 +72,11 @@ public class TabFrame {
         topPanel.setBackground(UIUtilities.WHITE);
         topPanel.add(Box.createHorizontalGlue());
         topPanel.add(selectButton);
-        topPanel.add(sortByButton);
-        topPanel.add(filterButton);
+        TableCategory category = table.getTableCategory();
+        if (category == TableCategory.PASSENGERS || category == TableCategory.VEHICLES || category == TableCategory.RIDES) {
+            topPanel.add(sortByButton);
+            topPanel.add(filterButton);
+        }
         topPanel.add(deleteButton);
 
         return topPanel;
