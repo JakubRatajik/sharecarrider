@@ -153,7 +153,7 @@ public class Statistics {
 
         return allVehicles
                 .stream()
-                .reduce((a, b) -> a.countPricePerHundredKM().compareTo(b.countPricePerHundredKM()) > 0 ? a : b)
+                .reduce((a, b) -> a.countPricePerHundredKM().compareTo(b.countPricePerHundredKM()) < 0 ? a : b)
                 .orElse(null);
     }
 
@@ -162,7 +162,7 @@ public class Statistics {
 
         return allVehicles
                 .stream()
-                .reduce((a, b) -> a.countPricePerHundredKM().compareTo(b.countPricePerHundredKM()) < 0 ? a : b)
+                .reduce((a, b) -> a.countPricePerHundredKM().compareTo(b.countPricePerHundredKM()) > 0 ? a : b)
                 .orElse(null);
     }
 
