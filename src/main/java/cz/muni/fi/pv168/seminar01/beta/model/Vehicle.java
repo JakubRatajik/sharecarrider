@@ -110,4 +110,10 @@ public class Vehicle implements HasID {
         }
         return result;
     }
+
+    public BigDecimal countPricePerHundredKM() {
+        BigDecimal fuelPrice = MainWindow.getFuelPrice().getFuelPrice(fuelType);
+
+        return fuelPrice.multiply(new BigDecimal(consumption));
+    }
 }
