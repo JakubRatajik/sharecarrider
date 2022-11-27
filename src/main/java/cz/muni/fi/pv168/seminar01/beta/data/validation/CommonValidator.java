@@ -57,9 +57,9 @@ public class CommonValidator {
         }
     }
 
-    public static boolean isValidFloatParsing(String num) {
+    public static boolean isValidDoubleParsing(String num) {
         try {
-            Float.parseFloat(num.trim());
+            Double.parseDouble(num.trim());
             return true;
         } catch (NumberFormatException e) {
             return false;

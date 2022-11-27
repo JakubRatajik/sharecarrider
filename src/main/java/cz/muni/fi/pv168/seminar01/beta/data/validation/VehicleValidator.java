@@ -31,7 +31,7 @@ public class VehicleValidator {
         if (!CommonValidator.isValidIntParsing(capacity)) {
             throw new ValidationException("Kapacita musí být celé číslo.");
         }
-        if (!CommonValidator.isValidFloatParsing(consumption)) {
+        if (!CommonValidator.isValidDoubleParsing(consumption)) {
             throw new ValidationException("Spotřeba musí být reální číslo.");
         }
         if (fuelType != null

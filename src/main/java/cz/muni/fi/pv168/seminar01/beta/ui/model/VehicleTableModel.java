@@ -19,7 +19,7 @@ public class VehicleTableModel extends ShareCarRiderTableModel<Vehicle> {
     public Class<?> getColumnClass(int col) {
         return switch (col) {
             case COLUMN_CAPACITY -> Integer.class;
-            case COLUMN_AVERAGE_CONSUMPTION -> Float.class;
+            case COLUMN_AVERAGE_CONSUMPTION -> Double.class;
             default -> String.class;
         };
     }
@@ -45,7 +45,7 @@ public class VehicleTableModel extends ShareCarRiderTableModel<Vehicle> {
             case COLUMN_BRAND -> vehicle.setBrand((String) attribute);
             case COLUMN_TYPE -> vehicle.setType((String) attribute);
             case COLUMN_CAPACITY -> vehicle.setCapacity((int) attribute);
-            case COLUMN_AVERAGE_CONSUMPTION -> vehicle.setConsumption((float) attribute);
+            case COLUMN_AVERAGE_CONSUMPTION -> vehicle.setConsumption((double) attribute);
         }
     }
 }

@@ -120,7 +120,7 @@ public class ShareCarRiderTable extends JTable {
 
         setDefaultRenderer(Object.class, defaultCellRenderer);
         setDefaultRenderer(Integer.class, defaultCellRenderer);
-        setDefaultRenderer(Float.class, defaultCellRenderer);
+        setDefaultRenderer(Double.class, defaultCellRenderer);
     }
 
     private void addPopupMenu() {

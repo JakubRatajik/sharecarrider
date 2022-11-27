@@ -110,7 +110,7 @@ public final class TestDataGenerator {
         String brand = selectRandom(brands.keySet().stream().toList());
         String type = selectRandom(brands.get(brand).keySet().stream().toList());
         FuelType fuelType = selectRandom(Arrays.stream(FuelType.values()).toList());
-        Vehicle vehicle = new Vehicle(Integer.toString(Objects.hash(brand, type)), brand, type, brands.get(brand).get(type), (float) (randomInt(35, 200)) / 10, fuelType);
+        Vehicle vehicle = new Vehicle(Integer.toString(Objects.hash(brand, type)), brand, type, brands.get(brand).get(type), (double) (randomInt(35, 200)) / 10, fuelType);
         vehicles.add(vehicle);
         return vehicle;
     }
