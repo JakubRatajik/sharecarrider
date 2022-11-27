@@ -236,7 +236,7 @@ public class PassengerDao implements DataAccessObject<PassengerEntity> {
                 """;
         try (
                 var connection = connections.get();
-                var statement = connection.use().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+                var statement = connection.use().prepareStatement(sql)
         ) {
             for (PassengerCategory category: categories) {
                 statement.setLong(1, passengerId);

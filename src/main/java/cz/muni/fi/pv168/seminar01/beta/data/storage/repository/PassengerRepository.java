@@ -47,7 +47,7 @@ public class PassengerRepository extends AbstractRepository<Passenger>{
                 .map(mapper::mapToModel)
                 .findFirst().orElse(null);
         newPassenger.setCategories(passenger.getCategories());
-        dao.createJoins(passenger.getId(), passenger.getCategories());
+        dao.createJoins(newPassenger.getId(), passenger.getCategories());
         repositoryMembers.add(newPassenger);
 
     }
@@ -69,8 +69,8 @@ public class PassengerRepository extends AbstractRepository<Passenger>{
     @Override
     public void deleteByIndex(int index) {
         Passenger passenger = repositoryMembers.get(index);
-        dao.deleteById(passenger.getId());
         dao.deletePassengerCategories(passenger.getId());
+        dao.deleteById(passenger.getId());
         repositoryMembers.remove(index);
     }
 
