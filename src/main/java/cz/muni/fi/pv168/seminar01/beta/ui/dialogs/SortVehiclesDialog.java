@@ -1,9 +1,15 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SortVehiclesDialog extends SortFilterDialog{
     private JRadioButton capacityMinMax;
@@ -21,7 +27,26 @@ public class SortVehiclesDialog extends SortFilterDialog{
 
     @Override
     protected void onOkButton(JButton ok) {
-        //TODO - set sorting on ok button
+        ok.addActionListener(al -> {
+            ShareCarRiderTable vehicleTable = Shortcut.getTable(TableCategory.VEHICLES);
+            List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+
+            if (capacityMaxMin.isSelected()) {
+                sortKeys.add(new RowSorter.SortKey(VehicleTableModel.COLUMN_CAPACITY, SortOrder.DESCENDING));
+                vehicleTable.getRowSorter().setSortKeys(sortKeys);
+            } else if (capacityMinMax.isSelected()) {
+                sortKeys.add(new RowSorter.SortKey(VehicleTableModel.COLUMN_CAPACITY, SortOrder.ASCENDING));
+                vehicleTable.getRowSorter().setSortKeys(sortKeys);
+            } else if (consumptionMaxMin.isSelected()) {
+                sortKeys.add(new RowSorter.SortKey(VehicleTableModel.COLUMN_AVERAGE_CONSUMPTION, SortOrder.DESCENDING));
+                vehicleTable.getRowSorter().setSortKeys(sortKeys);
+            } else if (consumptionMinMax.isSelected()) {
+                sortKeys.add(new RowSorter.SortKey(VehicleTableModel.COLUMN_AVERAGE_CONSUMPTION, SortOrder.ASCENDING));
+                vehicleTable.getRowSorter().setSortKeys(sortKeys);
+            }
+
+            dispose();
+        });
     }
 
     @Override
