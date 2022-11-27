@@ -13,6 +13,7 @@ import java.util.Set;
 public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
     public static final int COLUMN_FIRSTNAME = 0;
     public static final int COLUMN_LASTNAME = 1;
+    public static final int COLUMN_PHONE_NUMBER = 2;
     public static final int COLUMN_CATEGORIES = 3;
 
     public PassengerTableModel() {
@@ -30,18 +31,15 @@ public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
 
     @Override
     public Object getValueAt(int row, int col) {
-        Object value;
         Passenger passenger = data.get(row);
 
-        switch (col) {
-            case 0 -> value = passenger.getFirstName();
-            case 1 -> value = passenger.getLastName();
-            case 2 -> value = passenger.getPhoneNumber();
-            case 3 -> value = passenger.getCategoryNames();
-            default -> value = null;
-        }
-
-        return value;
+        return switch (col) {
+            case COLUMN_FIRSTNAME -> passenger.getFirstName();
+            case COLUMN_LASTNAME -> passenger.getLastName();
+            case COLUMN_PHONE_NUMBER -> passenger.getPhoneNumber();
+            case COLUMN_CATEGORIES -> passenger.getCategoryNames();
+            default -> throw new IllegalStateException("Unexpected value: " + col);
+        };
     }
 
     @Override
@@ -49,12 +47,10 @@ public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
         Passenger passenger = data.get(row);
 
         switch (col) {
-            case 0 -> passenger.setFirstName((String) attribute);
-            case 1 -> passenger.setLastName((String) attribute);
-            case 2 -> passenger.setPhoneNumber((String) attribute);
-            case 3 ->
-                    passenger.setCategories((ArrayList<PassengerCategory>) attribute);
+            case COLUMN_FIRSTNAME -> passenger.setFirstName((String) attribute);
+            case COLUMN_LASTNAME -> passenger.setLastName((String) attribute);
+            case COLUMN_PHONE_NUMBER -> passenger.setPhoneNumber((String) attribute);
+            case COLUMN_CATEGORIES -> passenger.setCategories((ArrayList<PassengerCategory>) attribute);
         }
     }
-
 }
