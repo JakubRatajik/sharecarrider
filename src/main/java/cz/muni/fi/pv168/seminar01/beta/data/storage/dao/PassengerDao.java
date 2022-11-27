@@ -242,18 +242,6 @@ public class PassengerDao implements DataAccessObject<PassengerEntity> {
                 statement.setLong(1, passengerId);
                 statement.setLong(2, category.getId());
                 statement.executeUpdate();
-
-                try (ResultSet keyResultSet = statement.getGeneratedKeys()) {
-
-                    if (keyResultSet.next()) {
-                    } else {
-                        throw new DataStorageException("Failed to fetch generated key for: " + category.getId());
-                    }
-                    if (keyResultSet.next()) {
-                        throw new DataStorageException("Multiple keys returned for: " + category.getId());
-                    }
-                }
-
             }
         } catch (SQLException ex) {
             throw new DataStorageException("Failed to store: " + categories.size(), ex);
