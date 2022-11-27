@@ -16,7 +16,7 @@ import java.util.Set;
 public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
 
     public PassengerTableModel(Repository<Passenger> repository) {
-        super(new String[]{"Jméno", "Příjmení", "Telefon", "Kategorie"}, SampleUsage.getPassengers(), repository);
+        super(new String[]{"Jméno", "Příjmení", "Telefon", "Kategorie"}, repository);
     }
 
     @Override

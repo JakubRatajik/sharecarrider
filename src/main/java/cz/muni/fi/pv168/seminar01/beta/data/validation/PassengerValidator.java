@@ -11,10 +11,11 @@ public class PassengerValidator {
     }
 
     public static void validatePassenger(String id, String firstName, String lastName, String phoneNumber, String categories) {
-        if (id != null
-                && !isValidPassengerId(id)) {
-            throw new ValidationException("Neplatné ID pasažéra.");
-        }
+        //TODO: temporary disabled because of database
+//        if (id != null
+//                && !isValidPassengerId(id)) {
+//            throw new ValidationException("Neplatné ID pasažéra.");
+//        }
         if (!isPhoneNumberValid(phoneNumber)) {
             throw new ValidationException("Telefónní číslo musí být ve formátu '712345678' nebo '+421123456789'.");
         }

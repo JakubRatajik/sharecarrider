@@ -2,7 +2,9 @@ package cz.muni.fi.pv168.seminar01.beta.data.storage.dao;
 
 import cz.muni.fi.pv168.seminar01.beta.data.storage.DataStorageException;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.db.ConnectionHandler;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.entity.PassengerCategoriesEntity;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.entity.PassengerEntity;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import org.tinylog.Logger;
 
 import java.sql.ResultSet;
@@ -174,7 +176,7 @@ public class PassengerDao implements DataAccessObject<PassengerEntity> {
         }
     }
 
-    public Collection<Long> findCategoriesByPassengerId(long id) {
+    public List<Long> findCategoriesByPassengerId(long id) {
         Logger.debug("Fetching passenger categories");
         var sql = """
                 SELECT "passengerCategoryId"
@@ -200,6 +202,24 @@ public class PassengerDao implements DataAccessObject<PassengerEntity> {
         }
     }
 
+
+    public void deletePassengerCategories(long id) {
+        Logger.debug("Deleting Passenger-category join");
+        var sql = """
+                DELETE FROM "PassengerCategories" WHERE "passengerId" = ?
+                """;
+        try (
+                var connection = connections.get();
+                var statement = connection.use().prepareStatement(sql)) {
+
+            statement.setLong(1, id);
+            int rowsUpdated = statement.executeUpdate();
+            Logger.debug("Successfully deleted entity with id {}", id);
+        } catch (SQLException ex) {
+            throw new DataStorageException("Failed to delete passenger: %d".formatted(id), ex);
+        }
+    }
+
     private static PassengerEntity passengerFromResultSet(ResultSet resultSet) throws SQLException {
         return new PassengerEntity(
                 resultSet.getLong("id"),
@@ -207,5 +227,36 @@ public class PassengerDao implements DataAccessObject<PassengerEntity> {
                 resultSet.getString("lastName"),
                 resultSet.getString("phoneNumber")
         );
+    }
+
+
+    public void createJoins(long passengerId, List<PassengerCategory> categories) {
+        String sql = """
+                INSERT INTO "PassengerCategories" ("passengerId", "passengerCategoryId") VALUES (?, ?);
+                """;
+        try (
+                var connection = connections.get();
+                var statement = connection.use().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            for (PassengerCategory category: categories) {
+                statement.setLong(1, passengerId);
+                statement.setLong(2, category.getId());
+                statement.executeUpdate();
+
+                try (ResultSet keyResultSet = statement.getGeneratedKeys()) {
+
+                    if (keyResultSet.next()) {
+                    } else {
+                        throw new DataStorageException("Failed to fetch generated key for: " + category.getId());
+                    }
+                    if (keyResultSet.next()) {
+                        throw new DataStorageException("Multiple keys returned for: " + category.getId());
+                    }
+                }
+
+            }
+        } catch (SQLException ex) {
+            throw new DataStorageException("Failed to store: " + categories.size(), ex);
+        }
     }
 }
