@@ -1,9 +1,15 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SortRidesDialog extends SortFilterDialog {
     private JRadioButton dateMinMax;
@@ -21,7 +27,26 @@ public class SortRidesDialog extends SortFilterDialog {
 
     @Override
     protected void onOkButton(JButton ok) {
-        //TODO - set sorting on ok button
+        ok.addActionListener(al -> {
+            ShareCarRiderTable rideTable = Shortcut.getTable(TableCategory.RIDES);
+            List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+
+            if (dateMaxMin.isSelected()) {
+                sortKeys.add(new RowSorter.SortKey(RideTableModel.COLUMN_DATE, SortOrder.ASCENDING));
+                rideTable.getRowSorter().setSortKeys(sortKeys);
+            } else if (dateMinMax.isSelected()) {
+                sortKeys.add(new RowSorter.SortKey(RideTableModel.COLUMN_DATE, SortOrder.DESCENDING));
+                rideTable.getRowSorter().setSortKeys(sortKeys);
+            } else if (distanceMaxMin.isSelected()) {
+                sortKeys.add(new RowSorter.SortKey(RideTableModel.COLUMN_DISTANCE, SortOrder.DESCENDING));
+                rideTable.getRowSorter().setSortKeys(sortKeys);
+            } else if (distanceMinMax.isSelected()) {
+                sortKeys.add(new RowSorter.SortKey(RideTableModel.COLUMN_DISTANCE, SortOrder.ASCENDING));
+                rideTable.getRowSorter().setSortKeys(sortKeys);
+            }
+
+            dispose();
+        });
     }
 
     @Override
