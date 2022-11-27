@@ -13,6 +13,10 @@ import java.util.Collection;
  * @author Jakub Ratajik
  */
 public class RideTableModel extends ShareCarRiderTableModel<Ride> {
+    public static final int COLUMN_DATE = 0;
+    public static final int DEPARTURE = 1;
+    public static final int COLUMN_DISTANCE = 4;
+
     public RideTableModel() {
         super(new String[]{"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"}, SampleUsage.getRides());
 
@@ -23,9 +27,9 @@ public class RideTableModel extends ShareCarRiderTableModel<Ride> {
         Class<?> columnClass;
 
         switch (col) {
-            case 0 -> columnClass = LocalDate.class;
-            case 1 -> columnClass = LocalTime.class;
-            case 4 -> columnClass = int.class;
+            case COLUMN_DATE -> columnClass = LocalDate.class;
+            case DEPARTURE -> columnClass = LocalTime.class;
+            case COLUMN_DISTANCE -> columnClass = Integer.class;
             default -> columnClass = String.class;
         }
 
