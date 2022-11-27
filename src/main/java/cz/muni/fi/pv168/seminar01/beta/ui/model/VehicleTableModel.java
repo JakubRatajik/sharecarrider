@@ -7,13 +7,19 @@ import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
  * @author Jakub Ratajik
  */
 public class VehicleTableModel extends ShareCarRiderTableModel<Vehicle> {
+    public static final int COLUMN_CAPACITY = 2;
+    public static final int COLUMN_AVERAGE_CONSUMPTION = 3;
     public VehicleTableModel() {
         super(new String[]{"Značka", "Typ", "Počet míst", "Průměrná spotřeba"}, SampleUsage.getVehicles());
     }
 
     @Override
     public Class<?> getColumnClass(int col) {
-        return String.class;
+        return switch (col) {
+            case COLUMN_CAPACITY -> Integer.class;
+            case COLUMN_AVERAGE_CONSUMPTION -> Float.class;
+            default -> String.class;
+        };
     }
 
     @Override
