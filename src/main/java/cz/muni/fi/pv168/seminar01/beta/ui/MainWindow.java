@@ -4,9 +4,11 @@ import cz.muni.fi.pv168.seminar01.beta.model.FuelPrice;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
-public class MainWindow {
+public class MainWindow implements ChangeListener {
     private static JFrame frame;
     private static TabFrame ridesTabFrame;
     private static TabFrame vehiclesTabFrame;
@@ -15,6 +17,7 @@ public class MainWindow {
     private static TabFrame rideCategoriesTabFrame;
     private static JPanel topPanel;
     private static FuelPrice fuelPrice;
+    private Statistics statistics;
 
     public MainWindow() {
         initialize();
@@ -104,20 +107,12 @@ public class MainWindow {
     private void addTabBar() {
         UIManager.put("TabbedPane.borderColor", UIUtilities.WHITE);
         JTabbedPane tabs = new JTabbedPane();
-        /*rides.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent me) {
-                if (me.getClickCount() == 2) {
-                    JTable target = (JTable)me.getSource();
-                    int row = target.getSelectedRow();
-                    RideDetailDialog dialog = new RideDetailDialog()
-                    JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
-                }*/
         ridesTabFrame = new TabFrame(TableCategory.RIDES);
         vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES);
         passengersTabFrame = new TabFrame(TableCategory.PASSENGERS);
         passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGER_CATEGORY);
         rideCategoriesTabFrame = new TabFrame(TableCategory.RIDE_CATEGORY);
-        Statistics statistics = new Statistics();
+        statistics = new Statistics();
         tabs.setFont(UIUtilities.fTab);
         tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());
         tabs.addTab("Vozidla", vehiclesTabFrame.getMainPanel());
@@ -126,7 +121,7 @@ public class MainWindow {
         tabs.addTab("Kategorie jízd", rideCategoriesTabFrame.getMainPanel());
         tabs.addTab("Statistiky", statistics.getMain());
         tabs.setBackground(UIUtilities.WHITE);
-
+        tabs.addChangeListener(this);
         tabs.setForeground(UIUtilities.TEXT_BROWN);
 
 
@@ -134,5 +129,14 @@ public class MainWindow {
 
         topPanel.add(tabs, BorderLayout.CENTER);
         frame.add(topPanel);
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
+        int selectedIndex = tabbedPane.getSelectedIndex();
+        if (selectedIndex == 5) {
+            statistics.update();
+        }
     }
 }
