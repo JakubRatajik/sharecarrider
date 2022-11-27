@@ -49,6 +49,9 @@ public class MainWindow {
     }
 
     private void initialize() {
+        // fuelPrice will be moved to Repository and accessed via DependencyProvider
+        // TODO - use dependency provider to access repositories for FuelPrice and other data
+        fuelPrice = new FuelPrice();
 
         frame = new JFrame();
         var im = getClass().getResource("/SCR.png");
@@ -70,9 +73,6 @@ public class MainWindow {
         addPlain();
         addTabBar();
 
-        // fuelPrice will be moved to Repository and accessed via DependencyProvider
-        // TODO - use dependency provider to access repositories for FuelPrice and other data
-        fuelPrice = new FuelPrice();
 
         frame.pack();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
