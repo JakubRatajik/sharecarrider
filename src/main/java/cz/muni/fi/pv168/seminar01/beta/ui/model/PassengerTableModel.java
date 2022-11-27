@@ -4,7 +4,6 @@ import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -12,6 +11,9 @@ import java.util.Set;
  * @author Jakub Ratajik
  */
 public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
+    public static final int COLUMN_FIRSTNAME = 0;
+    public static final int COLUMN_LASTNAME = 1;
+    public static final int COLUMN_CATEGORIES = 3;
 
     public PassengerTableModel() {
         super(new String[]{"Jméno", "Příjmení", "Telefon", "Kategorie"}, SampleUsage.getPassengers());
@@ -19,7 +21,7 @@ public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
 
     @Override
     public Class<?> getColumnClass(int col) {
-        if (col == 3) {
+        if (col == COLUMN_CATEGORIES) {
             return Set.class;
         }
 
