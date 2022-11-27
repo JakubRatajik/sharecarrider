@@ -31,6 +31,7 @@ public class PassengerRepository extends AbstractRepository<Passenger>{
         this.dao = dao;
         this.categoryMapper = categoryMapper;
         this.categoryDao = categoryDao;
+        refresh();
     }
 
     @Override
@@ -84,10 +85,12 @@ public class PassengerRepository extends AbstractRepository<Passenger>{
 
 
     private List<Passenger> fetchAll() {
+        List<Passenger> newPassengers = new ArrayList<>();
         List<Passenger> passengers = dao.findAll().stream().map(mapper::mapToModel).toList();
         for(Passenger passenger: passengers) {
             passenger.setCategories(findCategoriesForPassenger(passenger));
+            newPassengers.add(passenger);
         }
-        return passengers;
+        return newPassengers;
     }
 }
