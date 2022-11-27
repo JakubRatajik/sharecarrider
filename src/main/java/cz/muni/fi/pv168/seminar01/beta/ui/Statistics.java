@@ -7,8 +7,11 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
+import java.math.RoundingMode;
+import java.util.List;
 import java.awt.*;
 import java.math.BigDecimal;
+import java.util.Locale;
 
 /**
  * This class represents the content of the statistics frame including all the counting of its attributes.
@@ -51,33 +54,33 @@ public class Statistics {
         ttlCost.setFont(UIUtilities.fStatistics);
         main.add(ttlCost);
         totalCost = countTotalCost();
-        totalCostLabel = new JLabel(totalCost + " Kč");
+        totalCostLabel = new JLabel(totalCost.setScale(2, RoundingMode.UP) + " Kč");
         totalCostLabel.setFont(UIUtilities.fStatistics);
         main.add(totalCostLabel);
 
-        JLabel avgDisstance = new JLabel("• Průměrná vzdálenost jízdy:");
-        avgDisstance.setFont(UIUtilities.fStatistics);
-        main.add(avgDisstance);
-        averageDistanceLabel = new JLabel(countAverageDistance() + " km");
+        JLabel avgDistance = new JLabel("• Průměrná vzdálenost jízdy:");
+        avgDistance.setFont(UIUtilities.fStatistics);
+        main.add(avgDistance);
+        averageDistanceLabel = new JLabel(String.format(Locale.US, "%.2f", countAverageDistance()) + " km");
         averageDistanceLabel.setFont(UIUtilities.fStatistics);
         main.add(averageDistanceLabel);
 
         JLabel avgCost = new JLabel("• Průměrná cena jízdy:");
         avgCost.setFont(UIUtilities.fStatistics);
         main.add(avgCost);
-        averageCostLabel = new JLabel(countAverageCost() + " Kč");
+        averageCostLabel = new JLabel(countAverageCost().setScale(2, RoundingMode.UP) + " Kč");
         averageCostLabel.setFont(UIUtilities.fStatistics);
         main.add(averageCostLabel);
 
-        JLabel lngstRide = new JLabel("• Detail nejdelší jízdy:");
-        lngstRide.setFont(UIUtilities.fStatistics);
-        main.add(lngstRide);
-        longestRide = new JButton("Ukaž informace");
-        UIUtilities.formatDefaultComponent(longestRide);
+        JLabel longestRide = new JLabel("• Detail nejdelší jízdy:");
         longestRide.setFont(UIUtilities.fStatistics);
-        longestRide.setSize(70, 30);
-        addLongestRideAL();
         main.add(longestRide);
+        this.longestRide = new JButton("Ukaž informace");
+        UIUtilities.formatDefaultComponent(this.longestRide);
+        this.longestRide.setFont(UIUtilities.fStatistics);
+        this.longestRide.setSize(70, 30);
+        addLongestRideAL();
+        main.add(this.longestRide);
 
         JLabel xpnsvRide = new JLabel("• Detail nejdražší jízdy:");
         xpnsvRide.setFont(UIUtilities.fStatistics);
@@ -92,7 +95,7 @@ public class Statistics {
         JLabel xpnsvVehicle = new JLabel("• Vozidlo, které jezdí nejdráž:");
         xpnsvVehicle.setFont(UIUtilities.fStatistics);
         main.add(xpnsvVehicle);
-        Vehicle veh = findExpensiveVehicle();
+        Vehicle veh = findMostExpensiveVehicle();
         expensiveVehicle = new JLabel(veh.getBrand() + " " + veh.getType());
         expensiveVehicle.setFont(UIUtilities.fStatistics);
         main.add(expensiveVehicle);
@@ -106,51 +109,80 @@ public class Statistics {
         main.add(cheapestVehicle);
     }
 
-    public Vehicle findCheapestVehicle() {
-        return (Vehicle) Shortcut.getTableModel(TableCategory.VEHICLES).getEntity(0);
-    }
-
-    public Vehicle findExpensiveVehicle() {
-        return (Vehicle) Shortcut.getTableModel(TableCategory.VEHICLES).getEntity(0);
-    }
-
     public void addExpensiveRideAL() {
-        expensiveRide.addActionListener(al -> {
-            new RideDetailDialog(MainWindow.getFrame(), "Nejdražší jízda", findMostExpensiveRide());
-        });
+        expensiveRide.addActionListener(al -> new RideDetailDialog(MainWindow.getFrame(), "Nejdražší jízda", findMostExpensiveRide()));
     }
 
     public void addLongestRideAL() {
-        longestRide.addActionListener(al -> {
-            new RideDetailDialog(MainWindow.getFrame(), "Nejdelší jízda", findLongestRide());
-        });
+        longestRide.addActionListener(al -> new RideDetailDialog(MainWindow.getFrame(), "Nejdelší jízda", findLongestRide()));
     }
 
     public static void update() {
     }
 
+    public Vehicle findCheapestVehicle() {
+        List<Vehicle> allVehicles = (List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData();
+
+        return allVehicles
+                .stream()
+                .reduce((a, b) -> a.countPricePerHundredKM().compareTo(b.countPricePerHundredKM()) > 0 ? a : b)
+                .orElse(null);
+    }
+
+    public Vehicle findMostExpensiveVehicle() {
+        List<Vehicle> allVehicles = (List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData();
+
+        return allVehicles
+                .stream()
+                .reduce((a, b) -> a.countPricePerHundredKM().compareTo(b.countPricePerHundredKM()) < 0 ? a : b)
+                .orElse(null);
+    }
+
     public int countTotalDistance() {
-        return 0;
+        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        return allRides
+                .stream()
+                .mapToInt(Ride::getDistance)
+                .sum();
     }
 
     public BigDecimal countTotalCost() {
-        return BigDecimal.valueOf(0);
+        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+
+        return allRides
+                .stream()
+                .map(Ride::countPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public double countAverageDistance() {
-        return 0;
+        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+
+        return countTotalDistance() / (double) allRides.size();
     }
 
     public BigDecimal countAverageCost() {
-        return BigDecimal.valueOf(0);
+        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+
+        return countTotalCost().divide(new BigDecimal(allRides.size()));
     }
 
     public Ride findLongestRide() {
-        return null;
+        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+
+        return allRides
+                .stream()
+                .reduce((a, b) -> a.getDistance() >= b.getDistance() ? a : b)
+                .orElse(null);
     }
 
     public Ride findMostExpensiveRide() {
-        return null;
+        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+
+        return allRides
+                .stream()
+                .reduce((a, b) -> a.countPrice().compareTo(b.countPrice()) > 0 ? a : b)
+                .orElse(null);
     }
 
     public JPanel getMain() {
