@@ -42,7 +42,7 @@ public class RideValidator {
             throw new ValidationException("Čas příjezdu nemůže být před časem odjezdu.");
         }
         if (anotherRidePlannedForTimePeriod(date, departure, arrival)) {
-            throw new ValidationException("Na tenhle čas máte již naplánovanou jinou jízdy.");
+            throw new ValidationException("Na tenhle čas máte již naplánovanou jinou jízdu.");
         }
         if (100 < from.length() || 100 < to.length()) {
             throw new ValidationException("Místo odjezdu a příjezdu musí mít nejvýše 100 znaků.");
