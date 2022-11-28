@@ -1,7 +1,9 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
 import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +14,8 @@ import java.util.List;
 public class PassengerCategoryTableModel extends ShareCarRiderTableModel<PassengerCategory> {
 
 
-    public PassengerCategoryTableModel() {
-        super(new String[]{"Název"}, SampleUsage.getPassengerCategories());
+    public PassengerCategoryTableModel(Repository<PassengerCategory> repository) {
+        super(new String[] {"Název"}, repository);
     }
 
     @Override
@@ -24,10 +26,13 @@ public class PassengerCategoryTableModel extends ShareCarRiderTableModel<Passeng
     @Override
     public Object getValueAt(int row, int col) {
         Object value;
-        PassengerCategory passengerCategory = data.get(row);
+        PassengerCategory category = repository.findByIndex(row).orElse(null);
+        if (category == null) {
+            throw new NullPointerException("Vehicle cannot be null at this point (PCTM -> getValueAt)");
+        }
 
         switch (col) {
-            case 0 -> value = passengerCategory.getName();
+            case 0 -> value = category.getName();
             default -> value = null;
         }
 

@@ -1,7 +1,9 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
 import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 /**
  * @author Jakub Ratajik
@@ -11,9 +13,11 @@ public class VehicleTableModel extends ShareCarRiderTableModel<Vehicle> {
     public static final int COLUMN_TYPE = 1;
     public static final int COLUMN_CAPACITY = 2;
     public static final int COLUMN_AVERAGE_CONSUMPTION = 3;
-    public VehicleTableModel() {
-        super(new String[]{"Značka", "Typ", "Počet míst", "Průměrná spotřeba"}, SampleUsage.getVehicles());
+
+    public VehicleTableModel(Repository<Vehicle> repository) {
+        super(new String[]{"Značka", "Typ", "Počet míst", "Průměrná spotřeba"}, repository);
     }
+
 
     @Override
     public Class<?> getColumnClass(int col) {
@@ -26,7 +30,11 @@ public class VehicleTableModel extends ShareCarRiderTableModel<Vehicle> {
 
     @Override
     public Object getValueAt(int row, int col) {
-        Vehicle vehicle = data.get(row);
+        Object value;
+        Vehicle vehicle = repository.findByIndex(row).orElse(null);
+        if (vehicle == null) {
+            throw new NullPointerException("Vehicle cannot be null at this point (VTM -> getValueAt)");
+        }
 
         return switch (col) {
             case COLUMN_BRAND -> vehicle.getBrand();

@@ -2,6 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui;
 
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.ActionListenerProvider;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
@@ -23,14 +24,14 @@ public class TabFrame {
     private JButton selectButton;
     private JButton deleteButton;
 
-    public TabFrame(TableCategory category) {
+    public TabFrame(TableCategory category, ProductionDependencyProvider provider) {
         tablePanel = new JPanel();
 
         mainPanel = new JPanel();
         mainPanel.setBackground(UIUtilities.WHITE);
         mainPanel.setBorder(BorderFactory.createEmptyBorder());
 
-        table = new ShareCarRiderTable(category);
+        table = new ShareCarRiderTable(category, provider);
         initialize();
     }
 

@@ -38,79 +38,117 @@ public class Statistics {
 
     public void initializeContent() {
         main = new JPanel();
-        main.setLayout(new GridLayout(4, 4));
-        main.setBorder(BorderFactory.createEmptyBorder(0, UIUtilities.LEFT_FRAME_INDENT, 150, UIUtilities.RIGHT_FRAME_INDENT));
+        main.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        main.setBorder(BorderFactory.createEmptyBorder(30, UIUtilities.LEFT_FRAME_INDENT, 150, UIUtilities.RIGHT_FRAME_INDENT));
         main.setBackground(UIUtilities.WHITE);
 
         JLabel ttlDistance = new JLabel("•  Celková vzdálenost:");
-        ttlDistance.setFont(UIUtilities.fStatistics);
+        ttlDistance.setFont(new Font("Inter", Font.BOLD, 22));
         ttlDistance.setForeground(UIUtilities.OCHER);
-        main.add(ttlDistance);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1.2;
+        c.weighty = 0.9;
+        c.gridx = 0;
+        c.gridy = 0;
+        main.add(ttlDistance, c);
         totalDistanceLabel = new JLabel();
-        totalDistanceLabel.setFont(UIUtilities.fStatistics);
-        main.add(totalDistanceLabel);
+        totalDistanceLabel.setFont(new Font("Inter", Font.BOLD, 22));
+        c.gridx = 1;
+        c.gridy = 0;
+        main.add(totalDistanceLabel, c);
 
         JLabel ttlCost = new JLabel("•  Celková cena:");
-        ttlCost.setFont(UIUtilities.fStatistics);
+        ttlCost.setFont(new Font("Inter", Font.BOLD, 22));
         ttlCost.setForeground(UIUtilities.OCHER);
-        main.add(ttlCost);
+        c.gridx = 2;
+        c.gridy = 0;
+        main.add(ttlCost, c);
         totalCostLabel = new JLabel();
-        totalCostLabel.setFont(UIUtilities.fStatistics);
-        main.add(totalCostLabel);
+        totalCostLabel.setFont(new Font("Inter", Font.BOLD, 22));
+        c.gridx = 3;
+        c.gridy = 0;
+        main.add(totalCostLabel, c);
 
         JLabel avgDistance = new JLabel("• Průměrná vzdálenost jízdy:");
         avgDistance.setFont(UIUtilities.fStatistics);
         avgDistance.setForeground(UIUtilities.OCHER);
-        main.add(avgDistance);
+        c.gridwidth = 4;
+        c.gridx = 0;
+        c.gridy = 1;
+        main.add(avgDistance, c);
         averageDistanceLabel = new JLabel();
         averageDistanceLabel.setFont(UIUtilities.fStatistics);
-        main.add(averageDistanceLabel);
+        c.gridx = 1;
+        c.gridy = 1;
+        main.add(averageDistanceLabel, c);
 
         JLabel avgCost = new JLabel("• Průměrná cena jízdy:");
         avgCost.setFont(UIUtilities.fStatistics);
         avgCost.setForeground(UIUtilities.OCHER);
-        main.add(avgCost);
+        c.gridx = 2;
+        c.gridy = 1;
+        main.add(avgCost, c);
         averageCostLabel = new JLabel();
         averageCostLabel.setFont(UIUtilities.fStatistics);
-        main.add(averageCostLabel);
-
-        JLabel lngstRide = new JLabel("• Detail nejdelší jízdy:");
-        lngstRide.setFont(UIUtilities.fStatistics);
-        lngstRide.setForeground(UIUtilities.OCHER);
-        main.add(lngstRide);
-        longestRide = new JButton("Ukaž informace");
-        UIUtilities.formatDefaultComponent(longestRide);
-        longestRide.setFont(UIUtilities.fStatistics);
-        longestRide.setSize(70, 30);
-        addLongestRideAL();
-        main.add(longestRide);
-
-        JLabel xpnsvRide = new JLabel("• Detail nejdražší jízdy:");
-        xpnsvRide.setFont(UIUtilities.fStatistics);
-        xpnsvRide.setForeground(UIUtilities.OCHER);
-        main.add(xpnsvRide);
-        expensiveRide = new JButton("Ukaž informace");
-        UIUtilities.formatDefaultComponent(expensiveRide);
-        expensiveRide.setFont(UIUtilities.fStatistics);
-        expensiveRide.setSize(70, 30);
-        addExpensiveRideAL();
-        main.add(expensiveRide);
+        c.gridx = 3;
+        c.gridy = 1;
+        main.add(averageCostLabel, c);
 
         JLabel xpnsvVehicle = new JLabel("• Vozidlo, které jezdí nejdráž:");
         xpnsvVehicle.setFont(UIUtilities.fStatistics);
         xpnsvVehicle.setForeground(UIUtilities.OCHER);
-        main.add(xpnsvVehicle);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 2;
+        main.add(xpnsvVehicle, c);
         expensiveVehicle = new JLabel();
         expensiveVehicle.setFont(UIUtilities.fStatistics);
-        main.add(expensiveVehicle);
+        c.gridx = 1;
+        c.gridy = 2;
+        main.add(expensiveVehicle, c);
+
+        JLabel lngstRide = new JLabel("• Detail nejdelší jízdy:");
+        lngstRide.setFont(UIUtilities.fStatistics);
+        lngstRide.setForeground(UIUtilities.OCHER);
+        c.gridx = 2;
+        c.gridy = 2;
+        main.add(lngstRide, c);
+        longestRide = new JButton("Ukaž informace");
+        UIUtilities.formatDefaultComponent(longestRide);
+        longestRide.setFont(UIUtilities.fStatistics);
+        addLongestRideAL();
+        c.gridx = 3;
+        c.gridy = 2;
+        main.add(longestRide, c);
 
         JLabel chpstVehicle = new JLabel("•  Vozidlo, které jezdí nejlevněji:");
         chpstVehicle.setFont(UIUtilities.fStatistics);
         chpstVehicle.setForeground(UIUtilities.OCHER);
-        main.add(chpstVehicle);
+        c.gridx = 0;
+        c.gridy = 3;
+        main.add(chpstVehicle, c);
         cheapestVehicle = new JLabel();
         cheapestVehicle.setFont(UIUtilities.fStatistics);
-        main.add(cheapestVehicle);
+        c.gridx = 1;
+        c.gridy = 3;
+        main.add(cheapestVehicle, c);
+
+        JLabel xpnsvRide = new JLabel("• Detail nejdražší jízdy:");
+        xpnsvRide.setFont(UIUtilities.fStatistics);
+        xpnsvRide.setForeground(UIUtilities.OCHER);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 3;
+        main.add(xpnsvRide, c);
+        expensiveRide = new JButton("Ukaž informace");
+        UIUtilities.formatDefaultComponent(expensiveRide);
+        expensiveRide.setFont(UIUtilities.fStatistics);
+        expensiveRide.setSize(20, 30);
+        addExpensiveRideAL();
+        c.gridx = 3;
+        c.gridy = 3;
+        main.add(expensiveRide, c);
 
         update();
     }
@@ -144,7 +182,7 @@ public class Statistics {
         if (veh == null) {
             expensiveVehicle.setText("Nebyla nalezena žádná vozidla");
         } else {
-            cheapestVehicle.setText("   " + veh.getBrand() + " " + veh.getType());
+            cheapestVehicle.setText("    " + veh.getBrand() + " " + veh.getType());
         }
     }
 

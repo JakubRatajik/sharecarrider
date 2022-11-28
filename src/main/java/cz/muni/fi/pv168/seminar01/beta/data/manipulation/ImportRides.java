@@ -73,19 +73,30 @@ public class ImportRides {
         Set<RideCategory> categories = new HashSet<>();
         Set<Passenger> passengers = new HashSet<>();
         Vehicle vehicle = (Vehicle) Shortcut.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(vehicleIdString));
+        if (vehicle == null) {
+            throw new DataManipulationException("Vozidlo s daným ID nebylo nalezeno, prosím, zkontrolujte data v csv: (ride ID: " + id + ")", new Exception());
+        }
         Repetition repetition = Enum.valueOf(Repetition.class, repetitionString);
 
 
         String cat = lineSplit[7];
         if (cat.length() > 2) {
             for (String category : ManipulationUtils.listParser(cat)) {
-                categories.add(((RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY)).getCategoryByID(Long.parseLong(category)));
+                RideCategory rideCategory = (((RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY)).getCategoryByID(Long.parseLong(category)));
+                if (rideCategory == null) {
+                    throw new DataManipulationException("Kategorie jízdy s daným ID nebyla nalezena, prosím, zkontrolujte data v csv: (Ride ID: " + id + ")", new Exception());
+                }
+                categories.add(rideCategory);
+
             }
         }
 
         if (passengerListString.length() > 2) {
             for (String passenger : ManipulationUtils.listParser(passengerListString)) {
                 Passenger passengerObject = (Passenger) Shortcut.getTableModel(TableCategory.PASSENGERS).getObjectById(Long.parseLong(passenger));
+                if (passengerObject == null) {
+                    throw new DataManipulationException("Cestující s daným ID nebyl nalezen, prosím, zkontrolujte data v csv: (ride ID: " + id + ")", new Exception());
+                }
                 passengers.add(passengerObject);
             }
         }

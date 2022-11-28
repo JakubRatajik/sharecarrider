@@ -1,8 +1,10 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
 import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -16,8 +18,8 @@ public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
     public static final int COLUMN_PHONE_NUMBER = 2;
     public static final int COLUMN_CATEGORIES = 3;
 
-    public PassengerTableModel() {
-        super(new String[]{"Jméno", "Příjmení", "Telefon", "Kategorie"}, SampleUsage.getPassengers());
+    public PassengerTableModel(Repository<Passenger> repository) {
+        super(new String[]{"Jméno", "Příjmení", "Telefon", "Kategorie"}, repository);
     }
 
     @Override
@@ -31,7 +33,11 @@ public class PassengerTableModel extends ShareCarRiderTableModel<Passenger> {
 
     @Override
     public Object getValueAt(int row, int col) {
-        Passenger passenger = data.get(row);
+        Object value;
+        Passenger passenger = repository.findByIndex(row).orElse(null);
+        if (passenger == null) {
+            throw new NullPointerException("Vehicle cannot be null at this point (PTM -> getValueAt)");
+        }
 
         return switch (col) {
             case COLUMN_FIRSTNAME -> passenger.getFirstName();

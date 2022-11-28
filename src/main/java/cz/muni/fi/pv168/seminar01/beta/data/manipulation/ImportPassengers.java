@@ -51,8 +51,11 @@ public class ImportPassengers {
         List<PassengerCategory> categorySet = new ArrayList<>();
         if (categories.length() > 2) {
             for (String category : ManipulationUtils.listParser(categories)) {
-                PassengerCategory temporaryObject = ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY)).getObjectById(Long.parseLong(category));
-                categorySet.add(temporaryObject);
+                PassengerCategory passengerCategoryTmp = ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY)).getObjectById(Long.parseLong(category));
+                if (passengerCategoryTmp == null) {
+                    throw new DataManipulationException("Kategorii pasažéra s daným ID nebylo možné najít, prosím, zkontrolujte data v csv: (passenger ID: " + Long.parseLong(idString) + ")", new Exception());
+                }
+                categorySet.add(passengerCategoryTmp);
             }
 
         }

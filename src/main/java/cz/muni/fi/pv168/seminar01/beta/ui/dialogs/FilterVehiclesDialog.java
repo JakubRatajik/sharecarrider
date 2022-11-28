@@ -63,7 +63,8 @@ public class FilterVehiclesDialog extends SortFilterDialog {
         center.add(new JLabel(paragraph + "•  Do:"));
         center.add(consumptionTo);
         //center.add(new JLabel("  •  Značka"));
-        //center.add(brand);
+        //
+        // center.add(brand);
         this.add(center);
         setSize(450, 350);
     }
