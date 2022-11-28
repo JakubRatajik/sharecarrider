@@ -25,6 +25,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -33,6 +34,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.stream.IntStream;
@@ -49,15 +52,16 @@ public class ShareCarRiderTable extends JTable {
     private boolean isMultilineSelectionEnabled;
     private MouseAdapter doubleClickListener;
 
-    public ShareCarRiderTable(TableCategory tableCategory) {
+    public ShareCarRiderTable(TableCategory tableCategory, ProductionDependencyProvider provider) {
         this.tableCategory = tableCategory;
 
         switch (tableCategory) {
-            case RIDES -> setModel(new RideTableModel());
-            case VEHICLES -> setModel(new VehicleTableModel());
-            case PASSENGERS -> setModel(new PassengerTableModel());
-            case PASSENGER_CATEGORY -> setModel(new PassengerCategoryTableModel());
-            case RIDE_CATEGORY -> setModel(new RideCategoryTableModel());
+            case RIDES -> setModel(new RideTableModel(provider.getRideRepository()));
+            case VEHICLES -> setModel(new VehicleTableModel(provider.getVehicleRepository()));
+            case PASSENGERS -> setModel(new PassengerTableModel(provider.getPassengerRepository()));
+            case PASSENGER_CATEGORY ->
+                    setModel(new PassengerCategoryTableModel(provider.getPassengerCategoryRepository()));
+            case RIDE_CATEGORY -> setModel(new RideCategoryTableModel(provider.getRideCategoryRepository()));
             default -> setModel(new DefaultTableModel());
         }
 
@@ -293,12 +297,26 @@ public class ShareCarRiderTable extends JTable {
 
     }
 
+    public void hideColumn(int col) {
+        getColumnModel().getColumn(col).setMinWidth(0);
+        getColumnModel().getColumn(col).setMaxWidth(0);
+        getColumnModel().getColumn(col).setWidth(0);
+    }
+
+    public void hideCheckboxColumn() {
+        hideColumn(0);
+    }
+
     public TableCategory getTableCategory() {
         return tableCategory;
     }
 
     public boolean isMultilineSelectionEnabled() {
         return isMultilineSelectionEnabled;
+    }
+
+    void setMultilineSelectionEnabled(boolean wantToEnable) {
+        isMultilineSelectionEnabled = wantToEnable;
     }
 
     public void enableMultilineSelection(boolean enable) {

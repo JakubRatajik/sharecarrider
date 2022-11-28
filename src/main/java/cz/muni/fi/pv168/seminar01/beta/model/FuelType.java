@@ -2,6 +2,8 @@ package cz.muni.fi.pv168.seminar01.beta.model;
 
 /**
  * Types of fuel that a vehicle can drive on.
+ *
+ * if changes of names of fuels needed, then needed to be change also in database
  */
 public enum FuelType implements EnumWithDescription {
     DIESEL("nafta"),

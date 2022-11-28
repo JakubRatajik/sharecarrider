@@ -2,6 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui;
 
 import cz.muni.fi.pv168.seminar01.beta.model.FuelPrice;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -18,6 +19,8 @@ public class MainWindow implements ChangeListener {
     private static JPanel topPanel;
     private static FuelPrice fuelPrice;
     private Statistics statistics;
+
+    private ProductionDependencyProvider provider;
 
     public MainWindow() {
         initialize();
@@ -52,10 +55,7 @@ public class MainWindow implements ChangeListener {
     }
 
     private void initialize() {
-        // fuelPrice will be moved to Repository and accessed via DependencyProvider
-        // TODO - use dependency provider to access repositories for FuelPrice and other data
-        fuelPrice = new FuelPrice();
-
+        provider = new ProductionDependencyProvider();
         frame = new JFrame();
         var im = getClass().getResource("/SCR.png");
         if (im != null) {
@@ -76,6 +76,9 @@ public class MainWindow implements ChangeListener {
         addPlain();
         addTabBar();
 
+        // fuelPrice will be moved to Repository and accessed via DependencyProvider
+        // TODO - use dependency provider to access repositories for FuelPrice and other data
+        fuelPrice = new FuelPrice(provider);
 
         frame.pack();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -107,12 +110,20 @@ public class MainWindow implements ChangeListener {
     private void addTabBar() {
         UIManager.put("TabbedPane.borderColor", UIUtilities.WHITE);
         JTabbedPane tabs = new JTabbedPane();
-        ridesTabFrame = new TabFrame(TableCategory.RIDES);
-        vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES);
-        passengersTabFrame = new TabFrame(TableCategory.PASSENGERS);
-        passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGER_CATEGORY);
-        rideCategoriesTabFrame = new TabFrame(TableCategory.RIDE_CATEGORY);
-        statistics = new Statistics();
+        /*rides.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                if (me.getClickCount() == 2) {
+                    JTable target = (JTable)me.getSource();
+                    int row = target.getSelectedRow();
+                    RideDetailDialog dialog = new RideDetailDialog()
+                    JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
+                }*/
+        ridesTabFrame = new TabFrame(TableCategory.RIDES, provider);
+        vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES, provider);
+        passengersTabFrame = new TabFrame(TableCategory.PASSENGERS, provider);
+        passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGER_CATEGORY, provider);
+        rideCategoriesTabFrame = new TabFrame(TableCategory.RIDE_CATEGORY, provider);
+        Statistics statistics = new Statistics();
         tabs.setFont(UIUtilities.fTab);
         tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());
         tabs.addTab("Vozidla", vehiclesTabFrame.getMainPanel());
