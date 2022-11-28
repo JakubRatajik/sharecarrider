@@ -39,51 +39,55 @@ public class Statistics {
     public void initializeContent() {
         main = new JPanel();
         main.setLayout(new GridLayout(4, 4));
-        main.setBorder(BorderFactory.createEmptyBorder(0, UIUtilities.LEFT_FRAME_INDENT, 20, UIUtilities.RIGHT_FRAME_INDENT));
+        main.setBorder(BorderFactory.createEmptyBorder(0, UIUtilities.LEFT_FRAME_INDENT, 150, UIUtilities.RIGHT_FRAME_INDENT));
         main.setBackground(UIUtilities.WHITE);
 
         JLabel ttlDistance = new JLabel("•  Celková vzdálenost:");
         ttlDistance.setFont(UIUtilities.fStatistics);
+        ttlDistance.setForeground(UIUtilities.OCHER);
         main.add(ttlDistance);
-        totalDistance = countTotalDistance();
-        totalDistanceLabel = new JLabel( totalDistance + " km");
+        totalDistanceLabel = new JLabel();
         totalDistanceLabel.setFont(UIUtilities.fStatistics);
         main.add(totalDistanceLabel);
 
         JLabel ttlCost = new JLabel("•  Celková cena:");
         ttlCost.setFont(UIUtilities.fStatistics);
+        ttlCost.setForeground(UIUtilities.OCHER);
         main.add(ttlCost);
-        totalCost = countTotalCost();
-        totalCostLabel = new JLabel(totalCost.setScale(2, RoundingMode.UP) + " Kč");
+        totalCostLabel = new JLabel();
         totalCostLabel.setFont(UIUtilities.fStatistics);
         main.add(totalCostLabel);
 
         JLabel avgDistance = new JLabel("• Průměrná vzdálenost jízdy:");
         avgDistance.setFont(UIUtilities.fStatistics);
+        avgDistance.setForeground(UIUtilities.OCHER);
         main.add(avgDistance);
-        averageDistanceLabel = new JLabel(String.format(Locale.US, "%.2f", countAverageDistance()) + " km");
+        averageDistanceLabel = new JLabel();
         averageDistanceLabel.setFont(UIUtilities.fStatistics);
         main.add(averageDistanceLabel);
 
         JLabel avgCost = new JLabel("• Průměrná cena jízdy:");
         avgCost.setFont(UIUtilities.fStatistics);
+        avgCost.setForeground(UIUtilities.OCHER);
         main.add(avgCost);
-        averageCostLabel = new JLabel(countAverageCost().setScale(2, RoundingMode.UP) + " Kč");
+        averageCostLabel = new JLabel();
         averageCostLabel.setFont(UIUtilities.fStatistics);
         main.add(averageCostLabel);
 
-        JLabel longestRide = new JLabel("• Detail nejdelší jízdy:");
+        JLabel lngstRide = new JLabel("• Detail nejdelší jízdy:");
+        lngstRide.setFont(UIUtilities.fStatistics);
+        lngstRide.setForeground(UIUtilities.OCHER);
+        main.add(lngstRide);
+        longestRide = new JButton("Ukaž informace");
+        UIUtilities.formatDefaultComponent(longestRide);
         longestRide.setFont(UIUtilities.fStatistics);
-        main.add(longestRide);
-        this.longestRide = new JButton("Ukaž informace");
-        UIUtilities.formatDefaultComponent(this.longestRide);
-        this.longestRide.setFont(UIUtilities.fStatistics);
-        this.longestRide.setSize(70, 30);
+        longestRide.setSize(70, 30);
         addLongestRideAL();
-        main.add(this.longestRide);
+        main.add(longestRide);
 
         JLabel xpnsvRide = new JLabel("• Detail nejdražší jízdy:");
         xpnsvRide.setFont(UIUtilities.fStatistics);
+        xpnsvRide.setForeground(UIUtilities.OCHER);
         main.add(xpnsvRide);
         expensiveRide = new JButton("Ukaž informace");
         UIUtilities.formatDefaultComponent(expensiveRide);
@@ -94,19 +98,21 @@ public class Statistics {
 
         JLabel xpnsvVehicle = new JLabel("• Vozidlo, které jezdí nejdráž:");
         xpnsvVehicle.setFont(UIUtilities.fStatistics);
+        xpnsvVehicle.setForeground(UIUtilities.OCHER);
         main.add(xpnsvVehicle);
-        Vehicle veh = findMostExpensiveVehicle();
-        expensiveVehicle = new JLabel(veh.getBrand() + " " + veh.getType());
+        expensiveVehicle = new JLabel();
         expensiveVehicle.setFont(UIUtilities.fStatistics);
         main.add(expensiveVehicle);
 
         JLabel chpstVehicle = new JLabel("•  Vozidlo, které jezdí nejlevněji:");
         chpstVehicle.setFont(UIUtilities.fStatistics);
+        chpstVehicle.setForeground(UIUtilities.OCHER);
         main.add(chpstVehicle);
-        veh = findCheapestVehicle();
-        cheapestVehicle = new JLabel("   " + veh.getBrand() + " " + veh.getType());
+        cheapestVehicle = new JLabel();
         cheapestVehicle.setFont(UIUtilities.fStatistics);
         main.add(cheapestVehicle);
+
+        update();
     }
 
     public void addExpensiveRideAL() {
@@ -117,7 +123,29 @@ public class Statistics {
         longestRide.addActionListener(al -> new RideDetailDialog(MainWindow.getFrame(), "Nejdelší jízda", findLongestRide()));
     }
 
-    public static void update() {
+    public void update() {
+        totalDistance = countTotalDistance();
+        totalDistanceLabel.setText(totalDistance + " km");
+
+        totalCost = countTotalCost();
+        totalCostLabel.setText(totalCost.setScale(2, RoundingMode.UP) + " Kč");
+
+        averageDistanceLabel.setText(String.format(Locale.US, "%.2f", countAverageDistance()) + " km");
+        averageCostLabel.setText(countAverageCost().setScale(2, RoundingMode.UP) + " Kč");
+
+        Vehicle veh = findMostExpensiveVehicle();
+        if (veh == null) {
+            expensiveVehicle.setText("Nebyla nalezena žádná vozidla");
+        } else {
+            expensiveVehicle.setText(veh.getBrand() + " " + veh.getType());
+        }
+
+        veh = findCheapestVehicle();
+        if (veh == null) {
+            expensiveVehicle.setText("Nebyla nalezena žádná vozidla");
+        } else {
+            cheapestVehicle.setText("   " + veh.getBrand() + " " + veh.getType());
+        }
     }
 
     public Vehicle findCheapestVehicle() {
@@ -125,7 +153,7 @@ public class Statistics {
 
         return allVehicles
                 .stream()
-                .reduce((a, b) -> a.countPricePerHundredKM().compareTo(b.countPricePerHundredKM()) > 0 ? a : b)
+                .reduce((a, b) -> a.countPricePerHundredKM().compareTo(b.countPricePerHundredKM()) < 0 ? a : b)
                 .orElse(null);
     }
 
@@ -134,7 +162,7 @@ public class Statistics {
 
         return allVehicles
                 .stream()
-                .reduce((a, b) -> a.countPricePerHundredKM().compareTo(b.countPricePerHundredKM()) < 0 ? a : b)
+                .reduce((a, b) -> a.countPricePerHundredKM().compareTo(b.countPricePerHundredKM()) > 0 ? a : b)
                 .orElse(null);
     }
 
