@@ -1,9 +1,17 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FilterVehiclesDialog extends SortFilterDialog {
     private JCheckBox capacityFilter;
@@ -30,6 +38,10 @@ public class FilterVehiclesDialog extends SortFilterDialog {
         capacityTo = UIUtilities.createTextField();
         consumptionFrom = UIUtilities.createTextField();
         consumptionTo = UIUtilities.createTextField();
+        capacityFrom.setText("0");
+        capacityTo.setText("0");
+        consumptionFrom.setText("0");
+        consumptionTo.setText("0");
        // brand = new JComboBox<>();
        // UIUtilities.formatDefaultJComboBox(brand);
     }
@@ -57,6 +69,56 @@ public class FilterVehiclesDialog extends SortFilterDialog {
     }
 
     public void onOkButton(JButton ok) {
-        //TODO - set filter on ok button
+        ok.addActionListener(actionListener -> {
+            RowFilter<ShareCarRiderTableModel<Vehicle>, Integer> rfCapacity = new RowFilter<>() {
+                @Override
+                public boolean include(Entry<? extends ShareCarRiderTableModel<Vehicle>, ? extends Integer> entry) {
+                    return true;
+                }
+            };
+            RowFilter<ShareCarRiderTableModel<Vehicle>, Integer> rfConsumption = new RowFilter<>() {
+                @Override
+                public boolean include(Entry<? extends ShareCarRiderTableModel<Vehicle>, ? extends Integer> entry) {
+                    return true;
+                }
+            };
+
+            ShareCarRiderTable table = Shortcut.getTable(TableCategory.VEHICLES);
+            TableRowSorter<ShareCarRiderTableModel<Vehicle>> sorter
+                    = new TableRowSorter<>((ShareCarRiderTableModel<Vehicle>) table.getModel());
+
+            if (capacityFilter.isSelected()) {
+                rfCapacity = new RowFilter<>() {
+                    @Override
+                    public boolean include(Entry<? extends ShareCarRiderTableModel<Vehicle>, ? extends Integer> entry) {
+                        ShareCarRiderTableModel<Vehicle> vehicleModel = entry.getModel();
+                        Vehicle vehicle = vehicleModel.getEntity(entry.getIdentifier());
+
+                        return vehicle.getCapacity() >= Integer.parseInt(capacityFrom.getText())
+                                && vehicle.getCapacity() <= Integer.parseInt(capacityTo.getText());
+                    }
+                };
+            }
+
+            if (consumptionFilter.isSelected()) {
+                rfConsumption = new RowFilter<>() {
+                    @Override
+                    public boolean include(Entry<? extends ShareCarRiderTableModel<Vehicle>, ? extends Integer> entry) {
+                        ShareCarRiderTableModel<Vehicle> vehicleModel = entry.getModel();
+                        Vehicle vehicle = vehicleModel.getEntity(entry.getIdentifier());
+
+                        return vehicle.getConsumption() >= Double.parseDouble(consumptionFrom.getText())
+                                && vehicle.getConsumption() <= Double.parseDouble(consumptionTo.getText());
+                    }
+                };
+            }
+            List<RowFilter<ShareCarRiderTableModel<Vehicle>, Integer>> listRfs = new ArrayList<>();
+            listRfs.add(rfConsumption);
+            listRfs.add(rfCapacity);
+            sorter.setRowFilter(RowFilter.andFilter(listRfs));
+            table.setRowSorter(sorter);
+
+            dispose();
+        });
     }
 }
