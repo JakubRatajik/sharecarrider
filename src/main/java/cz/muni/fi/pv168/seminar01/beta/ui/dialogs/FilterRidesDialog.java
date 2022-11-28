@@ -1,13 +1,20 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilterRidesDialog extends SortFilterDialog {
@@ -19,6 +26,7 @@ public class FilterRidesDialog extends SortFilterDialog {
     private JTextField distanceTo;
     private JScrollPane categories;
     private JList<RideCategory> categoriesList;
+    private static int[] selectedCategoryIndices = {};
 
     public FilterRidesDialog(Frame frame, String name) {
         super(frame, name);
@@ -41,7 +49,7 @@ public class FilterRidesDialog extends SortFilterDialog {
         DefaultListModel<RideCategory> l1 = new DefaultListModel<>();
         List<RideCategory> categoriesL = (List<RideCategory>) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY).getData();
         l1.addAll(categoriesL);
-        categoriesList = new JList<RideCategory>(l1);
+        categoriesList = new JList<>(l1);
         categoriesList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(
@@ -66,6 +74,10 @@ public class FilterRidesDialog extends SortFilterDialog {
         categories = new JScrollPane(categoriesList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         UIUtilities.formatDefaultComponent(categories);
+
+        for (int index : selectedCategoryIndices) {
+            categoriesList.addSelectionInterval(index, index);
+        }
     }
 
     public void initializeContent(JPanel center) {
@@ -91,7 +103,71 @@ public class FilterRidesDialog extends SortFilterDialog {
     }
 
     public void onOkButton(JButton ok) {
-        //TODO - set filter on ok button
+        ok.addActionListener(actionListener -> {
+            RowFilter<ShareCarRiderTableModel<Ride>, Integer> rfDate = new RowFilter<>() {
+                @Override
+                public boolean include(Entry<? extends ShareCarRiderTableModel<Ride>, ? extends Integer> entry) {
+                    return true;
+                }
+            };
+            RowFilter<ShareCarRiderTableModel<Ride>, Integer> rfDistance = new RowFilter<>() {
+                @Override
+                public boolean include(Entry<? extends ShareCarRiderTableModel<Ride>, ? extends Integer> entry) {
+                    return true;
+                }
+            };
+            List<RideCategory> selectedValuesList = categoriesList.getSelectedValuesList();
+            selectedCategoryIndices = categoriesList.getSelectedIndices();
+
+            StringBuilder sb = new StringBuilder("^.*$");
+            for (RideCategory category: selectedValuesList) {
+                sb.insert(1, String.format("(?=.*\\b%s\\b)", category.getName()));
+            }
+
+            RowFilter<ShareCarRiderTableModel<Ride>, Integer> rfCategories = RowFilter.regexFilter(sb.toString());
+
+            if (dateFilter.isSelected()) {
+                rfDate = new RowFilter<>() {
+                    @Override
+                    public boolean include(Entry<? extends ShareCarRiderTableModel<Ride>, ? extends Integer> entry) {
+                        ShareCarRiderTableModel<Ride> rideModel = entry.getModel();
+                        Ride ride = rideModel.getEntity(entry.getIdentifier());
+                        DateModel<?> fromModel = dateFrom.getModel();
+                        DateModel<?> toModel = dateTo.getModel();
+                        LocalDate from = LocalDate.of(fromModel.getYear(), fromModel.getMonth() + 1, fromModel.getDay());
+                        LocalDate to = LocalDate.of(toModel.getYear(), toModel.getMonth() + 1, toModel.getDay());
+
+                        return ride.getDate().compareTo(from) >= 0
+                                && ride.getDate().compareTo(to) <= 0;
+                    }
+                };
+            }
+
+            if (distanceFilter.isSelected()) {
+                rfDistance = new RowFilter<>() {
+                    @Override
+                    public boolean include(Entry<? extends ShareCarRiderTableModel<Ride>, ? extends Integer> entry) {
+                        ShareCarRiderTableModel<Ride> rideModel = entry.getModel();
+                        Ride ride = rideModel.getEntity(entry.getIdentifier());
+
+                        return ride.getDistance() >= Integer.parseInt(distanceFrom.getText())
+                                && ride.getDistance() <= Integer.parseInt(distanceTo.getText());
+                    }
+                };
+            }
+
+            List<RowFilter<ShareCarRiderTableModel<Ride>, Integer>> listRfs = new ArrayList<>();
+            ShareCarRiderTable table = Shortcut.getTable(TableCategory.RIDES);
+            TableRowSorter<ShareCarRiderTableModel<Ride>> sorter
+                    = new TableRowSorter<>((ShareCarRiderTableModel<Ride>) table.getModel());
+            listRfs.add(rfDate);
+            listRfs.add(rfDistance);
+            listRfs.add(rfCategories);
+            sorter.setRowFilter(RowFilter.andFilter(listRfs));
+            table.setRowSorter(sorter);
+
+            dispose();
+        });
     }
 
 }
