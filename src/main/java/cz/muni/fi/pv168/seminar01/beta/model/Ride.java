@@ -53,8 +53,8 @@ public class Ride implements HasID {
         this.description = description;
     }
 
-    public String getDate() {
-        return date.format(dateFormatter);
+    public LocalDate getDate() {
+        return date;
     }
 
     public void setDate(LocalDate date) {

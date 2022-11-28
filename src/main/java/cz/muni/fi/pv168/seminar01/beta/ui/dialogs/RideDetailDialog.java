@@ -26,8 +26,6 @@ public class RideDetailDialog extends DetailDialog {
     private JLabel endDestination;
     private JLabel distance;
     private JLabel vehicle;
-    private JLabel[] passengers;
-    private JLabel[] categories;
     private JLabel repetition;
     private JLabel price;
     private JTextArea description;
@@ -36,15 +34,11 @@ public class RideDetailDialog extends DetailDialog {
         super(frame, name, ride);
     }
 
-
     @Override
     public void onEditButton(JButton edit) {
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new AddEditRideDialog(MainWindow.getFrame(), "Upravit jízdu", ride);
-            }
+        edit.addActionListener(actionListener -> {
+            dispose();
+            new AddEditRideDialog(MainWindow.getFrame(), "Upravit jízdu", ride);
         });
     }
 
@@ -128,7 +122,7 @@ public class RideDetailDialog extends DetailDialog {
     }
 
     public void setAttributes() {
-        date = new JLabel(ride.getDate());
+        date = new JLabel(ride.getDateUnformatted());
         departure = new JLabel(ride.getDeparture());
         startDestination = new JLabel(ride.getFrom());
         endDestination = new JLabel(ride.getTo());
@@ -144,10 +138,8 @@ public class RideDetailDialog extends DetailDialog {
         description.setWrapStyleWord(true);
     }
 
-
     @Override
     public void addAttribute(Object attribute) {
         ride = (Ride) attribute;
     }
-
 }
