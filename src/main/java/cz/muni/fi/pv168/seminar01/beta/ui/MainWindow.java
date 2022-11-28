@@ -62,6 +62,9 @@ public class MainWindow implements ChangeListener {
             frame.setIconImage(new ImageIcon(im).getImage());
         }
 
+        // fuelPrice will be moved to Repository and accessed via DependencyProvider
+        // TODO - use dependency provider to access repositories for FuelPrice and other data
+        fuelPrice = new FuelPrice(provider);
 
         frame.setTitle("Share Car Rider");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -75,10 +78,6 @@ public class MainWindow implements ChangeListener {
         addMainBar();
         addPlain();
         addTabBar();
-
-        // fuelPrice will be moved to Repository and accessed via DependencyProvider
-        // TODO - use dependency provider to access repositories for FuelPrice and other data
-        fuelPrice = new FuelPrice(provider);
 
         frame.pack();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -110,20 +109,12 @@ public class MainWindow implements ChangeListener {
     private void addTabBar() {
         UIManager.put("TabbedPane.borderColor", UIUtilities.WHITE);
         JTabbedPane tabs = new JTabbedPane();
-        /*rides.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent me) {
-                if (me.getClickCount() == 2) {
-                    JTable target = (JTable)me.getSource();
-                    int row = target.getSelectedRow();
-                    RideDetailDialog dialog = new RideDetailDialog()
-                    JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
-                }*/
         ridesTabFrame = new TabFrame(TableCategory.RIDES, provider);
         vehiclesTabFrame = new TabFrame(TableCategory.VEHICLES, provider);
         passengersTabFrame = new TabFrame(TableCategory.PASSENGERS, provider);
         passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGER_CATEGORY, provider);
         rideCategoriesTabFrame = new TabFrame(TableCategory.RIDE_CATEGORY, provider);
-        Statistics statistics = new Statistics();
+        statistics = new Statistics();
         tabs.setFont(UIUtilities.fTab);
         tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());
         tabs.addTab("Vozidla", vehiclesTabFrame.getMainPanel());

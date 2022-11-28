@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS Vehicle
     brand           VARCHAR(50) NOT NULL,
     type            VARCHAR(50) NOT NULL,
     capacity        INT         NOT NULL,
-    consumption     FLOAT       NOT NULL,
+    consumption     DOUBLE      NOT NULL,
     fuelType        ENUM('diesel', 'gasoline', 'lpg', 'cng', 'electricity') NOT NULL
 );
 
