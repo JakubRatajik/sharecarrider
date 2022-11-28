@@ -22,6 +22,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -267,11 +268,8 @@ public final class ActionListenerProvider {
             }
         };
 
-        ActionListener filter = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new FilterPassengersDialog(MainWindow.getFrame(), "Filtr");
-            }
+        ActionListener filter = actionListener -> {
+            JDialog dial = new FilterPassengersDialog(MainWindow.getFrame(), "Filtr");
         };
 
         ActionListener select = new ActionListener() {
@@ -297,16 +295,16 @@ public final class ActionListenerProvider {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                int firstRow = rows[0];
-                for (int i = 0; i < rows.length; i++) {
+                int[] modelRows = Arrays.stream(rows).map(Shortcut.getTable(category)::convertRowIndexToModel).toArray();
+
+                int firstRow = modelRows[0];
+                for (int i = 0; i < modelRows.length; i++) {
                     Shortcut.getTableModel(category).deleteRow(firstRow);
                 }
                 ShareCarRiderTable table = Shortcut.getTable(category);
                 table.clearSelection();
                 dialog.dispose();
             }
-
         };
     }
-
 }

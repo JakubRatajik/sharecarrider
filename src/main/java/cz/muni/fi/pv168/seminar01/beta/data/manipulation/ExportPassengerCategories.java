@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ExportPassengerCategories extends AbstractExporter<PassengerCategory> {
-
     @Override
     protected String createCsvLine(PassengerCategory element) {
         List<String> data = Arrays.asList(
