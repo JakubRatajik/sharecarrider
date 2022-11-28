@@ -333,17 +333,6 @@ public class ShareCarRiderTable extends JTable {
         }
     }
 
-    //TODO: add tableRowSorter
-//    MyTableModel model = new MyTableModel();
-//    sorter = new TableRowSorter<MyTableModel>(model);
-//    table = new JTable(model);
-//    setRowSorter(sorter);
-//    List <RowSorter.SortKey> sortKeys
-//            = new ArrayList<RowSorter.SortKey>();
-//    sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
-//    sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-//    sorter.setSortKeys(sortKeys);
-
     @Override
     public void changeSelection(int rowIndex, int columnIndex, boolean toggle, boolean extend) {
         if (isMultilineSelectionEnabled) {
