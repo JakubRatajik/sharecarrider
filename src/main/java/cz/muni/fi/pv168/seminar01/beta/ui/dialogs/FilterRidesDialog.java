@@ -2,6 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
@@ -127,6 +128,9 @@ public class FilterRidesDialog extends SortFilterDialog {
             RowFilter<ShareCarRiderTableModel<Ride>, Integer> rfCategories = RowFilter.regexFilter(sb.toString());
 
             if (dateFilter.isSelected()) {
+                if (!isValidDateFilterInput()) {
+                    return;
+                }
                 rfDate = new RowFilter<>() {
                     @Override
                     public boolean include(Entry<? extends ShareCarRiderTableModel<Ride>, ? extends Integer> entry) {
@@ -144,6 +148,10 @@ public class FilterRidesDialog extends SortFilterDialog {
             }
 
             if (distanceFilter.isSelected()) {
+                if (!isValidDistanceFilterInput()) {
+                    return;
+                }
+
                 rfDistance = new RowFilter<>() {
                     @Override
                     public boolean include(Entry<? extends ShareCarRiderTableModel<Ride>, ? extends Integer> entry) {
@@ -170,4 +178,24 @@ public class FilterRidesDialog extends SortFilterDialog {
         });
     }
 
+    private boolean isValidDistanceFilterInput() {
+        try {
+            Integer.parseInt(distanceFrom.getText());
+            Integer.parseInt(distanceTo.getText());
+            return true;
+        }
+        catch (NumberFormatException e) {
+            new ErrorDialog(MainWindow.getFrame(), "Vzdálenost musí být celé číslo.");
+            return false;
+        }
+    }
+
+    private boolean isValidDateFilterInput() {
+        if (dateFrom.getModel().getValue() == null
+                || dateTo.getModel().getValue() == null) {
+            new ErrorDialog(MainWindow.getFrame(), "Nebyl zvolen datum.");
+            return false;
+        }
+        return true;
+    }
 }
