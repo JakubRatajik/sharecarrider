@@ -1,6 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
@@ -38,10 +39,6 @@ public class FilterVehiclesDialog extends SortFilterDialog {
         capacityTo = UIUtilities.createTextField();
         consumptionFrom = UIUtilities.createTextField();
         consumptionTo = UIUtilities.createTextField();
-        capacityFrom.setText("0");
-        capacityTo.setText("0");
-        consumptionFrom.setText("0");
-        consumptionTo.setText("0");
        // brand = new JComboBox<>();
        // UIUtilities.formatDefaultJComboBox(brand);
     }
@@ -89,6 +86,10 @@ public class FilterVehiclesDialog extends SortFilterDialog {
                     = new TableRowSorter<>((ShareCarRiderTableModel<Vehicle>) table.getModel());
 
             if (capacityFilter.isSelected()) {
+                if (!isValidCapacityFilterInput()) {
+                    return;
+                }
+
                 rfCapacity = new RowFilter<>() {
                     @Override
                     public boolean include(Entry<? extends ShareCarRiderTableModel<Vehicle>, ? extends Integer> entry) {
@@ -102,6 +103,10 @@ public class FilterVehiclesDialog extends SortFilterDialog {
             }
 
             if (consumptionFilter.isSelected()) {
+                if (!isValidConsumptionFilterInput()) {
+                    return;
+                }
+
                 rfConsumption = new RowFilter<>() {
                     @Override
                     public boolean include(Entry<? extends ShareCarRiderTableModel<Vehicle>, ? extends Integer> entry) {
@@ -121,5 +126,29 @@ public class FilterVehiclesDialog extends SortFilterDialog {
 
             dispose();
         });
+    }
+
+    private boolean isValidCapacityFilterInput() {
+        try {
+            Integer.parseInt(capacityFrom.getText());
+            Integer.parseInt(capacityTo.getText());
+            return true;
+        }
+        catch (NumberFormatException e) {
+            new ErrorDialog(MainWindow.getFrame(), "Kapacita musí být celé číslo.");
+            return false;
+        }
+    }
+
+    private boolean isValidConsumptionFilterInput() {
+        try {
+            Double.parseDouble(consumptionFrom.getText());
+            Double.parseDouble(consumptionTo.getText());
+            return true;
+        }
+        catch (NumberFormatException e) {
+            new ErrorDialog(MainWindow.getFrame(), "Spotřeba musí být reálné číslo.");
+            return false;
+        }
     }
 }
