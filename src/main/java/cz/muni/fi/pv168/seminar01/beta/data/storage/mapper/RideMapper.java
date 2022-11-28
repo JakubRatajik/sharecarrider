@@ -11,7 +11,7 @@ public class RideMapper implements EntityMapper<RideEntity, Ride>{
     }
     @Override
     public RideEntity mapToEntity(Ride model) {
-        RideValidator.validateRide(model.getId()+"", model.getDate().toString(), model.getDeparture().toString(), model.getArrival().toString(), model.getFrom(), model.getTo(), model.getDistance()+"", null, null, model.getVehicle()+"", model.getRepetition().toString(), model.getDescription() );
+        RideValidator.validateRide(model.getId()+"", model.getDate().toString(), model.getDepartureFormatted(), model.getArrivalFormatted(), model.getFrom(), model.getTo(), model.getDistance()+"", null, null, model.getVehicle()+"", model.getRepetition().toString(), model.getDescription() );
 
 
         //--TODO - new RideEntity - dont know how to make date from string

@@ -4,7 +4,6 @@ import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -51,7 +50,7 @@ public class RideTableModel extends ShareCarRiderTableModel<Ride> {
 
         switch (col) {
             case COLUMN_DATE -> value = ride.getDate();
-            case COLUMN_DEPARTURE -> value = ride.getDeparture();
+            case COLUMN_DEPARTURE -> value = ride.getDepartureFormatted();
             case COLUMN_FROM -> value = ride.getFrom();
             case COLUMN_TO -> value = ride.getTo();
             case COLUMN_DISTANCE -> value = ride.getDistance();

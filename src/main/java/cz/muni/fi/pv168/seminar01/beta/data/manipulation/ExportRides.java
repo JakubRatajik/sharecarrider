@@ -16,8 +16,8 @@ public class ExportRides extends AbstractExporter<Ride> {
         List<String> data = Arrays.asList(
                 String.valueOf(element.getId()),
                 element.getDateUnformatted(),
-                element.getDeparture(),
-                element.getArrival(),
+                element.getDepartureFormatted(),
+                element.getArrivalFormatted(),
                 element.getFrom(),
                 element.getTo(),
                 String.valueOf(element.getDistance()),

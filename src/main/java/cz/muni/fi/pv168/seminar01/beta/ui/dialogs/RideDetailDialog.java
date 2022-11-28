@@ -8,8 +8,6 @@ import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.RoundingMode;
 import java.util.List;
 
@@ -123,14 +121,14 @@ public class RideDetailDialog extends DetailDialog {
 
     public void setAttributes() {
         date = new JLabel(ride.getDateUnformatted());
-        departure = new JLabel(ride.getDeparture());
+        departure = new JLabel(ride.getDepartureFormatted());
         startDestination = new JLabel(ride.getFrom());
         endDestination = new JLabel(ride.getTo());
         distance = new JLabel(ride.getDistance() + " km");
         vehicle = new JLabel(ride.getVehicle().getBrand() + " " + ride.getVehicle().getType());
         price = new JLabel(ride.countPrice().setScale(0, RoundingMode.DOWN) + " Kč");
         repetition = new JLabel(ride.getRepetition().getDescription());
-        arrival = new JLabel(ride.getArrival());
+        arrival = new JLabel(ride.getArrivalFormatted());
         description = new JTextArea(ride.getDescription());
         description.setEditable(false);
         description.setBackground(Color.WHITE);
