@@ -18,7 +18,7 @@ public class MainWindow implements ChangeListener {
     private static TabFrame rideCategoriesTabFrame;
     private static JPanel topPanel;
     private static FuelPrice fuelPrice;
-    private Statistics statistics;
+    private StatisticsUI statisticsUI;
 
     private ProductionDependencyProvider provider;
 
@@ -114,14 +114,14 @@ public class MainWindow implements ChangeListener {
         passengersTabFrame = new TabFrame(TableCategory.PASSENGERS, provider);
         passengerCategoriesTabFrame = new TabFrame(TableCategory.PASSENGER_CATEGORY, provider);
         rideCategoriesTabFrame = new TabFrame(TableCategory.RIDE_CATEGORY, provider);
-        statistics = new Statistics();
+        statisticsUI = new StatisticsUI();
         tabs.setFont(UIUtilities.fTab);
         tabs.addTab("Jízdy", ridesTabFrame.getMainPanel());
         tabs.addTab("Vozidla", vehiclesTabFrame.getMainPanel());
         tabs.addTab("Cestující", passengersTabFrame.getMainPanel());
         tabs.addTab("Kategorie cestujících", passengerCategoriesTabFrame.getMainPanel());
         tabs.addTab("Kategorie jízd", rideCategoriesTabFrame.getMainPanel());
-        tabs.addTab("Statistiky", statistics.getMain());
+        tabs.addTab("Statistiky", statisticsUI.getMain());
         tabs.setBackground(UIUtilities.WHITE);
         tabs.addChangeListener(this);
         tabs.setForeground(UIUtilities.TEXT_BROWN);
@@ -138,7 +138,7 @@ public class MainWindow implements ChangeListener {
         JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
         int selectedIndex = tabbedPane.getSelectedIndex();
         if (selectedIndex == 5) {
-            statistics.update();
+            statisticsUI.update();
         }
     }
 }
