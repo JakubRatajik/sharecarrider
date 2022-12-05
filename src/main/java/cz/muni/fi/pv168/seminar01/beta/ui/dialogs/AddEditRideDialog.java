@@ -92,6 +92,8 @@ public class AddEditRideDialog extends AddEditDialog {
             ride.setVehicle((Vehicle) vehicle.getSelectedItem());
             ride.setRepetition((Repetition) repetition.getSelectedItem());
             ride.setArrival(arrivalTime);
+            ride.setCategories(categoryList.getSelectedValuesList());
+            ride.setDescription(description.getText());
 
             tableModel.updateRow(ride);
             dispose();
