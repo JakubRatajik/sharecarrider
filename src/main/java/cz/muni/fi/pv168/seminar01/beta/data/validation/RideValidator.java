@@ -76,14 +76,24 @@ public class RideValidator {
         LocalTime arrival = LocalTime.parse(arrivalString);
 
         List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
-        long id = Long.parseLong(idString);
 
-        return allRides.stream()
-                .filter(ride -> ride.getDate().isEqual(date))
-                .filter(ride -> ride.getId() != id)
-                .anyMatch(ride -> ((DateTimeUtils.isBeforeOrEqual(ride.getDeparture(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getArrival(), departure))
-                                    || (DateTimeUtils.isBeforeOrEqual(ride.getArrival(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getDeparture(), departure))));
-    }
+        if (idString == null) {
+            return allRides.stream()
+                    .filter(ride -> ride.getDate().isEqual(date))
+                    .anyMatch(ride -> ((DateTimeUtils.isBeforeOrEqual(ride.getDeparture(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getArrival(), departure))
+                            || (DateTimeUtils.isBeforeOrEqual(ride.getArrival(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getDeparture(), departure))));
+
+        } else {
+            long id = Long.parseLong(idString);
+
+            return allRides.stream()
+                    .filter(ride -> ride.getDate().isEqual(date))
+                    .filter(ride -> ride.getId() != id)
+                    .anyMatch(ride -> ((DateTimeUtils.isBeforeOrEqual(ride.getDeparture(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getArrival(), departure))
+                            || (DateTimeUtils.isBeforeOrEqual(ride.getArrival(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getDeparture(), departure))));
+
+        }
+   }
 
     private static boolean validTimeInputFormat(String departure, String arrival) {
         return CommonValidator.isValidTimeParsing(departure)

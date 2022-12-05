@@ -304,7 +304,11 @@ public class AddEditRideDialog extends AddEditDialog {
 
     public boolean validateRideInput() {
         try {
-            RideValidator.validateRide(ride.getId()+"", JDatePickerDateGetter.getLocalDate(date), departure.getText(), arrival.getText(), startDestination.getText(), endDestination.getText(), distance.getText(), description.getText());
+            String idString = null;
+            if (ride != null) {
+                idString = ride.getId()+"";
+            }
+            RideValidator.validateRide(idString, JDatePickerDateGetter.getLocalDate(date), departure.getText(), arrival.getText(), startDestination.getText(), endDestination.getText(), distance.getText(), description.getText());
             return true;
         } catch (ValidationException e) {
             new ErrorDialog(MainWindow.getFrame(), e);
