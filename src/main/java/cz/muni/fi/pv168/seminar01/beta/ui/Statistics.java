@@ -168,8 +168,8 @@ public class Statistics {
         totalCost = countTotalCost();
         totalCostLabel.setText(totalCost.setScale(2, RoundingMode.UP) + " Kč");
 
-        //averageDistanceLabel.setText(String.format(Locale.US, "%.2f", countAverageDistance()) + " km");
-        //averageCostLabel.setText(countAverageCost().setScale(2, RoundingMode.UP) + " Kč");
+        averageDistanceLabel.setText(String.format(Locale.US, "%.2f", countAverageDistance()) + " km");
+        averageCostLabel.setText(countAverageCost().setScale(2, RoundingMode.UP) + " Kč");
 
         Vehicle veh = findMostExpensiveVehicle();
         if (veh == null) {
@@ -223,12 +223,18 @@ public class Statistics {
 
     public double countAverageDistance() {
         List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        if (allRides.size() == 0) {
+            return 0;
+        }
 
         return countTotalDistance() / (double) allRides.size();
     }
 
     public BigDecimal countAverageCost() {
         List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        if (allRides.size() == 0) {
+            return BigDecimal.ZERO;
+        }
 
         return countTotalCost().divide(new BigDecimal(allRides.size()));
     }
