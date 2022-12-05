@@ -168,8 +168,8 @@ public class Statistics {
         totalCost = countTotalCost();
         totalCostLabel.setText(totalCost.setScale(2, RoundingMode.UP) + " Kč");
 
-        averageDistanceLabel.setText(String.format(Locale.US, "%.2f", countAverageDistance()) + " km");
-        averageCostLabel.setText(countAverageCost().setScale(2, RoundingMode.UP) + " Kč");
+        //averageDistanceLabel.setText(String.format(Locale.US, "%.2f", countAverageDistance()) + " km");
+        //averageCostLabel.setText(countAverageCost().setScale(2, RoundingMode.UP) + " Kč");
 
         Vehicle veh = findMostExpensiveVehicle();
         if (veh == null) {

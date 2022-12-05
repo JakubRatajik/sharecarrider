@@ -22,7 +22,7 @@ public class RideTableModel extends ShareCarRiderTableModel<Ride> {
     public static final int COLUMN_CATEGORIES = 5;
 
     public RideTableModel(Repository<Ride> repository) {
-        super(new String[]{"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"}, SampleUsage.getRides(), repository);
+        super(new String[]{"Datum", "Odjezd", "Začátek", "Cíl", "Vzdálenost", "Kategorie"}, repository);
 
     }
 

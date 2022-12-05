@@ -3,7 +3,10 @@ package cz.muni.fi.pv168.seminar01.beta.data.storage.dao;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.DataStorageException;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.db.ConnectionHandler;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.entity.RideEntity;
+import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import org.tinylog.Logger;
 
 import java.sql.Date;
@@ -36,7 +39,8 @@ public class RideDao implements DataAccessObject<RideEntity> {
                                     "endDest",
                                     "distance",
                                     "vehicle",
-                                    "repetition") VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+                                    "repetition",
+                                    "description") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
                 """;
         try (
                 var connection = connections.get();
@@ -50,6 +54,7 @@ public class RideDao implements DataAccessObject<RideEntity> {
             statement.setInt(6, entity.distance());
             statement.setLong(7, entity.vehicleId());
             statement.setString(8, entity.repetition().name().toLowerCase());
+            statement.setString(9, entity.description());
             statement.executeUpdate();
 
             try (ResultSet keyResultSet = statement.getGeneratedKeys()) {
@@ -83,7 +88,8 @@ public class RideDao implements DataAccessObject<RideEntity> {
                        "endDest",
                        "distance",
                        "vehicle",
-                       "repetition"
+                       "repetition",
+                       "description"
                     FROM "Ride"
                 """;
 
@@ -116,7 +122,8 @@ public class RideDao implements DataAccessObject<RideEntity> {
                        "endDest",
                        "distance",
                        "vehicle",
-                       "repetition"
+                       "repetition",
+                       "description"
                     FROM "Ride"
                     WHERE "id" = ?
                 """;
@@ -154,7 +161,8 @@ public class RideDao implements DataAccessObject<RideEntity> {
                     "endDest" = ?,
                     "distance" = ?,
                     "vehicle" = ?,
-                    "repetition" = ?
+                    "repetition" = ?,
+                    "description" = ?
                 WHERE "id" = ?
                 """;
 
@@ -170,7 +178,8 @@ public class RideDao implements DataAccessObject<RideEntity> {
             statement.setInt(6, entity.distance());
             statement.setLong(7, entity.vehicleId());
             statement.setString(8, entity.repetition().name().toLowerCase());
-            statement.setLong(9, entity.id());
+            statement.setString(9, entity.description());
+            statement.setLong(10, entity.id());
 
             if (statement.executeUpdate() == 0) {
                 throw new DataStorageException("Failed to update non-existing rides: " + entity);
@@ -261,6 +270,40 @@ public class RideDao implements DataAccessObject<RideEntity> {
         }
     }
 
+    public void deleteRideCategories(long id) {
+        Logger.debug("Deleting Ride-category join");
+        var sql = """
+                DELETE FROM "RideCategories" WHERE "rideId" = ?
+                """;
+        try (
+                var connection = connections.get();
+                var statement = connection.use().prepareStatement(sql)) {
+
+            statement.setLong(1, id);
+            int rowsUpdated = statement.executeUpdate();
+            Logger.debug("Successfully deleted entity with id {}", id);
+        } catch (SQLException ex) {
+            throw new DataStorageException("Failed to delete passenger: %d".formatted(id), ex);
+        }
+    }
+
+    public void deletePassengers(long id) {
+        Logger.debug("Deleting Ride-passenger join");
+        var sql = """
+                DELETE FROM "RidePassengers" WHERE "rideId" = ?
+                """;
+        try (
+                var connection = connections.get();
+                var statement = connection.use().prepareStatement(sql)) {
+
+            statement.setLong(1, id);
+            int rowsUpdated = statement.executeUpdate();
+            Logger.debug("Successfully deleted entity with id {}", id);
+        } catch (SQLException ex) {
+            throw new DataStorageException("Failed to delete passenger: %d".formatted(id), ex);
+        }
+    }
+
     private static RideEntity rideFromResultSet(ResultSet resultSet) throws SQLException {
         return new RideEntity(
                 resultSet.getLong("id"),
@@ -271,7 +314,44 @@ public class RideDao implements DataAccessObject<RideEntity> {
                 resultSet.getString("endDest"),
                 resultSet.getInt("distance"),
                 resultSet.getLong("vehicle"),
-                Repetition.valueOf(resultSet.getString("repetition").toUpperCase())
+                Repetition.valueOf(resultSet.getString("repetition").toUpperCase()),
+                resultSet.getString("description")
         );
+    }
+
+    public void createCategoryJoins(long rideId, List<RideCategory> rideCategories) {
+        String sql = """
+                INSERT INTO "RideCategories" ("rideId", "rideCategoryId") VALUES (?, ?);
+                """;
+        try (
+                var connection = connections.get();
+                var statement = connection.use().prepareStatement(sql)
+        ) {
+            for (RideCategory category: rideCategories) {
+                statement.setLong(1, rideId);
+                statement.setLong(2, category.getId());
+                statement.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            throw new DataStorageException("Failed to store: " + rideCategories.size(), ex);
+        }
+    }
+
+    public void createPassengerJoins(long rideId, List<Passenger> passengers) {
+        String sql = """
+                INSERT INTO "RideCategories" ("rideId", "rideCategoryId") VALUES (?, ?);
+                """;
+        try (
+                var connection = connections.get();
+                var statement = connection.use().prepareStatement(sql)
+        ) {
+            for (Passenger passenger: passengers) {
+                statement.setLong(1, rideId);
+                statement.setLong(2, passenger.getId());
+                statement.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            throw new DataStorageException("Failed to store: " + passengers.size(), ex);
+        }
     }
 }
