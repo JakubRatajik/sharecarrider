@@ -236,7 +236,7 @@ public class Statistics {
             return BigDecimal.ZERO;
         }
 
-        return countTotalCost().divide(new BigDecimal(allRides.size()));
+        return countTotalCost().divide(new BigDecimal(allRides.size()), RoundingMode.UP);
     }
 
     public Ride findLongestRide() {

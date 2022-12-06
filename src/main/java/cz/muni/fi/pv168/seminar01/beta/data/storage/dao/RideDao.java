@@ -339,7 +339,7 @@ public class RideDao implements DataAccessObject<RideEntity> {
 
     public void createPassengerJoins(long rideId, List<Passenger> passengers) {
         String sql = """
-                INSERT INTO "RideCategories" ("rideId", "rideCategoryId") VALUES (?, ?);
+                INSERT INTO "RidePassengers" ("rideId", "passenger") VALUES (?, ?);
                 """;
         try (
                 var connection = connections.get();
