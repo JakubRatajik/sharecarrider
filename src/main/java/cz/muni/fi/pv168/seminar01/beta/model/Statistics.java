@@ -50,6 +50,9 @@ public class Statistics {
 
     public static double countAverageDistance() {
         List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        if (allRides.size() == 0) {
+            return 0;
+        }
 
         return countTotalDistance() / (double) allRides.size();
     }
@@ -57,7 +60,11 @@ public class Statistics {
     public static BigDecimal countAverageCost() {
         List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
 
-        return countTotalCost().divide(new BigDecimal(allRides.size()));
+        if (allRides.size() == 0) {
+            return BigDecimal.ZERO;
+        }
+
+        return countTotalCost().divide(new BigDecimal(allRides.size()), RoundingMode.UP);
     }
 
     public static Ride findLongestRide() {
