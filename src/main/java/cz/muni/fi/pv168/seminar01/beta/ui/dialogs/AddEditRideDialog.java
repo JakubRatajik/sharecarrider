@@ -92,6 +92,8 @@ public class AddEditRideDialog extends AddEditDialog {
             ride.setVehicle((Vehicle) vehicle.getSelectedItem());
             ride.setRepetition((Repetition) repetition.getSelectedItem());
             ride.setArrival(arrivalTime);
+            ride.setCategories(categoryList.getSelectedValuesList());
+            ride.setDescription(description.getText());
 
             tableModel.updateRow(ride);
             dispose();
@@ -304,7 +306,11 @@ public class AddEditRideDialog extends AddEditDialog {
 
     public boolean validateRideInput() {
         try {
-            RideValidator.validateRide(JDatePickerDateGetter.getLocalDate(date), departure.getText(), arrival.getText(), startDestination.getText(), endDestination.getText(), distance.getText(), description.getText());
+            String idString = null;
+            if (ride != null) {
+                idString = ride.getId()+"";
+            }
+            RideValidator.validateRide(idString, JDatePickerDateGetter.getLocalDate(date), departure.getText(), arrival.getText(), startDestination.getText(), endDestination.getText(), distance.getText(), description.getText());
             return true;
         } catch (ValidationException e) {
             new ErrorDialog(MainWindow.getFrame(), e);

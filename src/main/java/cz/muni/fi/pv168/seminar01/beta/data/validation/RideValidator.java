@@ -41,7 +41,7 @@ public class RideValidator {
         if (LocalTime.parse(arrival).isBefore(LocalTime.parse(departure))) {
             throw new ValidationException("Čas příjezdu nemůže být před časem odjezdu.");
         }
-        if (anotherRidePlannedForTimePeriod(date, departure, arrival)) {
+        if (anotherRidePlannedForTimePeriod(id, date, departure, arrival)) {
             throw new ValidationException("Na tenhle čas máte již naplánovanou jinou jízdu.");
         }
         if (100 < from.length() || 100 < to.length()) {
@@ -71,17 +71,29 @@ public class RideValidator {
         }
     }
 
-    private static boolean anotherRidePlannedForTimePeriod(LocalDate date, String departureString, String arrivalString) {
+    private static boolean anotherRidePlannedForTimePeriod(String idString, LocalDate date, String departureString, String arrivalString) {
         LocalTime departure = LocalTime.parse(departureString);
         LocalTime arrival = LocalTime.parse(arrivalString);
 
         List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
 
-        return allRides.stream()
-                .filter(ride -> ride.getDate().isEqual(date))
-                .anyMatch(ride -> ((DateTimeUtils.isBeforeOrEqual(ride.getDeparture(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getArrival(), departure))
-                                    || (DateTimeUtils.isBeforeOrEqual(ride.getArrival(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getDeparture(), departure))));
-    }
+        if (idString == null) {
+            return allRides.stream()
+                    .filter(ride -> ride.getDate().isEqual(date))
+                    .anyMatch(ride -> ((DateTimeUtils.isBeforeOrEqual(ride.getDeparture(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getArrival(), departure))
+                            || (DateTimeUtils.isBeforeOrEqual(ride.getArrival(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getDeparture(), departure))));
+
+        } else {
+            long id = Long.parseLong(idString);
+
+            return allRides.stream()
+                    .filter(ride -> ride.getDate().isEqual(date))
+                    .filter(ride -> ride.getId() != id)
+                    .anyMatch(ride -> ((DateTimeUtils.isBeforeOrEqual(ride.getDeparture(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getArrival(), departure))
+                            || (DateTimeUtils.isBeforeOrEqual(ride.getArrival(), arrival) && DateTimeUtils.isAfterOrEqual(ride.getDeparture(), departure))));
+
+        }
+   }
 
     private static boolean validTimeInputFormat(String departure, String arrival) {
         return CommonValidator.isValidTimeParsing(departure)
@@ -89,12 +101,18 @@ public class RideValidator {
     }
 
     private static boolean isValidRideId(String id) {
-        return CommonValidator.isValidDoubleParsing(id)
-                && Shortcut.getTableModel(TableCategory.RIDES).getObjectById(Long.parseLong(id)) == null;
+        // TODO - uncomment and fix validation for edit rides
+        return CommonValidator.isValidDoubleParsing(id);
+                //&& Shortcut.getTableModel(TableCategory.RIDES).getObjectById(Long.parseLong(id)) == null;
     }
 
     public static void validateRide(LocalDate date, String departure, String arrival, String from, String to, String distance, String description) {
         validateRide(null, date, departure, arrival, from, to, distance, null, null, null, null, description);
+    }
+
+    // TODO - make clear which validateRide method is for what and when it's used
+    public static void validateRide(String id, LocalDate date, String departure, String arrival, String from, String to, String distance, String description) {
+        validateRide(id, date, departure, arrival, from, to, distance, null, null, null, null, description);
     }
 
     private static boolean isVehicleIDValid(String string) {

@@ -63,11 +63,11 @@ public class ExportDialog extends DialogBase {
                 ridesFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 int dialogResult = ridesFileChooser.showOpenDialog(center);
                 if (dialogResult == JFileChooser.APPROVE_OPTION) {
-                    rides = new File(ridesFileChooser.getSelectedFile() + "/rides");
-                    vehicles = new File(ridesFileChooser.getSelectedFile() + "/vehicles");
-                    passengers = new File(ridesFileChooser.getSelectedFile() + "/passengers");
-                    ridesCategories = new File(ridesFileChooser.getSelectedFile() + "/ridesCategories");
-                    passengersCategories = new File(ridesFileChooser.getSelectedFile() + "/passengersCategories");
+                    rides = new File(ridesFileChooser.getSelectedFile() + "/rides.csv");
+                    vehicles = new File(ridesFileChooser.getSelectedFile() + "/vehicles.csv");
+                    passengers = new File(ridesFileChooser.getSelectedFile() + "/passengers.csv");
+                    ridesCategories = new File(ridesFileChooser.getSelectedFile() + "/ridesCategories.csv");
+                    passengersCategories = new File(ridesFileChooser.getSelectedFile() + "/passengersCategories.csv");
                 }
                 exportRidesPath.setText(String.valueOf(ridesFileChooser.getSelectedFile()));
             }

@@ -19,6 +19,10 @@ public class Fuel implements HasID {
         return fuel.ordinal();
     }
 
+    public FuelType getFuel() {
+        return fuel;
+    }
+
     public BigDecimal getPrice() {
         return fuelPrice;
     }

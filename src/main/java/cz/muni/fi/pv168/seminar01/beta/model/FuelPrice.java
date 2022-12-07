@@ -1,6 +1,5 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
-import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.FuelRepository;
 import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
@@ -14,9 +13,6 @@ public class FuelPrice {
 
     public FuelPrice(ProductionDependencyProvider provider) {
         fuels = (FuelRepository) provider.getFuelRepository();
-        for (Fuel fuel: SampleUsage.getFuels()) {
-            fuels.create(fuel);
-        }
     }
 
     public BigDecimal getFuelPrice(FuelType fuelType) {
@@ -66,7 +62,9 @@ public class FuelPrice {
     }
 
     public void setGasolinePrice(BigDecimal gasolinePrice) {
-        fuels.update(new Fuel(FuelType.GASOLINE, gasolinePrice));
+        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuel() == FuelType.GASOLINE).findFirst().orElseThrow();
+        fuel.setPrice(gasolinePrice);
+        fuels.update(fuel);
     }
 
     public BigDecimal getElectricityPrice() {
@@ -74,7 +72,9 @@ public class FuelPrice {
     }
 
     public void setElectricityPrice(BigDecimal electricityPrice) {
-        fuels.update(new Fuel(FuelType.ELECTRICITY, electricityPrice));
+        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuel() == FuelType.ELECTRICITY).findFirst().orElseThrow();
+        fuel.setPrice(electricityPrice);
+        fuels.update(fuel);
     }
 
     public BigDecimal getLPGPrice() {
@@ -82,7 +82,9 @@ public class FuelPrice {
     }
 
     public void setLPGPrice(BigDecimal LPGPrice) {
-        fuels.update(new Fuel(FuelType.LPG, LPGPrice));
+        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuel() == FuelType.LPG).findFirst().orElseThrow();
+        fuel.setPrice(LPGPrice);
+        fuels.update(fuel);
     }
 
     public BigDecimal getDieselPrice() {
@@ -90,7 +92,9 @@ public class FuelPrice {
     }
 
     public void setDieselPrice(BigDecimal dieselPrice) {
-        fuels.update(new Fuel(FuelType.DIESEL, dieselPrice));
+        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuel() == FuelType.DIESEL).findFirst().orElseThrow();
+        fuel.setPrice(dieselPrice);
+        fuels.update(fuel);
     }
 
     public BigDecimal getCNGPrice() {
@@ -98,7 +102,9 @@ public class FuelPrice {
     }
 
     public void setCNGPrice(BigDecimal CNGPrice) {
-        fuels.update(new Fuel(FuelType.CNG, CNGPrice));
+        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuel() == FuelType.CNG).findFirst().orElseThrow();
+        fuel.setPrice(CNGPrice);
+        fuels.update(fuel);
     }
 
     public String getGasolinePriceString() {
