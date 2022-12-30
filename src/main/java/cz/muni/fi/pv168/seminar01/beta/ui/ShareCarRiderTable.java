@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
+import cz.muni.fi.pv168.seminar01.beta.data.manipulation.DateTimeUtils;
 import cz.muni.fi.pv168.seminar01.beta.model.Category;
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
@@ -34,10 +35,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.stream.IntStream;
 
 /**
@@ -82,7 +83,7 @@ public class ShareCarRiderTable extends JTable {
         setColumnSelectionAllowed(false);
 
         setColumnWidths();
-        changeDefaultRenderer();
+        changeDefaultCellRenderers();
         initDoubleClickListener();
         addMouseListener(doubleClickListener);
         addPopupMenu();
@@ -99,7 +100,7 @@ public class ShareCarRiderTable extends JTable {
         }
     }
 
-    private void changeDefaultRenderer() {
+    private void changeDefaultCellRenderers() {
         TableCellRenderer defaultCellRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(
@@ -122,9 +123,37 @@ public class ShareCarRiderTable extends JTable {
             }
         };
 
+        TableCellRenderer defaultDateRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object object, boolean isSelected,
+                    boolean hasFocus, int row, int col) {
+
+                Component component = defaultCellRenderer.getTableCellRendererComponent(table,
+                        object, isSelected, hasFocus, row, col);
+                setText(((LocalDate) object).format(DateTimeUtils.DATE_FORMATTER));
+                return component;
+            }
+        };
+
+        TableCellRenderer defaultTimeRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object object, boolean isSelected,
+                    boolean hasFocus, int row, int col) {
+
+                Component component = defaultCellRenderer.getTableCellRendererComponent(table,
+                        object, isSelected, hasFocus, row, col);
+                setText(((LocalTime) object).format(DateTimeUtils.TIME_FORMATTER));
+                return component;
+            }
+        };
+
         setDefaultRenderer(Object.class, defaultCellRenderer);
         setDefaultRenderer(Integer.class, defaultCellRenderer);
         setDefaultRenderer(Double.class, defaultCellRenderer);
+        setDefaultRenderer(LocalDate.class, defaultDateRenderer);
+        setDefaultRenderer(LocalTime.class, defaultTimeRenderer);
     }
 
     private void addPopupMenu() {
@@ -295,16 +324,6 @@ public class ShareCarRiderTable extends JTable {
         editPopupMenuItem.setEnabled(count == 1);
         deletePopupMenuItem.setEnabled(count >= 1);
 
-    }
-
-    public void hideColumn(int col) {
-        getColumnModel().getColumn(col).setMinWidth(0);
-        getColumnModel().getColumn(col).setMaxWidth(0);
-        getColumnModel().getColumn(col).setWidth(0);
-    }
-
-    public void hideCheckboxColumn() {
-        hideColumn(0);
     }
 
     public TableCategory getTableCategory() {
