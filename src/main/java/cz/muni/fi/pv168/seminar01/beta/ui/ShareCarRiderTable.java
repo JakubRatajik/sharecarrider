@@ -28,6 +28,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import javax.swing.*;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +39,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.temporal.IsoFields;
 import java.util.stream.IntStream;
 
 /**
@@ -125,6 +128,41 @@ public class ShareCarRiderTable extends JTable {
         setDefaultRenderer(Object.class, defaultCellRenderer);
         setDefaultRenderer(Integer.class, defaultCellRenderer);
         setDefaultRenderer(Double.class, defaultCellRenderer);
+        changeLocalDateRenderer(true, defaultCellRenderer);
+    }
+
+    private void changeLocalDateRenderer(boolean shouldSeparateWeeks, TableCellRenderer cellRenderer) {
+        if (shouldSeparateWeeks) {
+            TableCellRenderer defaultCellRenderer = cellRenderer;
+
+            cellRenderer = new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(
+                        JTable table, Object object, boolean isSelected,
+                        boolean hasFocus, int row, int col) {
+                    Component component = defaultCellRenderer.getTableCellRendererComponent(table, object, isSelected, hasFocus, row, col);
+
+                    setBackground(Color.BLUE);
+                    if (isLastDateOfWeek(table, (LocalDate) object, row)) {
+                        setBorder(new MatteBorder(4, 4, 4, 4, UIUtilities.TEXT_BROWN));
+                    }
+
+                    return component;
+                }
+            };
+        }
+
+        setDefaultRenderer(LocalDate.class, cellRenderer);
+    }
+
+    private boolean isLastDateOfWeek(JTable table, LocalDate date, int row) {
+        if (row == table.getRowCount() - 1) {
+            return true;
+        }
+
+        LocalDate then = (LocalDate) table.getValueAt(row + 1, 0);
+
+        return date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR) < then.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
     }
 
     private void addPopupMenu() {
