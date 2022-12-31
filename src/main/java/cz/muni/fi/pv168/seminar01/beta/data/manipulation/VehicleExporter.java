@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * This class creates one line for a csv exporter of vehicles.
  */
-public final class ExportVehicles extends AbstractExporter<Vehicle> {
+public final class VehicleExporter extends AbstractExporter<Vehicle> {
 
     @Override
     protected String createCsvLine(Vehicle element) {

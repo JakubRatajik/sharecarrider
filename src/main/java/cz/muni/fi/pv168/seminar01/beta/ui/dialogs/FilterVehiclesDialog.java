@@ -6,7 +6,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
@@ -87,7 +87,7 @@ public class FilterVehiclesDialog extends SortFilterDialog {
                 }
             };
 
-            ShareCarRiderTable table = Shortcut.getTable(TableCategory.VEHICLES);
+            ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.VEHICLES);
             TableRowSorter<ShareCarRiderTableModel<Vehicle>> sorter
                     = new TableRowSorter<>((ShareCarRiderTableModel<Vehicle>) table.getModel());
 

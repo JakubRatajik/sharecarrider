@@ -6,7 +6,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
@@ -32,7 +32,7 @@ public class FilterPassengersDialog extends SortFilterDialog {
 
     public void setAttributes() {
         DefaultListModel<PassengerCategory> l1 = new DefaultListModel<>();
-        java.util.List<PassengerCategory> categoriesL = (List<PassengerCategory>) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY).getData();
+        java.util.List<PassengerCategory> categoriesL = (List<PassengerCategory>) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY).getData();
         l1.addAll(categoriesL);
         categoryList = new JList<>(l1);
         categoryList.setCellRenderer(new DefaultListCellRenderer() {
@@ -86,7 +86,7 @@ public class FilterPassengersDialog extends SortFilterDialog {
         }
 
         RowFilter<ShareCarRiderTableModel<Passenger>, Integer> rf = RowFilter.regexFilter(sb.toString());
-        ShareCarRiderTable table = Shortcut.getTable(TableCategory.PASSENGERS);
+        ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.PASSENGERS);
         TableRowSorter<ShareCarRiderTableModel<Passenger>> sorter
                 = new TableRowSorter<>((ShareCarRiderTableModel<Passenger>) table.getModel());
         sorter.setRowFilter(rf);

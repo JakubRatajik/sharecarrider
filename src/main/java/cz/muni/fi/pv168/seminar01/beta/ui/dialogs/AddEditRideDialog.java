@@ -13,7 +13,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.EnumRendererForComboBox;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.JDatePickerDateGetter;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
@@ -82,7 +82,7 @@ public class AddEditRideDialog extends AddEditDialog {
             LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
             LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
             int parsedDistance = Integer.parseInt(distance.getText());
-            RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
+            RideTableModel tableModel = (RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES);
             ride.setDate(JDatePickerDateGetter.getLocalDate(date));
             ride.setDeparture(departureTime);
             ride.setFrom(startDestination.getText());
@@ -121,7 +121,7 @@ public class AddEditRideDialog extends AddEditDialog {
         description.setLineWrap(true);
 
         this.vehicle = new JComboBox<>();
-        for (Vehicle v : (List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData()) {
+        for (Vehicle v : (List<Vehicle>) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getData()) {
             vehicle.addItem(v);
         }
         UIUtilities.formatDefaultJComboBox(vehicle);
@@ -135,7 +135,7 @@ public class AddEditRideDialog extends AddEditDialog {
 
         // Passengers
         DefaultListModel<Passenger> l1 = new DefaultListModel<>();
-        List<Passenger> passengers = (List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData();
+        List<Passenger> passengers = (List<Passenger>) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).getData();
         l1.addAll(passengers);
 
         JList<Passenger> passengerList = new JList<>(l1);
@@ -170,7 +170,7 @@ public class AddEditRideDialog extends AddEditDialog {
 
         // Categories
         DefaultListModel<RideCategory> r1 = new DefaultListModel<>();
-        List<RideCategory> rides = (List<RideCategory>) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY).getData();
+        List<RideCategory> rides = (List<RideCategory>) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY).getData();
         r1.addAll(rides);
 
         JList<RideCategory> rideList = new JList<>(r1);
@@ -284,7 +284,7 @@ public class AddEditRideDialog extends AddEditDialog {
             String[] arrivalParsedTime = arrival.getText().split("\\s*:\\s*");
             LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
             int parsedDistance = Integer.parseInt(distance.getText());
-            RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
+            RideTableModel tableModel = (RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES);
 
             Ride ride = new Ride(
                     JDatePickerDateGetter.getLocalDate(date),

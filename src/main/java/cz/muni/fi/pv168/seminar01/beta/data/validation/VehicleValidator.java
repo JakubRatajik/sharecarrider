@@ -2,7 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
 import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -43,7 +43,7 @@ public class VehicleValidator {
 
     private static boolean isValidVehicleId(String id) {
         return CommonValidator.isValidLongParsing(id)
-                && Shortcut.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(id)) == null;
+                && CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(id)) == null;
     }
 
     public static void validateVehicle(String licensePlate, String brand, String type, String capacity, String consumption) {

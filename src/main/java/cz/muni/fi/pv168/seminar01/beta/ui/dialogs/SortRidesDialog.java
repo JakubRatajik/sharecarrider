@@ -4,7 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +28,7 @@ public class SortRidesDialog extends SortFilterDialog {
     @Override
     protected void onOkButton(JButton ok) {
         ok.addActionListener(al -> {
-            ShareCarRiderTable rideTable = Shortcut.getTable(TableCategory.RIDES);
+            ShareCarRiderTable rideTable = CommonElementSupplier.getTable(TableCategory.RIDES);
             List<RowSorter.SortKey> sortKeys = new ArrayList<>();
 
             if (dateMaxMin.isSelected()) {

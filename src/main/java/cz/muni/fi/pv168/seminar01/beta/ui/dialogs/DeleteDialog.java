@@ -3,7 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.ActionListenerProvider;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +29,7 @@ public class DeleteDialog extends JDialog {
         JButton cancel = new JButton("Zrušit");
         cancel.addActionListener(e -> dispose());
         JButton ok = new JButton("Ok");
-        if (Shortcut.getTable(category).getSelectedRowCount() == 0) {
+        if (CommonElementSupplier.getTable(category).getSelectedRowCount() == 0) {
             ok.setEnabled(false);
         }
         ok.addActionListener(ActionListenerProvider.deleteRow(category, rows, this));

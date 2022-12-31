@@ -8,7 +8,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 
@@ -71,7 +71,7 @@ public class FilterRidesDialog extends SortFilterDialog {
         distanceTo.setText(distanceToText);
 
         DefaultListModel<RideCategory> l1 = new DefaultListModel<>();
-        List<RideCategory> categoriesL = (List<RideCategory>) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY).getData();
+        List<RideCategory> categoriesL = (List<RideCategory>) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY).getData();
         l1.addAll(categoriesL);
         categoriesList = new JList<>(l1);
         categoriesList.setCellRenderer(new DefaultListCellRenderer() {
@@ -223,7 +223,7 @@ public class FilterRidesDialog extends SortFilterDialog {
             }
 
             List<RowFilter<ShareCarRiderTableModel<Ride>, Integer>> listRfs = new ArrayList<>();
-            ShareCarRiderTable table = Shortcut.getTable(TableCategory.RIDES);
+            ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.RIDES);
             TableRowSorter<ShareCarRiderTableModel<Ride>> sorter
                     = new TableRowSorter<>((ShareCarRiderTableModel<Ride>) table.getModel());
 

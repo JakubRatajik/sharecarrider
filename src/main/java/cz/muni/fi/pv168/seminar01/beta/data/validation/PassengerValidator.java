@@ -1,7 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 /**
  * @author Jakub Ratajik
@@ -31,7 +31,7 @@ public class PassengerValidator {
 
     private static boolean isValidPassengerId(String id) {
         return CommonValidator.isValidLongParsing(id)
-                && Shortcut.getTableModel(TableCategory.PASSENGERS).getObjectById(Long.parseLong(id)) == null;
+                && CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).getObjectById(Long.parseLong(id)) == null;
     }
 
     public static void validatePassenger(String firstName, String lastName, String phoneNumber) {

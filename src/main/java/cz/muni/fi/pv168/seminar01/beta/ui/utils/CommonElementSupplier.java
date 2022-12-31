@@ -10,8 +10,8 @@ import javax.swing.*;
 /**
  * @author Jakub Ratajik
  */
-public class Shortcut {
-    private Shortcut() {
+public class CommonElementSupplier {
+    private CommonElementSupplier() {
     }
 
     public static ShareCarRiderTableModel<?> getTableModel(TableCategory tableCategory) {

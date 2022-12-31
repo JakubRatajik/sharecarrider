@@ -2,7 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
 
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -109,6 +109,6 @@ public class CommonValidator {
 
         return categoryIdList
                 .stream()
-                .allMatch(categoryId -> Shortcut.getTableModel(tableCategory).getObjectById(categoryId) != null);
+                .allMatch(categoryId -> CommonElementSupplier.getTableModel(tableCategory).getObjectById(categoryId) != null);
     }
 }

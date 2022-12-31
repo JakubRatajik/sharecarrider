@@ -1,20 +1,17 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
-import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.RideDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-import java.util.Locale;
 
 public class Statistics {
 
 
     public static Vehicle findCheapestVehicle() {
-        List<Vehicle> allVehicles = (List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData();
+        List<Vehicle> allVehicles = (List<Vehicle>) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getData();
 
         return allVehicles
                 .stream()
@@ -23,7 +20,7 @@ public class Statistics {
     }
 
     public static Vehicle findMostExpensiveVehicle() {
-        List<Vehicle> allVehicles = (List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData();
+        List<Vehicle> allVehicles = (List<Vehicle>) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getData();
 
         return allVehicles
                 .stream()
@@ -32,7 +29,7 @@ public class Statistics {
     }
 
     public static int countTotalDistance() {
-        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        List<Ride> allRides = (List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData();
         return allRides
                 .stream()
                 .mapToInt(Ride::getDistance)
@@ -40,7 +37,7 @@ public class Statistics {
     }
 
     public static BigDecimal countTotalCost() {
-        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        List<Ride> allRides = (List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData();
 
         return allRides
                 .stream()
@@ -49,7 +46,7 @@ public class Statistics {
     }
 
     public static double countAverageDistance() {
-        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        List<Ride> allRides = (List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData();
         if (allRides.size() == 0) {
             return 0;
         }
@@ -58,7 +55,7 @@ public class Statistics {
     }
 
     public static BigDecimal countAverageCost() {
-        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        List<Ride> allRides = (List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData();
 
         if (allRides.size() == 0) {
             return BigDecimal.ZERO;
@@ -68,7 +65,7 @@ public class Statistics {
     }
 
     public static Ride findLongestRide() {
-        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        List<Ride> allRides = (List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData();
 
         return allRides
                 .stream()
@@ -77,7 +74,7 @@ public class Statistics {
     }
 
     public static Ride findMostExpensiveRide() {
-        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        List<Ride> allRides = (List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData();
 
         return allRides
                 .stream()

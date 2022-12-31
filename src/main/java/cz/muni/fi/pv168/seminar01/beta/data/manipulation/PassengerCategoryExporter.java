@@ -1,14 +1,13 @@
 package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 
-import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class ExportRideCategories extends AbstractExporter<RideCategory> {
-
+public class PassengerCategoryExporter extends AbstractExporter<PassengerCategory> {
     @Override
-    protected String createCsvLine(RideCategory element) {
+    protected String createCsvLine(PassengerCategory element) {
         List<String> data = Arrays.asList(
                 String.valueOf(element.getId()),
                 element.getName());

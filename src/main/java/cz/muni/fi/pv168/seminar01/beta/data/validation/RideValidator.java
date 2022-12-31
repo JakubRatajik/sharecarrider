@@ -4,7 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.data.manipulation.DateTimeUtils;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -75,7 +75,7 @@ public class RideValidator {
         LocalTime departure = LocalTime.parse(departureString);
         LocalTime arrival = LocalTime.parse(arrivalString);
 
-        List<Ride> allRides = (List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData();
+        List<Ride> allRides = (List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData();
 
         if (idString == null) {
             return allRides.stream()
@@ -119,7 +119,7 @@ public class RideValidator {
         if (!CommonValidator.isValidLongParsing(string)) {
             return false;
         }
-        return Shortcut.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(string)) != null;
+        return CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(string)) != null;
     }
 
     private static boolean isRepetitionValid(String repetition) {

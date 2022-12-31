@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ImportVehicles {
+public class VehicleImporter {
 
     static List<Vehicle> importVehicles(File vehicles) throws FileNotFoundException {
         Scanner reader = new Scanner(vehicles);

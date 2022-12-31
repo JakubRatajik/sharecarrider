@@ -1,10 +1,10 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportPassengerCategories;
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportPassengers;
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportRideCategories;
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportRides;
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ExportVehicles;
+import cz.muni.fi.pv168.seminar01.beta.data.manipulation.PassengerCategoryExporter;
+import cz.muni.fi.pv168.seminar01.beta.data.manipulation.PassengerExporter;
+import cz.muni.fi.pv168.seminar01.beta.data.manipulation.RideCategoryExporter;
+import cz.muni.fi.pv168.seminar01.beta.data.manipulation.RideExporter;
+import cz.muni.fi.pv168.seminar01.beta.data.manipulation.VehicleExporter;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
@@ -14,7 +14,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -95,20 +95,20 @@ public class ExportDialog extends DialogBase {
                     //throw new ValidationException("Some files are missing");
                     new ErrorDialog(MainWindow.getFrame(), new ValidationException("Some files are missing"));
                 } else {
-                    ExportRides exportRides = new ExportRides();
-                    exportRides.export((List<Ride>) Shortcut.getTableModel(TableCategory.RIDES).getData(),
+                    RideExporter rideExporter = new RideExporter();
+                    rideExporter.export((List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData(),
                             rides.getAbsolutePath());
-                    ExportVehicles exportVehicles = new ExportVehicles();
-                    exportVehicles.export((List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData(),
+                    VehicleExporter vehicleExporter = new VehicleExporter();
+                    vehicleExporter.export((List<Vehicle>) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getData(),
                             vehicles.getAbsolutePath());
-                    ExportPassengers exportPassengers = new ExportPassengers();
-                    exportPassengers.export((List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData(),
+                    PassengerExporter passengerExporter = new PassengerExporter();
+                    passengerExporter.export((List<Passenger>) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).getData(),
                             passengers.getAbsolutePath());
-                    ExportPassengerCategories exportPassengerCategories = new ExportPassengerCategories();
-                    exportPassengerCategories.export((List<PassengerCategory>) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY).getData(),
+                    PassengerCategoryExporter passengerCategoryExporter = new PassengerCategoryExporter();
+                    passengerCategoryExporter.export((List<PassengerCategory>) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY).getData(),
                             passengersCategories.getAbsolutePath());
-                    ExportRideCategories exportRideCategories = new ExportRideCategories();
-                    exportRideCategories.export((List<RideCategory>) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY).getData(),
+                    RideCategoryExporter rideCategoryExporter = new RideCategoryExporter();
+                    rideCategoryExporter.export((List<RideCategory>) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY).getData(),
                             ridesCategories.getAbsolutePath());
                     dispose();
                 }

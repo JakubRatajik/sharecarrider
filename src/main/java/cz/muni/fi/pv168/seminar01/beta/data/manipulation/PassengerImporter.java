@@ -8,17 +8,15 @@ import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
-public class ImportPassengers {
+public class PassengerImporter {
 
     static List<Passenger> importPassengers(File passengers) throws FileNotFoundException {
         Scanner reader = new Scanner(passengers);
@@ -51,7 +49,7 @@ public class ImportPassengers {
         List<PassengerCategory> categorySet = new ArrayList<>();
         if (categories.length() > 2) {
             for (String category : ManipulationUtils.listParser(categories)) {
-                PassengerCategory passengerCategoryTmp = ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY)).getObjectById(Long.parseLong(category));
+                PassengerCategory passengerCategoryTmp = ((PassengerCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY)).getObjectById(Long.parseLong(category));
                 if (passengerCategoryTmp == null) {
                     throw new DataManipulationException("Kategorii pasažéra s daným ID nebylo možné najít, prosím, zkontrolujte data v csv: (passenger ID: " + Long.parseLong(idString) + ")", new Exception());
                 }

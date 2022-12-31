@@ -4,21 +4,15 @@ import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class AddEditPassengerDialog extends AddEditDialog {
     private Passenger passenger = null;
@@ -68,7 +62,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
                 return;
             }
 
-            PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
+            PassengerTableModel tableModel = (PassengerTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS);
             String firstNameText = firstName.getText();
             String lastNameText = lastName.getText();
             String phoneNumberText = phoneNumber.getText();
@@ -90,7 +84,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
         phoneNumber = UIUtilities.createTextField();
 
         DefaultListModel<PassengerCategory> r1 = new DefaultListModel<>();
-        r1.addAll((List<PassengerCategory>) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY).getData());
+        r1.addAll((List<PassengerCategory>) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY).getData());
 
         categoryList = new JList<>(r1);
         categoryList.setCellRenderer(new DefaultListCellRenderer() {
@@ -161,7 +155,7 @@ public class AddEditPassengerDialog extends AddEditDialog {
                     phoneNumber.getText(),
                     categoryList.getSelectedValuesList());
 
-            PassengerTableModel tableModel = (PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS);
+            PassengerTableModel tableModel = (PassengerTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS);
             tableModel.addRow(passenger);
             dispose();
         });

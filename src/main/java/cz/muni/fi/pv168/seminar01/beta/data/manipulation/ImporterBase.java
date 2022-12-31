@@ -14,7 +14,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,33 +36,33 @@ public class ImporterBase {
         List<RideCategory> rideCategoryList;
         try {
             if (passengerCategories != null) {
-                passengerCategoryList = ImportPassengerCategories.importPassengerCategories(passengerCategories);
+                passengerCategoryList = PassengerCategoryImporter.importPassengerCategories(passengerCategories);
                 for (PassengerCategory passengerCategory : passengerCategoryList) {
-                    ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY)).addRow(passengerCategory);
+                    ((PassengerCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY)).addRow(passengerCategory);
                 }
             }
             if (vehicles != null) {
-                vehicleList = ImportVehicles.importVehicles(vehicles);
+                vehicleList = VehicleImporter.importVehicles(vehicles);
                 for (Vehicle vehicle : vehicleList) {
-                    ((VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES)).addRow(vehicle);
+                    ((VehicleTableModel) CommonElementSupplier.getTableModel(TableCategory.VEHICLES)).addRow(vehicle);
                 }
             }
             if (passengers != null) {
-                passengerList = ImportPassengers.importPassengers(passengers);
+                passengerList = PassengerImporter.importPassengers(passengers);
                 for (Passenger passenger : passengerList) {
-                    ((PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS)).addRow(passenger);
+                    ((PassengerTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS)).addRow(passenger);
                 }
             }
             if (rideCategories != null) {
-                rideCategoryList = ImportRideCategories.importRideCategories(rideCategories);
+                rideCategoryList = RideCategoryImporter.importRideCategories(rideCategories);
                 for (RideCategory rideCategory : rideCategoryList) {
-                    ((RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY)).addRow(rideCategory);
+                    ((RideCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY)).addRow(rideCategory);
                 }
             }
             if (rides != null) {
-                rideList = ImportRides.importRides(rides);
+                rideList = RideImporter.importRides(rides);
                 for (Ride ride : rideList) {
-                    ((RideTableModel) Shortcut.getTableModel(TableCategory.RIDES)).addRow(ride);
+                    ((RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES)).addRow(ride);
                 }
             }
         } catch (DataManipulationException | ValidationException |

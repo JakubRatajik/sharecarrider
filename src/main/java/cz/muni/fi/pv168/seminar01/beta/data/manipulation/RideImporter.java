@@ -11,7 +11,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-public class ImportRides {
+public class RideImporter {
 
     public static List<Ride> importRides(File rides) throws FileNotFoundException {
         Scanner reader = new Scanner(rides);
@@ -72,7 +72,7 @@ public class ImportRides {
         int distance = Integer.parseInt(distanceString);
         Set<RideCategory> categories = new HashSet<>();
         Set<Passenger> passengers = new HashSet<>();
-        Vehicle vehicle = (Vehicle) Shortcut.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(vehicleIdString));
+        Vehicle vehicle = (Vehicle) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(vehicleIdString));
         if (vehicle == null) {
             throw new DataManipulationException("Vozidlo s daným ID nebylo nalezeno, prosím, zkontrolujte data v csv: (ride ID: " + id + ")", new Exception());
         }
@@ -82,7 +82,7 @@ public class ImportRides {
         String cat = lineSplit[7];
         if (cat.length() > 2) {
             for (String category : ManipulationUtils.listParser(cat)) {
-                RideCategory rideCategory = (((RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY)).getCategoryByID(Long.parseLong(category)));
+                RideCategory rideCategory = (((RideCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY)).getCategoryByID(Long.parseLong(category)));
                 if (rideCategory == null) {
                     throw new DataManipulationException("Kategorie jízdy s daným ID nebyla nalezena, prosím, zkontrolujte data v csv: (Ride ID: " + id + ")", new Exception());
                 }
@@ -93,7 +93,7 @@ public class ImportRides {
 
         if (passengerListString.length() > 2) {
             for (String passenger : ManipulationUtils.listParser(passengerListString)) {
-                Passenger passengerObject = (Passenger) Shortcut.getTableModel(TableCategory.PASSENGERS).getObjectById(Long.parseLong(passenger));
+                Passenger passengerObject = (Passenger) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).getObjectById(Long.parseLong(passenger));
                 if (passengerObject == null) {
                     throw new DataManipulationException("Cestující s daným ID nebyl nalezen, prosím, zkontrolujte data v csv: (ride ID: " + id + ")", new Exception());
                 }

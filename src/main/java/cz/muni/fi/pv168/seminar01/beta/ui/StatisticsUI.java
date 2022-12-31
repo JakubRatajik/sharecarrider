@@ -1,15 +1,11 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
-import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.Statistics;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.RideDetailDialog;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 
 import javax.swing.*;
 import java.math.RoundingMode;
-import java.util.List;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.util.Locale;
