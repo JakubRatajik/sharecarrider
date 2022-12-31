@@ -34,15 +34,19 @@ public class SortRidesDialog extends SortFilterDialog {
             if (dateMaxMin.isSelected()) {
                 sortKeys.add(new RowSorter.SortKey(RideTableModel.COLUMN_DATE, SortOrder.ASCENDING));
                 rideTable.getRowSorter().setSortKeys(sortKeys);
+                rideTable.changeLocalDateRenderer(false);
             } else if (dateMinMax.isSelected()) {
                 sortKeys.add(new RowSorter.SortKey(RideTableModel.COLUMN_DATE, SortOrder.DESCENDING));
                 rideTable.getRowSorter().setSortKeys(sortKeys);
+                rideTable.changeLocalDateRenderer(true);
             } else if (distanceMaxMin.isSelected()) {
                 sortKeys.add(new RowSorter.SortKey(RideTableModel.COLUMN_DISTANCE, SortOrder.DESCENDING));
                 rideTable.getRowSorter().setSortKeys(sortKeys);
+                rideTable.changeLocalDateRenderer(false);
             } else if (distanceMinMax.isSelected()) {
                 sortKeys.add(new RowSorter.SortKey(RideTableModel.COLUMN_DISTANCE, SortOrder.ASCENDING));
                 rideTable.getRowSorter().setSortKeys(sortKeys);
+                rideTable.changeLocalDateRenderer(false);
             }
 
             dispose();

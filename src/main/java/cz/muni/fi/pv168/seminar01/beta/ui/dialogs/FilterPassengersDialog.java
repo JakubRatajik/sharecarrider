@@ -26,6 +26,10 @@ public class FilterPassengersDialog extends SortFilterDialog {
         protected void addAttribute(Object attribute) {
     }
 
+    public static void clearSelectedCategoryIndices() {
+        selectedCategoryIndices = new int[]{};
+    }
+
     public void setAttributes() {
         DefaultListModel<PassengerCategory> l1 = new DefaultListModel<>();
         java.util.List<PassengerCategory> categoriesL = (List<PassengerCategory>) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY).getData();

@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
+import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
@@ -27,7 +28,19 @@ public class FilterRidesDialog extends SortFilterDialog {
     private JTextField distanceTo;
     private JScrollPane categories;
     private JList<RideCategory> categoriesList;
+    private JCheckBox repetitionFilter;
+    private JRadioButton repeating;
+    private JRadioButton nonRepeating;
+
     private static int[] selectedCategoryIndices = {};
+    private static boolean dateFilterEnabled = false;
+    private static boolean distanceFilterEnabled = false;
+    private static boolean repetitionFilterEnabled = false;
+    private static boolean repeatingSelected = false;
+    private static boolean nonRepeatingSelected = false;
+    private static String distanceFromText = "";
+    private static String distanceToText = "";
+
 
     public FilterRidesDialog(Frame frame, String name) {
         super(frame, name);
@@ -40,12 +53,22 @@ public class FilterRidesDialog extends SortFilterDialog {
     public void setAttributes() {
         dateFilter = new JCheckBox(" Datum");
         distanceFilter = new JCheckBox(" Vzdálenost");
+        repetitionFilter = new JCheckBox(" Opakující se jízdy");
+        repetitionFilter.setSelected(repetitionFilterEnabled);
+        repeating = new JRadioButton(" Opakujici");
+        repeating.setSelected(repeatingSelected);
+        nonRepeating = new JRadioButton(" Neopakujici");
+        nonRepeating.setSelected(nonRepeatingSelected);
+        dateFilter.setSelected(dateFilterEnabled);
+        distanceFilter.setSelected(distanceFilterEnabled);
         dateFrom = new JDatePicker();
         UIUtilities.formatDefaultComponent(dateFrom);
         dateTo = new JDatePicker();
         UIUtilities.formatDefaultComponent(dateTo);
         distanceFrom = UIUtilities.createTextField();
         distanceTo = UIUtilities.createTextField();
+        distanceFrom.setText(distanceFromText);
+        distanceTo.setText(distanceToText);
 
         DefaultListModel<RideCategory> l1 = new DefaultListModel<>();
         List<RideCategory> categoriesL = (List<RideCategory>) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY).getData();
@@ -82,7 +105,7 @@ public class FilterRidesDialog extends SortFilterDialog {
     }
 
     public void initializeContent(JPanel center) {
-        center.setLayout(new GridLayout(7, 2));
+        center.setLayout(new GridLayout(10, 2));
         UIUtilities.formatWhiteTextBrownDialog(center);
         String paragraph = "      ";
         center.add(dateFilter);
@@ -99,8 +122,12 @@ public class FilterRidesDialog extends SortFilterDialog {
         center.add(distanceTo);
         center.add(new JLabel("  •  Kategorie"));
         center.add(categories);
+        center.add(repetitionFilter);
+        center.add(repeating);
+        center.add(new JLabel(paragraph));
+        center.add(nonRepeating);
         this.add(center);
-        setSize(450, 430);
+        setSize(450, 460);
     }
 
     public void onOkButton(JButton ok) {
@@ -112,6 +139,12 @@ public class FilterRidesDialog extends SortFilterDialog {
                 }
             };
             RowFilter<ShareCarRiderTableModel<Ride>, Integer> rfDistance = new RowFilter<>() {
+                @Override
+                public boolean include(Entry<? extends ShareCarRiderTableModel<Ride>, ? extends Integer> entry) {
+                    return true;
+                }
+            };
+            RowFilter<ShareCarRiderTableModel<Ride>, Integer> rfRepetition = new RowFilter<>() {
                 @Override
                 public boolean include(Entry<? extends ShareCarRiderTableModel<Ride>, ? extends Integer> entry) {
                     return true;
@@ -164,18 +197,62 @@ public class FilterRidesDialog extends SortFilterDialog {
                 };
             }
 
+            if (repetitionFilter.isSelected()) {
+                if (repeating.isSelected()) {
+                    rfRepetition = new RowFilter<>() {
+                        @Override
+                        public boolean include(Entry<? extends ShareCarRiderTableModel<Ride>, ? extends Integer> entry) {
+                            ShareCarRiderTableModel<Ride> rideModel = entry.getModel();
+                            Ride ride = rideModel.getEntity(entry.getIdentifier());
+
+                            return ride.getRepetition() != Repetition.NONE;
+                        }
+                    };
+                }
+                else if (nonRepeating.isSelected()) {
+                    rfRepetition = new RowFilter<>() {
+                        @Override
+                        public boolean include(Entry<? extends ShareCarRiderTableModel<Ride>, ? extends Integer> entry) {
+                            ShareCarRiderTableModel<Ride> rideModel = entry.getModel();
+                            Ride ride = rideModel.getEntity(entry.getIdentifier());
+
+                            return ride.getRepetition() == Repetition.NONE;
+                        }
+                    };
+                }
+            }
+
             List<RowFilter<ShareCarRiderTableModel<Ride>, Integer>> listRfs = new ArrayList<>();
             ShareCarRiderTable table = Shortcut.getTable(TableCategory.RIDES);
             TableRowSorter<ShareCarRiderTableModel<Ride>> sorter
                     = new TableRowSorter<>((ShareCarRiderTableModel<Ride>) table.getModel());
+
             listRfs.add(rfDate);
             listRfs.add(rfDistance);
             listRfs.add(rfCategories);
+            listRfs.add(rfRepetition);
             sorter.setRowFilter(RowFilter.andFilter(listRfs));
             table.setRowSorter(sorter);
 
+            table.changeLocalDateRenderer(false);
+
+            dateFilterEnabled = dateFilter.isSelected();
+            distanceFilterEnabled = distanceFilter.isSelected();
+            distanceFromText = distanceFrom.getText();
+            distanceToText = distanceTo.getText();
+            repetitionFilterEnabled = repetitionFilter.isSelected();
+
             dispose();
         });
+    }
+
+    public static void clearAttributes() {
+        dateFilterEnabled = false;
+        distanceFilterEnabled = false;
+        distanceFromText = "";
+        distanceToText = "";
+        selectedCategoryIndices = new int[]{};
+        repetitionFilterEnabled = false;
     }
 
     private boolean isValidDistanceFilterInput() {

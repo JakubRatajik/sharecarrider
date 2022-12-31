@@ -50,7 +50,7 @@ public class RideTableModel extends ShareCarRiderTableModel<Ride> {
 
         switch (col) {
             case COLUMN_DATE -> value = ride.getDate();
-            case COLUMN_DEPARTURE -> value = ride.getDepartureFormatted();
+            case COLUMN_DEPARTURE -> value = ride.getDeparture();
             case COLUMN_FROM -> value = ride.getFrom();
             case COLUMN_TO -> value = ride.getTo();
             case COLUMN_DISTANCE -> value = ride.getDistance();

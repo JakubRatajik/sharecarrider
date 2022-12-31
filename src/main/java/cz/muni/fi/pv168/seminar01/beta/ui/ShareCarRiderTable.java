@@ -29,6 +29,8 @@ import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
 import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -42,6 +44,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.temporal.IsoFields;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 /**
@@ -82,6 +86,9 @@ public class ShareCarRiderTable extends JTable {
         getTableHeader().setFont(UIUtilities.fTable);
 
         setAutoCreateRowSorter(true);
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
+        getRowSorter().setSortKeys(sortKeys);
         setRowHeight(25);
         setColumnSelectionAllowed(false);
 
@@ -126,28 +133,16 @@ public class ShareCarRiderTable extends JTable {
             }
         };
 
-        TableCellRenderer defaultDateRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(
-                    JTable table, Object object, boolean isSelected,
-                    boolean hasFocus, int row, int col) {
-
-                Component component = defaultCellRenderer.getTableCellRendererComponent(table,
-                        object, isSelected, hasFocus, row, col);
-                setText(((LocalDate) object).format(DateTimeUtils.DATE_FORMATTER));
-                return component;
-            }
-        };
-
         TableCellRenderer defaultTimeRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(
                     JTable table, Object object, boolean isSelected,
                     boolean hasFocus, int row, int col) {
 
+                String time = ((LocalTime) object).format(DateTimeUtils.TIME_FORMATTER);
                 Component component = defaultCellRenderer.getTableCellRendererComponent(table,
-                        object, isSelected, hasFocus, row, col);
-                setText(((LocalTime) object).format(DateTimeUtils.TIME_FORMATTER));
+                        time, isSelected, hasFocus, row, col);
+
                 return component;
             }
         };
@@ -156,32 +151,28 @@ public class ShareCarRiderTable extends JTable {
         setDefaultRenderer(Integer.class, defaultCellRenderer);
         setDefaultRenderer(Double.class, defaultCellRenderer);
         setDefaultRenderer(LocalTime.class, defaultTimeRenderer);
-        setDefaultRenderer(LocalDate.class, defaultDateRenderer);
-        changeLocalDateRenderer(true, defaultCellRenderer);
+
+        changeLocalDateRenderer(true);
     }
 
-    private void changeLocalDateRenderer(boolean shouldSeparateWeeks, TableCellRenderer cellRenderer) {
-        if (shouldSeparateWeeks) {
-            TableCellRenderer defaultCellRenderer = cellRenderer;
+    public void changeLocalDateRenderer(boolean shouldSeparateWeeks) {
+        TableCellRenderer defaultCellRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object object, boolean isSelected,
+                    boolean hasFocus, int row, int col) {
+                String date = ((LocalDate) object).format(DateTimeUtils.DATE_FORMATTER);
+                Component component = getDefaultRenderer(Object.class).getTableCellRendererComponent(table,
+                        date, isSelected, hasFocus, row, col);
 
-            cellRenderer = new DefaultTableCellRenderer() {
-                @Override
-                public Component getTableCellRendererComponent(
-                        JTable table, Object object, boolean isSelected,
-                        boolean hasFocus, int row, int col) {
-                    Component component = defaultCellRenderer.getTableCellRendererComponent(table, object, isSelected, hasFocus, row, col);
-
-                    setBackground(Color.BLUE);
-                    if (isLastDateOfWeek(table, (LocalDate) object, row)) {
-                        setBorder(new MatteBorder(4, 4, 4, 4, UIUtilities.TEXT_BROWN));
-                    }
-
-                    return component;
+                if (shouldSeparateWeeks && isLastDateOfWeek(table, (LocalDate) object, row)) {
+                    component.setFont(UIUtilities.fTableWeek);
                 }
-            };
-        }
 
-        setDefaultRenderer(LocalDate.class, cellRenderer);
+                return component;
+            }
+        };
+        setDefaultRenderer(LocalDate.class, defaultCellRenderer);
     }
 
     private boolean isLastDateOfWeek(JTable table, LocalDate date, int row) {
@@ -191,7 +182,8 @@ public class ShareCarRiderTable extends JTable {
 
         LocalDate then = (LocalDate) table.getValueAt(row + 1, 0);
 
-        return date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR) < then.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+        return date.getYear() > then.getYear() ||
+            date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR) > then.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
     }
 
     private void addPopupMenu() {
