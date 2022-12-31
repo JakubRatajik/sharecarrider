@@ -17,6 +17,11 @@ public class SortPassengersDialog extends SortFilterDialog {
     private JRadioButton surnameMinMax;
     private JRadioButton surnameMaxMin;
 
+    private static boolean firstNameMinMaxSelected = false;
+    private static boolean firstNameMaxMinSelected = false;
+    private static boolean surnameMinMaxSelected = false;
+    private static boolean surnameMaxMinSelected = false;
+
     public SortPassengersDialog(Frame frame, String name) {
         super(frame, name);
     }
@@ -44,6 +49,11 @@ public class SortPassengersDialog extends SortFilterDialog {
                 passengerTable.getRowSorter().setSortKeys(sortKeys);
             }
 
+            firstNameMinMaxSelected = firstNameMinMax.isSelected();
+            firstNameMaxMinSelected = firstNameMaxMin.isSelected();
+            surnameMinMaxSelected = surnameMinMax.isSelected();
+            surnameMaxMinSelected = surnameMaxMin.isSelected();
+
             dispose();
         });
     }
@@ -68,6 +78,10 @@ public class SortPassengersDialog extends SortFilterDialog {
         firstNameMaxMin = new JRadioButton("Z - A");
         surnameMinMax = new JRadioButton("A - Z");
         surnameMaxMin = new JRadioButton("Z - A");
+        firstNameMinMax.setSelected(firstNameMinMaxSelected);
+        firstNameMaxMin.setSelected(firstNameMaxMinSelected);
+        surnameMinMax.setSelected(surnameMinMaxSelected);
+        surnameMaxMin.setSelected(surnameMaxMinSelected);
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(firstNameMaxMin);
         buttonGroup.add(firstNameMinMax);

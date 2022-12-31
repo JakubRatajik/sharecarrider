@@ -17,6 +17,11 @@ public class SortRidesDialog extends SortFilterDialog {
     private JRadioButton distanceMinMax;
     private JRadioButton distanceMaxMin;
 
+    private static boolean dateMinMaxSelected = false;
+    private static boolean dateMaxMinSelected = false;
+    private static boolean distanceMinMaxSelected = false;
+    private static boolean distanceMaxMinSelected = false;
+
     public SortRidesDialog(Frame frame, String name) {
         super(frame, name);
     }
@@ -49,6 +54,10 @@ public class SortRidesDialog extends SortFilterDialog {
                 rideTable.changeLocalDateRenderer(false);
             }
 
+            dateMinMaxSelected = dateMinMax.isSelected();
+            dateMaxMinSelected = dateMaxMin.isSelected();
+            distanceMinMaxSelected = distanceMinMax.isSelected();
+            distanceMaxMinSelected = distanceMaxMin.isSelected();
             dispose();
         });
     }
@@ -73,6 +82,10 @@ public class SortRidesDialog extends SortFilterDialog {
         dateMaxMin = new JRadioButton("Od nejstarších k nejnovějším");
         distanceMinMax = new JRadioButton("Od nejkratších k nejdelším");
         distanceMaxMin = new JRadioButton("Od nejdelších k nejkratším");
+        dateMinMax.setSelected(dateMinMaxSelected);
+        dateMaxMin.setSelected(dateMaxMinSelected);
+        distanceMinMax.setSelected(distanceMinMaxSelected);
+        distanceMaxMin.setSelected(distanceMaxMinSelected);
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(dateMaxMin);
         buttonGroup.add(dateMinMax);

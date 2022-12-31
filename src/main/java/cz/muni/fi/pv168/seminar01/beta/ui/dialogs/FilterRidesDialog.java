@@ -55,9 +55,9 @@ public class FilterRidesDialog extends SortFilterDialog {
         distanceFilter = new JCheckBox(" Vzdálenost");
         repetitionFilter = new JCheckBox(" Opakující se jízdy");
         repetitionFilter.setSelected(repetitionFilterEnabled);
-        repeating = new JRadioButton(" Opakujici");
+        repeating = new JRadioButton(" Opakujíci");
         repeating.setSelected(repeatingSelected);
-        nonRepeating = new JRadioButton(" Neopakujici");
+        nonRepeating = new JRadioButton(" Neopakujíci");
         nonRepeating.setSelected(nonRepeatingSelected);
         dateFilter.setSelected(dateFilterEnabled);
         distanceFilter.setSelected(distanceFilterEnabled);
@@ -126,7 +126,11 @@ public class FilterRidesDialog extends SortFilterDialog {
         center.add(repeating);
         center.add(new JLabel(paragraph));
         center.add(nonRepeating);
+        ButtonGroup group = new ButtonGroup();
+        group.add(repeating);
+        group.add(nonRepeating);
         this.add(center);
+
         setSize(450, 460);
     }
 
@@ -241,6 +245,8 @@ public class FilterRidesDialog extends SortFilterDialog {
             distanceFromText = distanceFrom.getText();
             distanceToText = distanceTo.getText();
             repetitionFilterEnabled = repetitionFilter.isSelected();
+            nonRepeatingSelected = nonRepeating.isSelected();
+            repeatingSelected = repeating.isSelected();
 
             dispose();
         });
@@ -253,6 +259,8 @@ public class FilterRidesDialog extends SortFilterDialog {
         distanceToText = "";
         selectedCategoryIndices = new int[]{};
         repetitionFilterEnabled = false;
+        repeatingSelected = false;
+        nonRepeatingSelected = false;
     }
 
     private boolean isValidDistanceFilterInput() {
