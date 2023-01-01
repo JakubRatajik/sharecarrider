@@ -41,6 +41,11 @@ public class PassengerRepository extends AbstractRepository<Passenger>{
 
     @Override
     public void create(Passenger passenger) {
+        createAndGetID(passenger);
+
+    }
+    @Override
+    public long createAndGetID(Passenger passenger) {
         Passenger newPassenger = Stream.of(passenger)
                 .map(mapper::mapToEntity)
                 .map(dao::create)
@@ -49,7 +54,7 @@ public class PassengerRepository extends AbstractRepository<Passenger>{
         newPassenger.setCategories(passenger.getCategories());
         dao.createJoins(newPassenger.getId(), passenger.getCategories());
         repositoryMembers.add(newPassenger);
-
+        return newPassenger.getId();
     }
 
     @Override

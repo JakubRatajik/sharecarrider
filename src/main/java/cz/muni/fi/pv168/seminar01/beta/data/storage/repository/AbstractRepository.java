@@ -55,6 +55,11 @@ public class AbstractRepository<T extends HasID> implements Repository<T>{
     }
 
     @Override
+    public long createAndGetID(T newEntity) {
+        return 0;
+    }
+
+    @Override
     public void update(T entity) {
         //--TODO db functionality add
         int index = findIndexByEntity(findById(entity.getId()).orElse(null));

@@ -72,7 +72,7 @@ public class RideImporter {
         int distance = Integer.parseInt(distanceString);
         Set<RideCategory> categories = new HashSet<>();
         Set<Passenger> passengers = new HashSet<>();
-        Vehicle vehicle = (Vehicle) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(vehicleIdString));
+        Vehicle vehicle = (Vehicle) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(ImporterBase.getNewID(TableCategory.VEHICLES, Long.parseLong(vehicleIdString)));
         if (vehicle == null) {
             throw new DataManipulationException("Vozidlo s daným ID nebylo nalezeno, prosím, zkontrolujte data v csv: (ride ID: " + id + ")", new Exception());
         }
@@ -82,7 +82,7 @@ public class RideImporter {
         String cat = lineSplit[7];
         if (cat.length() > 2) {
             for (String category : ManipulationUtils.listParser(cat)) {
-                RideCategory rideCategory = (((RideCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY)).getCategoryByID(Long.parseLong(category)));
+                RideCategory rideCategory = (((RideCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY)).getCategoryByID(ImporterBase.getNewID(TableCategory.RIDE_CATEGORY, Long.parseLong(category))));
                 if (rideCategory == null) {
                     throw new DataManipulationException("Kategorie jízdy s daným ID nebyla nalezena, prosím, zkontrolujte data v csv: (Ride ID: " + id + ")", new Exception());
                 }
@@ -93,7 +93,7 @@ public class RideImporter {
 
         if (passengerListString.length() > 2) {
             for (String passenger : ManipulationUtils.listParser(passengerListString)) {
-                Passenger passengerObject = (Passenger) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).getObjectById(Long.parseLong(passenger));
+                Passenger passengerObject = (Passenger) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).getObjectById(ImporterBase.getNewID(TableCategory.PASSENGERS, Long.parseLong(passenger)));
                 if (passengerObject == null) {
                     throw new DataManipulationException("Cestující s daným ID nebyl nalezen, prosím, zkontrolujte data v csv: (ride ID: " + id + ")", new Exception());
                 }

@@ -22,6 +22,8 @@ public interface Repository<M> {
 
     void create(M newEntity);
 
+    long createAndGetID(M newEntity);
+
     void update(M entity);
 
     void deleteByIndex(int index);

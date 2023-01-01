@@ -51,6 +51,11 @@ public class RideRepository extends AbstractRepository<Ride>{
 
     @Override
     public void create(Ride ride) {
+        createAndGetID(ride);
+    }
+
+    @Override
+    public long createAndGetID(Ride ride) {
         Ride newRide = Stream.of(ride)
                 .map(mapper::mapToEntity)
                 .map(dao::create)
@@ -62,6 +67,7 @@ public class RideRepository extends AbstractRepository<Ride>{
         dao.createCategoryJoins(newRide.getId(), ride.getCategories().stream().toList());
         dao.createPassengerJoins(newRide.getId(), ride.getPassengers().stream().toList());
         repositoryMembers.add(newRide);
+        return newRide.getId();
     }
 
     @Override

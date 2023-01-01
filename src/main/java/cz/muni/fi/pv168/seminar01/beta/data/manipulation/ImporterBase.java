@@ -28,6 +28,12 @@ import java.util.List;
  */
 public class ImporterBase {
 
+    static final IDImporterMapper ID_MAPPER = new IDImporterMapper();
+
+    public static long getNewID(TableCategory category, long oldID) {
+        return ID_MAPPER.getNewID(category, oldID);
+    }
+
     public static void loadData(File rides, File vehicles, File passengers, File passengerCategories, File rideCategories) {
         List<Passenger> passengerList;
         List<Ride> rideList;
@@ -38,31 +44,31 @@ public class ImporterBase {
             if (passengerCategories != null) {
                 passengerCategoryList = PassengerCategoryImporter.importPassengerCategories(passengerCategories);
                 for (PassengerCategory passengerCategory : passengerCategoryList) {
-                    ((PassengerCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY)).addRow(passengerCategory);
+                    ID_MAPPER.addIDs(TableCategory.PASSENGER_CATEGORY, passengerCategory.getId(), ((PassengerCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY)).addRowAndGetID(passengerCategory));
                 }
             }
             if (vehicles != null) {
                 vehicleList = VehicleImporter.importVehicles(vehicles);
                 for (Vehicle vehicle : vehicleList) {
-                    ((VehicleTableModel) CommonElementSupplier.getTableModel(TableCategory.VEHICLES)).addRow(vehicle);
+                    ID_MAPPER.addIDs(TableCategory.VEHICLES, vehicle.getId(), ((VehicleTableModel) CommonElementSupplier.getTableModel(TableCategory.VEHICLES)).addRowAndGetID(vehicle));
                 }
             }
             if (passengers != null) {
                 passengerList = PassengerImporter.importPassengers(passengers);
                 for (Passenger passenger : passengerList) {
-                    ((PassengerTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS)).addRow(passenger);
+                    ID_MAPPER.addIDs(TableCategory.PASSENGERS, passenger.getId(), ((PassengerTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS)).addRowAndGetID(passenger));
                 }
             }
             if (rideCategories != null) {
                 rideCategoryList = RideCategoryImporter.importRideCategories(rideCategories);
                 for (RideCategory rideCategory : rideCategoryList) {
-                    ((RideCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY)).addRow(rideCategory);
+                    ID_MAPPER.addIDs(TableCategory.RIDE_CATEGORY, rideCategory.getId(), ((RideCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY)).addRowAndGetID(rideCategory));
                 }
             }
             if (rides != null) {
                 rideList = RideImporter.importRides(rides);
                 for (Ride ride : rideList) {
-                    ((RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES)).addRow(ride);
+                    ID_MAPPER.addIDs(TableCategory.RIDES, ride.getId(), ((RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES)).addRowAndGetID(ride));
                 }
             }
         } catch (DataManipulationException | ValidationException |

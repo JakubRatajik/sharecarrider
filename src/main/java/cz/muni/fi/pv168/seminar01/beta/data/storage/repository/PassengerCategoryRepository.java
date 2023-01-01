@@ -33,11 +33,17 @@ public class PassengerCategoryRepository extends AbstractRepository<PassengerCat
 
     @Override
     public void create(PassengerCategory category) {
-        Stream.of(category)
+        createAndGetID(category);
+    }
+    @Override
+    public long createAndGetID(PassengerCategory category) {
+        PassengerCategory newCategory = Stream.of(category)
                 .map(mapper::mapToEntity)
                 .map(dao::create)
                 .map(mapper::mapToModel)
-                .forEach(e ->repositoryMembers.add(e));
+                .findFirst().orElse(null);
+        repositoryMembers.add(newCategory);
+        return newCategory.getId();
     }
 
     @Override

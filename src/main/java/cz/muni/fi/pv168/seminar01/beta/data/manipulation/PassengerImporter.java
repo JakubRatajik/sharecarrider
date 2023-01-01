@@ -43,13 +43,13 @@ public class PassengerImporter {
             PassengerValidator.validatePassenger(idString, name, surname, phoneNumber, categories);
         } catch (ValidationException e) {
             new ErrorDialog(MainWindow.getFrame(), "Problém s načtením pasažérů");
-            throw new DataManipulationException("Problém s načtením pasažérů.", e);
+            throw new DataManipulationException("Problém s načtením pasažérů. " + e.getMessage(), e);
         }
 
         List<PassengerCategory> categorySet = new ArrayList<>();
         if (categories.length() > 2) {
             for (String category : ManipulationUtils.listParser(categories)) {
-                PassengerCategory passengerCategoryTmp = ((PassengerCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY)).getObjectById(Long.parseLong(category));
+                PassengerCategory passengerCategoryTmp = ((PassengerCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY)).getObjectById(ImporterBase.getNewID(TableCategory.PASSENGER_CATEGORY, Long.parseLong(category)));
                 if (passengerCategoryTmp == null) {
                     throw new DataManipulationException("Kategorii pasažéra s daným ID nebylo možné najít, prosím, zkontrolujte data v csv: (passenger ID: " + Long.parseLong(idString) + ")", new Exception());
                 }
