@@ -13,6 +13,7 @@ import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -87,6 +88,11 @@ public class RideRepository extends AbstractRepository<Ride>{
         newRide.setCategories(ride.getCategories());
         newRide.setPassengers(ride.getPassengers());
         repositoryMembers.set(index, newRide);
+    }
+
+    @Override
+    public List<Ride> findAll() {
+        return Collections.unmodifiableList(fetchAll());
     }
 
     @Override
