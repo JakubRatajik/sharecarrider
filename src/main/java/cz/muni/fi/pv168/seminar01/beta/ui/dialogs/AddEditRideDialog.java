@@ -20,6 +20,7 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -285,22 +286,52 @@ public class AddEditRideDialog extends AddEditDialog {
             LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
             int parsedDistance = Integer.parseInt(distance.getText());
             RideTableModel tableModel = (RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES);
+            Repetition selectedRepetition = (Repetition) repetition.getSelectedItem();
 
-            Ride ride = new Ride(
-                    JDatePickerDateGetter.getLocalDate(date),
-                    departureTime,
-                    arrivalTime,
-                    startDestination.getText(),
-                    endDestination.getText(),
-                    parsedDistance,
-                    categoryList.getSelectedValuesList(),
-                    passengersList.getSelectedValuesList(),
-                    (Vehicle) vehicle.getSelectedItem(),
-                    (Repetition) repetition.getSelectedItem(),
-                    description.getText()
-            );
-            tableModel.addRow(ride);
-            dispose();
+            if (selectedRepetition == Repetition.NONE) {
+                Ride ride = new Ride(
+                        JDatePickerDateGetter.getLocalDate(date),
+                        departureTime,
+                        arrivalTime,
+                        startDestination.getText(),
+                        endDestination.getText(),
+                        parsedDistance,
+                        categoryList.getSelectedValuesList(),
+                        passengersList.getSelectedValuesList(),
+                        (Vehicle) vehicle.getSelectedItem(),
+                        (Repetition) repetition.getSelectedItem(),
+                        description.getText()
+                );
+                tableModel.addRow(ride);
+                dispose();
+            } else {
+                LocalDate currentDate = JDatePickerDateGetter.getLocalDate(date);
+                LocalDate toDate = currentDate.plusYears(2);
+                while (currentDate.isBefore(toDate)) {
+                    Ride ride = new Ride(
+                            currentDate,
+                            departureTime,
+                            arrivalTime,
+                            startDestination.getText(),
+                            endDestination.getText(),
+                            parsedDistance,
+                            categoryList.getSelectedValuesList(),
+                            passengersList.getSelectedValuesList(),
+                            (Vehicle) vehicle.getSelectedItem(),
+                            (Repetition) repetition.getSelectedItem(),
+                            description.getText()
+                    );
+                    tableModel.addRow(ride);
+                    switch (selectedRepetition) {
+                        case DAILY -> currentDate = currentDate.plusDays(1);
+                        case WEEKLY -> currentDate = currentDate.plusWeeks(1);
+                        case MONTHLY -> currentDate = currentDate.plusMonths(1);
+                        case YEARLY -> currentDate = currentDate.plusYears(1);
+                    }
+                }
+                dispose();
+            }
+
         });
     }
 
