@@ -8,6 +8,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
  * @author Jakub Ratajik
  */
 public class RideValidator {
-    //TODO: add categories validation
     private RideValidator() {
     }
 
@@ -70,12 +70,23 @@ public class RideValidator {
             throw new ValidationException("Maximální délka popisu je 300 znaků.");
         }
     }
+    // TODO - make clear which validateRide method is for what and when it's used
+    public static void validateRide(String id, LocalDate date, String departure, String arrival, String from, String to, String distance, String description) {
+        validateRide(id, date, departure, arrival, from, to, distance, null, null, null, null, description);
+    }
+
 
     private static boolean anotherRidePlannedForTimePeriod(String idString, LocalDate date, String departureString, String arrivalString) {
         LocalTime departure = LocalTime.parse(departureString);
         LocalTime arrival = LocalTime.parse(arrivalString);
+        List<Ride> allRides = new ArrayList<>();
 
-        List<Ride> allRides = (List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData();
+        try {
+            allRides = (List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData();
+        }
+        catch (NullPointerException e) {
+            return false;
+        }
 
         if (idString == null) {
             return allRides.stream()
@@ -104,15 +115,6 @@ public class RideValidator {
         // TODO - uncomment and fix validation for edit rides
         return CommonValidator.isValidDoubleParsing(id);
                 //&& Shortcut.getTableModel(TableCategory.RIDES).getObjectById(Long.parseLong(id)) == null;
-    }
-
-    public static void validateRide(LocalDate date, String departure, String arrival, String from, String to, String distance, String description) {
-        validateRide(null, date, departure, arrival, from, to, distance, null, null, null, null, description);
-    }
-
-    // TODO - make clear which validateRide method is for what and when it's used
-    public static void validateRide(String id, LocalDate date, String departure, String arrival, String from, String to, String distance, String description) {
-        validateRide(id, date, departure, arrival, from, to, distance, null, null, null, null, description);
     }
 
     private static boolean isVehicleIDValid(String string) {
