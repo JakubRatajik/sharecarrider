@@ -15,14 +15,6 @@ public class VehicleValidator {
     }
 
     public static void validateVehicle(String id, String licensePlate, String brand, String type, String capacity, String consumption, String fuelType) {
-//        TODO: uncomment after validation without id but with fuel
-//        if (id != null && !isValidVehicleId(id)) {
-//            throw new ValidationException("Neplatdné ID vozidla.");
-//        }
-//       TODO: uncomment after implementing database - providing reasonable license plates
-//        if (!isLicensePlateValid(licensePlate)) {
-//            throw new ValidationException("SPZ musí být ve formátu '6A81234' nebo '6A9 1234'");
-//        }
         if (!CommonValidator.isValidLongCzechNumInput(brand)) {
             throw new ValidationException("Značka musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
         }

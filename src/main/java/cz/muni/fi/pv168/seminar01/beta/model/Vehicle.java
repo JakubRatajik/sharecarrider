@@ -112,7 +112,12 @@ public class Vehicle implements HasID {
     }
 
     public BigDecimal countPricePerHundredKM() {
-        BigDecimal fuelPrice = MainWindow.getFuelPrice().getFuelPrice(fuelType);
+        BigDecimal fuelPrice;
+        if (MainWindow.getFuelPrice() == null) {
+            fuelPrice = new BigDecimal("30");
+        } else {
+            fuelPrice = MainWindow.getFuelPrice().getFuelPrice(fuelType);
+        }
 
         return fuelPrice.multiply(new BigDecimal(consumption));
     }

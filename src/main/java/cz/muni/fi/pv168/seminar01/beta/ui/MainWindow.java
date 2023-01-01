@@ -20,7 +20,7 @@ public class MainWindow implements ChangeListener {
     private static FuelPrice fuelPrice;
     private StatisticsUI statisticsUI;
 
-    private ProductionDependencyProvider provider;
+    private static ProductionDependencyProvider provider;
 
     public MainWindow() {
         initialize();
@@ -141,5 +141,9 @@ public class MainWindow implements ChangeListener {
         if (selectedIndex == 5) {
             statisticsUI.update();
         }
+    }
+
+    public static ProductionDependencyProvider getProvider() {
+        return provider;
     }
 }
