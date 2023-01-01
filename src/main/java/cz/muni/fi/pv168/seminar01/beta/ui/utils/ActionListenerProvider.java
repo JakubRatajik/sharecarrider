@@ -26,6 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -319,10 +321,14 @@ public final class ActionListenerProvider {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                int[] modelRows = Arrays.stream(rows).map(CommonElementSupplier.getTable(category)::convertRowIndexToModel).toArray();
+                Integer[] modelRows = Arrays.stream(rows)
+                        .map(CommonElementSupplier.getTable(category)::convertRowIndexToModel)
+                        .boxed().toArray(Integer[]::new);
 
-                for (int i = 0; i < modelRows.length; i++) {
-                    CommonElementSupplier.getTableModel(category).deleteRow(modelRows[i]);
+                Arrays.sort(modelRows, Collections.reverseOrder());
+
+                for (Integer modelRow : modelRows) {
+                    CommonElementSupplier.getTableModel(category).deleteRow(modelRow);
                 }
                 ShareCarRiderTable table = CommonElementSupplier.getTable(category);
                 table.clearSelection();
