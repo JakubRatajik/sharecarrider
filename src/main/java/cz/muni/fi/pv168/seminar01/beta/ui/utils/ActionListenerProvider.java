@@ -321,9 +321,8 @@ public final class ActionListenerProvider {
             public void actionPerformed(ActionEvent actionEvent) {
                 int[] modelRows = Arrays.stream(rows).map(CommonElementSupplier.getTable(category)::convertRowIndexToModel).toArray();
 
-                int firstRow = modelRows[0];
                 for (int i = 0; i < modelRows.length; i++) {
-                    CommonElementSupplier.getTableModel(category).deleteRow(firstRow);
+                    CommonElementSupplier.getTableModel(category).deleteRow(modelRows[i]);
                 }
                 ShareCarRiderTable table = CommonElementSupplier.getTable(category);
                 table.clearSelection();
