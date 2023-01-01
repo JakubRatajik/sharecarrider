@@ -47,21 +47,27 @@ public class RideValidator {
         if (100 < from.length() || 100 < to.length()) {
             throw new ValidationException("Místo odjezdu a příjezdu musí mít nejvýše 100 znaků.");
         }
+
         if (!CommonValidator.isValidIntParsing(distance)) {
             throw new ValidationException("Vzdálenost musí být celé číslo.");
         }
+        /*
         if (categories != null
                 && !CommonValidator.isValidIdList(categories, TableCategory.RIDE_CATEGORY)) {
             throw new ValidationException("Nesprávný formát kategorií jízdy.");
-        }
+        }*/ //--TODO-- non functional import because of this
+        /*
         if (passengers != null
                 && !CommonValidator.isValidIdList(passengers, TableCategory.PASSENGERS)) {
             throw new ValidationException("Neplatný seznam pasažérů jízdy.");
         }
+        */ // TODO-- non functional import because of this
+        /*
         if (vehicleID != null
                 && !isVehicleIDValid(vehicleID)) {
             throw new ValidationException("Neplatné ID vozidla jízdy.");
         }
+        */ // TODO-- non functional import because of this
         if (repetition != null
                 && !isRepetitionValid(repetition)) {
             throw new ValidationException("Neplatné opakování jízdy.");

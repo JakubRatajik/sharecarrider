@@ -39,8 +39,10 @@ public abstract class CommonDependencyProvider implements DependencyProvider {
     private final Repository<PassengerCategory> passengerCategories;
     private final Repository<Fuel> fuels;
 
-    protected CommonDependencyProvider(DatabaseManager databaseManager) {
+    private final DatabaseManager databaseManager;
 
+    protected CommonDependencyProvider(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
         this.rides = new RideRepository(
                 new RideMapper(),
                 new RideDao(databaseManager::getConnectionHandler),
@@ -96,4 +98,6 @@ public abstract class CommonDependencyProvider implements DependencyProvider {
     public Repository<Fuel> getFuelRepository() {
         return fuels;
     }
+
+    public DatabaseManager getDBManager() {return databaseManager;}
 }

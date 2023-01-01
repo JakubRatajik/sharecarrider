@@ -54,6 +54,7 @@ public class MainWindow implements ChangeListener {
         return fuelPrice;
     }
 
+
     private void initialize() {
         provider = new ProductionDependencyProvider();
         frame = new JFrame();

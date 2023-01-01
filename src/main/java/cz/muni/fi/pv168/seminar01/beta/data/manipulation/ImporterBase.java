@@ -15,6 +15,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,6 +41,9 @@ public class ImporterBase {
         List<Vehicle> vehicleList;
         List<PassengerCategory> passengerCategoryList;
         List<RideCategory> rideCategoryList;
+        new ErrorDialog(MainWindow.getFrame(), "Všechny záznamy budou smazány!");
+
+
         try {
             if (passengerCategories != null) {
                 passengerCategoryList = PassengerCategoryImporter.importPassengerCategories(passengerCategories);
@@ -68,7 +72,7 @@ public class ImporterBase {
             if (rides != null) {
                 rideList = RideImporter.importRides(rides);
                 for (Ride ride : rideList) {
-                    ID_MAPPER.addIDs(TableCategory.RIDES, ride.getId(), ((RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES)).addRowAndGetID(ride));
+                    ((RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES)).addRow(ride);
                 }
             }
         } catch (DataManipulationException | ValidationException |

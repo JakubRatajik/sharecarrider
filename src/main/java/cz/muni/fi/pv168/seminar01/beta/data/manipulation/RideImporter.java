@@ -62,7 +62,7 @@ public class RideImporter {
             RideValidator.validateRide(idString, dateString, departureString, arrivalString, from, to,
                     distanceString, categoriesString, passengerListString, vehicleIdString, repetitionString, description);
         } catch (ValidationException e) {
-            throw new DataManipulationException("Problém s načtením jízd.", e);
+            throw new DataManipulationException("Problém s načtením jízd. " + e.getMessage(), e);
         }
 
         long id = Long.parseLong(idString);
