@@ -8,7 +8,7 @@ public class FuelMapper implements EntityMapper<FuelEntity, Fuel> {
     @Override
     public FuelEntity mapToEntity(Fuel model) {
         // TODO - validator
-        return new FuelEntity(model.getFuel().name(), model.getPrice());
+        return new FuelEntity(model.getFuelType().name(), model.getPrice());
     }
 
     @Override

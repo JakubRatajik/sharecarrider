@@ -20,14 +20,14 @@ public class FuelPrice {
             case LPG -> {
                 Fuel fuel = fuels.findById(FuelType.LPG.ordinal()).orElse(null);
                 if (fuel == null) {
-                    throw new NullPointerException("Fuel of type " + FuelType.LPG.toString() + " not in the database");
+                    throw new NullPointerException("Fuel of type " + FuelType.LPG + " not in the database");
                 }
                 yield fuel.getPrice();
             }
             case CNG -> {
                 Fuel fuel = fuels.findById(FuelType.CNG.ordinal()).orElse(null);
                 if (fuel == null) {
-                    throw new NullPointerException("Fuel of type " + FuelType.CNG.toString() + " not in the database");
+                    throw new NullPointerException("Fuel of type " + FuelType.CNG + " not in the database");
                 }
                 yield fuel.getPrice();
             }
@@ -35,25 +35,24 @@ public class FuelPrice {
             case DIESEL -> {
                 Fuel fuel = fuels.findById(FuelType.DIESEL.ordinal()).orElse(null);
                 if (fuel == null) {
-                    throw new NullPointerException("Fuel of type " + FuelType.DIESEL.toString() + " not in the database");
+                    throw new NullPointerException("Fuel of type " + FuelType.DIESEL + " not in the database");
                 }
                 yield fuel.getPrice();
             }
             case GASOLINE -> {
                 Fuel fuel = fuels.findById(FuelType.GASOLINE.ordinal()).orElse(null);
                 if (fuel == null) {
-                    throw new NullPointerException("Fuel of type " + FuelType.GASOLINE.toString() + " not in the database");
+                    throw new NullPointerException("Fuel of type " + FuelType.GASOLINE + " not in the database");
                 }
                 yield fuel.getPrice();
             }
             case ELECTRICITY -> {
                 Fuel fuel = fuels.findById(FuelType.ELECTRICITY.ordinal()).orElse(null);
                 if (fuel == null) {
-                    throw new NullPointerException("Fuel of type " + FuelType.ELECTRICITY.toString() + " not in the database");
+                    throw new NullPointerException("Fuel of type " + FuelType.ELECTRICITY + " not in the database");
                 }
                 yield fuel.getPrice();
             }
-            default -> BigDecimal.ZERO;
         };
     }
 
@@ -62,7 +61,7 @@ public class FuelPrice {
     }
 
     public void setGasolinePrice(BigDecimal gasolinePrice) {
-        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuel() == FuelType.GASOLINE).findFirst().orElseThrow();
+        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuelType() == FuelType.GASOLINE).findFirst().orElseThrow();
         fuel.setPrice(gasolinePrice);
         fuels.update(fuel);
     }
@@ -72,7 +71,7 @@ public class FuelPrice {
     }
 
     public void setElectricityPrice(BigDecimal electricityPrice) {
-        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuel() == FuelType.ELECTRICITY).findFirst().orElseThrow();
+        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuelType() == FuelType.ELECTRICITY).findFirst().orElseThrow();
         fuel.setPrice(electricityPrice);
         fuels.update(fuel);
     }
@@ -82,7 +81,7 @@ public class FuelPrice {
     }
 
     public void setLPGPrice(BigDecimal LPGPrice) {
-        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuel() == FuelType.LPG).findFirst().orElseThrow();
+        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuelType() == FuelType.LPG).findFirst().orElseThrow();
         fuel.setPrice(LPGPrice);
         fuels.update(fuel);
     }
@@ -92,7 +91,7 @@ public class FuelPrice {
     }
 
     public void setDieselPrice(BigDecimal dieselPrice) {
-        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuel() == FuelType.DIESEL).findFirst().orElseThrow();
+        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuelType() == FuelType.DIESEL).findFirst().orElseThrow();
         fuel.setPrice(dieselPrice);
         fuels.update(fuel);
     }
@@ -102,7 +101,7 @@ public class FuelPrice {
     }
 
     public void setCNGPrice(BigDecimal CNGPrice) {
-        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuel() == FuelType.CNG).findFirst().orElseThrow();
+        Fuel fuel = fuels.findAll().stream().filter(f -> f.getFuelType() == FuelType.CNG).findFirst().orElseThrow();
         fuel.setPrice(CNGPrice);
         fuels.update(fuel);
     }

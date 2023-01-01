@@ -42,7 +42,7 @@ public class FuelRepository extends AbstractRepository<Fuel> {
     @Override
     public void deleteByIndex(int index) {
         Fuel fuel = repositoryMembers.get(index);
-        dao.deleteByFuelType(fuel.getFuel().name());
+        dao.deleteByFuelType(fuel.getFuelType().name());
         repositoryMembers.remove(index);
     }
 
