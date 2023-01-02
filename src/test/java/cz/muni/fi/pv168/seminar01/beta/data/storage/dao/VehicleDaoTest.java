@@ -79,9 +79,9 @@ final class VehicleDaoTest {
 
 
     @Test
-    void deleteSkodaVehicles() {
-        var allDepartments = vehicleDao.findAll();
-        var bmw = allDepartments.stream()
+    void deleteBMWVehicles() {
+        var allVehicles = vehicleDao.findAll();
+        var bmw = allVehicles.stream()
                 .filter(d -> d.brand().equals("BMW"))
                 .findFirst();
 

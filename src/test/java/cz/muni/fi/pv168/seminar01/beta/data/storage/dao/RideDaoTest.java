@@ -55,7 +55,7 @@ final class RideDaoTest {
 
     @Test
     void createNewRide() {
-        RideEntity newRideParams = new RideEntity(LocalDate.MIN, LocalTime.MIN, LocalTime.MAX, "Brno město", "Brno venkov", 10, 1, Repetition.MONTHLY, "");
+        RideEntity newRideParams = new RideEntity(LocalDate.MIN, LocalTime.MIN, LocalTime.MAX, "Brno město", "Brno venkov", 10, 3, Repetition.MONTHLY, "");
 
         var createdRide = rideDao.
                 create(newRideParams);
@@ -132,7 +132,7 @@ final class RideDaoTest {
     private static RideEntity createRideEntity() {
 
         return new RideEntity(
-                -1000L,
+                -1008L,
                 LocalDate.MIN,
                 LocalTime.MIN,
                 LocalTime.MAX,

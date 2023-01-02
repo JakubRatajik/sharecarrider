@@ -33,8 +33,8 @@ INSERT INTO Ride (date,
                   vehicle,
                   repetition,
                   description)
-VALUES  ('2021-12-01', '10:59:00.0000000', '11:59:00.0000000', 'Vilhemovice', 'Budapest', 15, 1, 'weekly', 'nezapomen si prášky'),
-        ('2022-11-03', '06:12:00.0000000', '06:45:00.0000000', 'Plana nad Luznou', 'Klenovice', 42, 1, 'none', 'vyzvednou babicku'),
+VALUES  ('2021-12-01', '10:59:00.0000000', '11:59:00.0000000', 'Vilhemovice', 'Budapest', 15, 3, 'weekly', 'nezapomen si prášky'),
+        ('2022-11-03', '06:12:00.0000000', '06:45:00.0000000', 'Plana nad Luznou', 'Klenovice', 42, 3, 'none', 'vyzvednou babicku'),
         ('2019-06-04', '18:00:00.0000000', '23:15:00.0000000', 'Slezske muzeum', 'Opava', 75, 2, 'monthly', 'v 5:35 jednou z pravidelnich linek 7 zastavek do Katerinek')
 ;
 
