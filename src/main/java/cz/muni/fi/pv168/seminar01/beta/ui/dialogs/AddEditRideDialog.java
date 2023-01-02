@@ -306,7 +306,15 @@ public class AddEditRideDialog extends AddEditDialog {
                 dispose();
             } else {
                 LocalDate currentDate = JDatePickerDateGetter.getLocalDate(date);
-                LocalDate toDate = currentDate.plusYears(2);
+                LocalDate toDate;
+                switch (selectedRepetition) {
+                    case DAILY -> toDate = currentDate.plusMonths(6);
+                    case WEEKLY ->  toDate = currentDate.plusYears(1);
+                    case MONTHLY -> toDate = currentDate.plusYears(2);
+                    case YEARLY -> toDate = currentDate.plusYears(5);
+                    default -> toDate = currentDate; // never accessed (warning handler)
+                }
+
                 while (currentDate.isBefore(toDate)) {
                     Ride ride = new Ride(
                             currentDate,
