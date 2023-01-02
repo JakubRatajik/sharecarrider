@@ -156,13 +156,11 @@ public class ImportDialog extends DialogBase {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (rides != null && (passengers == null || vehicles == null ||
                         passengersCategories == null || ridesCategories == null)) {
-                    //throw new ValidationException("Some files are missing");
                     new ErrorDialog(MainWindow.getFrame(), new ValidationException("Pokud chcete naimportovat jízdy, musíte naimportovat i vše ostatní"));
                 } else if (passengers != null && passengersCategories == null) {
                     new ErrorDialog(MainWindow.getFrame(), new ValidationException("Pokud chcete naimportovat pasažéry, musíte naimportovat i jejich kategorie"));
                 } else {
-                    AsyncImporter importer = new AsyncImporter();
-                    importer.importData(rides, vehicles, passengers, passengersCategories, ridesCategories);
+                    new ImportDeletionDialog(MainWindow.getFrame(), "Upozornění", rides, vehicles, passengers, passengersCategories, ridesCategories);
                     dispose();
                 }
             }
