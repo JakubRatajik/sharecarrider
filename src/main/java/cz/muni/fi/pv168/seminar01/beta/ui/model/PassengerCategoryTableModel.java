@@ -1,9 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
-import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
