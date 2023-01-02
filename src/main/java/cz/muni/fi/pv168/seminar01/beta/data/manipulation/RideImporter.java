@@ -39,7 +39,6 @@ public class RideImporter {
     public static Ride importRide(String[] lineSplit) {
         ManipulationUtils.trimAllStringsInArray(lineSplit);
         if (lineSplit.length != ManipulationUtils.RIDE_PARAMETERS_COUNT && lineSplit.length != ManipulationUtils.RIDE_PARAMETERS_COUNT - 1) {
-            new ErrorDialog(MainWindow.getFrame(), "Špatný počet atributů v CSV u jízdy");
             throw new DataManipulationException("Špatný počet parametrů pro Jízdu v CSV, mělo být " + ManipulationUtils.RIDE_PARAMETERS_COUNT + ", bylo " + lineSplit.length, new Exception());
         }
 

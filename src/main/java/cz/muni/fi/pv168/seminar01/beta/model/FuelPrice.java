@@ -4,6 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.FuelRepository;
 import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import java.math.BigDecimal;
+import java.util.NoSuchElementException;
 
 /**
  * This class represents static values of fuel prices, that are used for computing a price for a single ride and some statistics.
@@ -20,14 +21,14 @@ public class FuelPrice {
             case LPG -> {
                 Fuel fuel = fuels.findById(FuelType.LPG.ordinal()).orElse(null);
                 if (fuel == null) {
-                    throw new NullPointerException("Fuel of type " + FuelType.LPG + " not in the database");
+                    throw new NoSuchElementException("Fuel of type " + FuelType.LPG + " not in the database");
                 }
                 yield fuel.getPrice();
             }
             case CNG -> {
                 Fuel fuel = fuels.findById(FuelType.CNG.ordinal()).orElse(null);
                 if (fuel == null) {
-                    throw new NullPointerException("Fuel of type " + FuelType.CNG + " not in the database");
+                    throw new NoSuchElementException("Fuel of type " + FuelType.CNG + " not in the database");
                 }
                 yield fuel.getPrice();
             }
@@ -35,21 +36,21 @@ public class FuelPrice {
             case DIESEL -> {
                 Fuel fuel = fuels.findById(FuelType.DIESEL.ordinal()).orElse(null);
                 if (fuel == null) {
-                    throw new NullPointerException("Fuel of type " + FuelType.DIESEL + " not in the database");
+                    throw new NoSuchElementException("Fuel of type " + FuelType.DIESEL + " not in the database");
                 }
                 yield fuel.getPrice();
             }
             case GASOLINE -> {
                 Fuel fuel = fuels.findById(FuelType.GASOLINE.ordinal()).orElse(null);
                 if (fuel == null) {
-                    throw new NullPointerException("Fuel of type " + FuelType.GASOLINE + " not in the database");
+                    throw new NoSuchElementException("Fuel of type " + FuelType.GASOLINE + " not in the database");
                 }
                 yield fuel.getPrice();
             }
             case ELECTRICITY -> {
                 Fuel fuel = fuels.findById(FuelType.ELECTRICITY.ordinal()).orElse(null);
                 if (fuel == null) {
-                    throw new NullPointerException("Fuel of type " + FuelType.ELECTRICITY + " not in the database");
+                    throw new NoSuchElementException("Fuel of type " + FuelType.ELECTRICITY + " not in the database");
                 }
                 yield fuel.getPrice();
             }
