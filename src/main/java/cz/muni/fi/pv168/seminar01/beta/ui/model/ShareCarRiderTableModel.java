@@ -68,6 +68,15 @@ public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractT
         fireTableRowsDeleted(rowIndex, rowIndex);
     }
 
+    public void deleteAll() {
+        int size = getRowCount();
+        for (int i = 0; i < size; i++) {
+            repository.deleteByIndex(0);
+            fireTableRowsDeleted(0, 0);
+        }
+    }
+
+
     public void addRow(T object) {
         int newRowIndex = repository.getSize();
         repository.create(object);

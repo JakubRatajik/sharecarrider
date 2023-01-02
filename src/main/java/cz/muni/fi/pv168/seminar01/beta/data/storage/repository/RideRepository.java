@@ -135,4 +135,5 @@ public class RideRepository extends AbstractRepository<Ride>{
         }
         return newRides;
     }
+
 }

@@ -15,6 +15,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
+import cz.muni.fi.pv168.seminar01.beta.wiring.CommonDependencyProvider;
 import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import java.io.File;
@@ -35,6 +36,16 @@ public class ImporterBase {
         return ID_MAPPER.getNewID(category, oldID);
     }
 
+    private static void deleteAll() {
+        CommonElementSupplier.getTableModel(TableCategory.RIDES).deleteAll();
+        CommonElementSupplier.getTableModel(TableCategory.VEHICLES).deleteAll();
+        CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).deleteAll();
+        CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY).deleteAll();
+        CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY).deleteAll();
+
+
+
+    }
     public static void loadData(File rides, File vehicles, File passengers, File passengerCategories, File rideCategories) {
         List<Passenger> passengerList;
         List<Ride> rideList;
@@ -42,7 +53,7 @@ public class ImporterBase {
         List<PassengerCategory> passengerCategoryList;
         List<RideCategory> rideCategoryList;
         new ErrorDialog(MainWindow.getFrame(), "Všechny záznamy budou smazány!");
-
+        deleteAll();
 
         try {
             if (passengerCategories != null) {
