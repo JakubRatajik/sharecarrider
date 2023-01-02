@@ -70,6 +70,10 @@ public final class DatabaseManager {
         sqlFileExecutor.execute("init.sql");
     }
 
+    public void dropSchema() {
+        sqlFileExecutor.execute("drop.sql");
+    }
+
     public void initData(String environment) {
         sqlFileExecutor.execute("data_%s.sql".formatted(environment));
     }

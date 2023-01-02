@@ -14,7 +14,8 @@ public record RideEntity(
         String endDest,
         int distance,
         long vehicleId,
-        Repetition repetition
+        Repetition repetition,
+        String description
 ) {
     public RideEntity(
             LocalDate date,
@@ -24,8 +25,9 @@ public record RideEntity(
             String endDest,
             int distance,
             long vehicleId,
-            Repetition repetition
+            Repetition repetition,
+            String description
     ) {
-        this(null, date, departure, arrival, startDest, endDest, distance, vehicleId, repetition);
+        this(null, date, departure, arrival, startDest, endDest, distance, vehicleId, repetition, description);
     }
 }

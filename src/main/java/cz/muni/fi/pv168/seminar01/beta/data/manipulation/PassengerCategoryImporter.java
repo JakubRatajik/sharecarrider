@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ImportPassengerCategories {
+public class PassengerCategoryImporter {
 
     static List<PassengerCategory> importPassengerCategories(File passengerCategories) throws FileNotFoundException {
         Scanner reader = new Scanner(passengerCategories);

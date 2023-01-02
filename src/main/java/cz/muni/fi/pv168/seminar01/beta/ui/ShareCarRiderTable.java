@@ -1,5 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
+import cz.muni.fi.pv168.seminar01.beta.data.manipulation.DateTimeUtils;
 import cz.muni.fi.pv168.seminar01.beta.model.Category;
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
@@ -24,7 +25,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import javax.swing.*;
@@ -34,10 +35,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.IsoFields;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 /**
@@ -78,11 +82,14 @@ public class ShareCarRiderTable extends JTable {
         getTableHeader().setFont(UIUtilities.fTable);
 
         setAutoCreateRowSorter(true);
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
+        getRowSorter().setSortKeys(sortKeys);
         setRowHeight(25);
         setColumnSelectionAllowed(false);
 
         setColumnWidths();
-        changeDefaultRenderer();
+        changeDefaultCellRenderers();
         initDoubleClickListener();
         addMouseListener(doubleClickListener);
         addPopupMenu();
@@ -99,7 +106,7 @@ public class ShareCarRiderTable extends JTable {
         }
     }
 
-    private void changeDefaultRenderer() {
+    private void changeDefaultCellRenderers() {
         TableCellRenderer defaultCellRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(
@@ -122,9 +129,57 @@ public class ShareCarRiderTable extends JTable {
             }
         };
 
+        TableCellRenderer defaultTimeRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object object, boolean isSelected,
+                    boolean hasFocus, int row, int col) {
+
+                String time = ((LocalTime) object).format(DateTimeUtils.TIME_FORMATTER);
+                Component component = defaultCellRenderer.getTableCellRendererComponent(table,
+                        time, isSelected, hasFocus, row, col);
+
+                return component;
+            }
+        };
+
         setDefaultRenderer(Object.class, defaultCellRenderer);
         setDefaultRenderer(Integer.class, defaultCellRenderer);
         setDefaultRenderer(Double.class, defaultCellRenderer);
+        setDefaultRenderer(LocalTime.class, defaultTimeRenderer);
+
+        changeLocalDateRenderer(true);
+    }
+
+    public void changeLocalDateRenderer(boolean shouldSeparateWeeks) {
+        TableCellRenderer defaultCellRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object object, boolean isSelected,
+                    boolean hasFocus, int row, int col) {
+                String date = ((LocalDate) object).format(DateTimeUtils.DATE_FORMATTER);
+                Component component = getDefaultRenderer(Object.class).getTableCellRendererComponent(table,
+                        date, isSelected, hasFocus, row, col);
+
+                if (shouldSeparateWeeks && isLastDateOfWeek(table, (LocalDate) object, row)) {
+                    component.setFont(UIUtilities.fTableWeek);
+                }
+
+                return component;
+            }
+        };
+        setDefaultRenderer(LocalDate.class, defaultCellRenderer);
+    }
+
+    private boolean isLastDateOfWeek(JTable table, LocalDate date, int row) {
+        if (row == table.getRowCount() - 1) {
+            return true;
+        }
+
+        LocalDate then = (LocalDate) table.getValueAt(row + 1, 0);
+
+        return date.getYear() > then.getYear() ||
+            date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR) > then.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
     }
 
     private void addPopupMenu() {
@@ -177,7 +232,7 @@ public class ShareCarRiderTable extends JTable {
 
         deletePopupMenuItem.addActionListener(actionListener ->
                 new DeleteDialog(MainWindow.getFrame(), "Smazat jízdu/y",
-                        TableCategory.RIDES, Shortcut.getTable(TableCategory.RIDES).getSelectedRows()));
+                        TableCategory.RIDES, CommonElementSupplier.getTable(TableCategory.RIDES).getSelectedRows()));
 
         addPopupMenuItem.addActionListener(actionListener -> new AddEditRideDialog(MainWindow.getFrame(), "Přidat jízdu"));
     }
@@ -196,7 +251,7 @@ public class ShareCarRiderTable extends JTable {
         });
 
         deletePopupMenuItem.addActionListener(actionListener -> new DeleteDialog(MainWindow.getFrame(), "Smazat vozidlo/a",
-                TableCategory.VEHICLES, Shortcut.getTable(TableCategory.VEHICLES).getSelectedRows()));
+                TableCategory.VEHICLES, CommonElementSupplier.getTable(TableCategory.VEHICLES).getSelectedRows()));
 
         addPopupMenuItem.addActionListener(actionListener -> new AddEditVehicleDialog(MainWindow.getFrame(), "Přidat vozidlo"));
     }
@@ -215,7 +270,7 @@ public class ShareCarRiderTable extends JTable {
         });
 
         deletePopupMenuItem.addActionListener(actionListener -> new DeleteDialog(MainWindow.getFrame(), "Smazat cestující/ho",
-                TableCategory.PASSENGERS, Shortcut.getTable(TableCategory.PASSENGERS).getSelectedRows()));
+                TableCategory.PASSENGERS, CommonElementSupplier.getTable(TableCategory.PASSENGERS).getSelectedRows()));
 
         addPopupMenuItem.addActionListener(actionListener -> new AddEditPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího"));
     }
@@ -234,7 +289,7 @@ public class ShareCarRiderTable extends JTable {
         });
 
         deletePopupMenuItem.addActionListener(actionListener -> new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
-                TableCategory.PASSENGER_CATEGORY, Shortcut.getTable(TableCategory.PASSENGER_CATEGORY).getSelectedRows()));
+                TableCategory.PASSENGER_CATEGORY, CommonElementSupplier.getTable(TableCategory.PASSENGER_CATEGORY).getSelectedRows()));
 
         addPopupMenuItem.addActionListener(actionListener -> new AddEditPassengerCategoryDialog(MainWindow.getFrame(), "Vytvořit kategorii"));
     }
@@ -253,7 +308,7 @@ public class ShareCarRiderTable extends JTable {
         });
 
         deletePopupMenuItem.addActionListener(actionListener -> new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
-                TableCategory.RIDE_CATEGORY, Shortcut.getTable(TableCategory.RIDE_CATEGORY).getSelectedRows()));
+                TableCategory.RIDE_CATEGORY, CommonElementSupplier.getTable(TableCategory.RIDE_CATEGORY).getSelectedRows()));
 
         addPopupMenuItem.addActionListener(actionListener -> new AddEditRideCategoryDialog(MainWindow.getFrame(), "Vytvořit kategorii jízdy"));
     }
@@ -297,16 +352,6 @@ public class ShareCarRiderTable extends JTable {
 
     }
 
-    public void hideColumn(int col) {
-        getColumnModel().getColumn(col).setMinWidth(0);
-        getColumnModel().getColumn(col).setMaxWidth(0);
-        getColumnModel().getColumn(col).setWidth(0);
-    }
-
-    public void hideCheckboxColumn() {
-        hideColumn(0);
-    }
-
     public TableCategory getTableCategory() {
         return tableCategory;
     }
@@ -322,7 +367,7 @@ public class ShareCarRiderTable extends JTable {
     public void enableMultilineSelection(boolean enable) {
         isMultilineSelectionEnabled = enable;
         clearSelection();
-        JButton selectButton = Shortcut.getSelectButton(tableCategory);
+        JButton selectButton = CommonElementSupplier.getSelectButton(tableCategory);
 
         if (enable) {
             removeMouseListener(doubleClickListener);

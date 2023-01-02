@@ -6,17 +6,21 @@ import java.math.BigDecimal;
  * @author Jan Macecek
  */
 public class Fuel implements HasID {
-    private FuelType fuel;
+    private final FuelType fuelType;
     private BigDecimal fuelPrice;
 
     public Fuel(FuelType fuelType, BigDecimal fuelPrice) {
-        this.fuel = fuelType;
+        this.fuelType = fuelType;
         this.fuelPrice = fuelPrice;
     }
 
     @Override
     public long getId() {
-        return fuel.ordinal();
+        return fuelType.ordinal();
+    }
+
+    public FuelType getFuelType() {
+        return fuelType;
     }
 
     public BigDecimal getPrice() {

@@ -17,8 +17,4 @@ public class DateTimeUtils {
     public static boolean isAfterOrEqual(LocalTime tOne, LocalTime tTwo){
         return tOne.isAfter(tTwo) || tOne.equals(tTwo);
     }
-
-    public static DateTimeFormatter getTimeFormatter() {
-        return null;
-    }
 }

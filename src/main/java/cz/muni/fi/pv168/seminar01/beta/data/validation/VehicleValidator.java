@@ -2,7 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
 import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -15,14 +15,6 @@ public class VehicleValidator {
     }
 
     public static void validateVehicle(String id, String licensePlate, String brand, String type, String capacity, String consumption, String fuelType) {
-//        TODO: uncomment after validation without id but with fuel
-//        if (id != null && !isValidVehicleId(id)) {
-//            throw new ValidationException("Neplatdné ID vozidla.");
-//        }
-//       TODO: uncomment after implementing database - providing reasonable license plates
-//        if (!isLicensePlateValid(licensePlate)) {
-//            throw new ValidationException("SPZ musí být ve formátu '6A81234' nebo '6A9 1234'");
-//        }
         if (!CommonValidator.isValidLongCzechNumInput(brand)) {
             throw new ValidationException("Značka musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
         }
@@ -43,7 +35,7 @@ public class VehicleValidator {
 
     private static boolean isValidVehicleId(String id) {
         return CommonValidator.isValidLongParsing(id)
-                && Shortcut.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(id)) == null;
+                && CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(id)) == null;
     }
 
     public static void validateVehicle(String licensePlate, String brand, String type, String capacity, String consumption) {

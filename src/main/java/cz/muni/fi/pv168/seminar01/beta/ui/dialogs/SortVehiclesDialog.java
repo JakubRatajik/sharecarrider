@@ -4,7 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,11 @@ public class SortVehiclesDialog extends SortFilterDialog{
     private JRadioButton consumptionMinMax;
     private JRadioButton consumptionMaxMin;
 
+    private static boolean capacityMinMaxSelected = false;
+    private static boolean capacityMaxMinSelected = false;
+    private static boolean consumptionMinMaxSelected = false;
+    private static boolean consumptionMaxMinSelected = false;
+
     public SortVehiclesDialog(Frame frame, String name) {
         super(frame, name);
     }
@@ -28,7 +33,7 @@ public class SortVehiclesDialog extends SortFilterDialog{
     @Override
     protected void onOkButton(JButton ok) {
         ok.addActionListener(al -> {
-            ShareCarRiderTable vehicleTable = Shortcut.getTable(TableCategory.VEHICLES);
+            ShareCarRiderTable vehicleTable = CommonElementSupplier.getTable(TableCategory.VEHICLES);
             List<RowSorter.SortKey> sortKeys = new ArrayList<>();
 
             if (capacityMaxMin.isSelected()) {
@@ -44,6 +49,11 @@ public class SortVehiclesDialog extends SortFilterDialog{
                 sortKeys.add(new RowSorter.SortKey(VehicleTableModel.COLUMN_AVERAGE_CONSUMPTION, SortOrder.ASCENDING));
                 vehicleTable.getRowSorter().setSortKeys(sortKeys);
             }
+
+            capacityMinMaxSelected = capacityMinMax.isSelected();
+            capacityMaxMinSelected = capacityMaxMin.isSelected();
+            consumptionMinMaxSelected = consumptionMinMax.isSelected();
+            consumptionMaxMinSelected = consumptionMaxMin.isSelected();
 
             dispose();
         });
@@ -69,6 +79,12 @@ public class SortVehiclesDialog extends SortFilterDialog{
         capacityMinMax = new JRadioButton("Od nejméně míst k nejvíce místům");
         consumptionMinMax = new JRadioButton("Od nejnižší k nejvyšší");
         consumptionMaxMin = new JRadioButton("Od nejvyšší k nejnižší");
+
+        capacityMaxMin.setSelected(capacityMaxMinSelected);
+        capacityMinMax.setSelected(capacityMinMaxSelected);
+        consumptionMinMax.setSelected(consumptionMinMaxSelected);
+        consumptionMaxMin.setSelected(consumptionMaxMinSelected);
+
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(capacityMaxMin);
         buttonGroup.add(capacityMinMax);

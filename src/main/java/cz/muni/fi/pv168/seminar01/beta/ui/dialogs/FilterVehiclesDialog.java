@@ -6,7 +6,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
@@ -21,7 +21,12 @@ public class FilterVehiclesDialog extends SortFilterDialog {
     private JTextField capacityTo;
     private JTextField consumptionFrom;
     private JTextField consumptionTo;
-   // private JComboBox<Integer> brand;
+    private static boolean capacityEnabled = false;
+    private static boolean consumptionEnabled = false;
+    private static String capacityFromText = "";
+    private static String capacityToText = "";
+    private static String consumptionFromText = "";
+    private static String consumptionToText = "";
 
     public FilterVehiclesDialog(Frame frame, String name) {
         super(frame, name);
@@ -35,12 +40,16 @@ public class FilterVehiclesDialog extends SortFilterDialog {
     public void setAttributes() {
         capacityFilter = new JCheckBox("  Kapacita:");
         consumptionFilter = new JCheckBox("  Spotřeba:");
+        capacityFilter.setSelected(capacityEnabled);
+        consumptionFilter.setSelected(consumptionEnabled);
         capacityFrom = UIUtilities.createTextField();
         capacityTo = UIUtilities.createTextField();
         consumptionFrom = UIUtilities.createTextField();
         consumptionTo = UIUtilities.createTextField();
-       // brand = new JComboBox<>();
-       // UIUtilities.formatDefaultJComboBox(brand);
+        capacityFrom.setText(capacityFromText);
+        capacityTo.setText(capacityToText);
+        consumptionFrom.setText(consumptionFromText);
+        consumptionTo.setText(consumptionToText);
     }
 
     public void initializeContent(JPanel center) {
@@ -59,9 +68,6 @@ public class FilterVehiclesDialog extends SortFilterDialog {
         center.add(consumptionFrom);
         center.add(new JLabel(paragraph + "•  Do:"));
         center.add(consumptionTo);
-        //center.add(new JLabel("  •  Značka"));
-        //
-        // center.add(brand);
         this.add(center);
         setSize(450, 350);
     }
@@ -81,7 +87,7 @@ public class FilterVehiclesDialog extends SortFilterDialog {
                 }
             };
 
-            ShareCarRiderTable table = Shortcut.getTable(TableCategory.VEHICLES);
+            ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.VEHICLES);
             TableRowSorter<ShareCarRiderTableModel<Vehicle>> sorter
                     = new TableRowSorter<>((ShareCarRiderTableModel<Vehicle>) table.getModel());
 
@@ -124,8 +130,24 @@ public class FilterVehiclesDialog extends SortFilterDialog {
             sorter.setRowFilter(RowFilter.andFilter(listRfs));
             table.setRowSorter(sorter);
 
+            capacityEnabled = capacityFilter.isSelected();
+            consumptionEnabled = consumptionFilter.isSelected();
+            capacityFromText = capacityFrom.getText();
+            capacityToText = capacityTo.getText();
+            consumptionFromText = consumptionFrom.getText();
+            consumptionToText = consumptionTo.getText();
+
             dispose();
         });
+    }
+
+    public static void clearAttributes() {
+        capacityEnabled = false;
+        consumptionEnabled = false;
+        capacityFromText = "";
+        capacityToText = "";
+        consumptionFromText = "";
+        consumptionToText = "";
     }
 
     private boolean isValidCapacityFilterInput() {

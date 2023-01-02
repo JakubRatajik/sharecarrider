@@ -23,6 +23,7 @@ public class TabFrame {
     private JButton filterButton;
     private JButton selectButton;
     private JButton deleteButton;
+    private JButton resetFiltersButton;
 
     public TabFrame(TableCategory category, ProductionDependencyProvider provider) {
         tablePanel = new JPanel();
@@ -54,6 +55,7 @@ public class TabFrame {
         plusButton.setBackground(UIUtilities.OCHER);
         plusButton.setFont(UIUtilities.fTab);
         plusButton.setForeground(UIUtilities.TEXT_BROWN);
+        resetFiltersButton = new JButton("Resetovat filtrování");
         selectButton = new JButton("Vybrat");
         sortByButton = new JButton("Řadit");
         filterButton = new JButton("Filtrovat");
@@ -63,6 +65,7 @@ public class TabFrame {
         UIUtilities.formatBeigeTextBrownDialog(sortByButton);
         UIUtilities.formatBeigeTextBrownDialog(filterButton);
         UIUtilities.formatBeigeTextBrownDialog(deleteButton);
+        UIUtilities.formatBeigeTextBrownDialog(resetFiltersButton);
 
         JPanel topPanel = new JPanel();
         topPanel.setBorder(BorderFactory.createEmptyBorder());
@@ -77,6 +80,7 @@ public class TabFrame {
         if (category == TableCategory.PASSENGERS || category == TableCategory.VEHICLES || category == TableCategory.RIDES) {
             topPanel.add(sortByButton);
             topPanel.add(filterButton);
+            topPanel.add(resetFiltersButton);
         }
         topPanel.add(deleteButton);
 
@@ -104,6 +108,7 @@ public class TabFrame {
         filterButton.addActionListener(actions.get(2));
         selectButton.addActionListener(actions.get(3));
         deleteButton.addActionListener(actions.get(4));
+        resetFiltersButton.addActionListener(actions.get(5));
     }
 
     public JPanel getMainPanel() {

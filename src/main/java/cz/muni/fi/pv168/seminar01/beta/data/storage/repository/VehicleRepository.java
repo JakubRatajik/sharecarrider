@@ -33,11 +33,17 @@ public class VehicleRepository extends AbstractRepository<Vehicle> {
 
     @Override
     public void create(Vehicle vehicle) {
-        Stream.of(vehicle)
+        createAndGetID(vehicle);
+    }
+    @Override
+    public long createAndGetID(Vehicle vehicle) {
+        Vehicle newVehicle = Stream.of(vehicle)
                 .map(mapper::mapToEntity)
                 .map(dao::create)
                 .map(mapper::mapToModel)
-                .forEach(e ->repositoryMembers.add(e));
+                .findFirst().orElse(null);
+        repositoryMembers.add(newVehicle);
+        return newVehicle.getId();
     }
 
     @Override

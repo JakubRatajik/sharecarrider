@@ -74,6 +74,13 @@ public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractT
         fireTableRowsInserted(newRowIndex, newRowIndex);
     }
 
+    public long addRowAndGetID(T object) {
+        int newRowIndex = repository.getSize();
+        long id = repository.createAndGetID(object);
+        fireTableRowsInserted(newRowIndex, newRowIndex);
+        return id;
+    }
+
     public void updateRow(T object) {
         int rowIndex = repository.findIndexByEntity(repository.findById(object.getId()).orElse(null));
         repository.update(object);

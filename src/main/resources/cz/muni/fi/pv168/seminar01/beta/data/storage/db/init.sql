@@ -55,15 +55,16 @@ CREATE TABLE IF NOT EXISTS Vehicle
 --
 CREATE TABLE IF NOT EXISTS Ride
 (
-    id         BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    date       DATE        NOT NULL,
-    departure  TIME        NOT NULL,
-    arrival    TIME        NOT NULL,
-    startDest  VARCHAR(50) NOT NULL,
-    endDest    VARCHAR(50) NOT NULL,
-    distance   INT         NOT NULL,
-    vehicle    BIGINT REFERENCES Vehicle (id),
-    repetition ENUM('none', 'daily', 'weekly', 'monthly', 'yearly') NOT NULL
+    id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    date        DATE        NOT NULL,
+    departure   TIME        NOT NULL,
+    arrival     TIME        NOT NULL,
+    startDest   VARCHAR(50) NOT NULL,
+    endDest     VARCHAR(50) NOT NULL,
+    distance    INT         NOT NULL,
+    vehicle     BIGINT REFERENCES Vehicle (id),
+    repetition  ENUM('none', 'daily', 'weekly', 'monthly', 'yearly') NOT NULL,
+    description VARCHAR(200) NOT NULL
 );
 
 --

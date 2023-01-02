@@ -9,7 +9,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.EnumRendererForComboBox;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -109,7 +109,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
                 return;
             }
 
-            VehicleTableModel tableModel = (VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES);
+            VehicleTableModel tableModel = (VehicleTableModel) CommonElementSupplier.getTableModel(TableCategory.VEHICLES);
             vehicle.setLicensePlate(licensePlate.getText());
             vehicle.setBrand(brand.getText());
             vehicle.setType(type.getText());
@@ -138,7 +138,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
                 return;
             }
 
-            VehicleTableModel tableModel = (VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES);
+            VehicleTableModel tableModel = (VehicleTableModel) CommonElementSupplier.getTableModel(TableCategory.VEHICLES);
             Vehicle vehicle = new Vehicle(
                     licensePlate.getText(),
                     brand.getText(),

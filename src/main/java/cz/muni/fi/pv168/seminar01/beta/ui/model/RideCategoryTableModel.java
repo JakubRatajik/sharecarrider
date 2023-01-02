@@ -52,7 +52,7 @@ public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCategory
     public List<RideCategory> getCategories() {
         List<RideCategory> list = new ArrayList<>();
         for (int i = 0; i < getRowCount(); i++) {
-            list.add(data.get(i));
+            list.add(repository.findAll().get(i));
         }
         return list;
     }

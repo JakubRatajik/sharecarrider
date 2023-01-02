@@ -5,7 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +44,7 @@ public class AddEditPassengerCategoryDialog extends AddEditDialog{
     private void onSaveEditButton(JButton save) {
         save.addActionListener(e -> {
             category.setName(name.getText());
-            PassengerCategoryTableModel tableModel = (PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY);
+            PassengerCategoryTableModel tableModel = (PassengerCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY);
             tableModel.updateRow(category);
             dispose();
             new CategoryDetailDialog(MainWindow.getFrame(), "Detail kategorie", category);
@@ -80,7 +80,7 @@ public class AddEditPassengerCategoryDialog extends AddEditDialog{
     protected void onCreateButton(JButton create) {
         create.addActionListener(actionListener -> {
             PassengerCategory category = new PassengerCategory(name.getText());
-            PassengerCategoryTableModel tableModel = (PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY);
+            PassengerCategoryTableModel tableModel = (PassengerCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY);
             tableModel.addRow(category);
             dispose();
         });

@@ -1,7 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 /**
  * @author Jakub Ratajik
@@ -23,15 +23,16 @@ public class PassengerValidator {
                 || !CommonValidator.isValidLongCzechInput(lastName)) {
             throw new ValidationException("Jméno musí obsahovat pouze česká písmena, mezeru a mít nejvýše 100 znaků.");
         }
-        if (categories != null
+        /*if (categories != null
                 && !CommonValidator.isValidIdList(categories, TableCategory.PASSENGER_CATEGORY)) {
             throw new ValidationException("Nesprávný formát kategorií cestujícího.");
-        }
+
+        }*/ //--TODO-- BROKEN IN IMPORT (for example [5] is not valid)
     }
 
     private static boolean isValidPassengerId(String id) {
         return CommonValidator.isValidLongParsing(id)
-                && Shortcut.getTableModel(TableCategory.PASSENGERS).getObjectById(Long.parseLong(id)) == null;
+                && CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).getObjectById(Long.parseLong(id)) == null;
     }
 
     public static void validatePassenger(String firstName, String lastName, String phoneNumber) {

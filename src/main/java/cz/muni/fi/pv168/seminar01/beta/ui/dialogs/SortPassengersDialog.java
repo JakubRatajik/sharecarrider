@@ -4,7 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,11 @@ public class SortPassengersDialog extends SortFilterDialog {
     private JRadioButton surnameMinMax;
     private JRadioButton surnameMaxMin;
 
+    private static boolean firstNameMinMaxSelected = false;
+    private static boolean firstNameMaxMinSelected = false;
+    private static boolean surnameMinMaxSelected = false;
+    private static boolean surnameMaxMinSelected = false;
+
     public SortPassengersDialog(Frame frame, String name) {
         super(frame, name);
     }
@@ -27,7 +32,7 @@ public class SortPassengersDialog extends SortFilterDialog {
     @Override
     protected void onOkButton(JButton ok) {
         ok.addActionListener(al -> {
-            ShareCarRiderTable passengerTable = Shortcut.getTable(TableCategory.PASSENGERS);
+            ShareCarRiderTable passengerTable = CommonElementSupplier.getTable(TableCategory.PASSENGERS);
             List<RowSorter.SortKey> sortKeys = new ArrayList<>();
 
             if (firstNameMaxMin.isSelected()) {
@@ -43,6 +48,11 @@ public class SortPassengersDialog extends SortFilterDialog {
                 sortKeys.add(new RowSorter.SortKey(PassengerTableModel.COLUMN_LASTNAME, SortOrder.ASCENDING));
                 passengerTable.getRowSorter().setSortKeys(sortKeys);
             }
+
+            firstNameMinMaxSelected = firstNameMinMax.isSelected();
+            firstNameMaxMinSelected = firstNameMaxMin.isSelected();
+            surnameMinMaxSelected = surnameMinMax.isSelected();
+            surnameMaxMinSelected = surnameMaxMin.isSelected();
 
             dispose();
         });
@@ -68,6 +78,10 @@ public class SortPassengersDialog extends SortFilterDialog {
         firstNameMaxMin = new JRadioButton("Z - A");
         surnameMinMax = new JRadioButton("A - Z");
         surnameMaxMin = new JRadioButton("Z - A");
+        firstNameMinMax.setSelected(firstNameMinMaxSelected);
+        firstNameMaxMin.setSelected(firstNameMaxMinSelected);
+        surnameMinMax.setSelected(surnameMinMaxSelected);
+        surnameMaxMin.setSelected(surnameMaxMinSelected);
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(firstNameMaxMin);
         buttonGroup.add(firstNameMinMax);

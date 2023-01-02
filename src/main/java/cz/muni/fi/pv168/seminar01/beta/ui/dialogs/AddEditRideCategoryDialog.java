@@ -5,7 +5,7 @@ import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +44,7 @@ public class AddEditRideCategoryDialog extends AddEditDialog{
     private void onSaveEditButton(JButton save) {
         save.addActionListener(e -> {
             category.setName(name.getText());
-            RideCategoryTableModel tableModel = (RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY);
+            RideCategoryTableModel tableModel = (RideCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY);
             tableModel.updateRow(category);
             dispose();
             new CategoryDetailDialog(MainWindow.getFrame(), "Detail kategorie", category);
@@ -80,7 +80,7 @@ public class AddEditRideCategoryDialog extends AddEditDialog{
     protected void onCreateButton(JButton create) {
         create.addActionListener(actionListener -> {
             RideCategory category = new RideCategory(name.getText());
-            RideCategoryTableModel tableModel = (RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY);
+            RideCategoryTableModel tableModel = (RideCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY);
             tableModel.addRow(category);
             dispose();
         });
