@@ -3,10 +3,10 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.VehicleValidator;
 import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.EnumRendererForComboBox;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
@@ -114,10 +114,11 @@ public class AddEditVehicleDialog extends AddEditDialog {
             vehicle.setBrand(brand.getText());
             vehicle.setType(type.getText());
             vehicle.setCapacity(Integer.parseInt(capacity.getText()));
-            vehicle.setConsumption(Float.parseFloat(consumption.getText()));
+            vehicle.setConsumption(Double.parseDouble(consumption.getText()));
             vehicle.setFuelType((FuelType) fuelType.getSelectedItem());
             tableModel.updateRow(vehicle);
             dispose();
+            new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla", vehicle);
         });
     }
 
@@ -143,7 +144,7 @@ public class AddEditVehicleDialog extends AddEditDialog {
                     brand.getText(),
                     type.getText(),
                     Integer.parseInt(capacity.getText()),
-                    Float.parseFloat(consumption.getText()),
+                    Double.parseDouble(consumption.getText()),
                     (FuelType) fuelType.getSelectedItem());
 
             tableModel.addRow(vehicle);

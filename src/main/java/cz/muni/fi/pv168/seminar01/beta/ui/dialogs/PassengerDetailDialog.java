@@ -17,7 +17,10 @@ public class PassengerDetailDialog extends DetailDialog {
 
     @Override
     public void onEditButton(JButton edit) {
-        edit.addActionListener(e -> new AddEditPassengerDialog(MainWindow.getFrame(), "Upravit cestujícího", passenger));
+        edit.addActionListener(e -> {
+            dispose();
+            new AddEditPassengerDialog(MainWindow.getFrame(), "Upravit cestujícího", passenger);
+        });
     }
 
     @Override

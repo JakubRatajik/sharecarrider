@@ -1,9 +1,10 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.utils;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.DeleteDialog;
@@ -11,12 +12,17 @@ import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterPassengersDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterRidesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterVehiclesDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.SortPassengersDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.SortRidesDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.SortVehiclesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.TemporaryDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,7 +51,7 @@ public final class ActionListenerProvider {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new AddEditPassengerCategoryDialog(MainWindow.getFrame(), "Vytvořit kategorii cestujících");
             }
         };
 
@@ -53,14 +59,14 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
             }
         };
 
         ActionListener filter = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
             }
         };
 
@@ -90,18 +96,11 @@ public final class ActionListenerProvider {
     }
 
 
-
-
-
-
-
-
-
     private static List<ActionListener> getALsForRideCategories() {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new AddEditRideCategoryDialog(MainWindow.getFrame(), "Přidat kategorii jízd");
             }
         };
 
@@ -109,14 +108,14 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
             }
         };
 
         ActionListener filter = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new ErrorDialog(MainWindow.getFrame(), "not implemented yet");
             }
         };
 
@@ -146,7 +145,6 @@ public final class ActionListenerProvider {
     }
 
 
-
     /**
      * makes ActionListeners for rides
      *
@@ -163,7 +161,7 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Řazení");
+                JDialog dial = new SortRidesDialog(MainWindow.getFrame(), "Řazení");
             }
         };
 
@@ -215,7 +213,7 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Řazení");
+                JDialog dial = new SortVehiclesDialog(MainWindow.getFrame(), "Řazení");
             }
         };
 
@@ -266,15 +264,12 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Řazení");
+                JDialog dial = new SortPassengersDialog(MainWindow.getFrame(), "Řazení");
             }
         };
 
-        ActionListener filter = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new FilterPassengersDialog(MainWindow.getFrame(), "Filtr");
-            }
+        ActionListener filter = actionListener -> {
+            JDialog dial = new FilterPassengersDialog(MainWindow.getFrame(), "Filtr");
         };
 
         ActionListener select = new ActionListener() {
@@ -300,16 +295,16 @@ public final class ActionListenerProvider {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                int firstRow = rows[0];
-                for (int i = 0; i < rows.length; i++) {
+                int[] modelRows = Arrays.stream(rows).map(Shortcut.getTable(category)::convertRowIndexToModel).toArray();
+
+                int firstRow = modelRows[0];
+                for (int i = 0; i < modelRows.length; i++) {
                     Shortcut.getTableModel(category).deleteRow(firstRow);
                 }
                 ShareCarRiderTable table = Shortcut.getTable(category);
                 table.clearSelection();
                 dialog.dispose();
             }
-
         };
     }
-
 }

@@ -2,7 +2,11 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.data.validation.RideValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.model.*;
+import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
+import cz.muni.fi.pv168.seminar01.beta.model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
@@ -42,7 +46,7 @@ public class AddEditRideDialog extends AddEditDialog {
     }
 
 
-    public AddEditRideDialog(JFrame frame, String name, Ride ride) {
+    public AddEditRideDialog(Frame frame, String name, Ride ride) {
         super(frame, name, ride);
     }
 
@@ -199,8 +203,8 @@ public class AddEditRideDialog extends AddEditDialog {
 
 
         if (ride != null) {
-            departure.setText(ride.getDeparture());
-            arrival.setText(ride.getArrival());
+            departure.setText(ride.getDepartureFormatted());
+            arrival.setText(ride.getArrivalFormatted());
             startDestination.setText(ride.getFrom());
             endDestination.setText(ride.getTo());
             distance.setText(String.valueOf(ride.getDistance()));
@@ -262,7 +266,6 @@ public class AddEditRideDialog extends AddEditDialog {
         central.add(categoriesPanel);
 
 
-
         setSize(500, 600);
         UIUtilities.formatWhiteTextBrownDialog(central);
     }
@@ -301,7 +304,7 @@ public class AddEditRideDialog extends AddEditDialog {
 
     public boolean validateRideInput() {
         try {
-            RideValidator.validateRide(departure.getText(), arrival.getText(), startDestination.getText(), endDestination.getText(), distance.getText(), description.getText());
+            RideValidator.validateRide(JDatePickerDateGetter.getLocalDate(date), departure.getText(), arrival.getText(), startDestination.getText(), endDestination.getText(), distance.getText(), description.getText());
             return true;
         } catch (ValidationException e) {
             new ErrorDialog(MainWindow.getFrame(), e);

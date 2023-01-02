@@ -1,6 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,16 +12,16 @@ import java.util.stream.Collectors;
  */
 public class Passenger implements HasID {
     private final long id;
-    private final Set<PassengerCategory> categories = new HashSet<>();
+    private final List<PassengerCategory> categories = new ArrayList<>();
     private String firstName;
     private String lastName;
     private String phoneNumber;
 
-    public Passenger(String firstName, String lastName, String phoneNumber, Set<PassengerCategory> categories) {
+    public Passenger(String firstName, String lastName, String phoneNumber, List<PassengerCategory> categories) {
         this(IDGenerator.getNewID(Passenger.class), firstName, lastName, phoneNumber, categories);
     }
 
-    public Passenger(long id, String firstName, String lastName, String phoneNumber, Set<PassengerCategory> categories) {
+    public Passenger(long id, String firstName, String lastName, String phoneNumber, List<PassengerCategory> categories) {
         setFirstName(firstName);
         setLastName(lastName);
         setPhoneNumber(phoneNumber);
@@ -61,22 +63,21 @@ public class Passenger implements HasID {
         this.phoneNumber = Objects.requireNonNull(phoneNumber, "phone number must not be null");
     }
 
-    public Set<PassengerCategory> getCategories() {
+    public List<PassengerCategory> getCategories() {
         return categories;
+    }
+
+    public void setCategories(List<PassengerCategory> categories) {
+        this.categories.clear();
+        this.categories.addAll(Objects.requireNonNull(categories, "categories must not be null"));
     }
 
     public Set<Long> getCategoryIDs() {
         Set<Long> set = new HashSet<>();
-        for(PassengerCategory cat: categories) {
+        for (PassengerCategory cat : categories) {
             set.add(cat.getId());
         }
         return set;
-    }
-
-
-    public void setCategories(Set<PassengerCategory> categories) {
-        this.categories.clear();
-        this.categories.addAll(Objects.requireNonNull(categories, "categories must not be null"));
     }
 
     public String getCategoryNames() {

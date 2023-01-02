@@ -1,11 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 
-import cz.muni.fi.pv168.seminar01.beta.data.validation.PassengerCategoryValidator;
+import cz.muni.fi.pv168.seminar01.beta.data.validation.CategoryValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.data.validation.VehicleValidator;
-import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 
@@ -37,8 +34,9 @@ public class ImportPassengerCategories {
         String idString = lineSplit[0];
         String name = lineSplit[1];
 
+
         try {
-            PassengerCategoryValidator.validatePassengerCategory(idString, name);
+            CategoryValidator.validatePassengerCategory(idString, name);
         } catch (ValidationException e) {
             new ErrorDialog(MainWindow.getFrame(), "Problém při načítání kategorií pasažérů");
             throw new DataManipulationException("Problém s načtením kategorií pasžérů.", e);

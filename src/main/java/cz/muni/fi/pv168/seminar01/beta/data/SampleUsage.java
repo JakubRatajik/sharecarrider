@@ -1,11 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.data;
 
-import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.model.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +51,16 @@ public final class SampleUsage {
         return vehicles;
     }
 
+    public static List<Fuel> getFuels() {
+        List<Fuel> fuels = new ArrayList<>();
+        fuels.add(new Fuel(FuelType.DIESEL, new BigDecimal(42)));
+        fuels.add(new Fuel(FuelType.GASOLINE, new BigDecimal(42)));
+        fuels.add(new Fuel(FuelType.ELECTRICITY, new BigDecimal(42)));
+        fuels.add(new Fuel(FuelType.LPG, new BigDecimal(42)));
+        fuels.add(new Fuel(FuelType.CNG, new BigDecimal(42)));
+        return fuels;
+    }
+
     public static List<Passenger> getPassengers() {
         return passengers;
     }
@@ -62,7 +69,11 @@ public final class SampleUsage {
         return rides;
     }
 
-    public static List<PassengerCategory> getPassengerCategories() { return PASSENGER_CATEGORIES;}
+    public static List<PassengerCategory> getPassengerCategories() {
+        return PASSENGER_CATEGORIES;
+    }
 
-    public static List<RideCategory> getRideCategories() { return rideCategories;}
+    public static List<RideCategory> getRideCategories() {
+        return rideCategories;
+    }
 }

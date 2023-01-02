@@ -1,15 +1,19 @@
 package cz.muni.fi.pv168.seminar01.beta.ui;
 
+import cz.muni.fi.pv168.seminar01.beta.model.Category;
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditVehicleDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.CategoryDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.DeleteDialog;
-import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.PassengerDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.RideDetailDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.VehicleDetailDialog;
@@ -18,13 +22,16 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -45,15 +52,16 @@ public class ShareCarRiderTable extends JTable {
     private boolean isMultilineSelectionEnabled;
     private MouseAdapter doubleClickListener;
 
-    public ShareCarRiderTable(TableCategory tableCategory) {
+    public ShareCarRiderTable(TableCategory tableCategory, ProductionDependencyProvider provider) {
         this.tableCategory = tableCategory;
 
         switch (tableCategory) {
-            case RIDES -> setModel(new RideTableModel());
-            case VEHICLES -> setModel(new VehicleTableModel());
-            case PASSENGERS -> setModel(new PassengerTableModel());
-            case PASSENGER_CATEGORY -> setModel(new PassengerCategoryTableModel());
-            case RIDE_CATEGORY -> setModel(new RideCategoryTableModel());
+            case RIDES -> setModel(new RideTableModel(provider.getRideRepository()));
+            case VEHICLES -> setModel(new VehicleTableModel(provider.getVehicleRepository()));
+            case PASSENGERS -> setModel(new PassengerTableModel(provider.getPassengerRepository()));
+            case PASSENGER_CATEGORY ->
+                    setModel(new PassengerCategoryTableModel(provider.getPassengerCategoryRepository()));
+            case RIDE_CATEGORY -> setModel(new RideCategoryTableModel(provider.getRideCategoryRepository()));
             default -> setModel(new DefaultTableModel());
         }
 
@@ -92,7 +100,7 @@ public class ShareCarRiderTable extends JTable {
     }
 
     private void changeDefaultRenderer() {
-        setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+        TableCellRenderer defaultCellRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(
                     JTable table, Object object, boolean isSelected,
@@ -112,7 +120,11 @@ public class ShareCarRiderTable extends JTable {
 
                 return component;
             }
-        });
+        };
+
+        setDefaultRenderer(Object.class, defaultCellRenderer);
+        setDefaultRenderer(Integer.class, defaultCellRenderer);
+        setDefaultRenderer(Double.class, defaultCellRenderer);
     }
 
     private void addPopupMenu() {
@@ -136,7 +148,8 @@ public class ShareCarRiderTable extends JTable {
             case VEHICLES -> addVehicleTableActionListeners();
             case RIDES -> addRideTableActionListeners();
             case PASSENGERS -> addPassengerTableActionListeners();
-            case PASSENGER_CATEGORY -> addPassengerCategoryTableActionListeners();
+            case PASSENGER_CATEGORY ->
+                    addPassengerCategoryTableActionListeners();
             case RIDE_CATEGORY -> addRideCategoryTableActionListeners();
         }
 
@@ -150,188 +163,100 @@ public class ShareCarRiderTable extends JTable {
     }
 
     private void addRideTableActionListeners() {
-        detailPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var ride = getObjectFromTable();
+        detailPopupMenuItem.addActionListener(actionListener -> {
+            var ride = getObjectFromTable();
 
-                new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", (Ride) ride);
-            }
+            new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", (Ride) ride);
         });
 
-        editPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var ride = getObjectFromTable();
+        editPopupMenuItem.addActionListener(actionListener -> {
+            var ride = getObjectFromTable();
 
-                new AddEditRideDialog(MainWindow.getFrame(), "Upravit jízdu", (Ride) ride);
-            }
+            new AddEditRideDialog(MainWindow.getFrame(), "Upravit jízdu", (Ride) ride);
         });
 
-        deletePopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var ride = getObjectFromTable();
-
+        deletePopupMenuItem.addActionListener(actionListener ->
                 new DeleteDialog(MainWindow.getFrame(), "Smazat jízdu/y",
-                        TableCategory.RIDES, Shortcut.getTable(TableCategory.RIDES).getSelectedRows());
+                        TableCategory.RIDES, Shortcut.getTable(TableCategory.RIDES).getSelectedRows()));
 
-            }
-        });
-
-        addPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                new AddEditRideDialog(MainWindow.getFrame(), "Přidat jízdu");
-            }
-        });
+        addPopupMenuItem.addActionListener(actionListener -> new AddEditRideDialog(MainWindow.getFrame(), "Přidat jízdu"));
     }
 
     private void addVehicleTableActionListeners() {
-        detailPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var vehicle = getObjectFromTable();
+        detailPopupMenuItem.addActionListener(actionListener -> {
+            var vehicle = getObjectFromTable();
 
-                new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla", (Vehicle) vehicle);
-            }
+            new VehicleDetailDialog(MainWindow.getFrame(), "Detail vozidla", (Vehicle) vehicle);
         });
 
-        editPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var vehicle = getObjectFromTable();
+        editPopupMenuItem.addActionListener(actionListener -> {
+            var vehicle = getObjectFromTable();
 
-                new AddEditVehicleDialog(MainWindow.getFrame(), "Upravit vozidlo", (Vehicle) vehicle);
-            }
+            new AddEditVehicleDialog(MainWindow.getFrame(), "Upravit vozidlo", (Vehicle) vehicle);
         });
 
-        deletePopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DeleteDialog(MainWindow.getFrame(), "Smazat vozidlo/a",
-                        TableCategory.VEHICLES, Shortcut.getTable(TableCategory.VEHICLES).getSelectedRows());
-            }
-        });
+        deletePopupMenuItem.addActionListener(actionListener -> new DeleteDialog(MainWindow.getFrame(), "Smazat vozidlo/a",
+                TableCategory.VEHICLES, Shortcut.getTable(TableCategory.VEHICLES).getSelectedRows()));
 
-        addPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddEditVehicleDialog(MainWindow.getFrame(), "Přidat vozidlo");
-            }
-        });
+        addPopupMenuItem.addActionListener(actionListener -> new AddEditVehicleDialog(MainWindow.getFrame(), "Přidat vozidlo"));
     }
 
     private void addPassengerTableActionListeners() {
-        detailPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var passenger = getObjectFromTable();
+        detailPopupMenuItem.addActionListener(actionListener -> {
+            var passenger = getObjectFromTable();
 
-                new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího", (Passenger) passenger);
-            }
+            new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího", (Passenger) passenger);
         });
 
-        editPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var passenger = getObjectFromTable();
+        editPopupMenuItem.addActionListener(actionListener -> {
+            var passenger = getObjectFromTable();
 
-                new AddEditPassengerDialog(MainWindow.getFrame(), "Upravit cestujícího", (Passenger) passenger);
-            }
+            new AddEditPassengerDialog(MainWindow.getFrame(), "Upravit cestujícího", (Passenger) passenger);
         });
 
-        deletePopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DeleteDialog(MainWindow.getFrame(), "Smazat cestující/ho",
-                        TableCategory.PASSENGERS, Shortcut.getTable(TableCategory.PASSENGERS).getSelectedRows());
-            }
-        });
+        deletePopupMenuItem.addActionListener(actionListener -> new DeleteDialog(MainWindow.getFrame(), "Smazat cestující/ho",
+                TableCategory.PASSENGERS, Shortcut.getTable(TableCategory.PASSENGERS).getSelectedRows()));
 
-        addPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddEditPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího");
-            }
-        });
+        addPopupMenuItem.addActionListener(actionListener -> new AddEditPassengerDialog(MainWindow.getFrame(), "Přidat cestujícího"));
     }
 
 
     private void addPassengerCategoryTableActionListeners() {
-        detailPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ErrorDialog(MainWindow.getFrame(), "Tento objekt nemá detail k dispozici");
-            }
+        detailPopupMenuItem.addActionListener(actionListener -> {
+            var passengerCategory = getObjectFromTable();
+            new CategoryDetailDialog(MainWindow.getFrame(), "Detail kategorie", (Category) passengerCategory);
         });
 
-        editPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var passengerCategory = getObjectFromTable();
+        editPopupMenuItem.addActionListener(actionListener -> {
+            var passengerCategory = getObjectFromTable();
 
-                new ErrorDialog(MainWindow.getFrame(), "Kategorii prozatím není možné měnit");
-            }
+            new AddEditPassengerCategoryDialog(MainWindow.getFrame(), "Upravit kategorii", (PassengerCategory) passengerCategory);
         });
 
-        deletePopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
-                        TableCategory.PASSENGER_CATEGORY, Shortcut.getTable(TableCategory.PASSENGER_CATEGORY).getSelectedRows());
-            }
-        });
+        deletePopupMenuItem.addActionListener(actionListener -> new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
+                TableCategory.PASSENGER_CATEGORY, Shortcut.getTable(TableCategory.PASSENGER_CATEGORY).getSelectedRows()));
 
-        addPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                new ErrorDialog(MainWindow.getFrame(), "Kategorie nemohou prozatím být vytvořeny");
-            }
-        });
+        addPopupMenuItem.addActionListener(actionListener -> new AddEditPassengerCategoryDialog(MainWindow.getFrame(), "Vytvořit kategorii"));
     }
-
 
 
     private void addRideCategoryTableActionListeners() {
-        detailPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ErrorDialog(MainWindow.getFrame(), "Tento objekt nemá detail k dispozici");
-            }
+        detailPopupMenuItem.addActionListener(actionListener -> {
+            var category = getObjectFromTable();
+            new CategoryDetailDialog(MainWindow.getFrame(), "Detail kategorie", (Category) category);
         });
 
-        editPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var rideCategory = getObjectFromTable();
+        editPopupMenuItem.addActionListener(actionListener -> {
+            var rideCategory = getObjectFromTable();
 
-                new ErrorDialog(MainWindow.getFrame(), "Kategorii prozatím není možné měnit");
-            }
+            new AddEditRideCategoryDialog(MainWindow.getFrame(), "Upravit kategorii", (RideCategory) rideCategory);
         });
 
-        deletePopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
-                        TableCategory.RIDE_CATEGORY, Shortcut.getTable(TableCategory.RIDE_CATEGORY).getSelectedRows());
-            }
-        });
+        deletePopupMenuItem.addActionListener(actionListener -> new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
+                TableCategory.RIDE_CATEGORY, Shortcut.getTable(TableCategory.RIDE_CATEGORY).getSelectedRows()));
 
-        addPopupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                new ErrorDialog(MainWindow.getFrame(), "Kategorie nemohou prozatím být vytvořeny");
-            }
-        });
+        addPopupMenuItem.addActionListener(actionListener -> new AddEditRideCategoryDialog(MainWindow.getFrame(), "Vytvořit kategorii jízdy"));
     }
-
-
-
-
 
 
     private void initDoubleClickListener() {
@@ -355,6 +280,8 @@ public class ShareCarRiderTable extends JTable {
                             new PassengerDetailDialog(MainWindow.getFrame(), "Detail cestujícího", (Passenger) entity);
                     case RIDES ->
                             new RideDetailDialog(MainWindow.getFrame(), "Detail jízdy", (Ride) entity);
+                    case RIDE_CATEGORY, PASSENGER_CATEGORY ->
+                            new CategoryDetailDialog(MainWindow.getFrame(), "Detail kategorie", (Category) entity);
                 }
             }
         };
@@ -405,17 +332,6 @@ public class ShareCarRiderTable extends JTable {
             UIUtilities.formatBeigeTextBrownDialog(selectButton);
         }
     }
-
-    //TODO: add tableRowSorter
-//    MyTableModel model = new MyTableModel();
-//    sorter = new TableRowSorter<MyTableModel>(model);
-//    table = new JTable(model);
-//    setRowSorter(sorter);
-//    List <RowSorter.SortKey> sortKeys
-//            = new ArrayList<RowSorter.SortKey>();
-//    sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
-//    sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-//    sorter.setSortKeys(sortKeys);
 
     @Override
     public void changeSelection(int rowIndex, int columnIndex, boolean toggle, boolean extend) {

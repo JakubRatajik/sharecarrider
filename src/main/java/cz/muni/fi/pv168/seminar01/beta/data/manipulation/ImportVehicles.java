@@ -45,6 +45,6 @@ public class ImportVehicles {
         } catch (ValidationException e) {
             throw new DataManipulationException("Problém s načtením vozidel.", e);
         }
-        return new Vehicle(Long.parseLong(idString), licencePlate, brand, model, Integer.parseInt(seatsString), Float.parseFloat(consumptionString), FuelType.valueOf(fuelTypeString));
+        return new Vehicle(Long.parseLong(idString), licencePlate, brand, model, Integer.parseInt(seatsString), Double.parseDouble(consumptionString), FuelType.valueOf(fuelTypeString));
     }
 }

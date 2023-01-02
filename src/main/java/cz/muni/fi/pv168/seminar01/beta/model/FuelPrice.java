@@ -1,111 +1,123 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
+import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.FuelRepository;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
+
 import java.math.BigDecimal;
 
 /**
  * This class represents static values of fuel prices, that are used for computing a price for a single ride and some statistics.
  */
 public class FuelPrice {
-    // --TODO temporarily changed because we want the application to work well when showing to customer
-    private static final BigDecimal DEFAULT_PRICE = new BigDecimal("35");
-    private static final String NOT_SET = "Not set";
-    private BigDecimal gasolinePrice;
-    private BigDecimal electricityPrice;
-    private BigDecimal LPGPrice;
-    private BigDecimal CNGPrice;
-    private BigDecimal dieselPrice;
+    private final FuelRepository fuels;
 
-    public FuelPrice() {
-        dieselPrice = DEFAULT_PRICE;
-        gasolinePrice = DEFAULT_PRICE;
-        LPGPrice = DEFAULT_PRICE;
-        CNGPrice = DEFAULT_PRICE;
-        electricityPrice = DEFAULT_PRICE;
+    public FuelPrice(ProductionDependencyProvider provider) {
+        fuels = (FuelRepository) provider.getFuelRepository();
+        for (Fuel fuel: SampleUsage.getFuels()) {
+            fuels.create(fuel);
+        }
     }
 
     public BigDecimal getFuelPrice(FuelType fuelType) {
         return switch (fuelType) {
-            case LPG -> LPGPrice;
-            case CNG -> CNGPrice;
-            case DIESEL -> dieselPrice;
-            case GASOLINE -> gasolinePrice;
-            case ELECTRICITY -> electricityPrice;
+            case LPG -> {
+                Fuel fuel = fuels.findById(FuelType.LPG.ordinal()).orElse(null);
+                if (fuel == null) {
+                    throw new NullPointerException("Fuel of type " + FuelType.LPG.toString() + " not in the database");
+                }
+                yield fuel.getPrice();
+            }
+            case CNG -> {
+                Fuel fuel = fuels.findById(FuelType.CNG.ordinal()).orElse(null);
+                if (fuel == null) {
+                    throw new NullPointerException("Fuel of type " + FuelType.CNG.toString() + " not in the database");
+                }
+                yield fuel.getPrice();
+            }
+
+            case DIESEL -> {
+                Fuel fuel = fuels.findById(FuelType.DIESEL.ordinal()).orElse(null);
+                if (fuel == null) {
+                    throw new NullPointerException("Fuel of type " + FuelType.DIESEL.toString() + " not in the database");
+                }
+                yield fuel.getPrice();
+            }
+            case GASOLINE -> {
+                Fuel fuel = fuels.findById(FuelType.GASOLINE.ordinal()).orElse(null);
+                if (fuel == null) {
+                    throw new NullPointerException("Fuel of type " + FuelType.GASOLINE.toString() + " not in the database");
+                }
+                yield fuel.getPrice();
+            }
+            case ELECTRICITY -> {
+                Fuel fuel = fuels.findById(FuelType.ELECTRICITY.ordinal()).orElse(null);
+                if (fuel == null) {
+                    throw new NullPointerException("Fuel of type " + FuelType.ELECTRICITY.toString() + " not in the database");
+                }
+                yield fuel.getPrice();
+            }
             default -> BigDecimal.ZERO;
         };
     }
 
     public BigDecimal getGasolinePrice() {
-        return gasolinePrice;
+        return getFuelPrice(FuelType.GASOLINE);
     }
 
     public void setGasolinePrice(BigDecimal gasolinePrice) {
-        this.gasolinePrice = gasolinePrice;
+        fuels.update(new Fuel(FuelType.GASOLINE, gasolinePrice));
     }
 
     public BigDecimal getElectricityPrice() {
-        return electricityPrice;
+        return getFuelPrice(FuelType.ELECTRICITY);
     }
 
     public void setElectricityPrice(BigDecimal electricityPrice) {
-        this.electricityPrice = electricityPrice;
+        fuels.update(new Fuel(FuelType.ELECTRICITY, electricityPrice));
     }
 
     public BigDecimal getLPGPrice() {
-        return LPGPrice;
+        return getFuelPrice(FuelType.LPG);
     }
 
     public void setLPGPrice(BigDecimal LPGPrice) {
-        this.LPGPrice = LPGPrice;
+        fuels.update(new Fuel(FuelType.LPG, LPGPrice));
     }
 
     public BigDecimal getDieselPrice() {
-        return dieselPrice;
+        return getFuelPrice(FuelType.DIESEL);
     }
 
     public void setDieselPrice(BigDecimal dieselPrice) {
-        this.dieselPrice = dieselPrice;
+        fuels.update(new Fuel(FuelType.DIESEL, dieselPrice));
     }
 
     public BigDecimal getCNGPrice() {
-        return CNGPrice;
+        return getFuelPrice(FuelType.CNG);
     }
 
     public void setCNGPrice(BigDecimal CNGPrice) {
-        this.CNGPrice = CNGPrice;
+        fuels.update(new Fuel(FuelType.CNG, CNGPrice));
     }
 
     public String getGasolinePriceString() {
-        if (gasolinePrice.compareTo(BigDecimal.ZERO) < 0) {
-            return NOT_SET;
-        }
-        return gasolinePrice.toString();
+        return getGasolinePrice().toString();
     }
 
     public String getElectricityPriceString() {
-        if (electricityPrice.compareTo(BigDecimal.ZERO) < 0) {
-            return NOT_SET;
-        }
-        return electricityPrice.toString();
+        return getElectricityPrice().toString();
     }
 
     public String getLPGPriceString() {
-        if (LPGPrice.compareTo(BigDecimal.ZERO) < 0) {
-            return NOT_SET;
-        }
-        return LPGPrice.toString();
+        return getLPGPrice().toString();
     }
 
     public String getDieselPriceString() {
-        if (dieselPrice.compareTo(BigDecimal.ZERO) < 0) {
-            return NOT_SET;
-        }
-        return dieselPrice.toString();
+        return getDieselPrice().toString();
     }
 
     public String getCNGPriceString() {
-        if (CNGPrice.compareTo(BigDecimal.ZERO) < 0) {
-            return NOT_SET;
-        }
-        return CNGPrice.toString();
+        return getCNGPrice().toString();
     }
 }

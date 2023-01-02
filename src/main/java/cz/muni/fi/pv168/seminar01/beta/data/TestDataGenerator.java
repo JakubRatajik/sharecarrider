@@ -31,21 +31,6 @@ public final class TestDataGenerator {
             List.of("Nováková", "Novotná", "Dvořáková", "Černá", "Procházková", "Šťastná", "Veselá", "Horáková", "Němcová", "Pokorná");
     private static final List<String> phoneNumbers =
             List.of("+420777408524", "+420668745827", "+420584401287", "+421875428554", "+421668547421", "+421542875142");
-    private static List<PassengerCategory> categs = getPassengerCategories();
-
-    public List<PassengerCategory> getCategs() {
-        return categs;
-    }
-
-    private static List<RideCategory> ridecategs = getRideCategories();
-
-    public List<RideCategory> getRidecategs() {
-        return ridecategs;
-    }
-    private static final List<Set<RideCategory>> rideCategories =
-            List.of(new HashSet<>(), new HashSet<>(List.of(ridecategs.get(0), ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(2), ridecategs.get(3))));
-    private static final List<Set<PassengerCategory>> passengerCategories =
-            List.of(new HashSet<>(), new HashSet<>(List.of(categs.get(0), categs.get(1))), new HashSet<>(List.of(categs.get(2))), new HashSet<>(List.of(categs.get(3), categs.get(0))));
     private static final Map<String, Map<String, Integer>> brands = Map.of(
             "VW", Map.of("Arteon", 5, "Touran", 5, "Golf", 5, "Polo", 5),
             "Audi", Map.of("A6", 5, "A7", 5, "Q5", 5, "R8", 2),
@@ -54,10 +39,21 @@ public final class TestDataGenerator {
             "Ferrari", Map.of("F8", 2, "458 Italia", 2),
             "Zetor", Map.of("Crystal", 1, "Proxima", 1)
     );
-
     private static final List<String> descriptions = getDescriptions();
+    private static final List<String> destinations =
+            List.of("Supíkovice", "Vranov nad Topľou", "Kino Scala", "Skybar", "Brno", "Bratislava", "Vídeň", "*tajné*");
+    private static List<PassengerCategory> categs = getPassengerCategories();
+    private static final List<Set<PassengerCategory>> passengerCategories =
+            List.of(new HashSet<>(), new HashSet<>(List.of(categs.get(0), categs.get(1))), new HashSet<>(List.of(categs.get(2))), new HashSet<>(List.of(categs.get(3), categs.get(0))));
+    private static List<RideCategory> ridecategs = getRideCategories();
+    private static final List<Set<RideCategory>> rideCategories =
+            List.of(new HashSet<>(), new HashSet<>(List.of(ridecategs.get(0), ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(1))), new HashSet<>(List.of(ridecategs.get(2), ridecategs.get(3))));
+    private final Random random = new Random(2L);
+    private final List<Passenger> passengers = new ArrayList<>();
+    private final List<Vehicle> vehicles = new ArrayList<>();
+    private final List<Ride> rides = new ArrayList<>();
 
-    private static List<String> getDescriptions()  {
+    private static List<String> getDescriptions() {
         List<String> s = new ArrayList<>();
         s.add("");
         s.add("Super jízda");
@@ -67,38 +63,6 @@ public final class TestDataGenerator {
         s.add("Nezapomenout vyzvednout babiččin knedlík!");
         s.add("");
         return s;
-    }
-
-    private static final List<String> destinations =
-            List.of("Supíkovice", "Vranov nad Topľou", "Kino Scala", "Skybar", "Brno", "Bratislava", "Vídeň", "*tajné*");
-
-    private final Random random = new Random(2L);
-
-    private final List<Passenger> passengers = new ArrayList<>();
-    private final List<Vehicle> vehicles = new ArrayList<>();
-    private final List<Ride> rides = new ArrayList<>();
-
-    public Passenger createPassenger() {
-        int gender = selectRandom(genders);
-        Passenger passenger;
-        if (gender == 'f') {
-            passenger = new Passenger(selectRandom(femaleNames), selectRandom(femaleSurnames),
-                    selectRandom(phoneNumbers), selectRandom(passengerCategories));
-        } else {
-            passenger = new Passenger(selectRandom(maleNames), selectRandom(maleSurnames),
-                    selectRandom(phoneNumbers), selectRandom(passengerCategories));
-        }
-        passengers.add(passenger);
-        return passenger;
-    }
-
-    public Vehicle createVehicle() {
-        String brand = selectRandom(brands.keySet().stream().toList());
-        String type = selectRandom(brands.get(brand).keySet().stream().toList());
-        FuelType fuelType = selectRandom(Arrays.stream(FuelType.values()).toList());
-        Vehicle vehicle = new Vehicle(Integer.toString(Objects.hash(brand, type)), brand, type, brands.get(brand).get(type), (float) (randomInt(35, 200)) / 10, fuelType);
-        vehicles.add(vehicle);
-        return vehicle;
     }
 
     public static List<PassengerCategory> getPassengerCategories() {
@@ -118,6 +82,37 @@ public final class TestDataGenerator {
         list.add(new RideCategory("Nákupy"));
         list.add(new RideCategory("Jiné"));
         return list;
+    }
+
+    public List<PassengerCategory> getCategs() {
+        return categs;
+    }
+
+    public List<RideCategory> getRidecategs() {
+        return ridecategs;
+    }
+
+    public Passenger createPassenger() {
+        int gender = selectRandom(genders);
+        Passenger passenger;
+        if (gender == 'f') {
+            passenger = new Passenger(selectRandom(femaleNames), selectRandom(femaleSurnames),
+                    selectRandom(phoneNumbers), selectRandom(passengerCategories).stream().toList());
+        } else {
+            passenger = new Passenger(selectRandom(maleNames), selectRandom(maleSurnames),
+                    selectRandom(phoneNumbers), selectRandom(passengerCategories).stream().toList());
+        }
+        passengers.add(passenger);
+        return passenger;
+    }
+
+    public Vehicle createVehicle() {
+        String brand = selectRandom(brands.keySet().stream().toList());
+        String type = selectRandom(brands.get(brand).keySet().stream().toList());
+        FuelType fuelType = selectRandom(Arrays.stream(FuelType.values()).toList());
+        Vehicle vehicle = new Vehicle(Integer.toString(Objects.hash(brand, type)), brand, type, brands.get(brand).get(type), (double) (randomInt(35, 200)) / 10, fuelType);
+        vehicles.add(vehicle);
+        return vehicle;
     }
 
     public Ride createRide() {

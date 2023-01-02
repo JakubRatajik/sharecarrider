@@ -5,9 +5,9 @@ import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class FilterDialog extends DialogBase {
+public abstract class SortFilterDialog extends DialogBase {
 
-    public FilterDialog(Frame frame, String name) {
+    public SortFilterDialog(Frame frame, String name) {
         super(frame, name);
     }
 

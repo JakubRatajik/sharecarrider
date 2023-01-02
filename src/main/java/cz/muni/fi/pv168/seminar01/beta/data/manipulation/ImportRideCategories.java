@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 
-import cz.muni.fi.pv168.seminar01.beta.data.validation.RideCategoryValidator;
+import cz.muni.fi.pv168.seminar01.beta.data.validation.CategoryValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
@@ -35,7 +35,7 @@ public class ImportRideCategories {
         String name = lineSplit[1];
 
         try {
-            RideCategoryValidator.validateRideCategory(idString, name);
+            CategoryValidator.validateRideCategory(idString, name);
         } catch (ValidationException e) {
             new ErrorDialog(MainWindow.getFrame(), "Problém při načítání kategorií jízd");
             throw new DataManipulationException("Problém s načtením kategorií jízd.", e);
