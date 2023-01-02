@@ -14,16 +14,12 @@ VALUES  ('3C55448', 'BMW', 'X5', 5, 10.1, 'GASOLINE'),
         ('7H43223', 'Škoda', 'Yetti', 7, 7.4, 'CNG')
 ;
 
--- -- Testing
---
--- INSERT INTO Employee (firstName,
---                       lastName,
---                       userName,
---                       birthDate,
---                       gender,
---                       departmentId)
--- VALUES ('Jonas', 'Kahnwald', 'jkahnwal', '1999-12-28', 'male', 1),
---        ('Martha', 'Nielsen', 'mnielsen', '2000-12-10', 'female', 1),
---        ('Hanno', 'Tauber', 'htauber', '1921-07-27', 'male', 2),
---        ('Charlotte', 'Doppler', 'cdoppler', '2000-02-05', 'female', 2)
--- ;
+-- Testing Passengers
+INSERT INTO Passenger (firstName,
+                       lastName,
+                       phoneNumber)
+VALUES  ('Jana', 'Sedmohorská', '7894561567'),
+        ('Dominika', 'Verterská', '+420145687245'),
+        ('Peter', 'Mahan', '7458953214')
+;
+
