@@ -15,8 +15,6 @@ import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
-import cz.muni.fi.pv168.seminar01.beta.wiring.CommonDependencyProvider;
-import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,7 +50,6 @@ public class ImporterBase {
         List<Vehicle> vehicleList;
         List<PassengerCategory> passengerCategoryList;
         List<RideCategory> rideCategoryList;
-        new ErrorDialog(MainWindow.getFrame(), "Všechny záznamy budou smazány!");
         deleteAll();
 
         try {

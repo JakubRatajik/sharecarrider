@@ -28,6 +28,10 @@ public abstract class DialogBase extends JDialog {
         initialize();
     }
 
+    public DialogBase(Frame frame, String name, boolean flag) {
+        super(frame, name);
+    }
+
     public void initialize() {
         setModalityType(ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
