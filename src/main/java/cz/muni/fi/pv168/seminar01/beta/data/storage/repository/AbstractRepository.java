@@ -1,8 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.data.storage.repository;
 
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
-import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +10,7 @@ import java.util.Optional;
 /**
  * @author Jan Macecek
  */
-public class AbstractRepository<T extends HasID> implements Repository<T>{
+public abstract class AbstractRepository<T extends HasID> implements Repository<T>{
     // --TODO Add Mapper, Dao as attributes
 
     AbstractRepository() {
