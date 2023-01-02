@@ -4,6 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ImporterBase;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
+import cz.muni.fi.pv168.seminar01.beta.ui.workers.AsyncImporter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -160,7 +161,8 @@ public class ImportDialog extends DialogBase {
                 } else if (passengers != null && passengersCategories == null) {
                     new ErrorDialog(MainWindow.getFrame(), new ValidationException("Pokud chcete naimportovat pasažéry, musíte naimportovat i jejich kategorie"));
                 } else {
-                    ImporterBase.loadData(rides, vehicles, passengers, passengersCategories, ridesCategories);
+                    AsyncImporter importer = new AsyncImporter();
+                    importer.importData(rides, vehicles, passengers, passengersCategories, ridesCategories);
                     dispose();
                 }
             }
