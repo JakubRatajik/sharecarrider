@@ -71,4 +71,5 @@ public class RideCategoryRepository extends AbstractRepository<RideCategory> {
                 .map(mapper::mapToModel)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
 }

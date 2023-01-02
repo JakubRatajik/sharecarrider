@@ -98,4 +98,5 @@ public class PassengerRepository extends AbstractRepository<Passenger>{
         }
         return newPassengers;
     }
+
 }

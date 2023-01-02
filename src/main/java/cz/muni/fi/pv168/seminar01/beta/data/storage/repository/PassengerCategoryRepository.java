@@ -70,4 +70,5 @@ public class PassengerCategoryRepository extends AbstractRepository<PassengerCat
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+
 }
