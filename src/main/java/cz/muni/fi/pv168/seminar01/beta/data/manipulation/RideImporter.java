@@ -2,6 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 
 import cz.muni.fi.pv168.seminar01.beta.data.validation.RideValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
+import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
@@ -20,6 +21,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -72,9 +74,14 @@ public class RideImporter {
         int distance = Integer.parseInt(distanceString);
         Set<RideCategory> categories = new HashSet<>();
         Set<Passenger> passengers = new HashSet<>();
-        Vehicle vehicle = (Vehicle) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(ImporterBase.getNewID(TableCategory.VEHICLES, Long.parseLong(vehicleIdString)));
-        if (vehicle == null) {
-            throw new DataManipulationException("Vozidlo s daným ID nebylo nalezeno, prosím, zkontrolujte data v csv: (ride ID: " + id + ")", new Exception());
+        Vehicle vehicle;
+        if (!Objects.equals(vehicleIdString, "null")) {
+            vehicle = (Vehicle) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(ImporterBase.getNewID(TableCategory.VEHICLES, Long.parseLong(vehicleIdString)));
+            if (vehicle == null) {
+                throw new DataManipulationException("Vozidlo s daným ID nebylo nalezeno, prosím, zkontrolujte data v csv: (ride ID: " + id + ")", new Exception());
+            }
+        } else {
+            vehicle = new Vehicle(279, "X", "X", "X", 1, 1, FuelType.DIESEL);
         }
         Repetition repetition = Enum.valueOf(Repetition.class, repetitionString);
 
