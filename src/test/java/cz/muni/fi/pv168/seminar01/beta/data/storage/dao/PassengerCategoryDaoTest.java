@@ -27,9 +27,9 @@ final class PassengerCategoryDaoTest {
     }
 
     @Test
-    void listAllPassengerCategorys() {
-        var allPassengerCategorys = passengerCategoryDao.findAll();
-        assertThat(allPassengerCategorys)
+    void listAllPassengerCategories() {
+        var allPassengerCategories = passengerCategoryDao.findAll();
+        assertThat(allPassengerCategories)
                 .as("There should be 3 testing passenger categories")
                 .hasSize(3);
     }
@@ -64,17 +64,17 @@ final class PassengerCategoryDaoTest {
 
         assertThat(createdPassengerCategory.name()).isEqualTo(newPassengerCategoryParams.name());
 
-        var allPassengerCategorys = passengerCategoryDao.findAll();
+        var allPassengerCategories = passengerCategoryDao.findAll();
 
-        assertThat(allPassengerCategorys)
+        assertThat(allPassengerCategories)
                 .as("The newly created passengerCategory has to be stored in the database")
                 .contains(createdPassengerCategory);
     }
 
     @Test
     void deleteRodinaPassengerCategory() {
-        var allPassengerCategorys = passengerCategoryDao.findAll();
-        var rodina = allPassengerCategorys.stream()
+        var allPassengerCategories = passengerCategoryDao.findAll();
+        var rodina = allPassengerCategories.stream()
                 .filter(d -> d.name().equals("Rodina"))
                 .findFirst();
 
@@ -83,9 +83,9 @@ final class PassengerCategoryDaoTest {
 
         passengerCategoryDao.deleteById(rodina.map(PassengerCategoryEntity::id).orElseThrow());
 
-        var allPassengerCategorysAfterDelete = passengerCategoryDao.findAll();
+        var allPassengerCategoriesAfterDelete = passengerCategoryDao.findAll();
 
-        var salesAfterDelete = allPassengerCategorysAfterDelete.stream()
+        var salesAfterDelete = allPassengerCategoriesAfterDelete.stream()
                 .filter(d -> d.name().equals("Rodina"))
                 .findFirst();
 
@@ -95,8 +95,8 @@ final class PassengerCategoryDaoTest {
 
     @Test
     void deleteRodinaPassengerCategoryTwoTimes() {
-        var allPassengerCategorys = passengerCategoryDao.findAll();
-        var rodina = allPassengerCategorys.stream()
+        var allPassengerCategories = passengerCategoryDao.findAll();
+        var rodina = allPassengerCategories.stream()
                 .filter(d -> d.name().equals("Rodina"))
                 .findFirst()
                 .orElseThrow();

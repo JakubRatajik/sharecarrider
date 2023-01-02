@@ -27,9 +27,9 @@ final class RideCategoryDaoTest {
     }
 
     @Test
-    void listAllRideCategorys() {
-        var allRideCategorys = rideCategoryDao.findAll();
-        assertThat(allRideCategorys)
+    void listAllRideCategories() {
+        var allRideCategories = rideCategoryDao.findAll();
+        assertThat(allRideCategories)
                 .as("There should be 3 testing rides categories")
                 .hasSize(3);
     }
@@ -65,9 +65,9 @@ final class RideCategoryDaoTest {
 
         assertThat(createdRideCategory.name()).isEqualTo(newRideCategoryParams.name());
 
-        var allRideCategorys = rideCategoryDao.findAll();
+        var allRideCategories = rideCategoryDao.findAll();
 
-        assertThat(allRideCategorys)
+        assertThat(allRideCategories)
                 .as("The newly created rideCategory has to be stored in the database")
                 .contains(createdRideCategory);
     }
@@ -75,8 +75,8 @@ final class RideCategoryDaoTest {
 
     @Test
     void deleteTajneRideCategory() {
-        var allRideCategorys = rideCategoryDao.findAll();
-        var tajne = allRideCategorys.stream()
+        var allRideCategories = rideCategoryDao.findAll();
+        var tajne = allRideCategories.stream()
                 .filter(d -> d.name().equals("Tajné"))
                 .findFirst();
 
@@ -85,9 +85,9 @@ final class RideCategoryDaoTest {
 
         rideCategoryDao.deleteById(tajne.map(RideCategoryEntity::id).orElseThrow());
 
-        var allRideCategorysAfterDelete = rideCategoryDao.findAll();
+        var allRideCategoriesAfterDelete = rideCategoryDao.findAll();
 
-        var salesAfterDelete = allRideCategorysAfterDelete.stream()
+        var salesAfterDelete = allRideCategoriesAfterDelete.stream()
                 .filter(d -> d.name().equals("Tajné"))
                 .findFirst();
 
@@ -97,8 +97,8 @@ final class RideCategoryDaoTest {
 
     @Test
     void deleteTajneRideCategoryTwoTimes() {
-        var allRideCategorys = rideCategoryDao.findAll();
-        var tajne = allRideCategorys.stream()
+        var allRideCategories = rideCategoryDao.findAll();
+        var tajne = allRideCategories.stream()
                 .filter(d -> d.name().equals("Tajné"))
                 .findFirst()
                 .orElseThrow();
