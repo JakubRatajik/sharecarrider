@@ -84,5 +84,9 @@ public abstract class AbstractRepository<T extends HasID> implements Repository<
         repositoryMembers.clear();
     }
 
-
+    public void deleteAll(TableCategory category){
+        deleteAll();
+        ShareCarRiderTableModel<?> tableModel = CommonElementSupplier.getTableModel(category);
+        tableModel.fireTableRowsDeleted(0, tableModel.getRowCount() - 1);
+    }
 }
