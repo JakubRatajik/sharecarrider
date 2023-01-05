@@ -4,9 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Jakub Ratajik
@@ -68,26 +66,10 @@ public abstract class ShareCarRiderTableModel<T extends HasID> extends AbstractT
         fireTableRowsDeleted(rowIndex, rowIndex);
     }
 
-    public void deleteAll() {
-        int size = getRowCount();
-        for (int i = 0; i < size; i++) {
-            repository.deleteByIndex(0);
-            fireTableRowsDeleted(0, 0);
-        }
-    }
-
-
     public void addRow(T object) {
         int newRowIndex = repository.getSize();
         repository.create(object);
         fireTableRowsInserted(newRowIndex, newRowIndex);
-    }
-
-    public long addRowAndGetID(T object) {
-        int newRowIndex = repository.getSize();
-        long id = repository.createAndGetID(object);
-        fireTableRowsInserted(newRowIndex, newRowIndex);
-        return id;
     }
 
     public void updateRow(T object) {
