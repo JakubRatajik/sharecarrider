@@ -79,6 +79,10 @@ public abstract class AbstractRepository<T extends HasID> implements Repository<
         return -1;
     }
 
+    @Override
+    public void deleteAll() {
+        repositoryMembers.clear();
+    }
 
 
 }
