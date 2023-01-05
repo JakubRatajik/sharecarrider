@@ -1,9 +1,11 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.utils;
 
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import javax.swing.*;
 
@@ -26,6 +28,23 @@ public class CommonElementSupplier {
                     (ShareCarRiderTableModel<?>) MainWindow.getPassengerCategoriesTabFrame().getTable().getModel();
             case RIDE_CATEGORY ->
                     (ShareCarRiderTableModel<?>) MainWindow.getRideCategoriesTabFrame().getTable().getModel();
+        };
+    }
+
+    public static Repository<?> getRepository(TableCategory tableCategory) {
+        ProductionDependencyProvider provider = MainWindow.getProvider();
+
+        return switch (tableCategory) {
+            case PASSENGERS ->
+                    provider.getPassengerRepository();
+            case RIDES ->
+                    provider.getRideRepository();
+            case VEHICLES ->
+                    provider.getVehicleRepository();
+            case PASSENGER_CATEGORY ->
+                    provider.getPassengerCategoryRepository();
+            case RIDE_CATEGORY ->
+                    provider.getRideCategoryRepository();
         };
     }
 
