@@ -19,6 +19,7 @@ public class MainWindow implements ChangeListener {
     private static JPanel topPanel;
     private static FuelPrice fuelPrice;
     private StatisticsUI statisticsUI;
+    private static boolean isApplicationInstance = false;
 
     private static ProductionDependencyProvider provider;
 
@@ -58,6 +59,7 @@ public class MainWindow implements ChangeListener {
     private void initialize() {
         provider = new ProductionDependencyProvider();
         frame = new JFrame();
+        isApplicationInstance = true;
         var im = getClass().getResource("/SCR.png");
         if (im != null) {
             frame.setIconImage(new ImageIcon(im).getImage());
@@ -145,5 +147,9 @@ public class MainWindow implements ChangeListener {
 
     public static ProductionDependencyProvider getProvider() {
         return provider;
+    }
+
+    public static boolean getIsApplicationInstance() {
+        return isApplicationInstance;
     }
 }

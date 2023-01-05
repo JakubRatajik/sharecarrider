@@ -3,6 +3,7 @@ package cz.muni.fi.pv168.seminar01.beta.data.storage.repository;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.VehicleDao;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.VehicleMapper;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
@@ -45,8 +46,10 @@ public class VehicleRepository extends AbstractRepository<Vehicle> {
                 .findFirst().orElse(null);
         repositoryMembers.add(newVehicle);
 
-        VehicleTableModel tableModel = (VehicleTableModel) CommonElementSupplier.getTableModel(TableCategory.VEHICLES);
-        tableModel.addRow(newVehicle);
+        if (MainWindow.getIsApplicationInstance()) {
+            VehicleTableModel tableModel = (VehicleTableModel) CommonElementSupplier.getTableModel(TableCategory.VEHICLES);
+            tableModel.addRow(newVehicle);
+        }
 
         return newVehicle.getId();
     }
