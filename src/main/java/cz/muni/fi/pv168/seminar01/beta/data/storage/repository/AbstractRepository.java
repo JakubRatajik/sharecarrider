@@ -56,7 +56,9 @@ public abstract class AbstractRepository<T extends HasID> implements Repository<
     }
 
     @Override
-    public abstract long introduceEntity(T newEntity);
+    public long introduceEntity(T newEntity) {
+        return 0;
+    }
 
     @Override
     public void update(T entity) {
