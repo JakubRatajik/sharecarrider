@@ -1,6 +1,9 @@
 package cz.muni.fi.pv168.seminar01.beta.data.storage.repository;
 
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,9 +56,7 @@ public abstract class AbstractRepository<T extends HasID> implements Repository<
     }
 
     @Override
-    public long createAndGetID(T newEntity) {
-        return 0;
-    }
+    public abstract long introduceEntity(T newEntity);
 
     @Override
     public void update(T entity) {
