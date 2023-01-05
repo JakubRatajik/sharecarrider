@@ -22,11 +22,20 @@ public interface Repository<M> {
 
     void create(M newEntity);
 
-    long createAndGetID(M newEntity);
+    /**
+     * This method should introduce new entity to application world.
+     * That means to add given entity to repository, add new row to
+     * its corresponding table model as well as return ID of given entity.
+     * @param newEntity to be added to repository, table model and gain ID
+     * @return ID of new introduced entity
+     */
+    long introduceEntity(M newEntity);
 
     void update(M entity);
 
     void deleteByIndex(int index);
 
     int findIndexByEntity(M entity);
+
+    void deleteAll();
 }

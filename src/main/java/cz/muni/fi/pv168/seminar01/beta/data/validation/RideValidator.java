@@ -31,7 +31,6 @@ public class RideValidator {
 
     public static void validateRide(String id, LocalDate date, String departure, String arrival, String from, String to, String distance, String categories,
                                     String passengers, String vehicleID, String repetition, String description) {
-        // ID == null -> validation is called from addRide action, thus no ID exists yet
         if (id != null && !isValidRideId(id)) {
             throw new ValidationException("Neplatné ID jízdy.");
         }
@@ -51,23 +50,6 @@ public class RideValidator {
         if (!CommonValidator.isValidIntParsing(distance)) {
             throw new ValidationException("Vzdálenost musí být celé číslo.");
         }
-        /*
-        if (categories != null
-                && !CommonValidator.isValidIdList(categories, TableCategory.RIDE_CATEGORY)) {
-            throw new ValidationException("Nesprávný formát kategorií jízdy.");
-        }*/ //--TODO-- non functional import because of this
-        /*
-        if (passengers != null
-                && !CommonValidator.isValidIdList(passengers, TableCategory.PASSENGERS)) {
-            throw new ValidationException("Neplatný seznam pasažérů jízdy.");
-        }
-        */ // TODO-- non functional import because of this
-        /*
-        if (vehicleID != null
-                && !isVehicleIDValid(vehicleID)) {
-            throw new ValidationException("Neplatné ID vozidla jízdy.");
-        }
-        */ // TODO-- non functional import because of this
         if (repetition != null
                 && !isRepetitionValid(repetition)) {
             throw new ValidationException("Neplatné opakování jízdy.");
@@ -76,7 +58,7 @@ public class RideValidator {
             throw new ValidationException("Maximální délka popisu je 300 znaků.");
         }
     }
-    // TODO - make clear which validateRide method is for what and when it's used
+
     public static void validateRide(String id, LocalDate date, String departure, String arrival, String from, String to, String distance, String description) {
         validateRide(id, date, departure, arrival, from, to, distance, null, null, null, null, description);
     }
@@ -118,16 +100,7 @@ public class RideValidator {
     }
 
     private static boolean isValidRideId(String id) {
-        // TODO - uncomment and fix validation for edit rides
         return CommonValidator.isValidDoubleParsing(id);
-                //&& Shortcut.getTableModel(TableCategory.RIDES).getObjectById(Long.parseLong(id)) == null;
-    }
-
-    private static boolean isVehicleIDValid(String string) {
-        if (!CommonValidator.isValidLongParsing(string)) {
-            return false;
-        }
-        return CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(string)) != null;
     }
 
     private static boolean isRepetitionValid(String repetition) {

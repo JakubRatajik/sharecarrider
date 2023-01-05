@@ -33,11 +33,6 @@ public class VehicleValidator {
         }
     }
 
-    private static boolean isValidVehicleId(String id) {
-        return CommonValidator.isValidLongParsing(id)
-                && CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(id)) == null;
-    }
-
     public static void validateVehicle(String licensePlate, String brand, String type, String capacity, String consumption) {
         validateVehicle(null, licensePlate, brand, type, capacity, consumption, null);
     }

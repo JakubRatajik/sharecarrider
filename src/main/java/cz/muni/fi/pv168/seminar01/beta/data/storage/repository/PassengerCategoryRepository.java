@@ -3,11 +3,10 @@ package cz.muni.fi.pv168.seminar01.beta.data.storage.repository;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.PassengerCategoryDao;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.PassengerCategoryMapper;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,10 +32,10 @@ public class PassengerCategoryRepository extends AbstractRepository<PassengerCat
 
     @Override
     public void create(PassengerCategory category) {
-        createAndGetID(category);
+        introduceEntity(category);
     }
     @Override
-    public long createAndGetID(PassengerCategory category) {
+    public long introduceEntity(PassengerCategory category) {
         PassengerCategory newCategory = Stream.of(category)
                 .map(mapper::mapToEntity)
                 .map(dao::create)
@@ -70,4 +69,8 @@ public class PassengerCategoryRepository extends AbstractRepository<PassengerCat
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    @Override
+    public void deleteAll() {
+        super.deleteAll(TableCategory.PASSENGER_CATEGORY);
+    }
 }

@@ -11,6 +11,9 @@ import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.VehicleMapper;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.Ride;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,11 +55,11 @@ public class RideRepository extends AbstractRepository<Ride>{
 
     @Override
     public void create(Ride ride) {
-        createAndGetID(ride);
+        introduceEntity(ride);
     }
 
     @Override
-    public long createAndGetID(Ride ride) {
+    public long introduceEntity(Ride ride) {
         Ride newRide = Stream.of(ride)
                 .map(mapper::mapToEntity)
                 .map(dao::create)
@@ -134,5 +137,14 @@ public class RideRepository extends AbstractRepository<Ride>{
             newRides.add(ride);
         }
         return newRides;
+    }
+
+    @Override
+    public void deleteAll() {
+        super.deleteAll(TableCategory.RIDES);
+    }
+
+    public void addToTableModel(Ride ride) {
+        ((RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES)).addRow(ride);
     }
 }

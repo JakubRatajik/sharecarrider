@@ -1,27 +1,15 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.PassengerCategoryExporter;
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.PassengerExporter;
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.RideCategoryExporter;
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.RideExporter;
-import cz.muni.fi.pv168.seminar01.beta.data.manipulation.VehicleExporter;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Ride;
-import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
-import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
+import cz.muni.fi.pv168.seminar01.beta.ui.workers.AsyncExporter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.List;
 
 /**
  * @author Kateřina Vácová
@@ -95,21 +83,8 @@ public class ExportDialog extends DialogBase {
                     //throw new ValidationException("Some files are missing");
                     new ErrorDialog(MainWindow.getFrame(), new ValidationException("Some files are missing"));
                 } else {
-                    RideExporter rideExporter = new RideExporter();
-                    rideExporter.export((List<Ride>) CommonElementSupplier.getTableModel(TableCategory.RIDES).getData(),
-                            rides.getAbsolutePath());
-                    VehicleExporter vehicleExporter = new VehicleExporter();
-                    vehicleExporter.export((List<Vehicle>) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getData(),
-                            vehicles.getAbsolutePath());
-                    PassengerExporter passengerExporter = new PassengerExporter();
-                    passengerExporter.export((List<Passenger>) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).getData(),
-                            passengers.getAbsolutePath());
-                    PassengerCategoryExporter passengerCategoryExporter = new PassengerCategoryExporter();
-                    passengerCategoryExporter.export((List<PassengerCategory>) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY).getData(),
-                            passengersCategories.getAbsolutePath());
-                    RideCategoryExporter rideCategoryExporter = new RideCategoryExporter();
-                    rideCategoryExporter.export((List<RideCategory>) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY).getData(),
-                            ridesCategories.getAbsolutePath());
+                    AsyncExporter exporter = new AsyncExporter();
+                    exporter.exportData(rides, vehicles, passengers, passengersCategories, ridesCategories);
                     dispose();
                 }
             }

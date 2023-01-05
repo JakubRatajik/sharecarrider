@@ -1,5 +1,10 @@
 package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.PassengerCategoryRepository;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.PassengerRepository;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.RideCategoryRepository;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.RideRepository;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.VehicleRepository;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
 import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
@@ -8,14 +13,8 @@ import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
-import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,44 +34,51 @@ public class ImporterBase {
         return ID_MAPPER.getNewID(category, oldID);
     }
 
+    private static void deleteAll() {
+        CommonElementSupplier.getRepository(TableCategory.RIDES).deleteAll();
+        CommonElementSupplier.getRepository(TableCategory.VEHICLES).deleteAll();
+        CommonElementSupplier.getRepository(TableCategory.PASSENGERS).deleteAll();
+        CommonElementSupplier.getRepository(TableCategory.RIDE_CATEGORY).deleteAll();
+        CommonElementSupplier.getRepository(TableCategory.PASSENGER_CATEGORY).deleteAll();
+    }
+
     public static void loadData(File rides, File vehicles, File passengers, File passengerCategories, File rideCategories) {
         List<Passenger> passengerList;
         List<Ride> rideList;
         List<Vehicle> vehicleList;
         List<PassengerCategory> passengerCategoryList;
         List<RideCategory> rideCategoryList;
-        new ErrorDialog(MainWindow.getFrame(), "Všechny záznamy budou smazány!");
-
+        deleteAll();
 
         try {
             if (passengerCategories != null) {
                 passengerCategoryList = PassengerCategoryImporter.importPassengerCategories(passengerCategories);
                 for (PassengerCategory passengerCategory : passengerCategoryList) {
-                    ID_MAPPER.addIDs(TableCategory.PASSENGER_CATEGORY, passengerCategory.getId(), ((PassengerCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY)).addRowAndGetID(passengerCategory));
+                    ID_MAPPER.addIDs(TableCategory.PASSENGER_CATEGORY, passengerCategory.getId(), ((PassengerCategoryRepository) CommonElementSupplier.getRepository(TableCategory.PASSENGER_CATEGORY)).introduceEntity(passengerCategory));
                 }
             }
             if (vehicles != null) {
                 vehicleList = VehicleImporter.importVehicles(vehicles);
                 for (Vehicle vehicle : vehicleList) {
-                    ID_MAPPER.addIDs(TableCategory.VEHICLES, vehicle.getId(), ((VehicleTableModel) CommonElementSupplier.getTableModel(TableCategory.VEHICLES)).addRowAndGetID(vehicle));
+                    ID_MAPPER.addIDs(TableCategory.VEHICLES, vehicle.getId(), ((VehicleRepository) CommonElementSupplier.getRepository(TableCategory.VEHICLES)).introduceEntity(vehicle));
                 }
             }
             if (passengers != null) {
                 passengerList = PassengerImporter.importPassengers(passengers);
                 for (Passenger passenger : passengerList) {
-                    ID_MAPPER.addIDs(TableCategory.PASSENGERS, passenger.getId(), ((PassengerTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS)).addRowAndGetID(passenger));
+                    ID_MAPPER.addIDs(TableCategory.PASSENGERS, passenger.getId(), ((PassengerRepository) CommonElementSupplier.getRepository(TableCategory.PASSENGERS)).introduceEntity(passenger));
                 }
             }
             if (rideCategories != null) {
                 rideCategoryList = RideCategoryImporter.importRideCategories(rideCategories);
                 for (RideCategory rideCategory : rideCategoryList) {
-                    ID_MAPPER.addIDs(TableCategory.RIDE_CATEGORY, rideCategory.getId(), ((RideCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY)).addRowAndGetID(rideCategory));
+                    ID_MAPPER.addIDs(TableCategory.RIDE_CATEGORY, rideCategory.getId(), ((RideCategoryRepository) CommonElementSupplier.getRepository(TableCategory.RIDE_CATEGORY)).introduceEntity(rideCategory));
                 }
             }
             if (rides != null) {
                 rideList = RideImporter.importRides(rides);
                 for (Ride ride : rideList) {
-                    ((RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES)).addRow(ride);
+                    ((RideRepository) CommonElementSupplier.getRepository(TableCategory.RIDES)).addToTableModel(ride);
                 }
             }
         } catch (DataManipulationException | ValidationException |

@@ -4,6 +4,7 @@ import cz.muni.fi.pv168.seminar01.beta.data.manipulation.ImporterBase;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
+import cz.muni.fi.pv168.seminar01.beta.ui.workers.AsyncImporter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -155,12 +156,11 @@ public class ImportDialog extends DialogBase {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (rides != null && (passengers == null || vehicles == null ||
                         passengersCategories == null || ridesCategories == null)) {
-                    //throw new ValidationException("Some files are missing");
                     new ErrorDialog(MainWindow.getFrame(), new ValidationException("Pokud chcete naimportovat jízdy, musíte naimportovat i vše ostatní"));
                 } else if (passengers != null && passengersCategories == null) {
                     new ErrorDialog(MainWindow.getFrame(), new ValidationException("Pokud chcete naimportovat pasažéry, musíte naimportovat i jejich kategorie"));
                 } else {
-                    ImporterBase.loadData(rides, vehicles, passengers, passengersCategories, ridesCategories);
+                    new ImportDeletionDialog(MainWindow.getFrame(), "Upozornění", rides, vehicles, passengers, passengersCategories, ridesCategories);
                     dispose();
                 }
             }

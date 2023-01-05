@@ -1,6 +1,9 @@
 package cz.muni.fi.pv168.seminar01.beta.data.storage.repository;
 
 import cz.muni.fi.pv168.seminar01.beta.model.HasID;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,7 +56,7 @@ public abstract class AbstractRepository<T extends HasID> implements Repository<
     }
 
     @Override
-    public long createAndGetID(T newEntity) {
+    public long introduceEntity(T newEntity) {
         return 0;
     }
 
@@ -77,5 +80,16 @@ public abstract class AbstractRepository<T extends HasID> implements Repository<
             return repositoryMembers.indexOf(entity);
         }
         return -1;
+    }
+
+    @Override
+    public void deleteAll() {
+        repositoryMembers.clear();
+    }
+
+    public void deleteAll(TableCategory category){
+        deleteAll();
+        ShareCarRiderTableModel<?> tableModel = CommonElementSupplier.getTableModel(category);
+        tableModel.fireTableRowsDeleted(0, tableModel.getRowCount() - 1);
     }
 }
