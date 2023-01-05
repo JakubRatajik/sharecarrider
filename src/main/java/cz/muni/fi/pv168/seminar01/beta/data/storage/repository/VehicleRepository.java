@@ -3,11 +3,12 @@ package cz.muni.fi.pv168.seminar01.beta.data.storage.repository;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.VehicleDao;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.VehicleMapper;
 import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,16 +34,20 @@ public class VehicleRepository extends AbstractRepository<Vehicle> {
 
     @Override
     public void create(Vehicle vehicle) {
-        createAndGetID(vehicle);
+        introduceEntity(vehicle);
     }
     @Override
-    public long createAndGetID(Vehicle vehicle) {
+    public long introduceEntity(Vehicle vehicle) {
         Vehicle newVehicle = Stream.of(vehicle)
                 .map(mapper::mapToEntity)
                 .map(dao::create)
                 .map(mapper::mapToModel)
                 .findFirst().orElse(null);
         repositoryMembers.add(newVehicle);
+
+        VehicleTableModel tableModel = (VehicleTableModel) CommonElementSupplier.getTableModel(TableCategory.VEHICLES);
+        tableModel.addRow(newVehicle);
+
         return newVehicle.getId();
     }
 
@@ -70,5 +75,9 @@ public class VehicleRepository extends AbstractRepository<Vehicle> {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    @Override
+    public void deleteAll() {
+        super.deleteAll(TableCategory.VEHICLES);
+    }
 }
 

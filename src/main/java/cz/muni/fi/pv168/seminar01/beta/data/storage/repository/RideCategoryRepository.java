@@ -1,15 +1,11 @@
 package cz.muni.fi.pv168.seminar01.beta.data.storage.repository;
-import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.PassengerCategoryDao;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.RideCategoryDao;
-import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.PassengerCategoryMapper;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.RideCategoryMapper;
-import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -34,11 +30,11 @@ public class RideCategoryRepository extends AbstractRepository<RideCategory> {
 
     @Override
     public void create(RideCategory category) {
-        createAndGetID(category);
+        this.introduceEntity(category);
     }
 
     @Override
-    public long createAndGetID(RideCategory category) {
+    public long introduceEntity(RideCategory category) {
         RideCategory newCategory = Stream.of(category)
                 .map(mapper::mapToEntity)
                 .map(dao::create)
@@ -72,4 +68,8 @@ public class RideCategoryRepository extends AbstractRepository<RideCategory> {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    @Override
+    public void deleteAll() {
+        super.deleteAll(TableCategory.RIDE_CATEGORY);
+    }
 }

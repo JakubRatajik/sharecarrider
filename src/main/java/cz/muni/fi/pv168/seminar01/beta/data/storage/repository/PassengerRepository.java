@@ -2,17 +2,14 @@ package cz.muni.fi.pv168.seminar01.beta.data.storage.repository;
 
 import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.PassengerCategoryDao;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.dao.PassengerDao;
-import cz.muni.fi.pv168.seminar01.beta.data.storage.entity.PassengerCategoriesEntity;
-import cz.muni.fi.pv168.seminar01.beta.data.storage.entity.PassengerCategoryEntity;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.PassengerCategoryMapper;
 import cz.muni.fi.pv168.seminar01.beta.data.storage.mapper.PassengerMapper;
 import cz.muni.fi.pv168.seminar01.beta.model.*;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -41,11 +38,11 @@ public class PassengerRepository extends AbstractRepository<Passenger>{
 
     @Override
     public void create(Passenger passenger) {
-        createAndGetID(passenger);
+        introduceEntity(passenger);
 
     }
     @Override
-    public long createAndGetID(Passenger passenger) {
+    public long introduceEntity(Passenger passenger) {
         Passenger newPassenger = Stream.of(passenger)
                 .map(mapper::mapToEntity)
                 .map(dao::create)
@@ -99,4 +96,8 @@ public class PassengerRepository extends AbstractRepository<Passenger>{
         return newPassengers;
     }
 
+    @Override
+    public void deleteAll() {
+        super.deleteAll(TableCategory.PASSENGERS);
+    }
 }
