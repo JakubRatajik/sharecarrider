@@ -8,8 +8,6 @@ import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.RoundingMode;
 import java.util.List;
 
@@ -26,8 +24,6 @@ public class RideDetailDialog extends DetailDialog {
     private JLabel endDestination;
     private JLabel distance;
     private JLabel vehicle;
-    private JLabel[] passengers;
-    private JLabel[] categories;
     private JLabel repetition;
     private JLabel price;
     private JTextArea description;
@@ -36,15 +32,11 @@ public class RideDetailDialog extends DetailDialog {
         super(frame, name, ride);
     }
 
-
     @Override
     public void onEditButton(JButton edit) {
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new AddEditRideDialog(MainWindow.getFrame(), "Upravit jízdu", ride);
-            }
+        edit.addActionListener(actionListener -> {
+            dispose();
+            new AddEditRideDialog(MainWindow.getFrame(), "Upravit jízdu", ride);
         });
     }
 
@@ -128,28 +120,24 @@ public class RideDetailDialog extends DetailDialog {
     }
 
     public void setAttributes() {
-        date = new JLabel(ride.getDate());
-        departure = new JLabel(ride.getDeparture());
+        date = new JLabel(ride.getDateUnformatted());
+        departure = new JLabel(ride.getDepartureFormatted());
         startDestination = new JLabel(ride.getFrom());
         endDestination = new JLabel(ride.getTo());
         distance = new JLabel(ride.getDistance() + " km");
         vehicle = new JLabel(ride.getVehicle().getBrand() + " " + ride.getVehicle().getType());
         price = new JLabel(ride.countPrice().setScale(0, RoundingMode.DOWN) + " Kč");
         repetition = new JLabel(ride.getRepetition().getDescription());
-        //arrival = new JLabel(ride.getArrival());
-        arrival = new JLabel("");
+        arrival = new JLabel(ride.getArrivalFormatted());
         description = new JTextArea(ride.getDescription());
         description.setEditable(false);
         description.setBackground(Color.WHITE);
         description.setLineWrap(true);
+        description.setWrapStyleWord(true);
     }
-
 
     @Override
     public void addAttribute(Object attribute) {
         ride = (Ride) attribute;
-    }
-
-    public void update() {
     }
 }

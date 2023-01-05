@@ -1,22 +1,33 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.utils;
 
-import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.ShareCarRiderTable;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditPassengerDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideCategoryDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditRideDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.AddEditVehicleDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.DeleteDialog;
-import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterPassengersDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterRidesDialog;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.FilterVehiclesDialog;
-import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.TemporaryDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.SortPassengersDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.SortRidesDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.SortVehiclesDialog;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.ShareCarRiderTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -45,29 +56,14 @@ public final class ActionListenerProvider {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
-            }
-        };
-
-
-        ActionListener sort = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
-            }
-        };
-
-        ActionListener filter = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new AddEditPassengerCategoryDialog(MainWindow.getFrame(), "Vytvořit kategorii cestujících");
             }
         };
 
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTable table = Shortcut.getTable(TableCategory.PASSENGER_CATEGORY);
+                ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.PASSENGER_CATEGORY);
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
@@ -76,54 +72,33 @@ public final class ActionListenerProvider {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
-                        TableCategory.PASSENGER_CATEGORY, Shortcut.getTable(TableCategory.PASSENGER_CATEGORY).getSelectedRows());
+                        TableCategory.PASSENGER_CATEGORY, CommonElementSupplier.getTable(TableCategory.PASSENGER_CATEGORY).getSelectedRows());
             }
         };
 
         List<ActionListener> categories = new ArrayList<>();
         categories.add(plus);
-        categories.add(sort);
-        categories.add(filter);
+        categories.add(null);
+        categories.add(null);
         categories.add(select);
         categories.add(delete);
+        categories.add(null);
         return categories;
     }
-
-
-
-
-
-
-
 
 
     private static List<ActionListener> getALsForRideCategories() {
         ActionListener plus = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
-            }
-        };
-
-
-        ActionListener sort = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
-            }
-        };
-
-        ActionListener filter = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new ErrorDialog(MainWindow.getFrame(),"not implemented yet");
+                JDialog dial = new AddEditRideCategoryDialog(MainWindow.getFrame(), "Přidat kategorii jízd");
             }
         };
 
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTable table = Shortcut.getTable(TableCategory.RIDE_CATEGORY);
+                ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.RIDE_CATEGORY);
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
@@ -132,19 +107,19 @@ public final class ActionListenerProvider {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new DeleteDialog(MainWindow.getFrame(), "Smazat kategorii/e",
-                        TableCategory.RIDE_CATEGORY, Shortcut.getTable(TableCategory.RIDE_CATEGORY).getSelectedRows());
+                        TableCategory.RIDE_CATEGORY, CommonElementSupplier.getTable(TableCategory.RIDE_CATEGORY).getSelectedRows());
             }
         };
 
         List<ActionListener> categories = new ArrayList<>();
         categories.add(plus);
-        categories.add(sort);
-        categories.add(filter);
+        categories.add(null);
+        categories.add(null);
         categories.add(select);
         categories.add(delete);
+        categories.add(null);
         return categories;
     }
-
 
 
     /**
@@ -163,7 +138,7 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Řazení");
+                JDialog dial = new SortRidesDialog(MainWindow.getFrame(), "Řazení");
             }
         };
 
@@ -177,7 +152,7 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTable table = Shortcut.getTable(TableCategory.RIDES);
+                ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.RIDES);
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
@@ -186,7 +161,20 @@ public final class ActionListenerProvider {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new DeleteDialog(MainWindow.getFrame(), "Smazat jízdu/y",
-                        TableCategory.RIDES, Shortcut.getTable(TableCategory.RIDES).getSelectedRows());
+                        TableCategory.RIDES, CommonElementSupplier.getTable(TableCategory.RIDES).getSelectedRows());
+            }
+        };
+
+        ActionListener resetFilters = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FilterRidesDialog.clearAttributes();
+                ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.RIDES);
+                RowFilter<ShareCarRiderTableModel<Ride>, Integer> rf = RowFilter.regexFilter(".*");
+                TableRowSorter<ShareCarRiderTableModel<Ride>> sorter
+                        = new TableRowSorter<>((ShareCarRiderTableModel<Ride>) table.getModel());
+                sorter.setRowFilter(rf);
+                table.setRowSorter(sorter);
             }
         };
 
@@ -196,6 +184,7 @@ public final class ActionListenerProvider {
         rides.add(filter);
         rides.add(select);
         rides.add(delete);
+        rides.add(resetFilters);
         return rides;
     }
 
@@ -215,7 +204,7 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Řazení");
+                JDialog dial = new SortVehiclesDialog(MainWindow.getFrame(), "Řazení");
             }
         };
 
@@ -229,7 +218,7 @@ public final class ActionListenerProvider {
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTable table = Shortcut.getTable(TableCategory.VEHICLES);
+                ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.VEHICLES);
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
@@ -238,15 +227,36 @@ public final class ActionListenerProvider {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new DeleteDialog(MainWindow.getFrame(), "Smazat vozidlo/a",
-                        TableCategory.VEHICLES, Shortcut.getTable(TableCategory.VEHICLES).getSelectedRows());
+                        TableCategory.VEHICLES, CommonElementSupplier.getTable(TableCategory.VEHICLES).getSelectedRows());
             }
         };
+
+        ActionListener resetFilters = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FilterVehiclesDialog.clearAttributes();
+                RowFilter<ShareCarRiderTableModel<Vehicle>, Integer> rf = new RowFilter<>() {
+                    @Override
+                    public boolean include(Entry<? extends ShareCarRiderTableModel<Vehicle>, ? extends Integer> entry) {
+                        return true;
+                    }
+                };
+                ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.VEHICLES);
+
+                TableRowSorter<ShareCarRiderTableModel<Vehicle>> sorter
+                        = new TableRowSorter<>((ShareCarRiderTableModel<Vehicle>) table.getModel());
+                sorter.setRowFilter(rf);
+                table.setRowSorter(sorter);
+            }
+        };
+
         List<ActionListener> vehicles = new ArrayList<>();
         vehicles.add(plus);
         vehicles.add(sort);
         vehicles.add(filter);
         vehicles.add(select);
         vehicles.add(delete);
+        vehicles.add(resetFilters);
         return vehicles;
     }
 
@@ -266,33 +276,44 @@ public final class ActionListenerProvider {
         ActionListener sort = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dial = new TemporaryDialog(MainWindow.getFrame(), "Řazení");
+                JDialog dial = new SortPassengersDialog(MainWindow.getFrame(), "Řazení");
             }
         };
 
-        ActionListener filter = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dial = new FilterPassengersDialog(MainWindow.getFrame(), "Filtr");
-            }
+        ActionListener filter = actionListener -> {
+            JDialog dial = new FilterPassengersDialog(MainWindow.getFrame(), "Filtr");
         };
 
         ActionListener select = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShareCarRiderTable table = Shortcut.getTable(TableCategory.PASSENGERS);
+                ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.PASSENGERS);
                 table.enableMultilineSelection(!table.isMultilineSelectionEnabled());
             }
         };
 
+        ActionListener resetFilters = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FilterPassengersDialog.clearSelectedCategoryIndices();
+                ShareCarRiderTable table = CommonElementSupplier.getTable(TableCategory.PASSENGERS);
+                RowFilter<ShareCarRiderTableModel<Passenger>, Integer> rf = RowFilter.regexFilter(".*");
+                TableRowSorter<ShareCarRiderTableModel<Passenger>> sorter
+                        = new TableRowSorter<>((ShareCarRiderTableModel<Passenger>) table.getModel());
+                sorter.setRowFilter(rf);
+                table.setRowSorter(sorter);
+            }
+        };
+
         ActionListener delete = e -> new DeleteDialog(MainWindow.getFrame(), "Smazat cestující/ho",
-                TableCategory.PASSENGERS, Shortcut.getTable(TableCategory.PASSENGERS).getSelectedRows());
+                TableCategory.PASSENGERS, CommonElementSupplier.getTable(TableCategory.PASSENGERS).getSelectedRows());
         List<ActionListener> passengers = new ArrayList<>();
         passengers.add(plus);
         passengers.add(sort);
         passengers.add(filter);
         passengers.add(select);
         passengers.add(delete);
+        passengers.add(resetFilters);
         return passengers;
     }
 
@@ -300,16 +321,19 @@ public final class ActionListenerProvider {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                int firstRow = rows[0];
-                for (int i = 0; i < rows.length; i++) {
-                    Shortcut.getTableModel(category).deleteRow(firstRow);
+                Integer[] modelRows = Arrays.stream(rows)
+                        .map(CommonElementSupplier.getTable(category)::convertRowIndexToModel)
+                        .boxed().toArray(Integer[]::new);
+
+                Arrays.sort(modelRows, Collections.reverseOrder());
+
+                for (Integer modelRow : modelRows) {
+                    CommonElementSupplier.getTableModel(category).deleteRow(modelRow);
                 }
-                ShareCarRiderTable table = Shortcut.getTable(category);
+                ShareCarRiderTable table = CommonElementSupplier.getTable(category);
                 table.clearSelection();
                 dialog.dispose();
             }
-
         };
     }
-
 }

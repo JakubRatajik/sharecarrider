@@ -2,7 +2,7 @@ package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
 import cz.muni.fi.pv168.seminar01.beta.model.FuelType;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -15,34 +15,27 @@ public class VehicleValidator {
     }
 
     public static void validateVehicle(String id, String licensePlate, String brand, String type, String capacity, String consumption, String fuelType) {
-        if (id == null || !CommonValidator.isValidLongParsing(id) || Shortcut.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(id)) != null) {
-            throw new ValidationException("Neplatdné ID vozidla.");
+        if (!CommonValidator.isValidLongCzechNumInput(brand)) {
+            throw new ValidationException("Značka musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
         }
-//        if (!isLicensePlateValid(licensePlate)) {
-//            throw new ValidationException("SPZ musí být ve formátu '6A81234' nebo '6A9 1234'");
-//        }
-        // --TODO kvůli tomuto padá import
-//        if (CommonValidator.isValidLongAlphaSpaceString(brand)) {
-//            throw new ValidationException("Značka musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
-//        }
-        // --TODO kvůli tomuto padá import
-//        if (CommonValidator.isValidLongAlphaSpaceString(type)) {
-//            throw new ValidationException("Model auta musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
-//        }
-        // --TODO kvůli tomuto padá import
+        if (!CommonValidator.isValidLongCzechNumInput(type)) {
+            throw new ValidationException("Model auta musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
+        }
         if (!CommonValidator.isValidIntParsing(capacity)) {
             throw new ValidationException("Kapacita musí být celé číslo.");
         }
-        if (!CommonValidator.isValidFloatParsing(consumption)) {
+        if (!CommonValidator.isValidDoubleParsing(consumption)) {
             throw new ValidationException("Spotřeba musí být reální číslo.");
         }
-        if (fuelType == null) {
-            return;
+        if (fuelType != null
+                && !isFuelTypeValid(fuelType)) {
+            throw new ValidationException("Nesprávný typ paliva.");
         }
-//        if (!isFuelTypeValid(fuelType)) {
-//            throw new ValidationException("Nesprávný typ paliva.");
-//        }
-        // --TODO kvůli tomuto padá import
+    }
+
+    private static boolean isValidVehicleId(String id) {
+        return CommonValidator.isValidLongParsing(id)
+                && CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getObjectById(Long.parseLong(id)) == null;
     }
 
     public static void validateVehicle(String licensePlate, String brand, String type, String capacity, String consumption) {
@@ -54,7 +47,7 @@ public class VehicleValidator {
     }
 
     public static boolean isFuelTypeValid(String fuelType) {
-        return !Arrays.stream(FuelType.values())
+        return Arrays.stream(FuelType.values())
                 .map(FuelType::name)
                 .collect(Collectors.toSet())
                 .contains(fuelType);

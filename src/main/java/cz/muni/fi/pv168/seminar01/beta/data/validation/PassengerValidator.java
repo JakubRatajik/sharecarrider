@@ -1,11 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta.data.validation;
 
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 
 /**
  * @author Jakub Ratajik
@@ -15,33 +11,28 @@ public class PassengerValidator {
     }
 
     public static void validatePassenger(String id, String firstName, String lastName, String phoneNumber, String categories) {
-        if (id == null || !CommonValidator.isValidLongParsing(id) || Shortcut.getTableModel(TableCategory.PASSENGERS).getObjectById(Long.parseLong(id)) != null) {
-            throw new ValidationException("Neplatné ID pasažéra.");
-        }
+        //TODO: temporary disabled because of database
+//        if (id != null
+//                && !isValidPassengerId(id)) {
+//            throw new ValidationException("Neplatné ID pasažéra.");
+//        }
         if (!isPhoneNumberValid(phoneNumber)) {
             throw new ValidationException("Telefónní číslo musí být ve formátu '712345678' nebo '+421123456789'.");
         }
-//        if (!CommonValidator.isValidLongAlphaSpaceString(firstName)
-//                || !CommonValidator.isValidLongAlphaSpaceString(lastName)) {
-//            throw new ValidationException("Jméno musí obsahovat pouze písmena a mezeru a mít nejvýše 100 znaků.");
-//        }
-        //--TODO kvůli tomuto padá import
-        if (categories == null) {
-            return; // --TODO tohle nedává smysl, proč bys měl najednou přestat s validací protože kategorie jsou null??
+        if (!CommonValidator.isValidLongCzechInput(firstName)
+                || !CommonValidator.isValidLongCzechInput(lastName)) {
+            throw new ValidationException("Jméno musí obsahovat pouze česká písmena, mezeru a mít nejvýše 100 znaků.");
         }
-//        if (!isValidCategoryList(categories)) {
-//            throw new ValidationException("Nesprávný formát kategorií.");
-//        }
-        //--TODO kvůli tomuto padá import Ale už mě to fakt štve... To je ty vado debuggování jak nechceš.. TESTUJTE SI CO UDĚLÁTE!
+        /*if (categories != null
+                && !CommonValidator.isValidIdList(categories, TableCategory.PASSENGER_CATEGORY)) {
+            throw new ValidationException("Nesprávný formát kategorií cestujícího.");
+
+        }*/ //--TODO-- BROKEN IN IMPORT (for example [5] is not valid)
     }
 
-    private static boolean isValidCategoryList(String categories) {
-        if (!categories.matches("\\[(([a-zA-z]+)(, [a-zA-z]+)*)*]")) { // --TODO kategorie jsou čísla, ne znaky jsou to IDčka
-            return false;
-        }
-        List<String> categoriesList = Arrays.asList(
-                categories.substring(1, categories.length() - 1).split(", "));
-        return !new HashSet<>(categoriesList).contains(null);
+    private static boolean isValidPassengerId(String id) {
+        return CommonValidator.isValidLongParsing(id)
+                && CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).getObjectById(Long.parseLong(id)) == null;
     }
 
     public static void validatePassenger(String firstName, String lastName, String phoneNumber) {

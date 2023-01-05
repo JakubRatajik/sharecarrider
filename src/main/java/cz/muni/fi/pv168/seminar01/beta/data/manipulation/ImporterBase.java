@@ -1,15 +1,27 @@
 package cz.muni.fi.pv168.seminar01.beta.data.manipulation;
 
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.model.*;
+import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.model.PassengerCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.dialogs.ErrorDialog;
-import cz.muni.fi.pv168.seminar01.beta.ui.model.*;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerCategoryTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.PassengerTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.RideCategoryTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
+import cz.muni.fi.pv168.seminar01.beta.ui.model.VehicleTableModel;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
+import cz.muni.fi.pv168.seminar01.beta.wiring.CommonDependencyProvider;
+import cz.muni.fi.pv168.seminar01.beta.wiring.ProductionDependencyProvider;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class used for importing
@@ -18,60 +30,66 @@ import java.util.*;
  */
 public class ImporterBase {
 
-    public static void loadData(File rides, File vehicles, File passengers, File passengerCategories, File rideCategories) {
-        List<Passenger> passengerList = new ArrayList<>();
-        List<Ride> rideList = new ArrayList<>();
-        List<Vehicle> vehicleList = new ArrayList<>();
-        List<PassengerCategory> passengerCategoryList = new ArrayList<>();
-        List<RideCategory> rideCategoryList = new ArrayList<>();
-        try {
-            if (passengerCategories != null) {
-                passengerCategoryList = ImportPassengerCategories.importPassengerCategories(passengerCategories);
-                for (PassengerCategory passengerCategory: passengerCategoryList) {
-                    ((PassengerCategoryTableModel) Shortcut.getTableModel(TableCategory.PASSENGER_CATEGORY)).addRow(passengerCategory);
-                }
-            } if (vehicles != null) {
-                vehicleList = ImportVehicles.importVehicles(vehicles);
-                for (Vehicle vehicle: vehicleList) {
-                    ((VehicleTableModel) Shortcut.getTableModel(TableCategory.VEHICLES)).addRow(vehicle);
-                }
-            } if (passengers != null) {
-                passengerList = ImportPassengers.importPassengers(passengers);
-                for (Passenger passenger: passengerList) {
-                    ((PassengerTableModel) Shortcut.getTableModel(TableCategory.PASSENGERS)).addRow(passenger);
-                }
-            } if (rideCategories != null) {
-                rideCategoryList = ImportRideCategories.importRideCategories(rideCategories);
-                for (RideCategory rideCategory: rideCategoryList) {
-                    ((RideCategoryTableModel) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY)).addRow(rideCategory);
-                }
-            } if (rides != null) {
-                rideList = ImportRides.importRides(rides);
-                for (Ride ride: rideList) {
-                    ((RideTableModel) Shortcut.getTableModel(TableCategory.RIDES)).addRow(ride);
-                }
-            }
-        } catch (DataManipulationException | ValidationException | FileNotFoundException e) {
-            System.out.println(e.getStackTrace());
-            new ErrorDialog(MainWindow.getFrame(), e);
-            return;
-        }
+    static final IDImporterMapper ID_MAPPER = new IDImporterMapper();
 
+    public static long getNewID(TableCategory category, long oldID) {
+        return ID_MAPPER.getNewID(category, oldID);
+    }
 
-
+    private static void deleteAll() {
+        CommonElementSupplier.getTableModel(TableCategory.RIDES).deleteAll();
+        CommonElementSupplier.getTableModel(TableCategory.VEHICLES).deleteAll();
+        CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).deleteAll();
+        CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY).deleteAll();
+        CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY).deleteAll();
 
 
 
     }
+    public static void loadData(File rides, File vehicles, File passengers, File passengerCategories, File rideCategories) {
+        List<Passenger> passengerList;
+        List<Ride> rideList;
+        List<Vehicle> vehicleList;
+        List<PassengerCategory> passengerCategoryList;
+        List<RideCategory> rideCategoryList;
+        new ErrorDialog(MainWindow.getFrame(), "Všechny záznamy budou smazány!");
+        deleteAll();
 
-
-
-
-
-
-
-
-
-
-
+        try {
+            if (passengerCategories != null) {
+                passengerCategoryList = PassengerCategoryImporter.importPassengerCategories(passengerCategories);
+                for (PassengerCategory passengerCategory : passengerCategoryList) {
+                    ID_MAPPER.addIDs(TableCategory.PASSENGER_CATEGORY, passengerCategory.getId(), ((PassengerCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGER_CATEGORY)).addRowAndGetID(passengerCategory));
+                }
+            }
+            if (vehicles != null) {
+                vehicleList = VehicleImporter.importVehicles(vehicles);
+                for (Vehicle vehicle : vehicleList) {
+                    ID_MAPPER.addIDs(TableCategory.VEHICLES, vehicle.getId(), ((VehicleTableModel) CommonElementSupplier.getTableModel(TableCategory.VEHICLES)).addRowAndGetID(vehicle));
+                }
+            }
+            if (passengers != null) {
+                passengerList = PassengerImporter.importPassengers(passengers);
+                for (Passenger passenger : passengerList) {
+                    ID_MAPPER.addIDs(TableCategory.PASSENGERS, passenger.getId(), ((PassengerTableModel) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS)).addRowAndGetID(passenger));
+                }
+            }
+            if (rideCategories != null) {
+                rideCategoryList = RideCategoryImporter.importRideCategories(rideCategories);
+                for (RideCategory rideCategory : rideCategoryList) {
+                    ID_MAPPER.addIDs(TableCategory.RIDE_CATEGORY, rideCategory.getId(), ((RideCategoryTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY)).addRowAndGetID(rideCategory));
+                }
+            }
+            if (rides != null) {
+                rideList = RideImporter.importRides(rides);
+                for (Ride ride : rideList) {
+                    ((RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES)).addRow(ride);
+                }
+            }
+        } catch (DataManipulationException | ValidationException |
+                 FileNotFoundException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            new ErrorDialog(MainWindow.getFrame(), e);
+        }
+    }
 }

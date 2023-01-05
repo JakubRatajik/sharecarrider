@@ -2,20 +2,25 @@ package cz.muni.fi.pv168.seminar01.beta.ui.dialogs;
 
 import cz.muni.fi.pv168.seminar01.beta.data.validation.RideValidator;
 import cz.muni.fi.pv168.seminar01.beta.data.validation.ValidationException;
-import cz.muni.fi.pv168.seminar01.beta.model.*;
+import cz.muni.fi.pv168.seminar01.beta.model.Passenger;
+import cz.muni.fi.pv168.seminar01.beta.model.Repetition;
+import cz.muni.fi.pv168.seminar01.beta.model.Ride;
+import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
+import cz.muni.fi.pv168.seminar01.beta.model.Vehicle;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 import cz.muni.fi.pv168.seminar01.beta.ui.UIUtilities;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.RideTableModel;
 import cz.muni.fi.pv168.seminar01.beta.ui.model.TableCategory;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.EnumRendererForComboBox;
 import cz.muni.fi.pv168.seminar01.beta.ui.utils.JDatePickerDateGetter;
-import cz.muni.fi.pv168.seminar01.beta.ui.utils.Shortcut;
+import cz.muni.fi.pv168.seminar01.beta.ui.utils.CommonElementSupplier;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -42,7 +47,7 @@ public class AddEditRideDialog extends AddEditDialog {
     }
 
 
-    public AddEditRideDialog(JFrame frame, String name, Ride ride) {
+    public AddEditRideDialog(Frame frame, String name, Ride ride) {
         super(frame, name, ride);
     }
 
@@ -78,7 +83,7 @@ public class AddEditRideDialog extends AddEditDialog {
             LocalTime departureTime = LocalTime.of(Integer.parseInt(departureParsedTime[0]), Integer.parseInt(departureParsedTime[1]));
             LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
             int parsedDistance = Integer.parseInt(distance.getText());
-            RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
+            RideTableModel tableModel = (RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES);
             ride.setDate(JDatePickerDateGetter.getLocalDate(date));
             ride.setDeparture(departureTime);
             ride.setFrom(startDestination.getText());
@@ -88,6 +93,8 @@ public class AddEditRideDialog extends AddEditDialog {
             ride.setVehicle((Vehicle) vehicle.getSelectedItem());
             ride.setRepetition((Repetition) repetition.getSelectedItem());
             ride.setArrival(arrivalTime);
+            ride.setCategories(categoryList.getSelectedValuesList());
+            ride.setDescription(description.getText());
 
             tableModel.updateRow(ride);
             dispose();
@@ -115,7 +122,7 @@ public class AddEditRideDialog extends AddEditDialog {
         description.setLineWrap(true);
 
         this.vehicle = new JComboBox<>();
-        for (Vehicle v : (List<Vehicle>) Shortcut.getTableModel(TableCategory.VEHICLES).getData()) {
+        for (Vehicle v : (List<Vehicle>) CommonElementSupplier.getTableModel(TableCategory.VEHICLES).getData()) {
             vehicle.addItem(v);
         }
         UIUtilities.formatDefaultJComboBox(vehicle);
@@ -129,7 +136,7 @@ public class AddEditRideDialog extends AddEditDialog {
 
         // Passengers
         DefaultListModel<Passenger> l1 = new DefaultListModel<>();
-        List<Passenger> passengers = (List<Passenger>) Shortcut.getTableModel(TableCategory.PASSENGERS).getData();
+        List<Passenger> passengers = (List<Passenger>) CommonElementSupplier.getTableModel(TableCategory.PASSENGERS).getData();
         l1.addAll(passengers);
 
         JList<Passenger> passengerList = new JList<>(l1);
@@ -164,7 +171,7 @@ public class AddEditRideDialog extends AddEditDialog {
 
         // Categories
         DefaultListModel<RideCategory> r1 = new DefaultListModel<>();
-        List<RideCategory> rides = (List<RideCategory>) Shortcut.getTableModel(TableCategory.RIDE_CATEGORY).getData();
+        List<RideCategory> rides = (List<RideCategory>) CommonElementSupplier.getTableModel(TableCategory.RIDE_CATEGORY).getData();
         r1.addAll(rides);
 
         JList<RideCategory> rideList = new JList<>(r1);
@@ -199,8 +206,8 @@ public class AddEditRideDialog extends AddEditDialog {
 
 
         if (ride != null) {
-            departure.setText(ride.getDeparture());
-            arrival.setText(ride.getArrival());
+            departure.setText(ride.getDepartureFormatted());
+            arrival.setText(ride.getArrivalFormatted());
             startDestination.setText(ride.getFrom());
             endDestination.setText(ride.getTo());
             distance.setText(String.valueOf(ride.getDistance()));
@@ -262,7 +269,6 @@ public class AddEditRideDialog extends AddEditDialog {
         central.add(categoriesPanel);
 
 
-
         setSize(500, 600);
         UIUtilities.formatWhiteTextBrownDialog(central);
     }
@@ -279,29 +285,71 @@ public class AddEditRideDialog extends AddEditDialog {
             String[] arrivalParsedTime = arrival.getText().split("\\s*:\\s*");
             LocalTime arrivalTime = LocalTime.of(Integer.parseInt(arrivalParsedTime[0]), Integer.parseInt(arrivalParsedTime[1]));
             int parsedDistance = Integer.parseInt(distance.getText());
-            RideTableModel tableModel = (RideTableModel) Shortcut.getTableModel(TableCategory.RIDES);
+            RideTableModel tableModel = (RideTableModel) CommonElementSupplier.getTableModel(TableCategory.RIDES);
+            Repetition selectedRepetition = (Repetition) repetition.getSelectedItem();
 
-            Ride ride = new Ride(
-                    JDatePickerDateGetter.getLocalDate(date),
-                    departureTime,
-                    arrivalTime,
-                    startDestination.getText(),
-                    endDestination.getText(),
-                    parsedDistance,
-                    categoryList.getSelectedValuesList(),
-                    passengersList.getSelectedValuesList(),
-                    (Vehicle) vehicle.getSelectedItem(),
-                    (Repetition) repetition.getSelectedItem(),
-                    description.getText()
-            );
-            tableModel.addRow(ride);
-            dispose();
+            if (selectedRepetition == Repetition.NONE) {
+                Ride ride = new Ride(
+                        JDatePickerDateGetter.getLocalDate(date),
+                        departureTime,
+                        arrivalTime,
+                        startDestination.getText(),
+                        endDestination.getText(),
+                        parsedDistance,
+                        categoryList.getSelectedValuesList(),
+                        passengersList.getSelectedValuesList(),
+                        (Vehicle) vehicle.getSelectedItem(),
+                        (Repetition) repetition.getSelectedItem(),
+                        description.getText()
+                );
+                tableModel.addRow(ride);
+                dispose();
+            } else {
+                LocalDate currentDate = JDatePickerDateGetter.getLocalDate(date);
+                LocalDate toDate;
+                switch (selectedRepetition) {
+                    case DAILY -> toDate = currentDate.plusMonths(6);
+                    case WEEKLY ->  toDate = currentDate.plusYears(1);
+                    case MONTHLY -> toDate = currentDate.plusYears(2);
+                    case YEARLY -> toDate = currentDate.plusYears(5);
+                    default -> toDate = currentDate; // never accessed (warning handler)
+                }
+
+                while (currentDate.isBefore(toDate)) {
+                    Ride ride = new Ride(
+                            currentDate,
+                            departureTime,
+                            arrivalTime,
+                            startDestination.getText(),
+                            endDestination.getText(),
+                            parsedDistance,
+                            categoryList.getSelectedValuesList(),
+                            passengersList.getSelectedValuesList(),
+                            (Vehicle) vehicle.getSelectedItem(),
+                            (Repetition) repetition.getSelectedItem(),
+                            description.getText()
+                    );
+                    tableModel.addRow(ride);
+                    switch (selectedRepetition) {
+                        case DAILY -> currentDate = currentDate.plusDays(1);
+                        case WEEKLY -> currentDate = currentDate.plusWeeks(1);
+                        case MONTHLY -> currentDate = currentDate.plusMonths(1);
+                        case YEARLY -> currentDate = currentDate.plusYears(1);
+                    }
+                }
+                dispose();
+            }
+
         });
     }
 
     public boolean validateRideInput() {
         try {
-            RideValidator.validateRide(departure.getText(), arrival.getText(), startDestination.getText(), endDestination.getText(), distance.getText(), description.getText());
+            String idString = null;
+            if (ride != null) {
+                idString = ride.getId()+"";
+            }
+            RideValidator.validateRide(idString, JDatePickerDateGetter.getLocalDate(date), departure.getText(), arrival.getText(), startDestination.getText(), endDestination.getText(), distance.getText(), description.getText());
             return true;
         } catch (ValidationException e) {
             new ErrorDialog(MainWindow.getFrame(), e);

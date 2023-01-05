@@ -1,7 +1,7 @@
 package cz.muni.fi.pv168.seminar01.beta;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
+import cz.muni.fi.pv168.seminar01.beta.error.ShareCarRiderUncaughtExceptionHandler;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 
 import javax.swing.*;
@@ -24,10 +24,8 @@ public class Main {
             System.err.println("Cannot load wanted LaF");
         }
 
-        SampleUsage.generateSampleData();
+        Thread.setDefaultUncaughtExceptionHandler(new ShareCarRiderUncaughtExceptionHandler());
         MainWindow window = new MainWindow();
-
-
     }
 }
 

@@ -1,11 +1,12 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
+import cz.muni.fi.pv168.seminar01.beta.data.manipulation.DateTimeUtils;
 import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.time.temporal.IsoFields;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,8 +18,6 @@ import java.util.stream.Collectors;
  * This class represents a ride with ID.
  */
 public class Ride implements HasID {
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
-    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private final long id;
     private LocalDate date;
     private LocalTime departure;
@@ -53,8 +52,8 @@ public class Ride implements HasID {
         this.description = description;
     }
 
-    public String getDate() {
-        return date.format(dateFormatter);
+    public LocalDate getDate() {
+        return date;
     }
 
     public void setDate(LocalDate date) {
@@ -65,8 +64,12 @@ public class Ride implements HasID {
         return date.toString();
     }
 
-    public String getDeparture() {
-        return departure.format(timeFormatter);
+    public LocalTime getDeparture() {
+        return departure;
+    }
+
+    public String getDepartureFormatted() {
+        return departure.format(DateTimeUtils.TIME_FORMATTER);
     }
 
     public void setDeparture(LocalTime departure) {
@@ -147,8 +150,12 @@ public class Ride implements HasID {
         this.repetition = repetition;
     }
 
-    public String getArrival() {
-        return arrival.format(timeFormatter);
+    public LocalTime getArrival() {
+        return arrival;
+    }
+
+    public String getArrivalFormatted() {
+        return arrival.format(DateTimeUtils.TIME_FORMATTER);
     }
 
     public void setArrival(LocalTime arrival) {
@@ -186,16 +193,18 @@ public class Ride implements HasID {
     }
 
     public BigDecimal countPrice() {
+        return countPrice(MainWindow.getFuelPrice().getFuelPrice(vehicle.getFuelType()));
+    }
+
+    public BigDecimal countPrice(BigDecimal fuelCost) {
         BigDecimal BDdistance = BigDecimal.valueOf(distance);
         BigDecimal hundred = BigDecimal.valueOf(100);
         BigDecimal BDConsumption = BigDecimal.valueOf(vehicle.getConsumption());
-        BigDecimal BDFuelPrice = MainWindow.getFuelPrice().getFuelPrice(vehicle.getFuelType());
-        // MainWindow.getFuelPrice() is temporary solution, check MainWindow for more info
 
         return BDdistance
                 .divide(hundred)
                 .multiply(BDConsumption)
-                .multiply(BDFuelPrice);
+                .multiply(fuelCost);
     }
 
     @Override

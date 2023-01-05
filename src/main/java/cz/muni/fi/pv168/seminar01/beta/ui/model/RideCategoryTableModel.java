@@ -1,6 +1,6 @@
 package cz.muni.fi.pv168.seminar01.beta.ui.model;
 
-import cz.muni.fi.pv168.seminar01.beta.data.SampleUsage;
+import cz.muni.fi.pv168.seminar01.beta.data.storage.repository.Repository;
 import cz.muni.fi.pv168.seminar01.beta.model.RideCategory;
 
 import java.util.ArrayList;
@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * @author Jan Macecek
  */
-public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCategory>{
+public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCategory> {
 
 
-    public RideCategoryTableModel() {
-        super(new String[] {"Název"}, SampleUsage.getRideCategories());
+    public RideCategoryTableModel(Repository<RideCategory> repository) {
+        super(new String[] {"Název"}, repository);
     }
 
     @Override
@@ -24,10 +24,13 @@ public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCategory
     @Override
     public Object getValueAt(int row, int col) {
         Object value;
-        RideCategory rideCategory = data.get(row);
+        RideCategory category = repository.findByIndex(row).orElse(null);
+        if (category == null) {
+            throw new NullPointerException("Vehicle cannot be null at this point (RCTM -> getValueAt)");
+        }
 
         switch (col) {
-            case 0 -> value = rideCategory.getName();
+            case 0 -> value = category.getName();
             default -> value = null;
         }
 
@@ -47,7 +50,7 @@ public class RideCategoryTableModel extends ShareCarRiderTableModel<RideCategory
     public List<RideCategory> getCategories() {
         List<RideCategory> list = new ArrayList<>();
         for (int i = 0; i < getRowCount(); i++) {
-            list.add(data.get(i));
+            list.add(repository.findAll().get(i));
         }
         return list;
     }

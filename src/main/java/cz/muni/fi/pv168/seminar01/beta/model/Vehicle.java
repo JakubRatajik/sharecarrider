@@ -1,5 +1,8 @@
 package cz.muni.fi.pv168.seminar01.beta.model;
 
+import cz.muni.fi.pv168.seminar01.beta.ui.MainWindow;
+
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Vehicle implements HasID {
@@ -9,13 +12,13 @@ public class Vehicle implements HasID {
     private String brand;
     private String type;
     private int capacity;
-    private float consumption;
+    private double consumption;
 
-    public Vehicle(String licensePlate, String brand, String type, int capacity, float consumption, FuelType fuelType) {
+    public Vehicle(String licensePlate, String brand, String type, int capacity, double consumption, FuelType fuelType) {
         this(IDGenerator.getNewID(Vehicle.class), licensePlate, brand, type, capacity, consumption, fuelType);
     }
 
-    public Vehicle(long id, String licensePlate, String brand, String type, int capacity, float consumption, FuelType fuelType) {
+    public Vehicle(long id, String licensePlate, String brand, String type, int capacity, double consumption, FuelType fuelType) {
         this.id = id;
         setLicensePlate(licensePlate);
         this.brand = brand;
@@ -51,11 +54,11 @@ public class Vehicle implements HasID {
         this.capacity = capacity;
     }
 
-    public float getConsumption() {
+    public double getConsumption() {
         return consumption;
     }
 
-    public void setConsumption(float consumption) {
+    public void setConsumption(double consumption) {
         this.consumption = consumption;
     }
 
@@ -106,5 +109,16 @@ public class Vehicle implements HasID {
             default -> result += " lidí";
         }
         return result;
+    }
+
+    public BigDecimal countPricePerHundredKM() {
+        BigDecimal fuelPrice;
+        if (MainWindow.getFuelPrice() == null) {
+            fuelPrice = new BigDecimal("30");
+        } else {
+            fuelPrice = MainWindow.getFuelPrice().getFuelPrice(fuelType);
+        }
+
+        return fuelPrice.multiply(new BigDecimal(consumption));
     }
 }
